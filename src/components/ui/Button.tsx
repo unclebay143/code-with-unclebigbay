@@ -16,6 +16,14 @@ const button = cva('rounded-full flex text-medium', {
         'text-slate-600 dark:text-slate-300',
         'hover:text-slate-800',
       ],
+      'secondary-slate': [
+        'text-slate-600 dark:text-slate-300 bg-white dark:bg-slate-950',
+        'border border-slate-300 dark:border-slate-800 hover:dark:border-slate-700',
+        'hover:bg-slate-50 hover:dark:bg-slate-800',
+        'focus:ring focus:ring-offset-2 focus:ring-offset-white focus:ring-blue-600 dark:focus:ring-offset-slate-800',
+        'disabled:bg-white disabled:border-slate-200 disabled:cursor-not-allowed disabled:text-slate-300',
+        'disabled:dark:bg-slate-950 disabled:dark:border-slate-800 disabled:dark:text-slate-800',
+      ],
     },
     size: {
       lg: ['text-lg', 'py-3.5', 'px-7'],

@@ -88,7 +88,7 @@ const courses: Courses = [
 export const CoursesCardGroup = () => {
   return (
     <section
-      className={`mt-10 grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-4 gap-4 flex-wrap justify-center w-full`}
+      className={`grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-4 gap-4 flex-wrap justify-center w-full`}
     >
       {courses.map((course) => (
         <CourseLinkCard course={course} key={`course-list-${course.title}`} />
@@ -106,7 +106,7 @@ const CourseLinkCard = ({ course }: CourseLinkCardProps) => {
   return (
     <Link
       href={url}
-      className={`${comingSoon ? 'opacity-55 hover:opacity-100 focus:opacity-100' : ''} group border px-5 py-7 rounded-xl flex flex-col gap-3 ${tailwindColor.borderHoverColor}`}
+      className={`${comingSoon ? 'opacity-70 hover:opacity-100 focus:opacity-100' : ''} group border px-5 py-7 rounded-xl flex flex-col gap-3 ${tailwindColor.borderHoverColor}`}
     >
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-2 flex-wrap">
