@@ -7,7 +7,7 @@ import { IconButton } from '@/components/ui/IconButton';
 import { Navbar } from '@/components/ui/Navbar';
 import Testimonials from '@/components/ui/Testimonials';
 import { YTVideo } from '@/components/ui/YTVideo';
-import { ResponsiveWrapper } from '@/lib/styles';
+// import { ResponsiveWrapper } from '@/lib/ResponsiveWrapper';
 import Image from 'next/image';
 import Link from 'next/link';
 
@@ -22,7 +22,8 @@ const communityMember = {
 export default function Home() {
   return (
     <main>
-      <ResponsiveWrapper>
+      {/* Todo: figure out why ResponsiveWrapper isn't working intermittently */}
+      <div className="w-full mx-auto max-w-6xl px-5 py-4">
         <section className="flex flex-col gap-10">
           <Navbar />
           <div className="flex flex-col gap-10">
@@ -105,7 +106,7 @@ export default function Home() {
             </section>
           </footer>
         </section>
-      </ResponsiveWrapper>
+      </div>
     </main>
   );
 }
