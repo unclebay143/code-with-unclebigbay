@@ -1,3 +1,4 @@
+import { X } from '@/components/icons/X';
 import { ReactElement } from 'react';
 
 export const mapTestimonialSourceToIcon: { [key: string]: ReactElement } = {
@@ -14,18 +15,7 @@ export const mapTestimonialSourceToIcon: { [key: string]: ReactElement } = {
     </svg>
   ),
 
-  Twitter: (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      width={16}
-      height={16}
-      fill="currentColor"
-      className="inline-block ml-1 group-hover:text-green-600 bi bi-twitter"
-      viewBox="0 0 16 16"
-    >
-      <path d="M5.026 15c6.038 0 9.341-5.003 9.341-9.334 0-.14 0-.282-.006-.422A6.685 6.685 0 0 0 16 3.542a6.658 6.658 0 0 1-1.889.518 3.301 3.301 0 0 0 1.447-1.817 6.533 6.533 0 0 1-2.087.793A3.286 3.286 0 0 0 7.875 6.03a9.325 9.325 0 0 1-6.767-3.429 3.289 3.289 0 0 0 1.018 4.382A3.323 3.323 0 0 1 .64 6.575v.045a3.288 3.288 0 0 0 2.632 3.218 3.203 3.203 0 0 1-.865.115 3.23 3.23 0 0 1-.614-.057 3.283 3.283 0 0 0 3.067 2.277A6.588 6.588 0 0 1 .78 13.58a6.32 6.32 0 0 1-.78-.045A9.344 9.344 0 0 0 5.026 15z" />
-    </svg>
-  ),
+  Twitter: <X />,
 
   Whatsapp: (
     <svg
@@ -41,105 +31,45 @@ export const mapTestimonialSourceToIcon: { [key: string]: ReactElement } = {
   ),
 };
 
+export const mapTestimonialSourceToColor: { [key: string]: string } = {
+  LinkedIn: '#0077B5',
+  Twitter: '#e2e8f0',
+  Whatsapp: '#075E54',
+};
+
 export const testimonials = [
-  // 1
-  [
-    {
-      author: {
-        name: 'Perspective',
-        img: 'https://cdn.hashnode.com/res/hashnode/image/upload/v1677222800340/7FWlpF0aT.jpeg',
-        title: 'Software engineer',
-      },
-      quote:
-        "The UI is great and has an enjoyable feel to it. I'd definitely use this.",
-      srcUrl:
-        'https://twitter.com/iamthebuilder__/status/1648968287961722880?s=20',
-      src: 'Twitter',
+  {
+    author: {
+      name: 'Perspective',
+      img: 'https://cdn.hashnode.com/res/hashnode/image/upload/v1677222800340/7FWlpF0aT.jpeg',
+      title: 'Software engineer',
     },
+    quote:
+      "The UI is great and has an enjoyable feel to it. I'd definitely use this.",
+    srcUrl:
+      'https://twitter.com/iamthebuilder__/status/1648968287961722880?s=20',
+    src: 'Twitter',
+  },
 
-    {
-      author: {
-        name: 'Konadu Akwasi 👨‍💻',
-        img: 'https://cdn.hashnode.com/res/hashnode/image/upload/v1677222800340/7FWlpF0aT.jpeg',
-        title: 'Full-Stack Web Developer',
-      },
-      quote: 'This looks cool, uncle BJay  🚀',
-      srcUrl:
-        'https://twitter.com/akuoko_konadu/status/1648982207170596864?s=20',
-      src: 'Twitter',
+  {
+    author: {
+      name: 'Konadu Akwasi 👨‍💻',
+      img: 'https://cdn.hashnode.com/res/hashnode/image/upload/v1677222800340/7FWlpF0aT.jpeg',
+      title: 'Full-Stack Web Developer',
     },
-    {
-      author: {
-        name: 'Rapture Chijioke Godson',
-        title: 'Web3 frontend engineer',
-        img: 'https://cdn.hashnode.com/res/hashnode/image/upload/v1677222800340/7FWlpF0aT.jpeg',
-      },
-      quote:
-        'LearnEase not only teaches me new skills, but also helps me understand the practical applications of those skills. The personalized learning experience with a sleek user interface is something that I really enjoy.',
-      srcUrl: '',
-      src: 'Whatsapp',
+    quote: 'This looks cool, uncle BJay  🚀',
+    srcUrl: 'https://twitter.com/akuoko_konadu/status/1648982207170596864?s=20',
+    src: 'Twitter',
+  },
+  {
+    author: {
+      name: 'Rapture Chijioke Godson',
+      title: 'Web3 frontend engineer',
+      img: 'https://cdn.hashnode.com/res/hashnode/image/upload/v1677222800340/7FWlpF0aT.jpeg',
     },
-  ],
-  // 2
-  [
-    {
-      author: {
-        name: 'Pyman',
-        title: 'Python developer',
-        img: 'https://cdn.hashnode.com/res/hashnode/image/upload/v1677222800340/7FWlpF0aT.jpeg',
-      },
-      quote: 'This amazing! The UI feel is lovely',
-      srcUrl:
-        'https://twitter.com/CodeShagbaor/status/1648994290893299713?s=20',
-      src: 'Twitter',
-    },
-    {
-      author: {
-        name: 'Chinenye Anikwenze',
-        title: 'Technical Writer',
-        img: 'https://cdn.hashnode.com/res/hashnode/image/upload/v1677222800340/7FWlpF0aT.jpeg',
-      },
-      quote: `Omg! This is really good!! I really love that you added analogy feature and also real world application of the concept.
-      Cos I have a bit of challenge with understanding how to implement concepts in real world projects`,
-      srcUrl:
-        'https://www.linkedin.com/feed/update/urn:li:activity:7054719570867011584?commentUrn=urn%3Ali%3Acomment%3A%28activity%3A7054719570867011584%2C7054737745067294720%29',
-      src: 'LinkedIn',
-    },
-    {
-      author: {
-        name: 'LEO',
-        title: 'Web developer',
-        img: 'https://cdn.hashnode.com/res/hashnode/image/upload/v1677222800340/7FWlpF0aT.jpeg',
-      },
-      quote: 'UncleBigBay, this is good 🔥',
-      srcUrl: 'https://twitter.com/Omaebije/status/1649362907107414017?s=20',
-      src: 'Twitter',
-    },
-  ],
-  // 3
-  [
-    {
-      author: {
-        name: 'Andrew Baisden ♐️',
-        title: 'Software engineer',
-        img: 'https://cdn.hashnode.com/res/hashnode/image/upload/v1677222800340/7FWlpF0aT.jpeg',
-      },
-      quote: 'Another worthwhile addition to my list.',
-      srcUrl:
-        'https://twitter.com/andrewbaisden/status/1647205352511885313?s=20',
-      src: 'Twitter',
-    },
-
-    {
-      author: {
-        name: ' Idris Olubisi',
-        img: 'https://cdn.hashnode.com/res/hashnode/image/upload/v1677222800340/7FWlpF0aT.jpeg',
-        title: 'Founder Web3 Afrika',
-      },
-      quote:
-        'LearnEase is an awesome platform with great UI! The use of analogies and real-world examples makes it easy to understand complex tech concepts. Highly recommend it! 👍',
-      srcUrl: '',
-      src: 'Whatsapp',
-    },
-  ],
+    quote:
+      'LearnEase not only teaches me new skills, but also helps me understand the practical applications of those skills. The personalized learning experience with a sleek user interface is something that I really enjoy.',
+    srcUrl: '',
+    src: 'Whatsapp',
+  },
 ];

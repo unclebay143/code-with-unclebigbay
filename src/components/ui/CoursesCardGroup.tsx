@@ -1,94 +1,11 @@
 import Link from 'next/link';
 import { ArrowUpRight } from '../icons/ArrowUpRight';
-
-type Course = {
-  title: string;
-  copy: string;
-  url: string;
-  tailwindColor: { borderHoverColor: string; titleColor: string };
-};
-
-type Courses = Course[];
-
-const courses: Courses = [
-  {
-    title: 'HTML',
-    copy: 'Learn the fundamentals of HTML, the building block of the web, and create your first web pages.',
-    url: '/courses/html',
-    tailwindColor: {
-      borderHoverColor: 'hover:border-blue-500',
-      titleColor: 'text-blue-500',
-    },
-  },
-  {
-    title: 'CSS',
-    copy: 'Dive into CSS and learn how to style your web pages to make them visually appealing.',
-    url: '/courses/css',
-    tailwindColor: {
-      borderHoverColor: 'hover:border-green-500',
-      titleColor: 'text-green-500',
-    },
-  },
-  {
-    title: 'JavaScript',
-    copy: 'Master JavaScript basics and add interactivity to your websites with dynamic scripting.',
-    url: '',
-    tailwindColor: {
-      borderHoverColor: 'hover:border-yellow-500',
-      titleColor: 'text-yellow-500',
-    },
-  },
-  {
-    title: 'Tailwind CSS',
-    copy: 'Master the modern utility-first CSS framework and streamline your web development workflow.',
-    url: '',
-    tailwindColor: {
-      borderHoverColor: 'hover:border-teal-500',
-      titleColor: 'text-teal-500',
-    },
-  },
-  {
-    title: 'React',
-    copy: 'Discover React, a popular JavaScript library for building user interfaces, and create dynamic web applications.',
-    url: '',
-    tailwindColor: {
-      borderHoverColor: 'hover:border-indigo-500',
-      titleColor: 'text-indigo-500',
-    },
-  },
-  {
-    title: 'Next.js',
-    copy: 'Explore Next.js, a powerful React framework for building server-side rendered web applications.',
-    url: '',
-    tailwindColor: {
-      borderHoverColor: 'hover:border-purple-500',
-      titleColor: 'text-purple-500',
-    },
-  },
-  {
-    title: 'Node.js',
-    copy: 'Learn Node.js, a JavaScript runtime, and build scalable network applications for the web.',
-    url: '',
-    tailwindColor: {
-      borderHoverColor: 'hover:border-red-500',
-      titleColor: 'text-red-500',
-    },
-  },
-  {
-    title: 'MongoDB',
-    copy: 'Learn MongoDB, the popular NoSQL database, and how to use it in your web applications.',
-    url: '',
-    tailwindColor: {
-      borderHoverColor: 'hover:border-orange-500',
-      titleColor: 'text-orange-500',
-    },
-  },
-];
+import { Course, courses } from '@/lib/constants/courses';
 
 export const CoursesCardGroup = () => {
   return (
     <section
-      className={`grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-4 gap-4 flex-wrap justify-center w-full`}
+      className={`grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-4 gap-4 flex-wrap justify-center w-full mx-auto max-w-6xl px-5 py-4`}
     >
       {courses.map((course) => (
         <CourseLinkCard course={course} key={`course-list-${course.title}`} />
@@ -101,7 +18,7 @@ type CourseLinkCardProps = {
   course: Course;
 };
 const CourseLinkCard = ({ course }: CourseLinkCardProps) => {
-  const { title, copy, tailwindColor, url } = course;
+  const { title, copy, tailwindColor, url, latest } = course;
   const comingSoon = !url;
   return (
     <Link
@@ -113,6 +30,11 @@ const CourseLinkCard = ({ course }: CourseLinkCardProps) => {
           <h2 className={`uppercase font-medium ${tailwindColor.titleColor}`}>
             {title}
           </h2>
+          {latest && (
+            <span className="px-1 text-[12px] font-medium border border-blue-100 text-blue-500 bg-blue-100 rounded-full">
+              New
+            </span>
+          )}
           {comingSoon && (
             <span className="px-1 text-[12px] font-medium border bg-slate-100 text-slate-600 rounded-full">
               Coming soon

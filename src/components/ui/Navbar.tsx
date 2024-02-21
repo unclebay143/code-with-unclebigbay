@@ -15,51 +15,53 @@ type Props = {
 export const Navbar = ({ isLoggedIn }: Props) => {
   const [sidebarVisibility, setSidebarVisibility] = useState(false);
   return (
-    <nav className="sticky top-0 bg-white z-50 py-3">
-      <section className="flex w-full items-center justify-between">
-        <CodeWithUnclebigbayLogo />
-        <section className="hidden lg:flex items-center gap-3 text-slate-600">
-          {navLinks.map(({ label, url }, index) => (
-            <Button
-              size="sm"
-              asChild
-              appearance="link-secondary"
-              key={`big-screen-nav-links-${index}`}
-            >
-              <Link href={url}>{label}</Link>
-            </Button>
-          ))}
-        </section>
-        <div className="flex gap-4 items-center">
-          <section className="hidden sm:block">
-            {isLoggedIn ? (
-              <Button size="xs" asChild>
-                <Link href="">Dashboard</Link>
+    <nav className="sticky top-0 bg-white z-50">
+      <section className="w-full mx-auto max-w-6xl px-5 py-4">
+        <section className="flex w-full items-center justify-between">
+          <CodeWithUnclebigbayLogo />
+          <section className="hidden lg:flex items-center gap-3 text-slate-600">
+            {navLinks.map(({ label, url }, index) => (
+              <Button
+                size="sm"
+                asChild
+                appearance="link-secondary"
+                key={`big-screen-nav-links-${index}`}
+              >
+                <Link href={url}>{label}</Link>
               </Button>
-            ) : (
-              <section className="flex gap-1 items-center">
-                <Button size="sm" appearance="link-secondary" asChild>
-                  <Link href="">Sign in</Link>
-                </Button>
+            ))}
+          </section>
+          <div className="flex gap-4 items-center">
+            <section className="hidden sm:block">
+              {isLoggedIn ? (
                 <Button size="xs" asChild>
-                  <Link href="">Sign up</Link>
+                  <Link href="">Dashboard</Link>
                 </Button>
-              </section>
-            )}
-          </section>
-          <section className="lg:hidden">
-            <IconButton
-              size="xs"
-              onClick={() => setSidebarVisibility(true)}
-              Icon={Bar3CenterLeft}
-            />
-          </section>
-        </div>
+              ) : (
+                <section className="flex gap-1 items-center">
+                  <Button size="sm" appearance="link-secondary" asChild>
+                    <Link href="">Sign in</Link>
+                  </Button>
+                  <Button size="xs" asChild>
+                    <Link href="">Sign up</Link>
+                  </Button>
+                </section>
+              )}
+            </section>
+            <section className="lg:hidden">
+              <IconButton
+                size="xs"
+                onClick={() => setSidebarVisibility(true)}
+                Icon={Bar3CenterLeft}
+              />
+            </section>
+          </div>
 
-        <SidebarSlideOver
-          isOpen={sidebarVisibility}
-          close={() => setSidebarVisibility(false)}
-        />
+          <SidebarSlideOver
+            isOpen={sidebarVisibility}
+            close={() => setSidebarVisibility(false)}
+          />
+        </section>
       </section>
     </nav>
   );
