@@ -4,14 +4,18 @@ type Props = {
   className?: string;
 };
 
-export const X = ({ className = 'w-5 h-5' }: Props) => {
+export const X = ({ className = 'w-5 h-5 fill-current' }: Props) => {
   return (
     <svg
-      className={className}
+      viewBox="0 0 300 300"
+      version="1.1"
       xmlns="http://www.w3.org/2000/svg"
-      viewBox="0 0 512 512"
+      className={className}
     >
-      <path d="M389.2 48h70.6L305.6 224.2 487 464H345L233.7 318.6 106.5 464H35.8L200.7 275.5 26.8 48H172.4L272.9 180.9 389.2 48zM364.4 421.8h39.1L151.1 88h-42L364.4 421.8z" />
+      <path
+        stroke="currentColor"
+        d="M178.57 127.15 290.27 0h-26.46l-97.03 110.38L89.34 0H0l117.13 166.93L0 300.25h26.46l102.4-116.59 81.8 116.59h89.34M36.01 19.54H76.66l187.13 262.13h-40.66"
+      />
     </svg>
   );
 };
