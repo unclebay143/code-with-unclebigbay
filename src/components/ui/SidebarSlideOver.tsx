@@ -13,15 +13,22 @@ type Props = {
 export const SidebarSlideOver = ({ isOpen, close }: Props) => {
   return (
     <SlideOver isOpen={isOpen} closeSlideOver={close}>
-      <div className="flex items-center justify-between pl-5 pt-3">
+      <div className="flex items-center justify-between pl-5 pt-5 mb-5">
         <CodeWithUnclebigbayLogo />
         <SlideOverHeader borderless />
       </div>
 
       {navLinks.map(({ label, url }, index) => (
         <div className="border-b ml-5" key={`big-screen-nav-links-${index}`}>
-          <Button size="md" appearance="link-secondary" padding="none">
-            <Link href={url}>{label}</Link>
+          <Button
+            size="md"
+            appearance="link-secondary"
+            padding="none"
+            width="full"
+          >
+            <Link className="text-left w-full" href={url}>
+              {label}
+            </Link>
           </Button>
         </div>
       ))}

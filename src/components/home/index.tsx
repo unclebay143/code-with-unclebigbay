@@ -15,7 +15,7 @@ export const HomeSectionHeading = ({
 
 export const SectionWrapper = ({ children }: { children: React.ReactNode }) => {
   return (
-    <section className="w-full mx-auto max-w-6xl px-5 lg:px-0">
+    <section className="w-full mx-auto max-w-6xl px-5 xl:px-0">
       {children}
     </section>
   );
