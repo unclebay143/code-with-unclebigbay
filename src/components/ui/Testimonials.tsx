@@ -12,10 +12,7 @@ const Testimonials = (props: Props) => {
   return (
     <section id="testimonials">
       <div className="mx-auto sm:px-6 lg:px-8 md:px-7">
-        <ul
-          role="list"
-          // className="grid grid-cols-1 gap-6 mx-auto mt-16 md:grid-cols-2 sm:gap-8 lg:mt-16 lg:max-w-7xl lg:grid-cols-3"
-        >
+        <ul role="list">
           {testimonials.map(
             ({ quote, author, src, srcUrl }, testimonialIndex) => (
               <li

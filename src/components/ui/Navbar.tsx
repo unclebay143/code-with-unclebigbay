@@ -40,10 +40,10 @@ export const Navbar = ({ isLoggedIn }: Props) => {
               ) : (
                 <section className="flex gap-1 items-center">
                   <Button size="sm" appearance="link-secondary" asChild>
-                    <Link href="">Sign in</Link>
+                    <Link href="/auth">Sign in</Link>
                   </Button>
                   <Button size="xs" asChild>
-                    <Link href="">Sign up</Link>
+                    <Link href="/auth">Sign up</Link>
                   </Button>
                 </section>
               )}
