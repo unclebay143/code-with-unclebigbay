@@ -13,7 +13,8 @@ export const CodeWithUnclebigbayLogo = () => (
     <div className="flex flex-col">
       <h2 className="text-sm font-semibold">Code with Unclebigbay</h2>
       <span className="text-xs font-medium text-slate-600">
-        Learn ﹒Practice ﹒ Build
+        Learn<span className="mx-1">&middot;</span>Practice
+        <span className="mx-1">&middot;</span>Build
       </span>
     </div>
   </section>
