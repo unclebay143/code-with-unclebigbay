@@ -10,7 +10,7 @@ export const CoursesCardGroup = () => {
       className={`grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 flex-wrap justify-center`}
     >
       {courses.map((course) => (
-        <CourseLinkCard course={course} key={`course-list-${course.title}`} />
+        <CourseLinkCard course={course} key={`course-list-${course.key}`} />
       ))}
     </section>
   );
@@ -21,7 +21,7 @@ type CourseLinkCardProps = {
 };
 
 const CourseLinkCard = ({ course }: CourseLinkCardProps) => {
-  const { title, copy, url, color, latest } = course;
+  const { key, title, copy, url, color, latest } = course;
   const comingSoon = !url;
   return (
     <>
@@ -29,7 +29,7 @@ const CourseLinkCard = ({ course }: CourseLinkCardProps) => {
         /* Normal Tailwind isn't working in production mode (test approaches locally with pnpm build; pnpm start) */
         dangerouslySetInnerHTML={{
           __html: `
-            #course-card-for-${title}:hover{
+            #course-card-for-${key}:hover{
               border-color: ${color}
             }
            `,
@@ -38,7 +38,7 @@ const CourseLinkCard = ({ course }: CourseLinkCardProps) => {
       <Link
         href={url}
         className={`${comingSoon ? 'opacity-70 hover:opacity-100 focus:opacity-100' : ''} group border hover:border-[${color}] px-5 py-7 rounded-xl flex flex-col gap-3`}
-        id={`course-card-for-${title}`}
+        id={`course-card-for-${key}`}
       >
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2 flex-wrap">
