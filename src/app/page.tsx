@@ -7,9 +7,11 @@ import { IconButton } from '@/components/ui/IconButton';
 import { Navbar } from '@/components/ui/Navbar';
 import Testimonials from '@/components/ui/Testimonials';
 import { YTVideo } from '@/components/ui/YTVideo';
+import { getServerSession } from 'next-auth';
 // import { ResponsiveWrapper } from '@/lib/ResponsiveWrapper';
 import Image from 'next/image';
 import Link from 'next/link';
+import { authOptions } from './utils/auth';
 
 const communityMember = {
   name: 'Ayodele S. Adebayo',
@@ -19,13 +21,14 @@ const communityMember = {
     'https://cdn.hashnode.com/res/hashnode/image/upload/v1677222800340/7FWlpF0aT.jpeg',
 };
 
-export default function Home() {
+export default async function Home() {
+  const session = await getServerSession(authOptions);
   return (
     <main>
       {/* Todo: figure out why ResponsiveWrapper isn't working intermittently */}
       <div className="w-full mx-auto max-w-6xl px-5 py-4">
         <section className="flex flex-col gap-10">
-          <Navbar />
+          <Navbar session={session} />
           <div className="flex flex-col gap-10">
             <h1 className="text-center text-4xl leading-[48px] md:text-5xl md:leading-[60px] font-medium text-slate-800 mx-auto max-w-lg">
               Learn to Code and Build Your Career

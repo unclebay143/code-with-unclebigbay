@@ -7,6 +7,7 @@ import { IconButton } from './IconButton';
 import { CodeWithUnclebigbayLogo } from './CodeWithUnclebigbayLogo';
 import { navLinks } from '@/lib/links';
 import { SidebarSlideOver } from './SidebarSlideOver';
+import SignOut from './SignOut';
 
 type Props = {
   isLoggedIn?: boolean;
@@ -35,14 +36,15 @@ export const Navbar = ({ isLoggedIn }: Props) => {
             {isLoggedIn ? (
               <Button size="xs" asChild>
                 <Link href="">Dashboard</Link>
+                <SignOut />
               </Button>
             ) : (
               <section className="flex gap-1 items-center">
                 <Button size="sm" appearance="link-secondary" asChild>
-                  <Link href="">Sign in</Link>
+                  <Link href="/login">Sign in</Link>
                 </Button>
                 <Button size="xs" asChild>
-                  <Link href="">Sign up</Link>
+                  <Link href="/login">Sign up</Link>
                 </Button>
               </section>
             )}
