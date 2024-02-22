@@ -3,9 +3,7 @@ import React from 'react';
 import { ChevronRight } from '../icons/ChevronRight';
 import { ArrowRight } from '../icons/ArrowRight';
 
-type Props = {};
-
-export const HeroSection = (props: Props) => {
+export const HeroSection = () => {
   return (
     <section className="flex flex-col items-center justify-center gap-3 mt-2">
       <Link
@@ -27,7 +25,7 @@ export const HeroSection = (props: Props) => {
           </div>
         </div>
       </Link>
-      <h1 className="text-center text-4xl leading-[48px] md:text-5xl md:leading-[60px] font-medium text-slate-800 mx-auto max-w-lg">
+      <h1 className="text-center text-4xl leading-[48px] max-w-[379px] md:text-5xl md:leading-[60px] font-medium text-slate-800 mx-auto md:max-w-lg">
         Learn to Code and Build Your Career
       </h1>
     </section>

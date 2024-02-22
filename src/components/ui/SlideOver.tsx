@@ -69,6 +69,7 @@ export const SlideOverHeader = ({
     <div
       className={slideOverHeader({
         border: borderless ? 'none' : 'visible',
+        className: `${!title ? '!py-0' : ''}`,
       })}
     >
       <SheetPrimitive.Title className="font-semibold text-xl text-slate-700 dark:text-slate-200">
@@ -76,7 +77,7 @@ export const SlideOverHeader = ({
       </SheetPrimitive.Title>
       <SheetPrimitive.Close asChild>
         <IconButton
-          size="md"
+          size="xs"
           onClick={closeSlideOver}
           aria-label="Close"
           Icon={XMark}
