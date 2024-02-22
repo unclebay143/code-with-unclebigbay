@@ -12,10 +12,7 @@ const Testimonials = (props: Props) => {
   return (
     <section id="testimonials">
       <div className="mx-auto sm:px-6 lg:px-8 md:px-7">
-        <ul
-          role="list"
-          // className="grid grid-cols-1 gap-6 mx-auto mt-16 md:grid-cols-2 sm:gap-8 lg:mt-16 lg:max-w-7xl lg:grid-cols-3"
-        >
+        <ul role="list">
           {testimonials.map(
             ({ quote, author, src, srcUrl }, testimonialIndex) => (
               <li
@@ -67,7 +64,7 @@ const TestimonialCard = ({
           </div>
         </div>
         <section className="flex items-end">
-          <div className="p-0.5 overflow-hidden border border-slate-400 rounded-full bg-slate-50">
+          <div className="p-0.5 overflow-hidden border border-slate-400 rounded-full bg-gray-400">
             <Image
               className="object-cover rounded-full h-14 w-14"
               src={author.img}

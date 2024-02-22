@@ -1,11 +1,12 @@
 import Link from 'next/link';
 import { ArrowUpRight } from '../icons/ArrowUpRight';
 import { Course, courses } from '@/lib/constants/courses';
+import { SectionWrapper } from '../home';
 
 export const CoursesCardGroup = () => {
   return (
     <section
-      className={`grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-4 gap-4 flex-wrap justify-center w-full mx-auto max-w-6xl px-5 py-4`}
+      className={`grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-4 gap-4 flex-wrap justify-center`}
     >
       {courses.map((course) => (
         <CourseLinkCard course={course} key={`course-list-${course.title}`} />
@@ -42,7 +43,7 @@ const CourseLinkCard = ({ course }: CourseLinkCardProps) => {
           )}
         </div>
         <span
-          className={`hidden group-hover:inline text-slate-500 ${tailwindColor.titleColor}`}
+          className={`hidden group-hover:inline ${tailwindColor.titleColor}`}
         >
           <ArrowUpRight className="h-4 w-4" />
         </span>
