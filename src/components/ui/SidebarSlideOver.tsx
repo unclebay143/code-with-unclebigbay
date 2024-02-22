@@ -13,7 +13,7 @@ type Props = {
 export const SidebarSlideOver = ({ isOpen, close }: Props) => {
   return (
     <SlideOver isOpen={isOpen} closeSlideOver={close}>
-      <div className="flex items-center justify-between pl-5">
+      <div className="flex items-center justify-between pl-5 pt-3">
         <CodeWithUnclebigbayLogo />
         <SlideOverHeader borderless />
       </div>
