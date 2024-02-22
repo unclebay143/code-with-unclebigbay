@@ -1,10 +1,10 @@
-import { HomeSectionHeading } from '@/app/page';
 import React from 'react';
 import Testimonials from '../ui/Testimonials';
+import { HomeSectionHeading } from '.';
 
 export const TestimonialSection = () => {
   return (
-    <section className="w-full mx-auto max-w-6xl px-5 md:px-0 py-[128px]">
+    <section className="py-[128px]">
       <HomeSectionHeading
         heading={
           <>
@@ -23,7 +23,7 @@ export const TestimonialSection = () => {
           </>
         }
         copy="Hear directly from our students about their experiences and how my
-              courses have impacted their journey."
+        courses have impacted their journey."
       />
       <Testimonials />
     </section>

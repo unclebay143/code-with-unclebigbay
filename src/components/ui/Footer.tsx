@@ -6,7 +6,7 @@ import { LinkedIn } from '../icons/LinkedIn';
 
 export const Footer = () => {
   return (
-    <footer className="w-full mx-auto max-w-6xl px-5 md:px-0 pt-[60vh] flex flex-col gap-6">
+    <footer className="pt-[60vh] flex flex-col gap-6">
       <section className="text-center flex flex-col justify-end items-center">
         <h2 className="text-slate-300">
           [This Space Intentionally Left Blank]
@@ -16,7 +16,7 @@ export const Footer = () => {
           consistent eyeline.
         </p>
       </section>
-      <section className="py-3 border-t flex flex-col gap-3 sm:flex-row sm:justify-between sm:items-center">
+      <section className="py-5 border-t flex flex-col gap-3 sm:flex-row sm:justify-between sm:items-center">
         <p className="text-slate-700 text-sm">
           &copy; Walk-In Tech. All rights reserved
         </p>
@@ -24,19 +24,22 @@ export const Footer = () => {
           {/* <h3 className="text-slate-600 text-sm">Let&apos;s connect:</h3> */}
           <div className="flex gap-1">
             <Link
-              href=""
+              target="_blank"
+              href="https://dub.sh/6kwtDXT"
               className="border rounded-full p-2 hover:bg-slate-100"
             >
               <YouTubeBlackAndWhite className="h-4 w-4" />
             </Link>
             <Link
-              href=""
+              target="_blank"
+              href="https://dub.sh/8gSe15J"
               className="border rounded-full p-2 hover:bg-slate-100"
             >
               <X className="h-4 w-4" />
             </Link>
             <Link
-              href=""
+              target="_blank"
+              href="https://dub.sh/LJOPAON"
               className="border rounded-full p-2 hover:bg-slate-100"
             >
               <LinkedIn className="h-4 w-4" />

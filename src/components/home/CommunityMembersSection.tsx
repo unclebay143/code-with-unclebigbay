@@ -1,13 +1,13 @@
-import { HomeSectionHeading } from '@/app/page';
 import Image from 'next/image';
 import Link from 'next/link';
 import React from 'react';
 import { Button } from '../ui/Button';
 import { communityMember } from '@/lib/constants';
+import { HomeSectionHeading } from '.';
 
 export const CommunityMembersSection = () => {
   return (
-    <section className="mt-10 flex flex-col gap-14 w-full mx-auto max-w-6xl px-5 md:px-0 py-4">
+    <section className="flex flex-col gap-14">
       <div className="text-center max-w-4xl mx-auto flex flex-col items-center gap-4">
         <HomeSectionHeading
           heading={

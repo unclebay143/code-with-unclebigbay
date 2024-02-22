@@ -5,37 +5,31 @@ import { CoursesCardGroup } from '@/components/ui/CoursesCardGroup';
 import { Navbar } from '@/components/ui/Navbar';
 import { Footer } from '@/components/ui/Footer';
 import { HeroSection } from '@/components/home/HeroSection';
-
-export const HomeSectionHeading = ({
-  heading,
-  copy,
-}: {
-  heading: React.ReactNode;
-  copy?: string;
-}) => {
-  return (
-    <section className="max-w-xl mx-auto flex gap-6 flex-col text-center text-slate-600">
-      <h1 className="text-4xl font-medium leading-10">{heading}</h1>
-      {copy && <p className="sm:text-lg">{copy}</p>}
-    </section>
-  );
-};
+import { SectionWrapper } from '@/components/home';
 
 export default function Home() {
   return (
     <main>
       {/* Todo: figure out why ResponsiveWrapper isn't working intermittently */}
-      <section className="flex flex-col gap-20">
+      <section className="flex flex-col gap-10">
         <Navbar />
-        <div className="flex flex-col gap-10">
+        <SectionWrapper>
           <HeroSection />
+        </SectionWrapper>
+        <SectionWrapper>
           <CoursesCardGroup />
-          <ChannelIntroVideoSection />
+        </SectionWrapper>
+        <ChannelIntroVideoSection />
+        <SectionWrapper>
           <TestimonialSection />
+        </SectionWrapper>
+        <SectionWrapper>
           <CommunityMembersSection />
-        </div>
-
-        <Footer />
+        </SectionWrapper>
+        <section></section>
+        <SectionWrapper>
+          <Footer />
+        </SectionWrapper>
       </section>
     </main>
   );

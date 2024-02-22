@@ -64,7 +64,7 @@ const TestimonialCard = ({
           </div>
         </div>
         <section className="flex items-end">
-          <div className="p-0.5 overflow-hidden border border-slate-400 rounded-full bg-slate-50">
+          <div className="p-0.5 overflow-hidden border border-slate-400 rounded-full bg-gray-400">
             <Image
               className="object-cover rounded-full h-14 w-14"
               src={author.img}

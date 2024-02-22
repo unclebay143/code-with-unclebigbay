@@ -7,7 +7,7 @@ type Props = {};
 
 export const HeroSection = (props: Props) => {
   return (
-    <section className="flex flex-col items-center justify-center gap-3">
+    <section className="flex flex-col items-center justify-center gap-3 mt-2">
       <Link
         target="_blank"
         href="https://youtube.com/@unclebigbay"

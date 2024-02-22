@@ -7,6 +7,7 @@ import { IconButton } from './IconButton';
 import { CodeWithUnclebigbayLogo } from './CodeWithUnclebigbayLogo';
 import { navLinks } from '@/lib/links';
 import { SidebarSlideOver } from './SidebarSlideOver';
+import { SectionWrapper } from '../home';
 
 type Props = {
   isLoggedIn?: boolean;
@@ -15,8 +16,8 @@ type Props = {
 export const Navbar = ({ isLoggedIn }: Props) => {
   const [sidebarVisibility, setSidebarVisibility] = useState(false);
   return (
-    <nav className="sticky top-0 bg-white z-50">
-      <section className="w-full mx-auto max-w-6xl px-5 py-4">
+    <nav className="sticky top-0 bg-white z-50 py-5">
+      <SectionWrapper>
         <section className="flex w-full items-center justify-between">
           <CodeWithUnclebigbayLogo />
           <section className="hidden lg:flex items-center gap-3 text-slate-600">
@@ -62,7 +63,7 @@ export const Navbar = ({ isLoggedIn }: Props) => {
             close={() => setSidebarVisibility(false)}
           />
         </section>
-      </section>
+      </SectionWrapper>
     </nav>
   );
 };
