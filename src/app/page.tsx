@@ -6,8 +6,11 @@ import { Navbar } from '@/components/ui/Navbar';
 import { Footer } from '@/components/ui/Footer';
 import { HeroSection } from '@/components/home/HeroSection';
 import { SectionWrapper } from '@/components/home';
+import { getServerSession } from 'next-auth';
 
-export default function Home() {
+export default async function Home() {
+  const session = await getServerSession();
+  console.log({ session });
   return (
     <main>
       {/* Todo: figure out why ResponsiveWrapper isn't working intermittently */}
