@@ -8,6 +8,7 @@ import { CodeWithUnclebigbayLogo } from './CodeWithUnclebigbayLogo';
 import { navLinks } from '@/lib/links';
 import { SidebarSlideOver } from './SidebarSlideOver';
 import { SectionWrapper } from '../home';
+import { signIn } from 'next-auth/react';
 
 type Props = {
   isLoggedIn?: boolean;
@@ -40,11 +41,26 @@ export const Navbar = ({ isLoggedIn }: Props) => {
                 </Button>
               ) : (
                 <section className="flex gap-1 items-center">
-                  <Button size="sm" appearance="link-secondary" asChild>
-                    <Link href="/auth">Sign in</Link>
+                  <Button
+                    size="sm"
+                    onClick={() =>
+                      signIn('github', {
+                        callbackUrl: `${window.location.origin}/dashboard`,
+                      })
+                    }
+                    appearance="link-secondary"
+                  >
+                    Sign in
                   </Button>
-                  <Button size="xs" asChild>
-                    <Link href="/auth">Sign up</Link>
+                  <Button
+                    size="xs"
+                    onClick={() =>
+                      signIn('github', {
+                        callbackUrl: `${window.location.origin}/dashboard`,
+                      })
+                    }
+                  >
+                    Sign up
                   </Button>
                 </section>
               )}
