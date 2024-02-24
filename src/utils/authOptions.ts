@@ -1,10 +1,9 @@
-import type { NextAuthOptions } from 'next-auth';
+import type { NextAuthOptions, Profile } from 'next-auth';
 import GitHubProvider from 'next-auth/providers/github';
 import connectViaMongoose from './mongoose';
-import { MongoDBAdapter } from '@next-auth/mongodb-adapter';
+import { Student } from '@/app/models/user';
 
 export const authOptions = {
-  // adapter: MongoDBAdapter(connectViaMongoose),
   providers: [
     GitHubProvider({
       clientId: process.env.GITHUB_CLIENT_ID as string,
@@ -12,21 +11,30 @@ export const authOptions = {
     }),
   ],
   secret: process.env.NEXTAUTH_SECRET,
+
   callbacks: {
-    async signIn({ user, account, profile }) {
-      console.log({ user });
-      console.log({ profile });
-      console.log({ account });
+    async signIn({ profile: studentUserProfile }) {
+      await connectViaMongoose();
+
+      const student = await Student.findOne({
+        email: studentUserProfile?.email,
+      });
+
+      if (!student) {
+        const newStudent = {
+          fullName: studentUserProfile?.name,
+          email: studentUserProfile?.email,
+          username: studentUserProfile?.login,
+          bio: studentUserProfile?.bio,
+          location: studentUserProfile?.location,
+          photo: studentUserProfile?.photo,
+        };
+
+        await Student.create(newStudent);
+        return true;
+      }
+
       return true;
-      // const response = await fetch('/auth/studentExists', {
-      //   email: profile?.email,
-      // });
-      // if (response && response.data?.value === true) {
-      //   return true;
-      // } else {
-      //   console.log(profile);
-      //   return true;
-      // }
     },
   },
 } satisfies NextAuthOptions;

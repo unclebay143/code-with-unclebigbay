@@ -5,7 +5,7 @@ import type { LucideIcon } from 'lucide-react';
 import { BarChart, LibraryBig } from 'lucide-react';
 import { usePathname } from 'next/navigation';
 import Link from 'next/link';
-import { signOut } from 'next-auth/react';
+import { handleLogout } from '@/utils/auth';
 
 type Props = {};
 
@@ -61,7 +61,7 @@ export const Sidebar = (props: Props) => {
               />
             );
           })}
-          <button onClick={() => signOut()}>Logout </button>
+          <button onClick={() => handleLogout()}>Logout </button>
         </div>
       </nav>
     </aside>
