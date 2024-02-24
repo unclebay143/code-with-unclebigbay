@@ -33,11 +33,12 @@ export const Navbar = ({ isLoggedIn }: Props) => {
               </Button>
             ))}
           </section>
+
           <div className="flex gap-4 items-center">
             <section className="hidden sm:block">
               {isLoggedIn ? (
                 <Button size="xs" asChild>
-                  <Link href="">Dashboard</Link>
+                  <Link href="/dashboard/overview">Dashboard</Link>
                 </Button>
               ) : (
                 <section className="flex gap-1 items-center">
