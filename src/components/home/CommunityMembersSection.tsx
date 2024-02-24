@@ -18,19 +18,27 @@ type ResponseData = {
 };
 
 async function getStudents() {
-  console.log({ baseURL });
-  const url = `${baseURL}/api/student/get-students`;
-  console.log({ url });
-  const urlTest = `https://codewithunclebigbay.vercel.app/api/student/get-students`;
-  const result = await fetch(urlTest, {
-    cache: 'force-cache',
-  });
+  try {
+    console.log({ baseURL });
+    const url = `${baseURL}/api/student/get-students`;
+    console.log({ url });
+    const urlTest =
+      'https://codewithunclebigbay.vercel.app/api/student/get-students';
+    const result = await fetch(urlTest, {
+      cache: 'force-cache',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
 
-  if (!result.ok) {
-    console.log(result);
+    if (!result.ok) {
+      console.log(result.statusText);
+    }
+
+    return result.json();
+  } catch (error) {
+    console.log({ error });
   }
-
-  return result.json();
 }
 
 export const CommunityMembersSection = async () => {
