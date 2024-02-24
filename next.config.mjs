@@ -7,6 +7,11 @@ const nextConfig = {
         hostname: 'cdn.hashnode.com',
         port: '',
       },
+      {
+        protocol: 'https',
+        hostname: 'avatars.githubusercontent.com',
+        port: '',
+      },
     ],
   },
   compiler: {
