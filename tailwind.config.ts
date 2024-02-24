@@ -9,6 +9,15 @@ const config: Config = {
   ],
   theme: {
     extend: {
+      animation: {
+        border: 'border 4s ease infinite',
+      },
+      keyframes: {
+        border: {
+          '0%, 100%': { backgroundPosition: '0% 50%' },
+          '50%': { backgroundPosition: '100% 50%' },
+        },
+      },
       backgroundImage: {
         'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
         'gradient-conic':
