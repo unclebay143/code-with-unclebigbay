@@ -8,13 +8,12 @@ import { CodeWithUnclebigbayLogo } from './CodeWithUnclebigbayLogo';
 import { navLinks } from '@/lib/links';
 import { SidebarSlideOver } from './SidebarSlideOver';
 import { SectionWrapper } from '../home';
+import { handleAuthentication } from '@/utils/auth';
+import { useSession } from 'next-auth/react';
 
-type Props = {
-  isLoggedIn?: boolean;
-};
-
-export const Navbar = ({ isLoggedIn }: Props) => {
+export const Navbar = () => {
   const [sidebarVisibility, setSidebarVisibility] = useState(false);
+  const { data: session, status } = useSession();
   return (
     <nav className="sticky top-0 bg-white z-50 py-5">
       <SectionWrapper>
@@ -32,23 +31,34 @@ export const Navbar = ({ isLoggedIn }: Props) => {
               </Button>
             ))}
           </section>
+
           <div className="flex gap-4 items-center">
-            <section className="hidden sm:block">
-              {isLoggedIn ? (
-                <Button size="xs" asChild>
-                  <Link href="">Dashboard</Link>
-                </Button>
-              ) : (
-                <section className="flex gap-1 items-center">
-                  <Button size="sm" appearance="link-secondary" asChild>
-                    <Link href="/auth">Sign in</Link>
-                  </Button>
-                  <Button size="xs" asChild>
-                    <Link href="/auth">Sign up</Link>
-                  </Button>
-                </section>
-              )}
-            </section>
+            {status === 'loading' ? (
+              <div className="w-[163px] bg-red-200" />
+            ) : (
+              <section className="hidden sm:block w-[163px]">
+                {session ? (
+                  <div className="flex justify-end">
+                    <Button size="xs" asChild>
+                      <Link href="/dashboard/overview">Dashboard</Link>
+                    </Button>
+                  </div>
+                ) : (
+                  <section className="flex gap-1 items-center">
+                    <Button
+                      size="sm"
+                      onClick={handleAuthentication}
+                      appearance="link-secondary"
+                    >
+                      Sign in
+                    </Button>
+                    <Button size="xs" onClick={handleAuthentication}>
+                      Sign up
+                    </Button>
+                  </section>
+                )}
+              </section>
+            )}
             <section className="lg:hidden">
               <IconButton
                 size="xs"
