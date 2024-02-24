@@ -1,4 +1,4 @@
-'use client';
+// 'use client';
 import { ChannelIntroVideoSection } from '@/components/home/ChannelIntroVideoSection';
 import { CommunityMembersSection } from '@/components/home/CommunityMembersSection';
 import { TestimonialSection } from '@/components/home/TestimonialSection';
@@ -27,7 +27,6 @@ export default function Home() {
         <SectionWrapper>
           <CommunityMembersSection />
         </SectionWrapper>
-        <section></section>
         <SectionWrapper>
           <Footer />
         </SectionWrapper>

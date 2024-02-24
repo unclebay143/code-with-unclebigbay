@@ -27,7 +27,7 @@ export const authOptions = {
           username: studentUserProfile?.login,
           bio: studentUserProfile?.bio,
           location: studentUserProfile?.location,
-          photo: studentUserProfile?.photo,
+          photo: studentUserProfile?.avatar_url,
         };
 
         await Student.create(newStudent);
