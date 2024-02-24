@@ -17,7 +17,12 @@ type ResponseData = {
 };
 
 async function getStudents() {
-  const result = await fetch('http://localhost:3001/api/student/get-students', {
+  const baseURL =
+    process.env.NODE_ENV === 'production'
+      ? 'https://codewithunclebigbay.vercel.app'
+      : 'http://localhost:3001';
+
+  const result = await fetch(baseURL + '/api/student/get-students', {
     cache: 'force-cache',
   });
 
