@@ -16,6 +16,6 @@ declare module 'next-auth' {
     bio: string;
     login: string;
     location: string;
-    photo: string;
+    avatar_url: string;
   }
 }
