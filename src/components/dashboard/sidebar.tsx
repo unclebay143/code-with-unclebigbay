@@ -1,5 +1,3 @@
-'use client';
-
 import React, { useState } from 'react';
 import type { LucideIcon } from 'lucide-react';
 import { BarChart, LibraryBig } from 'lucide-react';
@@ -42,6 +40,7 @@ export const Sidebar = (props: Props) => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const pathname = usePathname();
   const currentPageName = pathname.split('/')[2];
+  const isDashboardIndex = pathname.split('/')[1];
 
   return (
     <aside>
