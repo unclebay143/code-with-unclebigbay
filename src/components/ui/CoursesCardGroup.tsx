@@ -1,5 +1,3 @@
-'use client';
-
 import Link from 'next/link';
 import { ArrowUpRight } from '../icons/ArrowUpRight';
 import { Course, courses } from '@/lib/constants/courses';
