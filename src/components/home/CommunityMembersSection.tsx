@@ -33,6 +33,7 @@ async function getStudents() {
 
     if (!result.ok) {
       console.log(result.statusText);
+      return [];
     }
 
     return result.json();
@@ -78,7 +79,7 @@ export const CommunityMembersSection = async () => {
         </Button> */}
       </div>
       <section className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-y-12 gap-x-8">
-        {students.map(({ id, fullName, username, stack, photo }) => (
+        {students?.map(({ id, fullName, username, stack, photo }) => (
           <article
             key={`communityMembers-${id}`}
             className="flex flex-col gap-3"
