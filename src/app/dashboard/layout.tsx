@@ -1,22 +1,23 @@
+'use client';
+
 import { Navbar } from '@/components/dashboard/navbar';
 import { Sidebar } from '@/components/dashboard/sidebar';
-import type { Metadata } from 'next';
-import { getServerSession } from 'next-auth';
+import { useSession } from 'next-auth/react';
 import { Inter } from 'next/font/google';
+import { redirect } from 'next/navigation';
 
 const inter = Inter({ subsets: ['latin'] });
 
-export const metadata: Metadata = {
-  title: 'Code with Unclebigbay',
-  description: 'Learn to Code and Build Your Career',
-};
-
-export default async function RootLayout({
+export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const session = await getServerSession();
+  const { data: session, status } = useSession();
+
+  if (!session && status === 'loading') return null;
+  if (!session && status === 'unauthenticated') redirect('/');
+
   return (
     <html lang="en">
       <body className={inter.className}>
