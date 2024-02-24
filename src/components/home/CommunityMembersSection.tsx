@@ -1,11 +1,49 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import React from 'react';
-import { Button } from '../ui/Button';
-import { communityMember } from '@/lib/constants';
+// import { handleAuthentication } from '@/utils/auth';
+// import { Button } from '../ui/Button';
 import { HomeSectionHeading } from '.';
+import { baseURL } from '../../../frontend.config';
 
-export const CommunityMembersSection = () => {
+type ResponseData = {
+  message: string;
+  students: {
+    id: string;
+    username: string;
+    photo: string;
+    fullName: string;
+    stack: string;
+  }[];
+};
+
+async function getStudents() {
+  try {
+    console.log({ baseURL });
+    const url = `${baseURL}/api/student/get-students`;
+    console.log({ url });
+    const urlTest =
+      'https://codewithunclebigbay.vercel.app/api/student/get-students';
+    const result = await fetch(urlTest, {
+      cache: 'force-cache',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+
+    if (!result.ok) {
+      console.log(result.statusText);
+    }
+
+    return result.json();
+  } catch (error) {
+    console.log({ error });
+  }
+}
+
+export const CommunityMembersSection = async () => {
+  const data: ResponseData = await getStudents();
+  const { students } = data;
   return (
     <section className="flex flex-col gap-14">
       <div className="text-center max-w-4xl mx-auto flex flex-col items-center gap-4">
@@ -29,33 +67,39 @@ export const CommunityMembersSection = () => {
           copy="Join thousands of aspiring developers on a journey to mastering
                 web development in 2024."
         />
-        <Button appearance="secondary-slate">Become a Member</Button>
+        {/* Todo: This won't work bcos this component is ss - Convert to link to redirect to login page (if login page is created) */}
+        {/* 
+        
+        <Button
+          appearance="secondary-slate"
+          onClick={() => handleAuthentication()}
+        >
+          Become a Member
+        </Button> */}
       </div>
       <section className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-y-12 gap-x-8">
-        {Array(18)
-          .fill(communityMember)
-          .map(({ name, stack, username, photo }, index) => (
-            <article
-              key={`communityMembers-${index}`}
-              className="flex flex-col gap-3"
-            >
-              <div className="mx-auto rounded-full overflow-hidden h-20 w-20 transition transform duration-500 ease-in-out hover:scale-125 hover:-rotate-3">
-                <Image
-                  src={photo}
-                  height={80}
-                  width={80}
-                  className="w-full h-full"
-                  alt=""
-                />
-              </div>
-              <Link href={`/@${username}`} className="text-center text-sm">
-                <h3 className="font-medium text-slate-950 hover:(text-white bg-black)">
-                  {name}
-                </h3>
-                <p className="font-semibold text-slate-800">Learning {stack}</p>
-              </Link>
-            </article>
-          ))}
+        {students.map(({ id, fullName, username, stack, photo }) => (
+          <article
+            key={`communityMembers-${id}`}
+            className="flex flex-col gap-3"
+          >
+            <div className="mx-auto rounded-full overflow-hidden h-20 w-20 transition transform duration-500 ease-in-out hover:scale-125 hover:-rotate-3">
+              <Image
+                src={photo}
+                height={80}
+                width={80}
+                className="w-full h-full"
+                alt=""
+              />
+            </div>
+            <Link href={`/@${username}`} className="text-center text-sm">
+              <h3 className="font-medium text-slate-950 hover:(text-white bg-black)">
+                {fullName}
+              </h3>
+              <p className="font-semibold text-slate-800">{stack}</p>
+            </Link>
+          </article>
+        ))}
       </section>
     </section>
   );

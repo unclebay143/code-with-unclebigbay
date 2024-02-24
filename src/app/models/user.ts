@@ -5,6 +5,7 @@ const Schema = mongoose.Schema;
 
 // Enums
 const ALLOWED_GENDER = ['Male', 'Female'];
+const ALLOWED_STACK = ['Frontend', 'Backend', 'Full'];
 
 const studentSchema = new Schema(
   {
@@ -24,7 +25,8 @@ const studentSchema = new Schema(
       youtube: { type: String, default: '' },
       instagram: { type: String, default: '' },
     },
-    photo: String,
+    stack: { type: String, enum: ALLOWED_STACK, default: '' },
+    photo: { type: String, default: '' },
     isPro: { type: Boolean, default: false },
     accountOnHold: { type: Boolean, default: false },
     isBanned: { type: Boolean, default: false },

@@ -1,4 +1,4 @@
-'use client';
+// 'use client';
 import { ChannelIntroVideoSection } from '@/components/home/ChannelIntroVideoSection';
 import { CommunityMembersSection } from '@/components/home/CommunityMembersSection';
 import { TestimonialSection } from '@/components/home/TestimonialSection';
@@ -7,6 +7,12 @@ import { Navbar } from '@/components/ui/Navbar';
 import { Footer } from '@/components/ui/Footer';
 import { HeroSection } from '@/components/home/HeroSection';
 import { SectionWrapper } from '@/components/home';
+import { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: 'Code with Unclebigbay',
+  description: 'Learn to Code and Build Your Career',
+};
 
 export default function Home() {
   return (
@@ -27,7 +33,6 @@ export default function Home() {
         <SectionWrapper>
           <CommunityMembersSection />
         </SectionWrapper>
-        <section></section>
         <SectionWrapper>
           <Footer />
         </SectionWrapper>
