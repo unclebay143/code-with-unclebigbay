@@ -1,6 +1,7 @@
 lockfileVersion: 5.4
 
 specifiers:
+  '@next-auth/mongodb-adapter': ^1.1.3
   '@radix-ui/react-dialog': ^1.0.5
   '@radix-ui/react-slot': ^1.0.2
   '@types/node': ^20
@@ -11,6 +12,7 @@ specifiers:
   eslint: ^8
   eslint-config-next: 14.1.0
   lucide-react: ^0.338.0
+  mongodb: ^6.3.0
   mongoose: ^8.2.0
   next: 14.1.0
   next-auth: ^4.24.6
@@ -23,10 +25,12 @@ specifiers:
   typescript: ^5
 
 dependencies:
+  '@next-auth/mongodb-adapter': 1.1.3_jd5tovfx3zsaylirpg2m2voaxu
   '@radix-ui/react-dialog': 1.0.5_gwzpedo46diqntqtlo7532evpm
   '@radix-ui/react-slot': 1.0.2_wx27iibiwvar32bjr4b4ke4wna
   class-variance-authority: 0.7.0
   lucide-react: 0.338.0_react@18.2.0
+  mongodb: 6.3.0
   mongoose: 8.2.0
   next: 14.1.0_biqbaboplfbrettd7655fr4n2y
   next-auth: 4.24.6_hipqgvz32dfk24avoqah5l7veq
@@ -167,6 +171,16 @@ packages:
     resolution: {integrity: sha512-8zJ8N1x51xo9hwPh6AWnKdLGEC5N3lDa6kms1YHmFBoRhTpJR6HG8wWk0td1MVCu9cD4YBrvjZEtd5Obw0Fbnw==}
     dependencies:
       sparse-bitfield: 3.0.3
+    dev: false
+
+  /@next-auth/mongodb-adapter/1.1.3_jd5tovfx3zsaylirpg2m2voaxu:
+    resolution: {integrity: sha512-nH/may8hntYBlcuxepSsR2b95w6SRnP+c/FFt3KKjdTScNjhrN0zZdlT90nisjG/3gK+MvzMbz/F4Rwpgr9RMA==}
+    peerDependencies:
+      mongodb: ^5 || ^4
+      next-auth: ^4
+    dependencies:
+      mongodb: 6.3.0
+      next-auth: 4.24.6_hipqgvz32dfk24avoqah5l7veq
     dev: false
 
   /@next/env/14.1.0:
