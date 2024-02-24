@@ -10,12 +10,11 @@ import { getServerSession } from 'next-auth';
 
 export default async function Home() {
   const session = await getServerSession();
-  console.log({ session });
   return (
     <main>
       {/* Todo: figure out why ResponsiveWrapper isn't working intermittently */}
       <section className="flex flex-col gap-10">
-        <Navbar />
+        <Navbar isLoggedIn={!!session} />
         <SectionWrapper>
           <HeroSection />
         </SectionWrapper>

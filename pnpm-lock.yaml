@@ -10,6 +10,7 @@ specifiers:
   class-variance-authority: ^0.7.0
   eslint: ^8
   eslint-config-next: 14.1.0
+  lucide-react: ^0.338.0
   mongoose: ^8.2.0
   next: 14.1.0
   next-auth: ^4.24.6
@@ -25,6 +26,7 @@ dependencies:
   '@radix-ui/react-dialog': 1.0.5_gwzpedo46diqntqtlo7532evpm
   '@radix-ui/react-slot': 1.0.2_wx27iibiwvar32bjr4b4ke4wna
   class-variance-authority: 0.7.0
+  lucide-react: 0.338.0_react@18.2.0
   mongoose: 8.2.0
   next: 14.1.0_biqbaboplfbrettd7655fr4n2y
   next-auth: 4.24.6_hipqgvz32dfk24avoqah5l7veq
@@ -2174,6 +2176,14 @@ packages:
     engines: {node: '>=10'}
     dependencies:
       yallist: 4.0.0
+
+  /lucide-react/0.338.0_react@18.2.0:
+    resolution: {integrity: sha512-Uq+vcn/gp6l01GpDH8SxY6eAvO6Ur2bSU39NxEEJt35OotnVCH5q26TZEVPtJf23gTAncXd3DJQqcezIm6HA7w==}
+    peerDependencies:
+      react: ^16.5.1 || ^17.0.0 || ^18.0.0
+    dependencies:
+      react: 18.2.0
+    dev: false
 
   /memory-pager/1.5.0:
     resolution: {integrity: sha512-ZS4Bp4r/Zoeq6+NLJpP+0Zzm0pR8whtGPf1XExKLJBAczGMnSi3It14OiNCStjQjM6NU1okjQGSxgEZN8eBYKg==}
