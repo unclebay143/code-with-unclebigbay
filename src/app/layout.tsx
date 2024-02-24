@@ -4,7 +4,6 @@ import { Inter } from 'next/font/google';
 import './globals.css';
 import { SessionProvider } from 'next-auth/react';
 import Head from 'next/head';
-import { redirect, usePathname } from 'next/navigation';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -13,11 +12,6 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const pathname = usePathname();
-  const slug = pathname.split('/')[1];
-  const isDashboardRoute =
-    pathname.split('/').length === 2 && slug.toLowerCase() === 'dashboard';
-  if (isDashboardRoute) redirect('/dashboard/overview');
   return (
     <html lang="en">
       <Head>
