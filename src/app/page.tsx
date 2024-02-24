@@ -7,6 +7,12 @@ import { Navbar } from '@/components/ui/Navbar';
 import { Footer } from '@/components/ui/Footer';
 import { HeroSection } from '@/components/home/HeroSection';
 import { SectionWrapper } from '@/components/home';
+import { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: 'Code with Unclebigbay',
+  description: 'Learn to Code and Build Your Career',
+};
 
 export default function Home() {
   return (

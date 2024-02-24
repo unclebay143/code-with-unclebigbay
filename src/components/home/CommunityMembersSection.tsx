@@ -18,6 +18,7 @@ type ResponseData = {
 };
 
 async function getStudents() {
+  console.log({ baseURL });
   const result = await fetch(`${baseURL}/api/student/get-students`, {
     cache: 'force-cache',
   });
