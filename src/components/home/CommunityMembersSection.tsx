@@ -19,13 +19,9 @@ type ResponseData = {
 
 async function getStudents() {
   try {
-    console.log({ baseURL });
     const url = `${baseURL}/api/student/get-students`;
-    console.log({ url });
-    const urlTest =
-      'https://codewithunclebigbay.vercel.app/api/student/get-students';
-    const result = await fetch(urlTest, {
-      cache: 'force-cache',
+    const result = await fetch(url, {
+      cache: 'no-cache',
       headers: {
         'Content-Type': 'application/json',
       },
