@@ -25,7 +25,7 @@ const studentSchema = new Schema(
       youtube: { type: String, default: '' },
       instagram: { type: String, default: '' },
     },
-    stack: { type: String, enum: ALLOWED_STACK, default: '' },
+    stack: { type: String, enum: ALLOWED_STACK, default: null },
     photo: { type: String, default: '' },
     isPro: { type: Boolean, default: false },
     accountOnHold: { type: Boolean, default: false },

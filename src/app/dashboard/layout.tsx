@@ -20,11 +20,11 @@ export default function RootLayout({
 
   return (
     <html lang="en">
-      <body className={inter.className}>
+      <body className={`${inter.className} bg-slate-50 flex flex-col gap-5`}>
         <Navbar session={session} />
-        <main className="flex">
+        <main className="flex gap-3 w-full max-w-7xl mx-auto px-4 2xl:px-0">
           <Sidebar />
-          <div className="flex flex-col gap-4 min-h-[calc(100vh-75px)] w-full grow dark:bg-slate-950 p-4">
+          <div className="flex flex-col gap-4 w-full dark:bg-slate-950">
             {children}
           </div>
         </main>
