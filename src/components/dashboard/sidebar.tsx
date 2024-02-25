@@ -1,9 +1,8 @@
 import React, { useState } from 'react';
 import type { LucideIcon } from 'lucide-react';
-import { BarChart, LibraryBig } from 'lucide-react';
+import { BarChart, LibraryBig, Trophy } from 'lucide-react';
 import { usePathname } from 'next/navigation';
 import Link from 'next/link';
-import { handleLogout } from '@/utils/auth';
 
 type Props = {};
 
@@ -20,6 +19,12 @@ type SidebarLinks = SidebarLink[];
 const sidebarLinks: SidebarLinks = [
   { key: 'overview', label: 'overview', slug: 'overview', Icon: BarChart },
   { key: 'courses', label: 'courses', slug: 'courses', Icon: LibraryBig },
+  {
+    key: 'leaderboard',
+    label: 'leaderboard',
+    slug: 'leaderboard',
+    Icon: Trophy,
+  },
 ];
 
 const SidebarLink = ({ label, Icon, isActive, slug }: SidebarLink) => {
@@ -40,14 +45,13 @@ export const Sidebar = (props: Props) => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const pathname = usePathname();
   const currentPageName = pathname.split('/')[2];
-  const isDashboardIndex = pathname.split('/')[1];
 
   return (
-    <aside>
+    <aside className="hidden lg:flex">
       <nav>
         <div className="transition-all w-0 lg:w-[270px]" />
         <div
-          className={`flex flex-col gap-1 px-2 py-4 z-10 fixed left-0 top-[75px] bottom-0 bg-white dark:bg-slate-950 w-[270px] transition-transform ease-in-out -translate-x-full lg:translate-x-0 border-r dark:border-slate-800/80 ${sidebarOpen && 'translate-x-0'}`}
+          className={`shadow rounded-lg flex flex-col gap-1 px-2 fixed py-4 z-10 bg-white dark:bg-slate-950 w-[270px] transition-transform ease-in-out -translate-x-full lg:translate-x-0 ${sidebarOpen && 'translate-x-0'}`}
         >
           {sidebarLinks.map(({ key, label, Icon, slug }) => {
             return (
@@ -60,7 +64,6 @@ export const Sidebar = (props: Props) => {
               />
             );
           })}
-          <button onClick={() => handleLogout()}>Logout </button>
         </div>
       </nav>
     </aside>
