@@ -5,11 +5,6 @@ import { Sidebar } from '@/components/dashboard/sidebar';
 import { useSession } from 'next-auth/react';
 import { redirect } from 'next/navigation';
 
-export const metadata: Metadata = {
-  title: 'Dashboard | Code with Unclebigbay',
-  description: 'Learn to Code and Build Your Career',
-};
-
 export const DashboardIndex = ({ children }: { children: React.ReactNode }) => {
   const { data: session, status } = useSession();
 

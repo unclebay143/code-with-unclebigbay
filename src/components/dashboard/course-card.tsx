@@ -36,7 +36,7 @@ export const CourseCard = ({ layout = 'grid', material }: CourseCardProps) => {
       )}
 
       {layout === 'grid' && (
-        <div className="max-w-[350px] border rounded-lg overflow-hidden transition-colors duration-200 ease-in-out hover:border-slate-300">
+        <div className="border rounded-lg overflow-hidden transition-colors duration-200 ease-in-out hover:border-slate-300">
           <div className="h-[196px] relative">
             <Link href="" className="h-full w-full inline-block relative">
               <Image

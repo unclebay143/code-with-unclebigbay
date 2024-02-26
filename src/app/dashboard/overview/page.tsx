@@ -7,24 +7,12 @@ import {
   CheckCircle2,
   Circle,
   LibraryBig,
-  MoreVertical,
-  Octagon,
-  Sparkles,
-  X,
-  XCircle,
 } from 'lucide-react';
 import type { LucideIcon } from 'lucide-react';
 import { EmptyState } from '@/components/dashboard/empty-state';
 import { WhiteArea } from '@/components/dashboard/white-area';
-import { IconButton } from '@/components/ui/IconButton';
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuTrigger,
-} from '@/components/ui/DropdownMenu';
-import { MenuButton } from '@/components/dashboard/menu-button';
 import { CourseCard } from '@/components/dashboard/course-card';
-import { Material, Materials } from '../../../../types/course';
+import { Materials } from '../../../../types/course';
 import { QuoteOfTheDay } from '@/components/dashboard/quote-of-the-day';
 import {
   Select,
@@ -34,6 +22,8 @@ import {
   SelectViewPort,
 } from '@/components/ui/Select';
 import { DashboardSubheading } from '@/components/dashboard/dashboard-subheading';
+import Link from 'next/link';
+import { Button } from '@/components/ui/Button';
 
 type Props = {};
 
@@ -120,7 +110,7 @@ const recentMaterials: Materials = [
     url: 'https://www.youtube.com/watch?v=fS1lArPOHOU&t=436s',
     type: 'video',
     coverImageURL:
-      'https://www.hostinger.com/tutorials/wp-content/uploads/sites/2/2018/11/what-is-html-3.webp',
+      'https://cdn.hashnode.com/res/hashnode/image/upload/v1708982962345/f8a881dd-bfcf-4fae-8bf4-8d85219f9ed8.png',
   },
   {
     title: 'Introduction to JavaScript',
@@ -131,16 +121,31 @@ const recentMaterials: Materials = [
     coverImageURL:
       'https://cdn.hashnode.com/res/hashnode/image/upload/v1708947937926/9344241c-d2f5-4dc6-86e7-9fffd2927aa7.webp',
   },
+];
+
+interface Activity {
+  type?: string;
+  date: number;
+  title: string;
+  description?: string;
+}
+
+const activities: Activity[] = [
+  { date: Date.now(), title: 'Created an account' },
+  { type: 'Course', date: Date.now(), title: 'Started "Introduction to HTML"' },
+  { date: Date.now(), title: 'Logged in' },
   {
-    title:
-      'How to build an hamburger How to build an hamburger How to build an hamburger How to build an hamburger',
-    description:
-      "This is introduction to HTML, you'll learn about the basics of html and the html tags and attributes.",
-    url: 'https://www.youtube.com/watch?v=fS1lArPOHOU&t=436s',
-    type: 'video',
-    coverImageURL:
-      'https://www.hostinger.com/tutorials/wp-content/uploads/sites/2/2018/11/what-is-html-3.webp',
+    type: 'Course',
+    date: Date.now(),
+    title: 'Completed "Introduction to HTML"',
   },
+  { type: 'Course', date: Date.now(), title: 'Deleted "Introduction to HTML"' },
+  {
+    type: 'Course',
+    date: Date.now(),
+    title: 'Abandoned "Introduction to HTML"',
+  },
+  { date: Date.now(), title: 'Updated profile' },
 ];
 
 const Page = (props: Props) => {
@@ -152,9 +157,9 @@ const Page = (props: Props) => {
   return (
     <div className="inline-flex flex-col gap-5">
       <section className="flex flex-col gap-5">
-        {/* {showQuoteWidget && (
+        {showQuoteWidget && (
           <QuoteOfTheDay close={() => setShowQuoteWidget(false)} />
-        )} */}
+        )}
         <WhiteArea twColor="bg-slate-50" border>
           <section className="flex flex-col gap-3">
             <DashboardSubheading title="Your course overview" />
@@ -197,7 +202,7 @@ const Page = (props: Props) => {
                   </Select>
                 </div>
               </div>
-              <section className="max-w-full grid sm:grid-cols-2 lg:grid-cols-3 gap-5 pb-10">
+              <section className="max-w-full grid sm:grid-cols-2 xl:grid-cols-3 gap-5 pb-10">
                 {recentMaterials.map((material) => {
                   return (
                     <CourseCard key={material.title} material={material} />
@@ -209,7 +214,43 @@ const Page = (props: Props) => {
         </WhiteArea>
       </section>
       <WhiteArea border>
-        <EmptyState label="Your activities will appear here" />
+        <div className="flex flex-col gap-5">
+          <DashboardSubheading title="Activity Log" />
+          <div className="-my-6">
+            {activities.map(({ type, date, title, description }, index) => {
+              return (
+                <div className="relative pl-8 sm:pl-32 py-6 group" key={index}>
+                  {type && (
+                    <div className="font-medium text-slate-600 mb-1 sm:mb-0">
+                      {type}
+                    </div>
+                  )}
+                  {/* Vertical line (::before) ~ Date ~ Title ~ Circle marker (::after) */}
+                  <div className="flex flex-col sm:flex-row items-start mb-1 group-last:before:hidden before:absolute before:left-2 sm:before:left-0 before:h-full before:px-px before:bg-slate-300 sm:before:ml-[6.5rem] before:self-start before:-translate-x-1/2 before:translate-y-3 after:absolute after:left-2 sm:after:left-0 after:w-2 after:h-2 after:bg-slate-600 after:border-4 after:box-content after:border-slate-50 after:rounded-full sm:after:ml-[6.5rem] after:-translate-x-1/2 after:translate-y-1.5">
+                    <time className="sm:absolute left-0 translate-y-0.5 inline-flex items-center justify-center text-xs font-semibold uppercase w-20 h-6 mb-3 sm:mb-0 text-slate-600 bg-slate-100 rounded-full">
+                      {new Date(date).toLocaleString('USA', {
+                        day: 'numeric',
+                        month: 'short',
+                        year: '2-digit',
+                      })}
+                    </time>
+                    <Link href="" className="text-slate-600 hover:underline">
+                      {title}
+                    </Link>
+                  </div>
+                  {description && (
+                    <div className="text-slate-500">{description} </div>
+                  )}
+                </div>
+              );
+            })}
+            <div className="relative pl-8 sm:pl-32 py-6 group">
+              <Button size="sm" appearance="secondary-slate">
+                Show more
+              </Button>
+            </div>
+          </div>
+        </div>
       </WhiteArea>
     </div>
   );
