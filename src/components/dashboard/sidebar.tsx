@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import type { LucideIcon } from 'lucide-react';
-import { BarChart, LibraryBig, Trophy } from 'lucide-react';
+import { ActivityIcon, BarChart, LibraryBig, Trophy } from 'lucide-react';
 import { usePathname } from 'next/navigation';
 import Link from 'next/link';
 
@@ -24,6 +24,12 @@ const sidebarLinks: SidebarLinks = [
     label: 'leaderboard',
     slug: 'leaderboard',
     Icon: Trophy,
+  },
+  {
+    key: 'activity',
+    label: 'Activity Log',
+    slug: 'activity',
+    Icon: ActivityIcon,
   },
 ];
 
@@ -51,7 +57,7 @@ export const Sidebar = (props: Props) => {
       <nav>
         <div className="transition-all w-0 lg:w-[270px]" />
         <div
-          className={`shadow rounded-lg flex flex-col gap-1 px-2 fixed py-4 z-10 bg-white dark:bg-slate-950 w-[270px] transition-transform ease-in-out -translate-x-full lg:translate-x-0 ${sidebarOpen && 'translate-x-0'}`}
+          className={`border rounded-lg flex flex-col gap-1 px-2 fixed py-4 z-10 bg-white dark:bg-slate-950 w-[270px] transition-transform ease-in-out -translate-x-full lg:translate-x-0 ${sidebarOpen && 'translate-x-0'}`}
         >
           {sidebarLinks.map(({ key, label, Icon, slug }) => {
             return (
@@ -60,7 +66,7 @@ export const Sidebar = (props: Props) => {
                 label={label}
                 Icon={Icon}
                 slug={slug}
-                isActive={currentPageName === label.toLowerCase()}
+                isActive={currentPageName === key.toLowerCase()}
               />
             );
           })}

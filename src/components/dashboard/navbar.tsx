@@ -2,8 +2,7 @@ import React from 'react';
 import type { Session } from 'next-auth';
 import Image from 'next/image';
 import { CodeWithUnclebigbayLogo } from '../ui/CodeWithUnclebigbayLogo';
-import { ChevronDown, Cog, LogOut, Settings } from 'lucide-react';
-import Link from 'next/link';
+import { ChevronDown, LogOut, Settings } from 'lucide-react';
 import { MenuButton } from './menu-button';
 import {
   DropdownMenu,
@@ -19,7 +18,7 @@ type Props = {
 export const Navbar = ({ session }: Props) => {
   const user = session?.user;
   return (
-    <nav className="sticky top-0 bg-white py-5 px-5 border-b">
+    <nav className="sticky top-0 z-10 bg-white py-5 px-5 border-b">
       <section className="max-w-7xl mx-auto flex w-full items-center justify-between">
         <CodeWithUnclebigbayLogo />
 
@@ -27,8 +26,8 @@ export const Navbar = ({ session }: Props) => {
           <section className="hidden sm:block">
             <section className="relative border p-0.5 rounded-full">
               <DropdownMenu>
-                <DropdownMenuTrigger>
-                  <button className="flex h-9 w-9 overflow-hidden rounded-full">
+                <DropdownMenuTrigger asChild>
+                  <button className="flex h-9 w-9 overflow-hidden rounded-full hover:opacity-90">
                     {user ? (
                       <>
                         <Image

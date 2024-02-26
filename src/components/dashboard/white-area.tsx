@@ -1,11 +1,21 @@
 import React from 'react';
 
-type Props = { children: React.ReactNode; border?: boolean };
+type Props = {
+  children: React.ReactNode;
+  twColor?: string;
+  border?: boolean;
+  shadow?: boolean;
+};
 
-export const WhiteArea = ({ border, ...otherProps }: Props) => {
+export const WhiteArea = ({
+  border,
+  shadow,
+  twColor,
+  ...otherProps
+}: Props) => {
   return (
     <section
-      className={`bg-white rounded-lg shadow p-4 px-5 ${border && 'border'}`}
+      className={`${twColor ? twColor : 'bg-white'} rounded-lg  p-4 px-5 ${border && 'border'} ${shadow && 'shadow'}`}
       {...otherProps}
     />
   );
