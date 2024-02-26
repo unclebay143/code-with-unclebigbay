@@ -1,9 +1,11 @@
 'use client';
 
-import React from 'react';
+import React, { useState } from 'react';
 import {
   Activity,
   CheckCheckIcon,
+  CheckCircle2,
+  Circle,
   LibraryBig,
   MoreVertical,
   Octagon,
@@ -21,10 +23,28 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/DropdownMenu';
 import { MenuButton } from '@/components/dashboard/menu-button';
+import { CourseCard } from '@/components/dashboard/course-card';
+import { Material, Materials } from '../../../../types/course';
+import { QuoteOfTheDay } from '@/components/dashboard/quote-of-the-day';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectViewPort,
+} from '@/components/ui/Select';
+import { DashboardSubheading } from '@/components/dashboard/dashboard-subheading';
 
 type Props = {};
 
-type Overview = { id: string; label: string; Icon: LucideIcon; count: number };
+type Overview = {
+  id: string;
+  label: string;
+  Icon: LucideIcon;
+  count: number;
+  active?: boolean;
+  setCurrentCourse?: Function;
+};
 
 const overviews: Overview[] = [
   { id: 'total', label: 'Total', Icon: LibraryBig, count: 2 },
@@ -42,86 +62,153 @@ const overviews: Overview[] = [
   },
 ];
 
-const OverviewCard = ({ id, label, count, Icon }: Overview) => {
+const OverviewCard = ({
+  id,
+  label,
+  count,
+  Icon,
+  active,
+  setCurrentCourse,
+}: Overview) => {
   const mapIdToColor: { [key: string]: string } = {
     completed: 'text-blue-600',
     pending: 'text-yellow-600',
     total: 'text-green-600',
   };
   const mapIdToBgColor: { [key: string]: string } = {
-    completed: 'bg-blue-50/80',
-    pending: 'bg-yellow-50/80',
-    total: 'bg-green-50/80',
+    completed: 'bg-blue-50',
+    pending: 'bg-yellow-50',
+    total: 'bg-green-50',
   };
   return (
     <button
-      className={`${mapIdToBgColor[id]} flex flex-col justify-between border p-5 rounded-lg hover:bg-slate-50`}
+      className={`${mapIdToBgColor[id]} flex flex-col justify-between border p-5 rounded-lg`}
+      onClick={() => setCurrentCourse && setCurrentCourse(id)}
     >
-      <div className="flex items-center gap-2">
-        <span className={mapIdToColor[id]}>
-          <Icon size="24" />
+      <div className="flex items-center justify-between w-full">
+        <div className="flex flex-col items-start w-full">
+          <div className="flex items-center gap-2">
+            <span className={mapIdToColor[id]}>
+              <Icon size="24" />
+            </span>
+            <h2 className={mapIdToColor[id]}>{label}</h2>
+          </div>
+          <h3 className="ml-8 text-sm text-slate-600">{count} courses</h3>
+        </div>
+        <span className="text-slate-400">
+          {active ? <CheckCircle2 size={20} /> : <Circle size={20} />}
         </span>
-        <h2 className={mapIdToColor[id]}>{label}</h2>
       </div>
-      <h3 className="ml-8 text-sm text-slate-800">{count} courses</h3>
     </button>
   );
 };
 
+const recentMaterials: Materials = [
+  {
+    title: 'Introduction to HTML',
+    description:
+      "This is introduction to HTML, you'll learn about the basics of html and the html tags and attributes.",
+    url: 'https://www.youtube.com/watch?v=fS1lArPOHOU&t=436s',
+    type: 'video',
+    coverImageURL:
+      'https://www.hostinger.com/tutorials/wp-content/uploads/sites/2/2018/11/what-is-html-3.webp',
+  },
+  {
+    title: 'Introduction to CSS',
+    description:
+      "This is introduction to HTML, you'll learn about the basics of html and the html tags and attributes.",
+    url: 'https://www.youtube.com/watch?v=fS1lArPOHOU&t=436s',
+    type: 'video',
+    coverImageURL:
+      'https://www.hostinger.com/tutorials/wp-content/uploads/sites/2/2018/11/what-is-html-3.webp',
+  },
+  {
+    title: 'Introduction to JavaScript',
+    description:
+      "This is introduction to HTML, you'll learn about the basics of html and the html tags and attributes.",
+    url: 'https://www.youtube.com/watch?v=fS1lArPOHOU&t=436s',
+    type: 'video',
+    coverImageURL:
+      'https://cdn.hashnode.com/res/hashnode/image/upload/v1708947937926/9344241c-d2f5-4dc6-86e7-9fffd2927aa7.webp',
+  },
+  {
+    title:
+      'How to build an hamburger How to build an hamburger How to build an hamburger How to build an hamburger',
+    description:
+      "This is introduction to HTML, you'll learn about the basics of html and the html tags and attributes.",
+    url: 'https://www.youtube.com/watch?v=fS1lArPOHOU&t=436s',
+    type: 'video',
+    coverImageURL:
+      'https://www.hostinger.com/tutorials/wp-content/uploads/sites/2/2018/11/what-is-html-3.webp',
+  },
+];
+
 const Page = (props: Props) => {
+  const [showQuoteWidget, setShowQuoteWidget] = useState<boolean>(true);
+  const noRecentMaterials = recentMaterials.length === 0;
+  const [courseFilter, setCourseFilter] = useState<
+    'total' | 'pending' | 'completed'
+  >('total');
   return (
     <div className="inline-flex flex-col gap-5">
-      <WhiteArea border>
-        <section className="flex justify-between">
-          <section>
-            <section className="flex items-center gap-1 text-pink-500">
-              <span>
-                <Sparkles size={16} />
-              </span>
-              <h2>Quote of the day!</h2>
-            </section>
-            <section className="ml-5">
-              <span className="text-sm text-slate-500">
-                Make it work, make it right, make it fast. – Kent Beck
-              </span>
-            </section>
-          </section>
-          <section>
-            <DropdownMenu>
-              <DropdownMenuTrigger>
-                <button className="text-slate-500 p-2 rounded-full hover:bg-slate-100 dark:hover:bg-slate-800">
-                  <MoreVertical size={16} />
-                </button>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent alignOffset={-20}>
-                <MenuButton label="Close" Icon={X} />
-                <MenuButton
-                  label="Don't show again"
-                  Icon={XCircle}
-                  type="danger"
+      <section className="flex flex-col gap-5">
+        {/* {showQuoteWidget && (
+          <QuoteOfTheDay close={() => setShowQuoteWidget(false)} />
+        )} */}
+        <WhiteArea twColor="bg-slate-50" border>
+          <section className="flex flex-col gap-3">
+            <DashboardSubheading title="Your course overview" />
+            <section className="w-full grid sm:grid-cols-2 md:grid-cols-3 gap-5">
+              {overviews.map(({ id, Icon, count, label }) => (
+                <OverviewCard
+                  key={id}
+                  id={id}
+                  Icon={Icon}
+                  count={count}
+                  label={label}
+                  active={courseFilter === id}
+                  setCurrentCourse={setCourseFilter}
                 />
-              </DropdownMenuContent>
-            </DropdownMenu>
+              ))}
+            </section>
           </section>
-        </section>
-      </WhiteArea>
-      <WhiteArea>
-        <section className="flex flex-col gap-5">
-          <section className="w-full grid sm:grid-cols-2 md:grid-cols-3 gap-5">
-            {overviews.map(({ id, Icon, count, label }) => (
-              <OverviewCard
-                key={id}
-                id={id}
-                Icon={Icon}
-                count={count}
-                label={label}
-              />
-            ))}
-          </section>
-          <EmptyState label="Your recent courses will appear here" />
-        </section>
-      </WhiteArea>
-      <WhiteArea>
+        </WhiteArea>
+        <WhiteArea border>
+          {noRecentMaterials ? (
+            <EmptyState label="Your recent learning material will appear here" />
+          ) : (
+            <section className="flex flex-col gap-3">
+              <DashboardSubheading title="Recent learning materials" />
+              <div className="flex flex-col sm:flex-row gap-2">
+                <div className="w-full">
+                  <input
+                    className="border rounded-xl text-slate-600 w-full py-3 pl-4 pr-2"
+                    placeholder="Find learning material"
+                  />
+                </div>
+                <div className="sm:w-[200px]">
+                  <Select onValueChange={(e) => console.log(e)}>
+                    <SelectTrigger size="md" placeholder="Select a course..." />
+                    <SelectContent>
+                      <SelectViewPort>
+                        <SelectItem value={'value-1'} label="HTML" />
+                      </SelectViewPort>
+                    </SelectContent>
+                  </Select>
+                </div>
+              </div>
+              <section className="max-w-full grid sm:grid-cols-2 lg:grid-cols-3 gap-5 pb-10">
+                {recentMaterials.map((material) => {
+                  return (
+                    <CourseCard key={material.title} material={material} />
+                  );
+                })}
+              </section>
+            </section>
+          )}
+        </WhiteArea>
+      </section>
+      <WhiteArea border>
         <EmptyState label="Your activities will appear here" />
       </WhiteArea>
     </div>

@@ -51,7 +51,7 @@ export const Sidebar = (props: Props) => {
       <nav>
         <div className="transition-all w-0 lg:w-[270px]" />
         <div
-          className={`shadow rounded-lg flex flex-col gap-1 px-2 fixed py-4 z-10 bg-white dark:bg-slate-950 w-[270px] transition-transform ease-in-out -translate-x-full lg:translate-x-0 ${sidebarOpen && 'translate-x-0'}`}
+          className={`border rounded-lg flex flex-col gap-1 px-2 fixed py-4 z-10 bg-white dark:bg-slate-950 w-[270px] transition-transform ease-in-out -translate-x-full lg:translate-x-0 ${sidebarOpen && 'translate-x-0'}`}
         >
           {sidebarLinks.map(({ key, label, Icon, slug }) => {
             return (
