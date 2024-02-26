@@ -1,17 +1,19 @@
 'use client';
 
+import { Courses } from '@/components/dashboard/courses';
+import { DashboardSubheading } from '@/components/dashboard/dashboard-subheading';
 import { WhiteArea } from '@/components/dashboard/white-area';
+import { materials } from '@/utils/dummy-data';
 import React from 'react';
 
-type Props = {};
-
-const Page = (props: Props) => {
+const Page = () => {
   return (
-    <div>
-      <WhiteArea>
-        <h3>Available Courses</h3>
-      </WhiteArea>
-    </div>
+    <WhiteArea border>
+      <div className="flex flex-col gap-5">
+        <DashboardSubheading title="Available Courses" />
+        <Courses materials={Array(50).fill(materials[0])} />
+      </div>
+    </WhiteArea>
   );
 };
 
