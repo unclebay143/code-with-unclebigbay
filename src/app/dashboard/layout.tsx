@@ -1,33 +1,23 @@
-'use client';
-
-import { Navbar } from '@/components/dashboard/navbar';
-import { Sidebar } from '@/components/dashboard/sidebar';
-import { useSession } from 'next-auth/react';
 import { Inter } from 'next/font/google';
-import { redirect } from 'next/navigation';
+import { DashboardIndex } from '.';
+import { Metadata } from 'next';
 
 const inter = Inter({ subsets: ['latin'] });
+
+export const metadata: Metadata = {
+  title: 'Dashboard | Code with Unclebigbay',
+  description: 'Learn to Code and Build Your Career',
+};
 
 export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const { data: session, status } = useSession();
-
-  if (!session && status === 'loading') return null;
-  if (!session && status === 'unauthenticated') redirect('/');
-
   return (
     <html lang="en">
-      <body className={`${inter.className} bg-slate-50 flex flex-col gap-5`}>
-        <Navbar session={session} />
-        <main className="flex gap-3 w-full max-w-7xl mx-auto px-4 2xl:px-0">
-          <Sidebar />
-          <div className="flex flex-col gap-4 w-full dark:bg-slate-950">
-            {children}
-          </div>
-        </main>
+      <body className={inter.className}>
+        <DashboardIndex>{children}</DashboardIndex>
       </body>
     </html>
   );
