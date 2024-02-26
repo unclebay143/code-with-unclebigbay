@@ -23,7 +23,7 @@ export const DropdownMenuContent = (props: DropdownMenuContentProps) => {
   return (
     <RadixDropdownMenu.Portal>
       <RadixDropdownMenu.Content
-        className="bg-white p-3 rounded-lg border drop-shadow-lg sm:w-52"
+        className="bg-white p-3 rounded-lg border drop-shadow-lg sm:w-52 z-40"
         sideOffset={8}
         side="bottom"
         align="end"
