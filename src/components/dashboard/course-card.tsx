@@ -48,14 +48,14 @@ export const CourseCard = ({ layout = 'grid', material }: CourseCardProps) => {
             </Link>
           </div>
           <section className="p-6 flex flex-col gap-3">
-            <div className="flex items-center justify-between">
+            <div className="flex items-start justify-between">
               <Link
                 href=""
                 className="text-gray-700 font-medium hover:text-slate-800 text-lg line-clamp-2"
               >
                 {title}
               </Link>
-              <span className="p-1 px-1.5 rounded-full bg-slate-100 text-xs font-medium">
+              <span className="py-1 px-3 rounded-full bg-slate-100 text-xs font-semibold">
                 45m
               </span>
             </div>

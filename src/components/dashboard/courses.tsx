@@ -34,7 +34,7 @@ export const Courses = (props: Props) => {
           </Select>
         </div>
       </div>
-      <section className="max-w-full grid sm:grid-cols-2 xl:grid-cols-3 gap-5 pb-10">
+      <section className="max-w-full grid sm:grid-cols-2 xl:grid-cols-3 gap-3 pb-10">
         {data.map((material) => {
           return <CourseCard key={material.title} material={material} />;
         })}

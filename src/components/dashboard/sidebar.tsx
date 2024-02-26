@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import type { LucideIcon } from 'lucide-react';
-import { BarChart, LibraryBig, Trophy } from 'lucide-react';
+import { ActivityIcon, BarChart, LibraryBig, Trophy } from 'lucide-react';
 import { usePathname } from 'next/navigation';
 import Link from 'next/link';
 
@@ -24,6 +24,12 @@ const sidebarLinks: SidebarLinks = [
     label: 'leaderboard',
     slug: 'leaderboard',
     Icon: Trophy,
+  },
+  {
+    key: 'activity',
+    label: 'Activity Log',
+    slug: 'activity',
+    Icon: ActivityIcon,
   },
 ];
 
@@ -60,7 +66,7 @@ export const Sidebar = (props: Props) => {
                 label={label}
                 Icon={Icon}
                 slug={slug}
-                isActive={currentPageName === label.toLowerCase()}
+                isActive={currentPageName === key.toLowerCase()}
               />
             );
           })}

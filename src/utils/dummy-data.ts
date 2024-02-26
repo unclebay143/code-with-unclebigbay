@@ -43,11 +43,11 @@ export const materials: Materials = [
   {
     title: 'Introduction to HTML',
     description:
-      "This is introduction to HTML, you'll learn about the basics of html and the html tags and attributes.",
+      'Everything you need to test your React apps with React Testing Library',
     url: 'https://www.youtube.com/watch?v=fS1lArPOHOU&t=436s',
     type: 'video',
     coverImageURL:
-      'https://www.hostinger.com/tutorials/wp-content/uploads/sites/2/2018/11/what-is-html-3.webp',
+      'https://cdn.hashnode.com/res/hashnode/image/upload/v1708988011051/e276e91e-7887-44eb-8129-c63fae9e8262.webp',
   },
   {
     title: 'Introduction to CSS',

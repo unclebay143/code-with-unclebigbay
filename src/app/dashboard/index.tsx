@@ -16,7 +16,7 @@ export const DashboardIndex = ({ children }: { children: React.ReactNode }) => {
       <Navbar session={session} />
       <main className="flex gap-3 w-full max-w-7xl mx-auto px-4 2xl:px-0">
         <Sidebar />
-        <div className="flex flex-col gap-4 w-full dark:bg-slate-950">
+        <div className="flex flex-col gap-4 w-full dark:bg-slate-950 min-h-screen">
           {children}
         </div>
       </main>
