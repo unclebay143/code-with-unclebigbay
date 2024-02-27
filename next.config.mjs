@@ -12,6 +12,11 @@ const nextConfig = {
         hostname: 'avatars.githubusercontent.com',
         port: '',
       },
+      {
+        protocol: 'https',
+        hostname: 'www.hostinger.com',
+        port: '',
+      },
     ],
   },
   compiler: {
