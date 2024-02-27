@@ -19,42 +19,40 @@ const Page = (props: Props) => {
     'total' | 'pending' | 'completed'
   >('total');
   return (
-    <div className="inline-flex flex-col gap-5">
-      <section className="flex flex-col gap-5">
-        {showQuoteWidget && (
-          <QuoteOfTheDay close={() => setShowQuoteWidget(false)} />
-        )}
-        <WhiteArea twColor="bg-slate-50" border>
-          <section className="flex flex-col gap-3">
-            <DashboardSubheading title="Your course overview" />
-            <section className="w-full grid sm:grid-cols-2 md:grid-cols-3 gap-5">
-              {overviews.map(({ id, Icon, count, label }) => (
-                <OverviewCard
-                  key={id}
-                  id={id}
-                  Icon={Icon}
-                  count={count}
-                  label={label}
-                  active={courseFilter === id}
-                  setCurrentCourse={setCourseFilter}
-                />
-              ))}
-            </section>
+    <section className="flex flex-col gap-3">
+      {showQuoteWidget && (
+        <QuoteOfTheDay close={() => setShowQuoteWidget(false)} />
+      )}
+      <WhiteArea twColor="bg-slate-50" border>
+        <section className="flex flex-col gap-3">
+          <DashboardSubheading title="Your course overview" />
+          <section className="w-full grid sm:grid-cols-2 md:grid-cols-3 gap-5">
+            {overviews.map(({ id, Icon, count, label }) => (
+              <OverviewCard
+                key={id}
+                id={id}
+                Icon={Icon}
+                count={count}
+                label={label}
+                active={courseFilter === id}
+                setCurrentCourse={setCourseFilter}
+              />
+            ))}
           </section>
-        </WhiteArea>
-        <WhiteArea border>
-          {noRecentMaterials ? (
-            <EmptyState label="Your recent learning material will appear here" />
-          ) : (
-            <section className="flex flex-col gap-3">
-              <DashboardSubheading title="Recent learning materials" />
-              <Courses />
-            </section>
-          )}
-        </WhiteArea>
-      </section>
+        </section>
+      </WhiteArea>
+      <WhiteArea border>
+        {noRecentMaterials ? (
+          <EmptyState label="Your recent learning material will appear here" />
+        ) : (
+          <section className="flex flex-col gap-3">
+            <DashboardSubheading title="Recent learning materials" />
+            <Courses />
+          </section>
+        )}
+      </WhiteArea>
       <ActivityLogs />
-    </div>
+    </section>
   );
 };
 
