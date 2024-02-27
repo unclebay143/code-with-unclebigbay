@@ -9,6 +9,7 @@ import {
   SelectViewPort,
 } from '../ui/Select';
 import { Materials } from '../../../types';
+import { Button } from '../ui/Button';
 
 type Props = { materials?: Materials };
 
@@ -34,10 +35,15 @@ export const Courses = (props: Props) => {
           </Select>
         </div>
       </div>
-      <section className="max-w-full grid sm:grid-cols-2 xl:grid-cols-3 gap-3 pb-10">
+      <section className="max-w-full grid sm:grid-cols-2 xl:grid-cols-3 gap-3">
         {data.map((material) => {
           return <CourseCard key={material.title} material={material} />;
         })}
+      </section>
+      <section className="flex justify-center">
+        <Button appearance="secondary-slate" size="sm">
+          Load more
+        </Button>
       </section>
     </section>
   );
