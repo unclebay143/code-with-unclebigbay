@@ -12,9 +12,9 @@ export const DashboardIndex = ({ children }: { children: React.ReactNode }) => {
   if (!session && status === 'unauthenticated') redirect('/');
 
   return (
-    <div className="flex flex-col gap-5 pb-10">
+    <div className="flex flex-col gap-4 pb-10">
       <Navbar session={session} />
-      <main className="flex gap-3 w-full max-w-7xl mx-auto px-4 2xl:px-0">
+      <main className="flex gap-3 w-full max-w-7xl mx-auto px-4 xl:px-0">
         <Sidebar />
         <div className="flex flex-col gap-4 w-full dark:bg-slate-950 min-h-screen">
           {children}

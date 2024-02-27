@@ -13,7 +13,7 @@ export const ActivityLogs = ({
   return (
     <WhiteArea border>
       <div className="flex flex-col gap-5">
-        <DashboardSubheading title="Activity Log" />
+        <DashboardSubheading title="Activity" />
         <div className="-my-6">
           {activities
             .slice(0, defaultCount)
