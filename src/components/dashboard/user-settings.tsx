@@ -53,7 +53,7 @@ const UserSettings = () => {
                 name=""
                 id="name"
                 value={user?.name}
-                className="bg-slate-100 text-slate-600 p-2 w-[100%] outline-none border border-slate-300 rounded-md"
+                className="text-sm text-slate-600 p-2 outline-none focus:ring-2 focus:ring-slate-500 focus:border-slate-300 border rounded-md"
               />
               <p className="opacity-60 text-sm">
                 This will be your display name on this app.
@@ -68,7 +68,7 @@ const UserSettings = () => {
               <input
                 type="text"
                 value={user?.email}
-                className="bg-slate-100 text-slate-600 p-2 w-[100%] outline-none border border-slate-300 rounded-md"
+                className="text-sm text-slate-600 p-2 outline-none focus:ring-2 focus:ring-slate-500 focus:border-slate-300 border rounded-md"
                 disabled
               />
               <p className="opacity-60 text-sm">
@@ -126,7 +126,7 @@ const UserSettings = () => {
                   type="text"
                   name="github"
                   placeholder="https://github.com/username"
-                  className="bg-slate-100 text-slate-600 p-2 w-[100%] outline-none border border-slate-300 rounded-md"
+                  className="text-sm text-slate-600 p-2 outline-none focus:ring-2 focus:ring-slate-500 focus:border-slate-300 border rounded-md"
                 />
               </div>
               <div className="flex flex-col gap-2">
@@ -136,7 +136,7 @@ const UserSettings = () => {
                 <input
                   type="text"
                   name="linkedIn"
-                  className="bg-slate-100 text-slate-600 p-2 w-[100%] outline-none border border-slate-300 rounded-md"
+                  className="text-sm text-slate-600 p-2 outline-none focus:ring-2 focus:ring-slate-500 focus:border-slate-300 border rounded-md"
                 />
               </div>
               <div className="flex flex-col gap-2">
@@ -146,7 +146,7 @@ const UserSettings = () => {
                 <input
                   type="text"
                   name="twitter"
-                  className="bg-slate-100 text-slate-600 p-2 w-[100%] outline-none border border-slate-300 rounded-md"
+                  className="text-sm text-slate-600 p-2 outline-none focus:ring-2 focus:ring-slate-500 focus:border-slate-300 border rounded-md"
                 />
               </div>
               <div className="flex flex-col gap-2">
@@ -156,7 +156,7 @@ const UserSettings = () => {
                 <input
                   type="text"
                   name="hashnode"
-                  className="bg-slate-100 text-slate-600 p-2 w-[100%] outline-none border border-slate-300 rounded-md"
+                  className="text-sm text-slate-600 p-2 outline-none focus:ring-2 focus:ring-slate-500 focus:border-slate-300 border rounded-md"
                 />
               </div>
               <p className="opacity-60 text-sm">
