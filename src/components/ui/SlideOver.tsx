@@ -5,7 +5,15 @@ import { XMark } from '../icons/XMark';
 import { IconButton } from './IconButton';
 
 const slideOverContent = cva(
-  'z-[9999] flex flex-col w-full sm:w-[460px] fixed inset-y-0 right-0 bg-white dark:bg-slate-950',
+  'z-[9999] flex flex-col w-[270px] sm:w-[460px] fixed inset-y-0 bg-white dark:bg-slate-950',
+  {
+    variants: {
+      position: {
+        left: 'left-0',
+        right: 'right-0',
+      },
+    },
+  },
 );
 
 const slideOverOverlay = cva(
@@ -55,6 +63,7 @@ type SlideOverProps = {
   closeSlideOver: () => void;
   children?: React.ReactNode;
   asChild?: boolean;
+  position?: 'left' | 'right';
 };
 
 export const SlideOverHeader = ({
@@ -92,6 +101,7 @@ export const SlideOver = ({
   closeSlideOver,
   children,
   asChild,
+  position = 'left',
 }: SlideOverProps) => (
   <SlideOverProvider isOpen={isOpen} closeSlideOver={closeSlideOver}>
     <SheetPrimitive.Root open={isOpen}>
@@ -103,7 +113,7 @@ export const SlideOver = ({
         <SheetPrimitive.Content
           asChild={asChild}
           onEscapeKeyDown={closeSlideOver}
-          className={slideOverContent()}
+          className={slideOverContent({ position })}
         >
           {children}
         </SheetPrimitive.Content>
