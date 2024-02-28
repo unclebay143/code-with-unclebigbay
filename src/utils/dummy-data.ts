@@ -48,6 +48,7 @@ export const materials: Materials = [
     type: 'video',
     coverImageURL:
       'https://cdn.hashnode.com/res/hashnode/image/upload/v1708988011051/e276e91e-7887-44eb-8129-c63fae9e8262.webp',
+    embedURL: 'https://www.youtube.com/embed/fS1lArPOHOU',
   },
   {
     title: 'Introduction to CSS',
@@ -57,6 +58,7 @@ export const materials: Materials = [
     type: 'video',
     coverImageURL:
       'https://cdn.hashnode.com/res/hashnode/image/upload/v1708982962345/f8a881dd-bfcf-4fae-8bf4-8d85219f9ed8.png',
+    embedURL: 'https://www.youtube.com/embed/fS1lArPOHOU',
   },
   {
     title: 'Introduction to JavaScript',
@@ -66,5 +68,6 @@ export const materials: Materials = [
     type: 'video',
     coverImageURL:
       'https://cdn.hashnode.com/res/hashnode/image/upload/v1708947937926/9344241c-d2f5-4dc6-86e7-9fffd2927aa7.webp',
+    embedURL: 'https://www.youtube.com/embed/fS1lArPOHOU',
   },
 ];
