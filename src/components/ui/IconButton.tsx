@@ -70,7 +70,7 @@ export const IconButton = React.forwardRef<HTMLButtonElement, IconButtonProps>(
         />
       );
     }
-    const mappedIconSize = size === 'xl' ? 'lg' : size === 'xs' ? 'sm' : 'md';
+    const mappedIconSize: { [key: string]: string } = { sm: '12', md: '16' };
 
     if (typeof Icon === 'undefined') {
       return null;
@@ -81,7 +81,7 @@ export const IconButton = React.forwardRef<HTMLButtonElement, IconButtonProps>(
         className={iconButton({ appearance, size, shape, className })}
         {...props}
       >
-        <Icon size={mappedIconSize} solid={!!iconSolid} />
+        <Icon size={mappedIconSize[size || 'md']} solid={!!iconSolid} />
       </button>
     );
   },
