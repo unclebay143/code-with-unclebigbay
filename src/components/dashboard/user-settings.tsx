@@ -7,7 +7,6 @@ import { WhiteArea } from './white-area';
 import { DashboardSubheading } from './dashboard-subheading';
 
 type Props = {
-  //   session: Session | null;
   name: string;
   email: string;
   image: string;
