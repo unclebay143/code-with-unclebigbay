@@ -12,6 +12,7 @@ type CourseCardProps = {
 
 export const CourseCard = ({ layout = 'grid', material }: CourseCardProps) => {
   const { type, title, description, coverImageURL } = material;
+  const id = window.crypto.randomUUID();
 
   const mapTypeToIcon: { [key: string]: LucideIcon } = {
     video: PlayCircle,
@@ -38,7 +39,10 @@ export const CourseCard = ({ layout = 'grid', material }: CourseCardProps) => {
       {layout === 'grid' && (
         <div className="border rounded-lg overflow-hidden transition-colors duration-200 ease-in-out hover:border-slate-300">
           <div className="h-[196px] relative">
-            <Link href="" className="h-full w-full inline-block relative">
+            <Link
+              href={`/dashboard/courses/${id}`}
+              className="h-full w-full inline-block relative"
+            >
               <Image
                 src={coverImageURL}
                 alt=""
