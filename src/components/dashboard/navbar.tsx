@@ -71,9 +71,9 @@ export const Navbar = ({ session, setSidebarOpen }: Props) => {
                     url="/dashboard/settings"
                   />
                   <MenuButton
-                    label="Help Centre"
+                    label="Help Centers"
                     Icon={HelpCircle}
-                    url="/dashboard/help-centres"
+                    url="/dashboard/help-centers"
                   />
                   <MenuButton
                     label="Sign out"
