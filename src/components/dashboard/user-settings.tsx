@@ -16,7 +16,7 @@ const UserSettings = () => {
   const { data: session } = useSession();
   const user = session?.user as Props;
   return (
-    <div className="lg:w-[80%] ">
+    <div className="lg:w-[80%]">
       <WhiteArea border>
         <div className="flex flex-col gap-4">
           <WhiteArea border>
@@ -117,14 +117,29 @@ const UserSettings = () => {
           <WhiteArea border>
             <div className="flex flex-col gap-3">
               <DashboardSubheading title="Social Media" />
+              <p className="opacity-60 text-sm">
+                These will serve as your social media display links for others
+                to connect with you.
+              </p>
               <div className="flex flex-col gap-2">
-                <label htmlFor="website">
-                  <DashboardSubheading title="Website" />
+                <label htmlFor="portfolio">
+                  <DashboardSubheading title="Portfolio" />
                 </label>
                 <input
                   type="text"
-                  name="website"
-                  placeholder="https://mywebsite.com"
+                  name="portfolio"
+                  placeholder="https://yourportfolio.com"
+                  className="text-sm text-slate-600 p-2 outline-none focus:ring-2 focus:ring-slate-500 focus:border-slate-300 border rounded-md"
+                />
+              </div>
+              <div className="flex flex-col gap-2">
+                <label htmlFor="blog">
+                  <DashboardSubheading title="Blog" />
+                </label>
+                <input
+                  type="text"
+                  name="blog"
+                  placeholder="https://yourblog.com"
                   className="text-sm text-slate-600 p-2 outline-none focus:ring-2 focus:ring-slate-500 focus:border-slate-300 border rounded-md"
                 />
               </div>
@@ -146,6 +161,7 @@ const UserSettings = () => {
                 <input
                   type="text"
                   name="linkedIn"
+                  placeholder="https://linkedin.com/in/username"
                   className="text-sm text-slate-600 p-2 outline-none focus:ring-2 focus:ring-slate-500 focus:border-slate-300 border rounded-md"
                 />
               </div>
@@ -156,6 +172,7 @@ const UserSettings = () => {
                 <input
                   type="text"
                   name="twitter"
+                  placeholder="https://x.com/@username"
                   className="text-sm text-slate-600 p-2 outline-none focus:ring-2 focus:ring-slate-500 focus:border-slate-300 border rounded-md"
                 />
               </div>
@@ -166,6 +183,7 @@ const UserSettings = () => {
                 <input
                   type="text"
                   name="facebook"
+                  placeholder="https://facebook.com/username"
                   className="text-sm text-slate-600 p-2 outline-none focus:ring-2 focus:ring-slate-500 focus:border-slate-300 border rounded-md"
                 />
               </div>
@@ -176,16 +194,7 @@ const UserSettings = () => {
                 <input
                   type="text"
                   name="instagram"
-                  className="text-sm text-slate-600 p-2 outline-none focus:ring-2 focus:ring-slate-500 focus:border-slate-300 border rounded-md"
-                />
-              </div>
-              <div className="flex flex-col gap-2">
-                <label htmlFor="hashnode">
-                  <DashboardSubheading title="Hashnode" />
-                </label>
-                <input
-                  type="text"
-                  name="hashnode"
+                  placeholder="https://instagram.com/username"
                   className="text-sm text-slate-600 p-2 outline-none focus:ring-2 focus:ring-slate-500 focus:border-slate-300 border rounded-md"
                 />
               </div>
@@ -196,16 +205,7 @@ const UserSettings = () => {
                 <input
                   type="text"
                   name="stackoverflow"
-                  className="text-sm text-slate-600 p-2 outline-none focus:ring-2 focus:ring-slate-500 focus:border-slate-300 border rounded-md"
-                />
-              </div>
-              <div className="flex flex-col gap-2">
-                <label htmlFor="mastodon">
-                  <DashboardSubheading title="Mastodon" />
-                </label>
-                <input
-                  type="text"
-                  name="mastodon"
+                  placeholder="https://stackoverflow.com/users/7953084/username"
                   className="text-sm text-slate-600 p-2 outline-none focus:ring-2 focus:ring-slate-500 focus:border-slate-300 border rounded-md"
                 />
               </div>
@@ -216,13 +216,21 @@ const UserSettings = () => {
                 <input
                   type="text"
                   name="youtube"
+                  placeholder="https://youtube.com/@username"
                   className="text-sm text-slate-600 p-2 outline-none focus:ring-2 focus:ring-slate-500 focus:border-slate-300 border rounded-md"
                 />
               </div>
-              <p className="opacity-60 text-sm">
-                These will serve as your social media display links for others
-                to connect with you.
-              </p>
+              <div className="flex flex-col gap-2">
+                <label htmlFor="mastodon">
+                  <DashboardSubheading title="Mastodon" />
+                </label>
+                <input
+                  type="text"
+                  name="mastodon"
+                  placeholder="https://mastodon.com/@username"
+                  className="text-sm text-slate-600 p-2 outline-none focus:ring-2 focus:ring-slate-500 focus:border-slate-300 border rounded-md"
+                />
+              </div>
             </div>
           </WhiteArea>
           <div className="flex p-2">
