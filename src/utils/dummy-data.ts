@@ -54,7 +54,7 @@ export const materials: Materials = [
     type: 'video',
     coverImageUrl:
       'https://cdn.hashnode.com/res/hashnode/image/upload/v1708947937926/9344241c-d2f5-4dc6-86e7-9fffd2927aa7.webp',
-    embedURL: '',
+    embedURL: 'https://www.youtube.com/embed/fS1lArPOHOU',
     date: '2023-07-25',
     duration: '40m',
     enrolled: true,
@@ -67,7 +67,7 @@ export const materials: Materials = [
     type: 'video',
     coverImageUrl:
       'https://cdn.hashnode.com/res/hashnode/image/upload/v1708947937926/9344241c-d2f5-4dc6-86e7-9fffd2927aa7.webp',
-    embedURL: '',
+    embedURL: 'https://www.youtube.com/embed/fS1lArPOHOU',
     date: '2023-07-26',
     duration: '60m',
   },
@@ -79,7 +79,7 @@ export const materials: Materials = [
     type: 'video',
     coverImageUrl:
       'https://cdn.hashnode.com/res/hashnode/image/upload/v1708947937926/9344241c-d2f5-4dc6-86e7-9fffd2927aa7.webp',
-    embedURL: '',
+    embedURL: 'https://www.youtube.com/embed/fS1lArPOHOU',
     date: '2023-07-27',
     duration: '30m',
   },
@@ -91,7 +91,7 @@ export const materials: Materials = [
     type: 'video',
     coverImageUrl:
       'https://cdn.hashnode.com/res/hashnode/image/upload/v1708988011051/e276e91e-7887-44eb-8129-c63fae9e8262.webp',
-    embedURL: '',
+    embedURL: 'https://www.youtube.com/embed/fS1lArPOHOU',
     date: '2023-07-28',
     duration: '50m',
     enrolled: true,
@@ -104,7 +104,7 @@ export const materials: Materials = [
     type: 'video',
     coverImageUrl:
       'https://cdn.hashnode.com/res/hashnode/image/upload/v1708988011051/e276e91e-7887-44eb-8129-c63fae9e8262.webp',
-    embedURL: '',
+    embedURL: 'https://www.youtube.com/embed/fS1lArPOHOU',
     date: '2023-07-29',
     duration: '80m',
     enrolled: true,
@@ -117,7 +117,7 @@ export const materials: Materials = [
     type: 'video',
     coverImageUrl:
       'https://cdn.hashnode.com/res/hashnode/image/upload/v1708988011051/e276e91e-7887-44eb-8129-c63fae9e8262.webp',
-    embedURL: '',
+    embedURL: 'https://www.youtube.com/embed/fS1lArPOHOU',
     date: '2023-07-30',
     duration: '40m',
   },
@@ -129,7 +129,7 @@ export const materials: Materials = [
     type: 'video',
     coverImageUrl:
       'https://cdn.hashnode.com/res/hashnode/image/upload/v1708988011051/e276e91e-7887-44eb-8129-c63fae9e8262.webp',
-    embedURL: '',
+    embedURL: 'https://www.youtube.com/embed/fS1lArPOHOU',
     date: '2023-07-31',
     duration: '60m',
     enrolled: true,
@@ -142,7 +142,7 @@ export const materials: Materials = [
     type: 'video',
     coverImageUrl:
       'https://cdn.hashnode.com/res/hashnode/image/upload/v1708988011051/e276e91e-7887-44eb-8129-c63fae9e8262.webp',
-    embedURL: '',
+    embedURL: 'https://www.youtube.com/embed/fS1lArPOHOU',
     date: '2023-08-01',
     duration: '50m',
     enrolled: true,
@@ -155,7 +155,7 @@ export const materials: Materials = [
     type: 'video',
     coverImageUrl:
       'https://cdn.hashnode.com/res/hashnode/image/upload/v1708988011051/e276e91e-7887-44eb-8129-c63fae9e8262.webp',
-    embedURL: '',
+    embedURL: 'https://www.youtube.com/embed/fS1lArPOHOU',
     date: '2023-08-02',
     duration: '30m',
     enrolled: true,
@@ -168,7 +168,7 @@ export const materials: Materials = [
     type: 'video',
     coverImageUrl:
       'https://cdn.hashnode.com/res/hashnode/image/upload/v1708988011051/e276e91e-7887-44eb-8129-c63fae9e8262.webp',
-    embedURL: '',
+    embedURL: 'https://www.youtube.com/embed/fS1lArPOHOU',
     date: '2023-08-03',
     duration: '40m',
     enrolled: true,
@@ -181,7 +181,7 @@ export const materials: Materials = [
     type: 'video',
     coverImageUrl:
       'https://cdn.hashnode.com/res/hashnode/image/upload/v1708988011051/e276e91e-7887-44eb-8129-c63fae9e8262.webp',
-    embedURL: '',
+    embedURL: 'https://www.youtube.com/embed/fS1lArPOHOU',
     date: '2023-08-04',
     duration: '60m',
     enrolled: true,
@@ -194,7 +194,7 @@ export const materials: Materials = [
     type: 'video',
     coverImageUrl:
       'https://cdn.hashnode.com/res/hashnode/image/upload/v1708988011051/e276e91e-7887-44eb-8129-c63fae9e8262.webp',
-    embedURL: '',
+    embedURL: 'https://www.youtube.com/embed/fS1lArPOHOU',
     date: '2023-08-05',
     duration: '5hrs',
     enrolled: true,
@@ -207,7 +207,7 @@ export const materials: Materials = [
     type: 'video',
     coverImageUrl:
       'https://cdn.hashnode.com/res/hashnode/image/upload/v1708988011051/e276e91e-7887-44eb-8129-c63fae9e8262.webp',
-    embedURL: '',
+    embedURL: 'https://www.youtube.com/embed/fS1lArPOHOU',
     date: '2023-08-06',
     duration: '4hrs',
   },
@@ -219,7 +219,7 @@ export const materials: Materials = [
     type: 'video',
     coverImageUrl:
       'https://cdn.hashnode.com/res/hashnode/image/upload/v1708988011051/e276e91e-7887-44eb-8129-c63fae9e8262.webp',
-    embedURL: '',
+    embedURL: 'https://www.youtube.com/embed/fS1lArPOHOU',
     date: '2023-08-07',
     duration: '6hrs',
   },
@@ -231,7 +231,7 @@ export const materials: Materials = [
     type: 'video',
     coverImageUrl:
       'https://cdn.hashnode.com/res/hashnode/image/upload/v1708988011051/e276e91e-7887-44eb-8129-c63fae9e8262.webp',
-    embedURL: '',
+    embedURL: 'https://www.youtube.com/embed/fS1lArPOHOU',
     date: '2023-08-08',
     duration: '5hrs',
   },
@@ -243,7 +243,7 @@ export const materials: Materials = [
     type: 'video',
     coverImageUrl:
       'https://cdn.hashnode.com/res/hashnode/image/upload/v1708988011051/e276e91e-7887-44eb-8129-c63fae9e8262.webp',
-    embedURL: '',
+    embedURL: 'https://www.youtube.com/embed/fS1lArPOHOU',
     date: '2023-08-09',
     duration: '6hrs',
   },
@@ -255,7 +255,7 @@ export const materials: Materials = [
     type: 'video',
     coverImageUrl:
       'https://cdn.hashnode.com/res/hashnode/image/upload/v1708988011051/e276e91e-7887-44eb-8129-c63fae9e8262.webp',
-    embedURL: '',
+    embedURL: 'https://www.youtube.com/embed/fS1lArPOHOU',
     date: '2023-08-10',
     duration: '5hrs',
   },
@@ -267,7 +267,7 @@ export const materials: Materials = [
     type: 'video',
     coverImageUrl:
       'https://cdn.hashnode.com/res/hashnode/image/upload/v1708988011051/e276e91e-7887-44eb-8129-c63fae9e8262.webp',
-    embedURL: '',
+    embedURL: 'https://www.youtube.com/embed/fS1lArPOHOU',
     date: '2023-08-11',
     duration: '6hrs',
   },
@@ -279,7 +279,7 @@ export const materials: Materials = [
     type: 'video',
     coverImageUrl:
       'https://cdn.hashnode.com/res/hashnode/image/upload/v1708947937926/9344241c-d2f5-4dc6-86e7-9fffd2927aa7.webp',
-    embedURL: '',
+    embedURL: 'https://www.youtube.com/embed/fS1lArPOHOU',
     date: '2023-08-12',
     duration: '4hrs',
   },
@@ -291,7 +291,7 @@ export const materials: Materials = [
     type: 'video',
     coverImageUrl:
       'https://cdn.hashnode.com/res/hashnode/image/upload/v1708947937926/9344241c-d2f5-4dc6-86e7-9fffd2927aa7.webp',
-    embedURL: '',
+    embedURL: 'https://www.youtube.com/embed/fS1lArPOHOU',
     date: '2023-08-13',
     duration: '5hrs',
   },

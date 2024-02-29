@@ -70,7 +70,11 @@ export const IconButton = React.forwardRef<HTMLButtonElement, IconButtonProps>(
         />
       );
     }
-    const mappedIconSize: { [key: string]: string } = { sm: '12', md: '16' };
+    const mappedIconSize: { [key: string]: string } = {
+      sm: '12',
+      md: '16',
+      lg: '20',
+    };
 
     if (typeof Icon === 'undefined') {
       return null;
