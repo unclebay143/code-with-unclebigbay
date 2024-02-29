@@ -10,9 +10,7 @@ import { OverviewCard } from '@/components/dashboard/overview-card';
 import { ActivityLogs } from '@/components/dashboard/activity-logs';
 import { Courses } from '@/components/dashboard/courses';
 
-type Props = {};
-
-const Page = (props: Props) => {
+const Page = () => {
   const [showQuoteWidget, setShowQuoteWidget] = useState<boolean>(true);
   const noRecentMaterials = materials.length === 0;
   const [courseFilter, setCourseFilter] = useState<
@@ -23,7 +21,7 @@ const Page = (props: Props) => {
       {showQuoteWidget && (
         <QuoteOfTheDay close={() => setShowQuoteWidget(false)} />
       )}
-      <WhiteArea twColor="bg-slate-50" border>
+      <WhiteArea twClass="bg-slate-50" border>
         <section className="flex flex-col gap-3">
           <DashboardSubheading title="Your course overview" />
           <section className="w-full grid sm:grid-cols-2 md:grid-cols-3 gap-5">
@@ -47,7 +45,7 @@ const Page = (props: Props) => {
         ) : (
           <section className="flex flex-col gap-3">
             <DashboardSubheading title="Recent learning materials" />
-            <Courses />
+            <Courses size={10} showLoadMoreButton />
           </section>
         )}
       </WhiteArea>

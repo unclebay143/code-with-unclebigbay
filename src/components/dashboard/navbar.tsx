@@ -2,7 +2,7 @@ import React from 'react';
 import type { Session } from 'next-auth';
 import Image from 'next/image';
 import { CodeWithUnclebigbayLogo } from '../ui/CodeWithUnclebigbayLogo';
-import { ChevronDown, LogOut, Menu, Settings } from 'lucide-react';
+import { ChevronDown, HelpCircle, LogOut, Menu, Settings } from 'lucide-react';
 import { MenuButton } from './menu-button';
 import {
   DropdownMenu,
@@ -69,6 +69,11 @@ export const Navbar = ({ session, setSidebarOpen }: Props) => {
                     label="Settings"
                     Icon={Settings}
                     url="/dashboard/settings"
+                  />
+                  <MenuButton
+                    label="Help Centers"
+                    Icon={HelpCircle}
+                    url="/dashboard/help-centers"
                   />
                   <MenuButton
                     label="Sign out"
