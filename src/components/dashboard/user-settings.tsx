@@ -53,6 +53,7 @@ const UserSettings = () => {
                 id="name"
                 value={user?.name}
                 className="text-sm text-slate-600 p-2 outline-none focus:ring-2 focus:ring-slate-500 focus:border-slate-300 border rounded-md"
+                disabled
               />
               <p className="opacity-60 text-sm">
                 This will be your display name on this app.
@@ -84,7 +85,6 @@ const UserSettings = () => {
               <select
                 name="stack"
                 id="stack"
-                value="stack"
                 className="p-2 border bg-slate-100 rounded-md outline-none"
               >
                 <option>Frontend</option>
@@ -118,6 +118,17 @@ const UserSettings = () => {
             <div className="flex flex-col gap-3">
               <DashboardSubheading title="Social Media" />
               <div className="flex flex-col gap-2">
+                <label htmlFor="website">
+                  <DashboardSubheading title="Website" />
+                </label>
+                <input
+                  type="text"
+                  name="website"
+                  placeholder="https://mywebsite.com"
+                  className="text-sm text-slate-600 p-2 outline-none focus:ring-2 focus:ring-slate-500 focus:border-slate-300 border rounded-md"
+                />
+              </div>
+              <div className="flex flex-col gap-2">
                 <label htmlFor="github">
                   <DashboardSubheading title="GitHub" />
                 </label>
@@ -149,12 +160,62 @@ const UserSettings = () => {
                 />
               </div>
               <div className="flex flex-col gap-2">
+                <label htmlFor="facebook">
+                  <DashboardSubheading title="Facebook" />
+                </label>
+                <input
+                  type="text"
+                  name="facebook"
+                  className="text-sm text-slate-600 p-2 outline-none focus:ring-2 focus:ring-slate-500 focus:border-slate-300 border rounded-md"
+                />
+              </div>
+              <div className="flex flex-col gap-2">
+                <label htmlFor="instagram">
+                  <DashboardSubheading title="Instagram" />
+                </label>
+                <input
+                  type="text"
+                  name="instagram"
+                  className="text-sm text-slate-600 p-2 outline-none focus:ring-2 focus:ring-slate-500 focus:border-slate-300 border rounded-md"
+                />
+              </div>
+              <div className="flex flex-col gap-2">
                 <label htmlFor="hashnode">
                   <DashboardSubheading title="Hashnode" />
                 </label>
                 <input
                   type="text"
                   name="hashnode"
+                  className="text-sm text-slate-600 p-2 outline-none focus:ring-2 focus:ring-slate-500 focus:border-slate-300 border rounded-md"
+                />
+              </div>
+              <div className="flex flex-col gap-2">
+                <label htmlFor="stackoverflow">
+                  <DashboardSubheading title="Stackoverflow" />
+                </label>
+                <input
+                  type="text"
+                  name="stackoverflow"
+                  className="text-sm text-slate-600 p-2 outline-none focus:ring-2 focus:ring-slate-500 focus:border-slate-300 border rounded-md"
+                />
+              </div>
+              <div className="flex flex-col gap-2">
+                <label htmlFor="mastodon">
+                  <DashboardSubheading title="Mastodon" />
+                </label>
+                <input
+                  type="text"
+                  name="mastodon"
+                  className="text-sm text-slate-600 p-2 outline-none focus:ring-2 focus:ring-slate-500 focus:border-slate-300 border rounded-md"
+                />
+              </div>
+              <div className="flex flex-col gap-2">
+                <label htmlFor="youtube">
+                  <DashboardSubheading title="Youtube" />
+                </label>
+                <input
+                  type="text"
+                  name="youtube"
                   className="text-sm text-slate-600 p-2 outline-none focus:ring-2 focus:ring-slate-500 focus:border-slate-300 border rounded-md"
                 />
               </div>
