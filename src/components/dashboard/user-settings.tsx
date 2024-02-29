@@ -16,36 +16,44 @@ const UserSettings = () => {
   const { data: session } = useSession();
   const user = session?.user as Props;
   return (
-    <div className="lg:w-[80%]">
-      <WhiteArea border>
-        <div className="flex flex-col gap-4">
-          <WhiteArea border>
-            <section className="flex flex-col gap-4 justify-stretch">
-              <label htmlFor="photo">
-                <DashboardSubheading title="Profile Picture" />
+    <div className="lg:w-[80%] px-3">
+      {/* <WhiteArea border> */}
+      <div className="flex flex-col gap-4">
+        <WhiteArea border>
+          <section className="flex flex-col gap-4 justify-stretch">
+            <label htmlFor="photo" className="border-b pb-3">
+              <DashboardSubheading title="Profile Picture" />
+              <p className="opacity-60 text-sm">Sourced from GitHub</p>
+            </label>
+            <div className="flex flex-col items-start">
+              <label
+                htmlFor="photo"
+                className="flex flex-col items-center justify-center w-full h-64 rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-bray-800 dark:bg-gray-700 hover:bg-gray-100"
+              >
+                <Image
+                  src={user?.image}
+                  alt={user?.name}
+                  width={200}
+                  height={200}
+                  className="rounded-full"
+                />
+                <input disabled id="photo" type="file" className="hidden" />
               </label>
-              <div className="flex flex-col items-start">
-                <label
-                  htmlFor="photo"
-                  className="flex flex-col items-center justify-center w-full h-64 rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-bray-800 dark:bg-gray-700 hover:bg-gray-100"
-                >
-                  <Image
-                    src={user?.image}
-                    alt={user?.name}
-                    width={200}
-                    height={200}
-                    className="rounded-full"
-                  />
-                  <input id="photo" type="file" className="hidden" />
-                </label>
-              </div>
-            </section>
-          </WhiteArea>
+            </div>
+          </section>
+        </WhiteArea>
 
-          <WhiteArea border>
+        <WhiteArea border>
+          <div className="flex flex-col gap-5">
+            <div className="border-b pb-3">
+              <DashboardSubheading title="Personal Information" />
+            </div>
             <div className="flex flex-col gap-3">
               <label htmlFor="name">
                 <DashboardSubheading title="Name" />
+                <p className="opacity-60 text-sm">
+                  This will be your display name on this app.
+                </p>
               </label>
               <input
                 type="text"
@@ -55,15 +63,14 @@ const UserSettings = () => {
                 className="text-sm text-slate-600 p-2 outline-none focus:ring-2 focus:ring-slate-500 focus:border-slate-300 border rounded-md"
                 disabled
               />
-              <p className="opacity-60 text-sm">
-                This will be your display name on this app.
-              </p>
             </div>
-          </WhiteArea>
-          <WhiteArea border>
             <div className="flex flex-col gap-3">
               <label htmlFor="email">
                 <DashboardSubheading title="Email" />
+                <p className="opacity-60 text-sm">
+                  This is sourced from your GitHub profile and will be used for
+                  sending you notifications.
+                </p>
               </label>
               <input
                 type="text"
@@ -71,13 +78,14 @@ const UserSettings = () => {
                 className="text-sm text-slate-600 p-2 outline-none focus:ring-2 focus:ring-slate-500 focus:border-slate-300 border rounded-md"
                 disabled
               />
-              <p className="opacity-60 text-sm">
-                This is sourced from your GitHub profile and will be used for
-                sending you notifications.
-              </p>
             </div>
-          </WhiteArea>
-          <WhiteArea border>
+            <div className="flex">
+              <Button size="sm">Update</Button>
+            </div>
+          </div>
+        </WhiteArea>
+        <WhiteArea border>
+          <div className="flex flex-col gap-5">
             <div className="flex flex-col gap-3">
               <label htmlFor="stack">
                 <DashboardSubheading title="Stack" />
@@ -90,13 +98,14 @@ const UserSettings = () => {
                 <option>Frontend</option>
                 <option>Backend</option>
               </select>
-              <p className="opacity-60 text-sm"></p>
             </div>
-          </WhiteArea>
-          <WhiteArea border>
             <div className="flex flex-col gap-3">
               <label htmlFor="location">
                 <DashboardSubheading title="Location" />
+                <p className="opacity-60 text-sm">
+                  This will be use to recommend you to other students from your
+                  location.
+                </p>
               </label>
               <select
                 name="country"
@@ -108,40 +117,21 @@ const UserSettings = () => {
                 <option>Brazil</option>
                 <option>Nigeria</option>
               </select>
-              <p className="opacity-60 text-sm">
-                This will be use to recommend you to other students from your
-                location.
-              </p>
             </div>
-          </WhiteArea>
-          <WhiteArea border>
+            <div className="flex">
+              <Button size="sm">Update</Button>
+            </div>
+          </div>
+        </WhiteArea>
+        <WhiteArea border>
+          <div className="flex flex-col gap-5">
             <div className="flex flex-col gap-3">
-              <DashboardSubheading title="Social Media" />
-              <p className="opacity-60 text-sm">
-                These will serve as your social media display links for others
-                to connect with you.
-              </p>
-              <div className="flex flex-col gap-2">
-                <label htmlFor="portfolio">
-                  <DashboardSubheading title="Portfolio" />
-                </label>
-                <input
-                  type="text"
-                  name="portfolio"
-                  placeholder="https://yourportfolio.com"
-                  className="text-sm text-slate-600 p-2 outline-none focus:ring-2 focus:ring-slate-500 focus:border-slate-300 border rounded-md"
-                />
-              </div>
-              <div className="flex flex-col gap-2">
-                <label htmlFor="blog">
-                  <DashboardSubheading title="Blog" />
-                </label>
-                <input
-                  type="text"
-                  name="blog"
-                  placeholder="https://yourblog.com"
-                  className="text-sm text-slate-600 p-2 outline-none focus:ring-2 focus:ring-slate-500 focus:border-slate-300 border rounded-md"
-                />
+              <div className="border-b pb-3">
+                <DashboardSubheading title="Social Media" />
+                <p className="opacity-60 text-sm">
+                  These will serve as your social media display links for others
+                  to connect with you.
+                </p>
               </div>
               <div className="flex flex-col gap-2">
                 <label htmlFor="github">
@@ -231,15 +221,14 @@ const UserSettings = () => {
                   className="text-sm text-slate-600 p-2 outline-none focus:ring-2 focus:ring-slate-500 focus:border-slate-300 border rounded-md"
                 />
               </div>
+              <div className="flex">
+                <Button size="sm">Update</Button>
+              </div>
             </div>
-          </WhiteArea>
-          <div className="flex p-2">
-            <Button size="sm" appearance="secondary-slate">
-              Update
-            </Button>
           </div>
-        </div>
-      </WhiteArea>
+        </WhiteArea>
+      </div>
+      {/* </WhiteArea> */}
     </div>
   );
 };

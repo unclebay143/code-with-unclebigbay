@@ -6,13 +6,14 @@ import { Button } from '@/components/ui/Button';
 import { IconButton } from '@/components/ui/IconButton';
 import { YTVideo } from '@/components/ui/YTVideo';
 import { materials } from '@/utils/dummy-data';
-import { ChevronDown, ChevronUp } from 'lucide-react';
+import { ChevronDown, ChevronUp, HelpCircle } from 'lucide-react';
+import Link from 'next/link';
 import React, { useState } from 'react';
 
 type Props = {};
 
 const Page = (props: Props) => {
-  const { title, embedURL, description, coverImageURL } = materials[0];
+  const { title, embedURL, description, coverImageUrl } = materials[0];
   const [showMore, setShowMore] = useState(false);
   const [startedCourse, setStartedCourse] = useState(false);
 
@@ -22,8 +23,11 @@ const Page = (props: Props) => {
   return (
     <WhiteArea border>
       <div className="flex flex-col gap-5">
-        <div className="flex items-center gap-1 text-xl">
+        <div className="flex items-center justify-between gap-1 text-xl text-slate-600">
           <DashboardSubheading title={title} />
+          <Link href="/dashboard/help-centers">
+            <IconButton Icon={HelpCircle} size="lg" />
+          </Link>
         </div>
         {startedCourse ? (
           <section className="rounded overflow-hidden">
@@ -32,7 +36,7 @@ const Page = (props: Props) => {
         ) : (
           <section
             className="relative flex justify-center items-center rounded overflow-hidden aspect-video bg-slate-5 bg-no-repeat bg-cover"
-            style={{ backgroundImage: `url(${coverImageURL})` }}
+            style={{ backgroundImage: `url(${coverImageUrl})` }}
           >
             <div className="absolute bg-black/60 inset-0 w-full" />
             <div className="z-[1]">
