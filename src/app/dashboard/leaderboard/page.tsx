@@ -5,7 +5,7 @@ import { DashboardSubheading } from '@/components/dashboard/dashboard-subheading
 import { WhiteArea } from '@/components/dashboard/white-area';
 import { Button } from '@/components/ui/Button';
 import { communityMember, communityMembers } from '@/utils/dummy-data';
-import { MoreHorizontal } from 'lucide-react';
+import { MoreHorizontal, Trophy } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
 import React from 'react';
@@ -61,7 +61,7 @@ const Page = () => {
         <DashboardSubheading title="Leaderboard" />
         {/* <EmptyState label="Top 10 students will appear here" /> */}
         <section className="flex flex-col gap-3 overflow-x-scroll sm:overflow-hidden">
-          <div className="flex items-center justify-between pr-5 py-3 rounded-lg text-sm min-w-[300px]">
+          <div className="flex items-center py-3 rounded-lg text-sm">
             <div className="flex items-center gap-3 text-lg flex-wrap w-[300px] md:w-full">
               <Button size="xs">Frontend</Button>
               <Button appearance="secondary-slate" size="xs">
@@ -80,30 +80,82 @@ const Page = () => {
                 🇨🇮
               </Button>
             </div>
-            <h3 className="font-medium">Points</h3>
           </div>
-          {communityMembers.map(
-            ({ name, username, totalScore, flag, photo, stack }, index) => {
-              return (
-                <LeaderboardCard
-                  rank={index + 1}
-                  username={username}
-                  key={index}
-                  photo={photo}
-                  name={name}
-                  stack={stack}
-                  flag={flag}
-                  totalScore={totalScore}
-                />
-              );
-            },
-          )}
+          <div className="grid md:grid-cols-3 gap-3">
+            {communityMembers
+              .slice(0, 3)
+              .map(
+                (
+                  { name, username, totalScore, flag, photo, stack, rank },
+                  index,
+                ) => {
+                  return (
+                    <Link
+                      href=""
+                      key={index}
+                      className="relative flex flex-col items-center justify-center gap-3 border rounded-lg p-5"
+                    >
+                      <div className="absolute left-3 top-3">
+                        {rank === 1 ? (
+                          <p className="rounded-full bg-slate-100 py-3 px-3 text-slate-600">
+                            <Trophy size={24} />
+                          </p>
+                        ) : (
+                          <p className="font-bold text-xl rounded-full bg-slate-100 py-1 px-3 text-slate-600">
+                            {rank}
+                          </p>
+                        )}
+                      </div>
+                      <div className="flex items-center gap-2">
+                        <Link
+                          href=""
+                          className="relative rounded-full h-10 w-10 overflow-hidden"
+                        >
+                          <Image src={photo} alt="" fill />
+                        </Link>
+                      </div>
+                      <div className="text-center capitalize">
+                        <p className="text-slate-700 font-semibold">{name}</p>
+                        <p className="text-slate-500 text-sm">
+                          {stack}
+                          {flag}
+                        </p>
+                        <p className="text-slate-500 text-sm font-medium">
+                          {totalScore}
+                        </p>
+                      </div>
+                    </Link>
+                  );
+                },
+              )}
+          </div>
+          {communityMembers
+            .slice(3, 10)
+            .map(
+              (
+                { name, username, totalScore, flag, photo, stack, rank },
+                index,
+              ) => {
+                return (
+                  <LeaderboardCard
+                    rank={rank}
+                    username={username}
+                    key={index}
+                    photo={photo}
+                    name={name}
+                    stack={stack}
+                    flag={flag}
+                    totalScore={totalScore}
+                  />
+                );
+              },
+            )}
           <div className="my-1 text-slate-600">
             <MoreHorizontal size={20} />
           </div>
 
           <LeaderboardCard
-            rank="99"
+            rank={communityMember.rank}
             username={communityMember?.username}
             photo={communityMember?.photo}
             name={communityMember?.name}
