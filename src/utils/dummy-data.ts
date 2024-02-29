@@ -304,6 +304,7 @@ export const communityMember: CommunityMember = {
   photo:
     'https://cdn.hashnode.com/res/hashnode/image/upload/v1677222800340/7FWlpF0aT.jpeg',
   totalScore: 10,
+  rank: 99,
   flag: '🇦🇺',
 };
 
@@ -315,6 +316,17 @@ export const communityMembers: CommunityMembers = [
     photo:
       'https://cdn.hashnode.com/res/hashnode/image/upload/v1677222800340/7FWlpF0aT.jpeg',
     totalScore: 1000,
+    rank: 1,
+    flag: '',
+  },
+  {
+    name: 'Ayodele S. Adebayo',
+    stack: 'frontend',
+    username: 'unclebigbay',
+    photo:
+      'https://cdn.hashnode.com/res/hashnode/image/upload/v1677222800340/7FWlpF0aT.jpeg',
+    totalScore: 1000,
+    rank: 2,
     flag: '',
   },
   {
@@ -324,6 +336,7 @@ export const communityMembers: CommunityMembers = [
     photo:
       'https://cdn.hashnode.com/res/hashnode/image/upload/v1677222800340/7FWlpF0aT.jpeg',
     totalScore: 190,
+    rank: 3,
     flag: '🇦🇺',
   },
   {
@@ -333,6 +346,7 @@ export const communityMembers: CommunityMembers = [
     photo:
       'https://cdn.hashnode.com/res/hashnode/image/upload/v1677222800340/7FWlpF0aT.jpeg',
     totalScore: 180,
+    rank: 4,
     flag: '',
   },
   {
@@ -342,6 +356,7 @@ export const communityMembers: CommunityMembers = [
     photo:
       'https://cdn.hashnode.com/res/hashnode/image/upload/v1677222800340/7FWlpF0aT.jpeg',
     totalScore: 180,
+    rank: 5,
     flag: '🇦🇺',
   },
   {
@@ -351,6 +366,7 @@ export const communityMembers: CommunityMembers = [
     photo:
       'https://cdn.hashnode.com/res/hashnode/image/upload/v1677222800340/7FWlpF0aT.jpeg',
     totalScore: 170,
+    rank: 6,
     flag: '🇦🇺',
   },
   {
@@ -360,6 +376,7 @@ export const communityMembers: CommunityMembers = [
     photo:
       'https://cdn.hashnode.com/res/hashnode/image/upload/v1677222800340/7FWlpF0aT.jpeg',
     totalScore: 160,
+    rank: 7,
     flag: '🇦🇺',
   },
   {
@@ -369,6 +386,7 @@ export const communityMembers: CommunityMembers = [
     photo:
       'https://cdn.hashnode.com/res/hashnode/image/upload/v1677222800340/7FWlpF0aT.jpeg',
     totalScore: 60,
+    rank: 8,
     flag: '🇦🇺',
   },
   {
@@ -378,6 +396,7 @@ export const communityMembers: CommunityMembers = [
     photo:
       'https://cdn.hashnode.com/res/hashnode/image/upload/v1677222800340/7FWlpF0aT.jpeg',
     totalScore: 50,
+    rank: 9,
     flag: '🇦🇺',
   },
   {
@@ -387,6 +406,7 @@ export const communityMembers: CommunityMembers = [
     photo:
       'https://cdn.hashnode.com/res/hashnode/image/upload/v1677222800340/7FWlpF0aT.jpeg',
     totalScore: 30,
+    rank: 10,
     flag: '🇦🇺',
   },
   {
@@ -396,6 +416,7 @@ export const communityMembers: CommunityMembers = [
     photo:
       'https://cdn.hashnode.com/res/hashnode/image/upload/v1677222800340/7FWlpF0aT.jpeg',
     totalScore: 20,
+    rank: 11,
     flag: '🇦🇺',
   },
 ];
