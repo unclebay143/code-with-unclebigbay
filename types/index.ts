@@ -5,8 +5,11 @@ export type Material = {
   description: string;
   url: string;
   type: 'video' | 'post';
-  coverImageURL: string;
+  coverImageUrl: string;
   embedURL: string;
+  duration: string;
+  date: string;
+  enrolled?: boolean;
 };
 
 export type Materials = Material[];
@@ -26,3 +29,14 @@ export type Overview = {
   active?: boolean;
   setCurrentCourse?: Function;
 };
+
+export type CommunityMember = {
+  name: string;
+  stack: string;
+  username: string;
+  photo: string;
+  totalScore: number;
+  flag: string;
+};
+
+export type CommunityMembers = CommunityMember[];

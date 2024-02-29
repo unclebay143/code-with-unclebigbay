@@ -27,7 +27,7 @@ const Page = () => {
       <WhiteArea border>
         <div className="flex flex-col gap-5">
           <DashboardSubheading title="Available Courses" />
-          <Courses materials={Array(50).fill(materials[0])} />
+          <Courses materials={materials} showCounter />
         </div>
       </WhiteArea>
     </div>
