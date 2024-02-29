@@ -114,7 +114,7 @@ const UserSettings = () => {
         <WhiteArea border>
           <div className="flex flex-col gap-5">
             <div className="border-b pb-3">
-              <DashboardSubheading title="Professional Information" />
+              <DashboardSubheading title="Professional Details" />
             </div>
             <div className="flex flex-col gap-2">
               <label htmlFor="stack">
