@@ -47,7 +47,7 @@ const Page = (props: Props) => {
               </Link>
             </WhiteArea>
             <WhiteArea
-              twClass="text-white bg-[#7289DA] bg-opacity-95 hover:bg-opacity-100 md:col-span-2 md:col-span-1"
+              twClass="text-white bg-[#7289DA] bg-opacity-95 hover:bg-opacity-100"
               border
             >
               <Link href="" className="flex items-center justify-center p-10">
