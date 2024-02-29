@@ -6,6 +6,7 @@ export type Material = {
   url: string;
   type: 'video' | 'post';
   coverImageURL: string;
+  embedURL: string;
 };
 
 export type Materials = Material[];
