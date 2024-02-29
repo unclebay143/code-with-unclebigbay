@@ -10,9 +10,7 @@ import { OverviewCard } from '@/components/dashboard/overview-card';
 import { ActivityLogs } from '@/components/dashboard/activity-logs';
 import { Courses } from '@/components/dashboard/courses';
 
-type Props = {};
-
-const Page = (props: Props) => {
+const Page = () => {
   const [showQuoteWidget, setShowQuoteWidget] = useState<boolean>(true);
   const noRecentMaterials = materials.length === 0;
   const [courseFilter, setCourseFilter] = useState<
@@ -47,7 +45,7 @@ const Page = (props: Props) => {
         ) : (
           <section className="flex flex-col gap-3">
             <DashboardSubheading title="Recent learning materials" />
-            <Courses />
+            <Courses size={10} showLoadMoreButton />
           </section>
         )}
       </WhiteArea>
