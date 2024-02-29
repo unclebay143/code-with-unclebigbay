@@ -5,6 +5,7 @@ import { EmptyState } from '@/components/dashboard/empty-state';
 import { WhiteArea } from '@/components/dashboard/white-area';
 import { Button } from '@/components/ui/Button';
 import { communityMember, communityMembers } from '@/lib/constants';
+import { MoreHorizontal } from 'lucide-react';
 import Image from 'next/image';
 import React from 'react';
 
@@ -43,7 +44,7 @@ const Page = (props: Props) => {
               return (
                 <div
                   key={index}
-                  className="flex items-center justify-between bg-slate-50 p-3 px-5 border rounded-lg min-w-[300px]"
+                  className="flex items-center justify-between bg-slate-50/70 p-3 px-5 border border-slate-200/75 rounded-lg min-w-[300px]"
                 >
                   <div className="flex items-center gap-2">
                     <span className="text-2xl text-opacity-[1] text-slate-400 font-medium">
@@ -90,7 +91,7 @@ const Page = (props: Props) => {
                       <Image fill src={photo} alt="" />
                     </div>
                     <div>
-                      <h3 className="font-medium text-slate-950">{name}</h3>
+                      <h3 className="font-semibold text-slate-700">{name}</h3>
                       <div className="flex items-center gap-2">
                         {stack && (
                           <h3 className="font-medium capitalize text-sm text-slate-600">
@@ -110,6 +111,80 @@ const Page = (props: Props) => {
               );
             },
           )}
+          <div className="my-1 text-slate-600">
+            <MoreHorizontal size={20} />
+          </div>
+          <div className="w-full flex flex-col">
+            <div className="w-full flex items-center justify-between bg-slate-50/70 p-3 px-5 border border-slate-200/75 rounded-lg min-w-[300px]">
+              <div className="flex items-center gap-2">
+                <span className="text-2xl text-opacity-[1] text-slate-400 font-medium">
+                  #50
+                </span>
+                <div className="relative rounded-full h-8 w-8 overflow-hidden">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    xmlnsXlink="http://www.w3.org/1999/xlink"
+                    width="64px"
+                    height="64px"
+                    viewBox="0 0 80 80"
+                    version="1.1"
+                  >
+                    <defs>
+                      <linearGradient
+                        x1="0%"
+                        y1="0%"
+                        x2="100%"
+                        y2="100%"
+                        id="g"
+                      >
+                        <stop stopColor="#e006f9" offset="0%" />
+                        <stop stopColor="#f9e006" offset="100%" />
+                      </linearGradient>
+                    </defs>
+                    <g
+                      id="Page-1"
+                      stroke="none"
+                      strokeWidth={1}
+                      fill="none"
+                      fillRule="evenodd"
+                    >
+                      <rect
+                        id="Rectangle"
+                        fill="url(#g)"
+                        x={0}
+                        y={0}
+                        width={80}
+                        height={80}
+                      />
+                    </g>
+                  </svg>
+                  {/* <Image fill src={communityMember.photo} alt="" /> */}
+                </div>
+                <div>
+                  <h3 className="font-semibold text-slate-700">
+                    {communityMember.name}
+                  </h3>
+                  <div className="flex items-center gap-2">
+                    {communityMember.stack && (
+                      <h3 className="font-medium capitalize text-sm text-slate-600">
+                        {communityMember.stack}
+                      </h3>
+                    )}
+                    {communityMember.flag && (
+                      <h3 className="font-medium">{communityMember.flag}</h3>
+                    )}
+                  </div>
+                </div>
+              </div>
+              <div className="">
+                <div className="flex items-center h-6 px-1 bg-slate-100 text-slate-500 rounded-full">
+                  <span className="text-xs font-medium">
+                    {communityMember.totalScore}
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
         </section>
       </div>
     </WhiteArea>
