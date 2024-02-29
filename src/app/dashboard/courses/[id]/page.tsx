@@ -12,7 +12,7 @@ import React, { useState } from 'react';
 type Props = {};
 
 const Page = (props: Props) => {
-  const { title, embedURL, description, coverImageURL } = materials[0];
+  const { title, embedURL, description, coverImageUrl } = materials[0];
   const [showMore, setShowMore] = useState(false);
   const [startedCourse, setStartedCourse] = useState(false);
 
@@ -32,7 +32,7 @@ const Page = (props: Props) => {
         ) : (
           <section
             className="relative flex justify-center items-center rounded overflow-hidden aspect-video bg-slate-5 bg-no-repeat bg-cover"
-            style={{ backgroundImage: `url(${coverImageURL})` }}
+            style={{ backgroundImage: `url(${coverImageUrl})` }}
           >
             <div className="absolute bg-black/60 inset-0 w-full" />
             <div className="z-[1]">

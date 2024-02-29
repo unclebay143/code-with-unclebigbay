@@ -11,7 +11,8 @@ type CourseCardProps = {
 };
 
 export const CourseCard = ({ layout = 'grid', material }: CourseCardProps) => {
-  const { type, title, description, coverImageURL } = material;
+  const { type, title, description, coverImageUrl, duration, enrolled } =
+    material;
   const id = window.crypto.randomUUID();
 
   const mapTypeToIcon: { [key: string]: LucideIcon } = {
@@ -44,26 +45,35 @@ export const CourseCard = ({ layout = 'grid', material }: CourseCardProps) => {
               className="h-full w-full inline-block relative"
             >
               <Image
-                src={coverImageURL}
+                src={coverImageUrl}
                 alt=""
                 className="w-full h-full"
                 fill
               />
             </Link>
           </div>
-          <section className="p-6 flex flex-col gap-3">
-            <div className="flex items-start justify-between">
-              <Link
-                href=""
-                className="text-gray-700 font-medium hover:text-slate-800 text-lg line-clamp-2"
-              >
-                {title}
-              </Link>
-              <span className="py-1 px-3 rounded-full bg-slate-100 text-xs font-semibold">
-                45m
-              </span>
+          <section className="h-full p-6 flex flex-col gap-3">
+            <div className="flex flex-col gap-3">
+              <div className="flex items-start justify-between">
+                <Link
+                  href=""
+                  className="text-gray-700 font-medium hover:text-slate-800 text-lg line-clamp-2"
+                >
+                  {title}
+                </Link>
+                <span className="py-1 px-3 rounded-full bg-slate-100 text-xs font-semibold">
+                  {duration}
+                </span>
+              </div>
+              <p className="text-slate-500">{description}</p>
             </div>
-            <p className="text-slate-500">{description}</p>
+            <div>
+              {enrolled && (
+                <span className="w-fit text-xs rounded px-3 py-1 bg-slate-100 text-slate-600 font-medium">
+                  Enrolled
+                </span>
+              )}
+            </div>
           </section>
         </div>
       )}
