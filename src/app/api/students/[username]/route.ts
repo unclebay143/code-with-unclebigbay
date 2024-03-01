@@ -1,10 +1,9 @@
-import { NextApiRequest } from 'next';
 import { NextResponse } from 'next/server';
 import { Student } from '@/app/models/student';
 import connectViaMongoose from '@/utils/mongoose';
 
 const GET = async (
-  req: NextApiRequest,
+  req: NextResponse,
   { params }: { params: { username: string } },
 ) => {
   try {
