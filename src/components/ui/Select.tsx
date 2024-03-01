@@ -16,7 +16,7 @@ export interface SelectTriggerProps extends RadixSelect.SelectTriggerProps {
   label?: string;
   startIcon?: any;
   size?: 'xs' | 'sm' | 'md' | 'lg';
-  shape?: 'rectangle' | 'pill';
+  shape?: 'rectangle' | 'pill' | 'md-rectangle';
   borderless?: boolean;
   placeholder?: string;
 }
@@ -49,6 +49,7 @@ const selectTrigger = cva(
       },
       shape: {
         rectangle: ['rounded-xl'],
+        'md-rectangle': ['rounded-md'],
         pill: ['rounded-full'],
       },
       border: {
@@ -71,6 +72,7 @@ const selectViewport = cva(
   bg-white dark:bg-slate-950
   rounded-xl shadow-xl 
   outline-none border border-slate-200 dark:border-slate-800/80
+  max-h-[var(--radix-select-content-available-height)]
   `,
 );
 

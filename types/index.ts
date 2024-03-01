@@ -37,6 +37,7 @@ export type CommunityMember = {
   photo: string;
   totalScore: number;
   flag: string;
+  rank: number;
 };
 
 export type CommunityMembers = CommunityMember[];
