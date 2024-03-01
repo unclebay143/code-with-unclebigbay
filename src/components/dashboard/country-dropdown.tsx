@@ -31,7 +31,7 @@ export const CountryDropdown = () => {
   return (
     <select className="p-2 border bg-slate-100 rounded-md outline-none">
       <option value="country" className="hidden ">
-        Select your current country of residence
+        Select your current country of residence...
       </option>
       {countries.map((country, index) => (
         <option value={country.name.common} key={index}>
