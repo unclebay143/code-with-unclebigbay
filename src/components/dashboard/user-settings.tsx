@@ -5,6 +5,7 @@ import Image from 'next/image';
 import { useSession } from 'next-auth/react';
 import { WhiteArea } from './white-area';
 import { DashboardSubheading } from './dashboard-subheading';
+import { CountryDropdown } from './country-dropdown';
 
 type Props = {
   name: string;
@@ -95,16 +96,16 @@ const UserSettings = () => {
                   location.
                 </p>
               </label>
-              <select
+              {/* <select
                 name="country"
                 id="location"
                 className="p-2 border bg-slate-100 rounded-md outline-none"
               >
-                {/* free country endpoint will be map through to display all the countries */}
                 <option>Argentina</option>
                 <option>Brazil</option>
                 <option>Nigeria</option>
-              </select>
+              </select> */}
+              <CountryDropdown />
             </div>
             <div className="flex">
               <Button size="sm">Update</Button>
