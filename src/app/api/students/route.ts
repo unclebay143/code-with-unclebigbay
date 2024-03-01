@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import { Student } from '@/app/models/user';
+import { Student } from '@/app/models/student';
 import connectViaMongoose from '@/utils/mongoose';
 
 const GET = async () => {
