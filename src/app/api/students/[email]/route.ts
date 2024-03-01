@@ -2,23 +2,20 @@ import { NextResponse } from 'next/server';
 import { Student } from '@/app/models/student';
 import connectViaMongoose from '@/utils/mongoose';
 
-const GET = async (
-  req: Request,
-  { params }: { params: { username: string } },
-) => {
+const GET = async (req: Request, { params }: { params: { email: string } }) => {
   try {
-    const username = params.username;
-    if (!username) {
+    const email = params.email;
+    if (!email) {
       return NextResponse.json(
-        { message: 'Student username is required' },
+        { message: 'Student email is required' },
         {
           status: 400,
         },
       );
     }
     await connectViaMongoose();
-    const student = await Student.findOne({ username: username });
-    if (student) {
+    const student = await Student.findOne({ email: email });
+    if (!student) {
       return NextResponse.json(
         { message: 'Student profile not found', student },
         {
