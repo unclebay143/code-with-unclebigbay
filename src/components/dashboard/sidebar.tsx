@@ -1,6 +1,13 @@
 import React, { useState } from 'react';
 import type { LucideIcon } from 'lucide-react';
-import { ActivityIcon, BarChart, LibraryBig, Trophy } from 'lucide-react';
+import {
+  ActivityIcon,
+  BarChart,
+  HelpCircle,
+  LibraryBig,
+  Settings,
+  Trophy,
+} from 'lucide-react';
 import { usePathname } from 'next/navigation';
 import Link from 'next/link';
 import { SlideOver, SlideOverHeader } from '../ui/SlideOver';
@@ -16,6 +23,7 @@ type SidebarLink = {
   slug: string;
   Icon: LucideIcon;
   isActive?: boolean;
+  shadowHide?: boolean;
   onClick?: () => void;
 };
 
@@ -35,6 +43,20 @@ const sidebarLinks: SidebarLinks = [
     label: 'Activity Log',
     slug: 'activity',
     Icon: ActivityIcon,
+  },
+  {
+    key: 'settings',
+    label: 'settings',
+    slug: 'settings',
+    Icon: Settings,
+    shadowHide: true,
+  },
+  {
+    key: 'help-centers',
+    label: 'Help Centers',
+    slug: 'help-centers',
+    Icon: HelpCircle,
+    shadowHide: true,
   },
 ];
 
@@ -65,14 +87,16 @@ export const Sidebar = (props: Props) => {
         <div
           className={`border rounded-lg flex flex-col gap-1 px-2 fixed py-4 z-10 bg-white dark:bg-slate-950 w-[270px] transition-transform ease-in-out -translate-x-full lg:translate-x-0 ${sidebarOpen && 'translate-x-0'}`}
         >
-          {sidebarLinks.map(({ key, label, Icon, slug }) => {
+          {sidebarLinks.map(({ key, label, Icon, slug, shadowHide }) => {
+            const isCurrentPage = currentPageName === key.toLowerCase();
+            if (shadowHide && !isCurrentPage) return;
             return (
               <SidebarLink
                 key={`sidebar-link-${key}`}
                 label={label}
                 Icon={Icon}
                 slug={slug}
-                isActive={currentPageName === key.toLowerCase()}
+                isActive={isCurrentPage}
               />
             );
           })}
@@ -105,7 +129,9 @@ export const SidebarMobile = ({
             </div>
           </div>
 
-          {sidebarLinks.map(({ key, label, Icon, slug }) => {
+          {sidebarLinks.map(({ key, label, Icon, slug, shadowHide }) => {
+            const isCurrentPage = currentPageName === key.toLowerCase();
+            if (shadowHide && !isCurrentPage) return;
             return (
               <SidebarLink
                 key={`sidebar-link-${key}`}
