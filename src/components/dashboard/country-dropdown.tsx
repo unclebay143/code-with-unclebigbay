@@ -1,4 +1,11 @@
 import React, { useState, useEffect } from 'react';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectViewPort,
+} from '../ui/Select';
 
 interface Country {
   name: { common: string };
@@ -29,15 +36,22 @@ export const CountryDropdown = () => {
   }, []);
 
   return (
-    <select className="p-2 border bg-slate-100 rounded-md outline-none">
-      <option value="country" className="hidden ">
-        Select your current country of residence...
-      </option>
-      {countries.map((country, index) => (
-        <option value={country.name.common} key={index}>
-          {country.name.common}
-        </option>
-      ))}
-    </select>
+    <Select onValueChange={(e) => console.log(e)}>
+      <SelectTrigger size="md" placeholder="Select a course..." />
+      <SelectContent
+        position="item-aligned"
+        className="max-h-[var(--radix-select-content-available-height)]"
+      >
+        <SelectViewPort>
+          {countries.map((country, index) => (
+            <SelectItem
+              value={country.name.common}
+              label={country.name.common}
+              key={index}
+            />
+          ))}
+        </SelectViewPort>
+      </SelectContent>
+    </Select>
   );
 };
