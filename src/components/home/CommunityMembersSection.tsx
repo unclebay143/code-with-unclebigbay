@@ -27,17 +27,6 @@ async function getStudents() {
       },
     });
 
-    const url2 = `${baseURL}/api/students/unclebay143`;
-    const result2 = await fetch(url2, {
-      cache: 'no-store',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    });
-    const data = await result2.json();
-
-    console.log(data);
-
     if (!result.ok) {
       console.log(result.statusText);
       return [];
