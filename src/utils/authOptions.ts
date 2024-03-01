@@ -1,7 +1,7 @@
 import type { NextAuthOptions, Profile } from 'next-auth';
 import GitHubProvider from 'next-auth/providers/github';
 import connectViaMongoose from './mongoose';
-import { Student } from '@/app/models/user';
+import { Student } from '@/app/models/student';
 
 export const authOptions = {
   providers: [
