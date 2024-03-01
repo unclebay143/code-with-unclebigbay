@@ -22,7 +22,7 @@ const GET = async (
       return NextResponse.json(
         { message: 'Student profile not found', student },
         {
-          status: 204,
+          status: 404,
         },
       );
     }
