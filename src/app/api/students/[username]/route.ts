@@ -3,7 +3,7 @@ import { Student } from '@/app/models/student';
 import connectViaMongoose from '@/utils/mongoose';
 
 const GET = async (
-  req: NextResponse,
+  req: Request,
   { params }: { params: { username: string } },
 ) => {
   try {
