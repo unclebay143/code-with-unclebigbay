@@ -1,6 +1,6 @@
 'use client';
 import { Button } from '@/components/ui/Button';
-import React from 'react';
+import React, { useEffect } from 'react';
 import Image from 'next/image';
 import { useSession } from 'next-auth/react';
 import { WhiteArea } from './white-area';
@@ -13,6 +13,7 @@ import {
   SelectTrigger,
   SelectViewPort,
 } from '../ui/Select';
+import { baseURL } from '../../../frontend.config';
 
 type Props = {
   name: string;
@@ -23,6 +24,26 @@ type Props = {
 const UserSettings = () => {
   const { data: session } = useSession();
   const user = session?.user as Props;
+
+  useEffect(() => {
+    const fetchStudentProfile = async () => {
+      const url = `${baseURL}/api/students/${user.email}`;
+      const result = await fetch(url, {
+        cache: 'no-store',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+      console.log(await result.json());
+
+      if (!result.ok) {
+        console.log(result.statusText);
+        return [];
+      }
+    };
+    fetchStudentProfile();
+  }, []);
+
   return (
     <div className="lg:w-[80%] px-3">
       <div className="flex flex-col gap-4">
@@ -35,7 +56,7 @@ const UserSettings = () => {
             <div className="flex flex-col items-start">
               <label
                 htmlFor="photo"
-                className="flex flex-col items-center justify-center w-full h-64 rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-bray-800 dark:bg-gray-700 hover:bg-gray-100"
+                className="flex flex-col items-center justify-center w-full h-64 rounded-lg bg-gray-50 dark:hover:bg-bray-800 dark:bg-gray-700 hover:bg-gray-100"
               >
                 <Image
                   src={user?.image}
@@ -67,7 +88,7 @@ const UserSettings = () => {
                 name=""
                 id="name"
                 value={user?.name}
-                className="text-sm text-slate-600 p-2 outline-none focus:ring-2 focus:ring-slate-500 focus:border-slate-300 border rounded-md"
+                className="disabled:cursor-not-allowed text-sm text-slate-600 p-2 outline-none focus:ring-2 focus:ring-slate-500 focus:border-slate-300 border rounded-md"
                 disabled
               />
             </div>
@@ -82,7 +103,7 @@ const UserSettings = () => {
               <input
                 type="text"
                 value={user?.email}
-                className="text-sm text-slate-600 p-2 outline-none focus:ring-2 focus:ring-slate-500 focus:border-slate-300 border rounded-md"
+                className="disabled:cursor-not-allowed text-sm text-slate-600 p-2 outline-none focus:ring-2 focus:ring-slate-500 focus:border-slate-300 border rounded-md"
                 disabled
               />
             </div>
