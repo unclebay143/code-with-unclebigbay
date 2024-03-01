@@ -35,7 +35,7 @@ const UserSettings = () => {
             <div className="flex flex-col items-start">
               <label
                 htmlFor="photo"
-                className="flex flex-col items-center justify-center w-full h-64 rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-bray-800 dark:bg-gray-700 hover:bg-gray-100"
+                className="flex flex-col items-center justify-center w-full h-64 rounded-lg bg-gray-50 dark:hover:bg-bray-800 dark:bg-gray-700 hover:bg-gray-100"
               >
                 <Image
                   src={user?.image}
@@ -67,7 +67,7 @@ const UserSettings = () => {
                 name=""
                 id="name"
                 value={user?.name}
-                className="text-sm text-slate-600 p-2 outline-none focus:ring-2 focus:ring-slate-500 focus:border-slate-300 border rounded-md"
+                className="disabled:cursor-not-allowed text-sm text-slate-600 p-2 outline-none focus:ring-2 focus:ring-slate-500 focus:border-slate-300 border rounded-md"
                 disabled
               />
             </div>
@@ -82,7 +82,7 @@ const UserSettings = () => {
               <input
                 type="text"
                 value={user?.email}
-                className="text-sm text-slate-600 p-2 outline-none focus:ring-2 focus:ring-slate-500 focus:border-slate-300 border rounded-md"
+                className="disabled:cursor-not-allowed text-sm text-slate-600 p-2 outline-none focus:ring-2 focus:ring-slate-500 focus:border-slate-300 border rounded-md"
                 disabled
               />
             </div>
