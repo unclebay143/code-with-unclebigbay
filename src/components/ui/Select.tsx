@@ -71,6 +71,7 @@ const selectViewport = cva(
   bg-white dark:bg-slate-950
   rounded-xl shadow-xl 
   outline-none border border-slate-200 dark:border-slate-800/80
+  max-h-[var(--radix-select-content-available-height)]
   `,
 );
 
