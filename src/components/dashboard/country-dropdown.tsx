@@ -12,7 +12,7 @@ interface Country {
   // other details can be added for future use if needed
 }
 
-export const CountryDropdown = () => {
+export const SelectCountry = () => {
   const [countries, setCountries] = useState<Country[]>([]);
 
   useEffect(() => {
@@ -37,11 +37,12 @@ export const CountryDropdown = () => {
 
   return (
     <Select onValueChange={(e) => console.log(e)}>
-      <SelectTrigger size="md" placeholder="Select a course..." />
-      <SelectContent
-        position="item-aligned"
-        className="max-h-[var(--radix-select-content-available-height)]"
-      >
+      <SelectTrigger
+        size="md"
+        placeholder="Select a country"
+        shape="md-rectangle"
+      />
+      <SelectContent>
         <SelectViewPort>
           {countries.map((country, index) => (
             <SelectItem

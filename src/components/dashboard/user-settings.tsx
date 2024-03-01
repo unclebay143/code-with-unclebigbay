@@ -5,7 +5,14 @@ import Image from 'next/image';
 import { useSession } from 'next-auth/react';
 import { WhiteArea } from './white-area';
 import { DashboardSubheading } from './dashboard-subheading';
-import { CountryDropdown } from './country-dropdown';
+import { SelectCountry } from './country-dropdown';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectViewPort,
+} from '../ui/Select';
 
 type Props = {
   name: string;
@@ -96,16 +103,7 @@ const UserSettings = () => {
                   location.
                 </p>
               </label>
-              {/* <select
-                name="country"
-                id="location"
-                className="p-2 border bg-slate-100 rounded-md outline-none"
-              >
-                <option>Argentina</option>
-                <option>Brazil</option>
-                <option>Nigeria</option>
-              </select> */}
-              <CountryDropdown />
+              <SelectCountry />
             </div>
             <div className="flex">
               <Button size="sm">Update</Button>
@@ -121,14 +119,20 @@ const UserSettings = () => {
               <label htmlFor="stack">
                 <DashboardSubheading title="Stack" />
               </label>
-              <select
-                name="stack"
-                id="stack"
-                className="p-2 border bg-slate-100 rounded-md outline-none"
-              >
-                <option>Frontend</option>
-                <option>Backend</option>
-              </select>
+
+              <Select onValueChange={(e) => console.log(e)}>
+                <SelectTrigger
+                  size="md"
+                  placeholder="Select a stack"
+                  shape="md-rectangle"
+                />
+                <SelectContent>
+                  <SelectViewPort>
+                    <SelectItem value={'frontend'} label={'Frontend'} />
+                    <SelectItem value={'backend'} label={'Backend'} />
+                  </SelectViewPort>
+                </SelectContent>
+              </Select>
             </div>
 
             <div className="flex">
