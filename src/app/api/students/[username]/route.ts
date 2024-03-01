@@ -1,5 +1,5 @@
-import { NextResponse } from 'next/server';
 import { NextApiRequest } from 'next';
+import { NextResponse } from 'next/server';
 import { Student } from '@/app/models/student';
 import connectViaMongoose from '@/utils/mongoose';
 
@@ -8,12 +8,28 @@ const GET = async (
   { params }: { params: { username: string } },
 ) => {
   try {
-    await connectViaMongoose();
     const username = params.username;
-    const student = await Student.find({ username: username }).exec();
+    if (!username) {
+      return NextResponse.json(
+        { message: 'Student username is required' },
+        {
+          status: 400,
+        },
+      );
+    }
+    await connectViaMongoose();
+    const student = await Student.findOne({ username: username });
+    if (student) {
+      return NextResponse.json(
+        { message: 'Student profile not found', student },
+        {
+          status: 204,
+        },
+      );
+    }
 
     return NextResponse.json(
-      { message: 'Student fetched successfully', student },
+      { message: 'Student profile fetched successfully', student },
       {
         status: 200,
       },
