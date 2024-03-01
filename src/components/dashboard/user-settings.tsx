@@ -1,6 +1,6 @@
 'use client';
 import { Button } from '@/components/ui/Button';
-import React from 'react';
+import React, { useEffect } from 'react';
 import Image from 'next/image';
 import { useSession } from 'next-auth/react';
 import { WhiteArea } from './white-area';
@@ -13,6 +13,7 @@ import {
   SelectTrigger,
   SelectViewPort,
 } from '../ui/Select';
+import { baseURL } from '../../../frontend.config';
 
 type Props = {
   name: string;
@@ -23,6 +24,26 @@ type Props = {
 const UserSettings = () => {
   const { data: session } = useSession();
   const user = session?.user as Props;
+
+  useEffect(() => {
+    const fetchStudentProfile = async () => {
+      const url = `${baseURL}/api/students/${user.email}`;
+      const result = await fetch(url, {
+        cache: 'no-store',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+      console.log(await result.json());
+
+      if (!result.ok) {
+        console.log(result.statusText);
+        return [];
+      }
+    };
+    fetchStudentProfile();
+  }, []);
+
   return (
     <div className="lg:w-[80%] px-3">
       <div className="flex flex-col gap-4">
