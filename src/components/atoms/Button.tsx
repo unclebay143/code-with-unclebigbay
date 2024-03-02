@@ -2,7 +2,7 @@ import React from 'react';
 import { Slot } from '@radix-ui/react-slot';
 import { cva, type VariantProps } from 'class-variance-authority';
 
-const button = cva('rounded-full flex text-medium', {
+const button = cva('rounded-full flex items-center text-medium', {
   variants: {
     appearance: {
       primary: [
