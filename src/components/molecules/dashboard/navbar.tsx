@@ -33,7 +33,6 @@ export const Navbar = ({ session, setSidebarOpen }: Props) => {
             Icon={Bar3CenterLeft}
           />
         </div>
-
         <div className="flex gap-4 items-center">
           <section>
             <section className="relative border p-0.5 rounded-full">

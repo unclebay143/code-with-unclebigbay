@@ -1,9 +1,10 @@
 'use client';
 
+import { Toaster } from 'sonner';
+import Head from 'next/head';
 import { Inter } from 'next/font/google';
 import './globals.css';
 import { SessionProvider } from 'next-auth/react';
-import Head from 'next/head';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 
@@ -36,6 +37,7 @@ export default function RootLayout({
         <QueryClientProvider client={queryClient}>
           <SessionProvider>{children}</SessionProvider>
           <ReactQueryDevtools initialIsOpen={false} />
+          <Toaster position="top-center" />
         </QueryClientProvider>
       </body>
     </html>
