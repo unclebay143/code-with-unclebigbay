@@ -17,7 +17,7 @@ import useCurrentStudent from '@/components/hooks/useCurrentStudent';
 const UserSettings = () => {
   const { data: user } = useCurrentStudent();
   const { fullName, email, bio, photo } = user || {};
-  console.log(user);
+  console.log(user); // view fields here
   return (
     <div className="lg:w-[80%] px-3">
       <div className="flex flex-col gap-4">
