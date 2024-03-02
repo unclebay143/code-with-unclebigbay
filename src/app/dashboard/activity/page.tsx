@@ -1,4 +1,4 @@
-import { ActivityLogs } from '@/components/dashboard/activity-logs';
+import { ActivityLogs } from '@/components/molecules/dashboard/activity-logs';
 import React from 'react';
 
 const Page = () => {
