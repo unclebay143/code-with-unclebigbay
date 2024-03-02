@@ -7,7 +7,7 @@
     @apply h-6 relative inline-block;
   }
 
-  [type='checkbox'] {
+  [type='custom-checkbox'] {
     @apply w-11 h-0 cursor-pointer inline-block;
     @apply focus:outline-0 dark:focus:outline-0;
     @apply border-0 dark:border-0;
