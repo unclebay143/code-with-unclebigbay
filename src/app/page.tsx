@@ -1,11 +1,11 @@
-import { ChannelIntroVideoSection } from '@/components/home/ChannelIntroVideoSection';
-import { CommunityMembersSection } from '@/components/home/CommunityMembersSection';
-import { TestimonialSection } from '@/components/home/TestimonialSection';
-import { CoursesCardGroup } from '@/components/ui/CoursesCardGroup';
-import { Navbar } from '@/components/ui/Navbar';
-import { Footer } from '@/components/ui/Footer';
-import { HeroSection } from '@/components/home/HeroSection';
-import { SectionWrapper } from '@/components/home';
+import { ChannelIntroVideoSection } from '@/components/molecules/home/ChannelIntroVideoSection';
+import { CommunityMembersSection } from '@/components/molecules/home/CommunityMembersSection';
+import { TestimonialSection } from '@/components/molecules/home/TestimonialSection';
+import { CoursesCardGroup } from '@/components/atoms/CoursesCardGroup';
+import { Navbar } from '@/components/atoms/Navbar';
+import { Footer } from '@/components/atoms/Footer';
+import { HeroSection } from '@/components/molecules/home/HeroSection';
+import { SectionWrapper } from '@/components/molecules/home';
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {

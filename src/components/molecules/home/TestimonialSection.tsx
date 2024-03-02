@@ -1,5 +1,5 @@
 import React from 'react';
-import Testimonials from '../ui/Testimonials';
+import Testimonials from '../../atoms/Testimonials';
 import { HomeSectionHeading } from '.';
 
 export const TestimonialSection = () => {

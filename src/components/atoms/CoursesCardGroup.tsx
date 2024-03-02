@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import { ArrowUpRight } from '../icons/ArrowUpRight';
-import { Course, courses } from '@/lib/constants/courses';
+import { Course, courses } from '@/utils/consts/courses';
 
 export const CoursesCardGroup = () => {
   return (

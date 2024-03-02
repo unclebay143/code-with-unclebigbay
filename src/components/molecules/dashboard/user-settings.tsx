@@ -1,5 +1,5 @@
 'use client';
-import { Button } from '@/components/ui/Button';
+import { Button } from '@/components/atoms/Button';
 import React, { useEffect } from 'react';
 import Image from 'next/image';
 import { useSession } from 'next-auth/react';
@@ -12,8 +12,8 @@ import {
   SelectItem,
   SelectTrigger,
   SelectViewPort,
-} from '../ui/Select';
-import { baseURL } from '../../../frontend.config';
+} from '../../atoms/Select';
+import { baseURL } from '../../../../frontend.config';
 
 type Props = {
   name: string;
