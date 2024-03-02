@@ -37,7 +37,7 @@ export default function RootLayout({
         <QueryClientProvider client={queryClient}>
           <SessionProvider>{children}</SessionProvider>
           <ReactQueryDevtools initialIsOpen={false} />
-          <Toaster />
+          <Toaster position="top-center" />
         </QueryClientProvider>
       </body>
     </html>

@@ -8,6 +8,7 @@ import * as Dialog from '@radix-ui/react-dialog';
 import { Minus, MinusCircle, Plus, X } from 'lucide-react';
 import { IconButton } from '@/components/atoms/IconButton';
 import { questions } from '@/utils/dummy-data';
+import { toast } from 'sonner';
 
 type Props = {};
 
@@ -18,7 +19,7 @@ const NewQuestionModal = ({
   isOpen: boolean;
   close: () => void;
 }) => {
-  const defaultOption = {
+  const emptyOption = {
     label: '',
     isCorrect: false,
     id: crypto.randomUUID(),
@@ -29,18 +30,21 @@ const NewQuestionModal = ({
       label: string;
       isCorrect: boolean;
     }[]
-  >([defaultOption]);
+  >([emptyOption, emptyOption]);
 
   const disableAddOptionBtn = options.length === 5;
 
   const handleAddOption = () => {
     if (disableAddOptionBtn) return;
-    setOptions((prevOptions) => [...prevOptions, defaultOption]);
+    setOptions((prevOptions) => [...prevOptions, emptyOption]);
   };
 
   const removeItemField = (id: string) => {
     let optionFields = [...options];
-    if (optionFields.length === 1) return;
+    if (optionFields.length === 2) {
+      toast.error('Please provide at least 2 options for the question.');
+      return;
+    }
     const newFields = optionFields.filter((option) => option.id !== id);
     setOptions(newFields);
   };
@@ -72,13 +76,13 @@ const NewQuestionModal = ({
             </div>
             {options.map(({ label, isCorrect, id }, index) => (
               <div className="flex flex-col gap-2" key={label}>
-                <div className="flex items-center gap-0.5">
-                  {index}
+                <div className="text-slate-600 flex items-center">
                   <IconButton
                     Icon={MinusCircle}
                     size="md"
                     onClick={() => removeItemField(id)}
                   />
+
                   <label
                     htmlFor={`option-${index}`}
                     className="text-slate-600 text-sm"
