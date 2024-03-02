@@ -1,5 +1,5 @@
 import React from 'react';
-import { Material } from '../../../types';
+import { Material } from '../../../../types';
 import { PlayCircle } from 'lucide-react';
 import type { LucideIcon } from 'lucide-react';
 import Image from 'next/image';

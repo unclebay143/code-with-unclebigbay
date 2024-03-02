@@ -15,10 +15,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body className={inter.className}>
-        <DashboardIndex>{children}</DashboardIndex>
-      </body>
-    </html>
+    <section className={inter.className}>
+      <DashboardIndex>{children}</DashboardIndex>
+    </section>
   );
 }

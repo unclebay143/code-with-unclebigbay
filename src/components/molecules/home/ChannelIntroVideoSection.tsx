@@ -1,5 +1,5 @@
 import React from 'react';
-import { YTVideo } from '../ui/YTVideo';
+import { YTVideo } from '../../atoms/YTVideo';
 import { SectionWrapper } from '.';
 
 export const ChannelIntroVideoSection = () => {

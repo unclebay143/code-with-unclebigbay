@@ -5,7 +5,7 @@ import {
   SelectItem,
   SelectTrigger,
   SelectViewPort,
-} from '../ui/Select';
+} from '../../atoms/Select';
 
 interface Country {
   name: { common: string };

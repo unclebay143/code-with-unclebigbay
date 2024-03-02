@@ -1,10 +1,10 @@
 'use client';
 
-import { DashboardSubheading } from '@/components/dashboard/dashboard-subheading';
-import { WhiteArea } from '@/components/dashboard/white-area';
-import { Button } from '@/components/ui/Button';
-import { IconButton } from '@/components/ui/IconButton';
-import { YTVideo } from '@/components/ui/YTVideo';
+import { DashboardSubheading } from '@/components/molecules/dashboard/dashboard-subheading';
+import { WhiteArea } from '@/components/molecules/dashboard/white-area';
+import { Button } from '@/components/atoms/Button';
+import { IconButton } from '@/components/atoms/IconButton';
+import { YTVideo } from '@/components/atoms/YTVideo';
 import { materials } from '@/utils/dummy-data';
 import { ChevronDown, ChevronUp, HelpCircle } from 'lucide-react';
 import Link from 'next/link';
