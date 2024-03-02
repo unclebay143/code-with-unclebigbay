@@ -5,7 +5,7 @@ const useStudent = (username: string) => {
   const { isPending, error, data, isFetching } = useQuery({
     queryKey: ['studentData'],
     queryFn: () =>
-      axios.get(`/api/student/${username}`).then((res) => res.data.student), // add type here i.e as Student
+      axios.get(`/api/students/${username}`).then((res) => res.data.student), // add type here i.e as Student
   });
 
   return { data, isFetching, error, isPending };
