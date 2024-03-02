@@ -420,3 +420,77 @@ export const communityMembers: CommunityMembers = [
     flag: '🇦🇺',
   },
 ];
+
+export const questions = [
+  {
+    category: 'HTML',
+    question: 'What does HTML stand for?',
+    options: [
+      'Hyper Text Markup Language',
+      'Home Tool Markup Language',
+      'Hyperlinks and Text Markup Language',
+    ],
+    answer: 'Hyper Text Markup Language',
+  },
+  {
+    category: 'HTML',
+    question: 'Which HTML tag is used to define an internal style sheet?',
+    options: ['<style>', '<script>', '<css>'],
+    answer: '<style>',
+  },
+  {
+    category: 'HTML',
+    question: 'What is the correct HTML for creating a hyperlink?',
+    options: [
+      "<a href='http://www.example.com'>Example</a>",
+      "<a name='http://www.example.com'>Example</a>",
+      "<a url='http://www.example.com'>Example</a>",
+    ],
+    answer: "<a href='http://www.example.com'>Example</a>",
+  },
+  {
+    category: 'CSS',
+    question: 'Which property is used to change the background color?',
+    options: ['color', 'bgcolor', 'background-color'],
+    answer: 'background-color',
+  },
+  {
+    category: 'CSS',
+    question: "How do you select an element with id 'demo'?",
+    options: ['#demo', '.demo', 'demo'],
+    answer: '#demo',
+  },
+  {
+    category: 'CSS',
+    question: 'How do you make the text bold?',
+    options: ['font-weight: bold;', 'text-style: bold;', 'font-bold: true;'],
+    answer: 'font-weight: bold;',
+  },
+  {
+    category: 'JavaScript',
+    question: 'Inside which HTML element do we put the JavaScript?',
+    options: ['<script>', '<javascript>', '<js>'],
+    answer: '<script>',
+  },
+  {
+    category: 'JavaScript',
+    question: 'Where is the correct place to insert a JavaScript?',
+    options: [
+      'The <body> section',
+      'The <head> section',
+      'Both the <head> section and the <body> section are correct',
+    ],
+    answer: 'Both the <head> section and the <body> section are correct',
+  },
+  {
+    category: 'JavaScript',
+    question:
+      "What is the correct syntax for referring to an external script called 'xxx.js'?",
+    options: [
+      "<script href='xxx.js'>",
+      "<script name='xxx.js'>",
+      "<script src='xxx.js'>",
+    ],
+    answer: "<script src='xxx.js'>",
+  },
+];
