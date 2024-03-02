@@ -9,14 +9,6 @@ const GET = async (
   try {
     const username = params.username;
 
-    if (!username) {
-      return NextResponse.json(
-        { message: 'Student username is required' },
-        {
-          status: 400,
-        },
-      );
-    }
     await connectViaMongoose();
     const student = await Student.findOne({ username: username });
     if (!student) {
