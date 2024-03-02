@@ -63,6 +63,6 @@ const validateNewStudent = (student: object) => {
   return schema.validate(student);
 };
 
-const Student = models.student || model('student', studentSchema);
+const Student = models.Student || model('Student', studentSchema);
 
 export { Student, validateNewStudent };
