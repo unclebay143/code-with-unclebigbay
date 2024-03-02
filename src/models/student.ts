@@ -4,8 +4,8 @@ import Joi from 'joi';
 const Schema = mongoose.Schema;
 
 // Enums
-const ALLOWED_GENDER = ['Male', 'Female'];
-const ALLOWED_STACK = ['Frontend', 'Backend', 'Full'];
+const ALLOWED_GENDER = ['male', 'female'];
+const ALLOWED_STACK = ['frontend', 'backend', 'full-stack'];
 
 const studentSchema = new Schema(
   {
@@ -38,6 +38,7 @@ const studentSchema = new Schema(
     state: { type: String, default: '' },
     location: { type: String, default: '' },
     gender: { type: String, enum: ALLOWED_GENDER },
+    interests: { type: Array, default: null },
   },
   {
     toJSON: {
