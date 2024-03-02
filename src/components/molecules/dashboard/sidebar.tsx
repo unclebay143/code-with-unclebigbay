@@ -1,64 +1,14 @@
 import React, { useState } from 'react';
-import type { LucideIcon } from 'lucide-react';
-import {
-  ActivityIcon,
-  BarChart,
-  HelpCircle,
-  LibraryBig,
-  Settings,
-  Trophy,
-} from 'lucide-react';
 import { usePathname } from 'next/navigation';
 import Link from 'next/link';
-import { SlideOver, SlideOverHeader } from '../../atoms/SlideOver';
+import { SlideOver } from '../../atoms/SlideOver';
 import { CodeWithUnclebigbayLogo } from '../../atoms/CodeWithUnclebigbayLogo';
 import { IconButton } from '../../atoms/IconButton';
 import { XMark } from '../../icons/XMark';
+import { SidebarLink } from '../../../../types';
+import { sidebarLinks } from '@/utils/consts/links';
 
 type Props = {};
-
-type SidebarLink = {
-  key: string;
-  label: string;
-  slug: string;
-  Icon: LucideIcon;
-  isActive?: boolean;
-  shadowHide?: boolean;
-  onClick?: () => void;
-};
-
-type SidebarLinks = SidebarLink[];
-
-const sidebarLinks: SidebarLinks = [
-  { key: 'overview', label: 'overview', slug: 'overview', Icon: BarChart },
-  { key: 'courses', label: 'courses', slug: 'courses', Icon: LibraryBig },
-  {
-    key: 'leaderboard',
-    label: 'leaderboard',
-    slug: 'leaderboard',
-    Icon: Trophy,
-  },
-  {
-    key: 'activity',
-    label: 'Activity Log',
-    slug: 'activity',
-    Icon: ActivityIcon,
-  },
-  {
-    key: 'settings',
-    label: 'settings',
-    slug: 'settings',
-    Icon: Settings,
-    shadowHide: true,
-  },
-  {
-    key: 'help-centers',
-    label: 'Help Centers',
-    slug: 'help-centers',
-    Icon: HelpCircle,
-    shadowHide: true,
-  },
-];
 
 const SidebarLink = ({ label, Icon, isActive, slug, onClick }: SidebarLink) => {
   return (

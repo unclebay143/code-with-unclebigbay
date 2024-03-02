@@ -41,3 +41,15 @@ export type CommunityMember = {
 };
 
 export type CommunityMembers = CommunityMember[];
+
+export type SidebarLink = {
+  key: string;
+  label: string;
+  slug: string;
+  Icon: LucideIcon;
+  isActive?: boolean;
+  shadowHide?: boolean;
+  onClick?: () => void;
+};
+
+export type SidebarLinks = SidebarLink[];
