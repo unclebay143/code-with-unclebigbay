@@ -52,7 +52,7 @@ const POST = async (req: Request, res: CustomResponse) => {
     const student = await Student.findOneAndUpdate(
       { _id, username },
       { $set: body },
-      { new: true },
+      { new: true, runValidators: true },
     );
 
     if (!student) {
