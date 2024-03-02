@@ -3,7 +3,7 @@ import Link from 'next/link';
 import { WhiteArea } from './white-area';
 import { DashboardSubheading } from './dashboard-subheading';
 import { activities } from '@/utils/dummy-data';
-import { Button } from '../ui/Button';
+import { Button } from '../../atoms/Button';
 
 export const ActivityLogs = ({
   defaultCount = 5,

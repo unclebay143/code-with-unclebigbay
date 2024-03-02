@@ -1,7 +1,10 @@
 'use client';
 
-import { Navbar } from '@/components/dashboard/navbar';
-import { Sidebar, SidebarMobile } from '@/components/dashboard/sidebar';
+import { Navbar } from '@/components/molecules/dashboard/navbar';
+import {
+  Sidebar,
+  SidebarMobile,
+} from '@/components/molecules/dashboard/sidebar';
 import { useSession } from 'next-auth/react';
 import { redirect } from 'next/navigation';
 import { useState } from 'react';
