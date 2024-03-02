@@ -1,7 +1,7 @@
 import React from 'react';
 import { SlideOver, SlideOverHeader } from './SlideOver';
 import { CodeWithUnclebigbayLogo } from './CodeWithUnclebigbayLogo';
-import { navLinks } from '@/lib/links';
+import { navLinks } from '@/utils/links';
 import { Button } from './Button';
 import Link from 'next/link';
 

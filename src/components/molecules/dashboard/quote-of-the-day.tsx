@@ -5,7 +5,7 @@ import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuTrigger,
-} from '../ui/DropdownMenu';
+} from '../../atoms/DropdownMenu';
 import { MenuButton } from './menu-button';
 
 type Props = { close: Function };

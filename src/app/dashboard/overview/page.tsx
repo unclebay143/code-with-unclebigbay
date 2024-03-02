@@ -1,14 +1,14 @@
 'use client';
 
 import React, { useState } from 'react';
-import { EmptyState } from '@/components/dashboard/empty-state';
-import { WhiteArea } from '@/components/dashboard/white-area';
-import { QuoteOfTheDay } from '@/components/dashboard/quote-of-the-day';
-import { DashboardSubheading } from '@/components/dashboard/dashboard-subheading';
+import { EmptyState } from '@/components/molecules/dashboard/empty-state';
+import { WhiteArea } from '@/components/molecules/dashboard/white-area';
+import { QuoteOfTheDay } from '@/components/molecules/dashboard/quote-of-the-day';
+import { DashboardSubheading } from '@/components/molecules/dashboard/dashboard-subheading';
 import { materials, overviews } from '@/utils/dummy-data';
-import { OverviewCard } from '@/components/dashboard/overview-card';
-import { ActivityLogs } from '@/components/dashboard/activity-logs';
-import { Courses } from '@/components/dashboard/courses';
+import { OverviewCard } from '@/components/molecules/dashboard/overview-card';
+import { ActivityLogs } from '@/components/molecules/dashboard/activity-logs';
+import { Courses } from '@/components/molecules/dashboard/courses';
 
 const Page = () => {
   const [showQuoteWidget, setShowQuoteWidget] = useState<boolean>(true);
