@@ -1,6 +1,6 @@
 'use client';
 import { Button } from '@/components/atoms/Button';
-import React, { useEffect } from 'react';
+import React from 'react';
 import Image from 'next/image';
 import { useSession } from 'next-auth/react';
 import { WhiteArea } from './white-area';
@@ -13,7 +13,7 @@ import {
   SelectTrigger,
   SelectViewPort,
 } from '../../atoms/Select';
-import { baseURL } from '../../../../frontend.config';
+import useCurrentStudent from '@/components/hooks/useCurrentStudent';
 
 type Props = {
   name: string;
@@ -24,25 +24,27 @@ type Props = {
 const UserSettings = () => {
   const { data: session } = useSession();
   const user = session?.user as Props;
+  const { data: currentStudent } = useCurrentStudent();
+  console.log(currentStudent);
 
-  useEffect(() => {
-    const fetchStudentProfile = async () => {
-      const url = `${baseURL}/api/students/${user.email}`;
-      const result = await fetch(url, {
-        cache: 'no-store',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      });
-      console.log(await result.json());
+  // useEffect(() => {
+  //   const fetchStudentProfile = async () => {
+  //     const url = `${baseURL}/api/auth/student`;
+  //     const result = await fetch(url, {
+  //       cache: 'no-store',
+  //       headers: {
+  //         'Content-Type': 'application/json',
+  //       },
+  //     });
+  //     console.log(await result.json());
 
-      if (!result.ok) {
-        console.log(result.statusText);
-        return [];
-      }
-    };
-    fetchStudentProfile();
-  }, []);
+  //     if (!result.ok) {
+  //       console.log(result.statusText);
+  //       return [];
+  //     }
+  //   };
+  //   fetchStudentProfile();
+  // }, []);
 
   return (
     <div className="lg:w-[80%] px-3">
