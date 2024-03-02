@@ -38,6 +38,7 @@ const studentSchema = new Schema(
     state: { type: String, default: '' },
     location: { type: String, default: '' },
     gender: { type: String, enum: ALLOWED_GENDER },
+    interests: { type: Array, default: null },
   },
   {
     toJSON: {
