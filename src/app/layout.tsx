@@ -4,8 +4,12 @@ import { Inter } from 'next/font/google';
 import './globals.css';
 import { SessionProvider } from 'next-auth/react';
 import Head from 'next/head';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 
 const inter = Inter({ subsets: ['latin'] });
+
+const queryClient = new QueryClient();
 
 export default function RootLayout({
   children,
@@ -29,7 +33,10 @@ export default function RootLayout({
         />
       </Head>
       <body className={inter.className}>
-        <SessionProvider>{children}</SessionProvider>
+        <QueryClientProvider client={queryClient}>
+          <SessionProvider>{children}</SessionProvider>
+          <ReactQueryDevtools initialIsOpen={false} />
+        </QueryClientProvider>
       </body>
     </html>
   );

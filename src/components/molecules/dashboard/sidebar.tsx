@@ -10,10 +10,10 @@ import {
 } from 'lucide-react';
 import { usePathname } from 'next/navigation';
 import Link from 'next/link';
-import { SlideOver, SlideOverHeader } from '../ui/SlideOver';
-import { CodeWithUnclebigbayLogo } from '../ui/CodeWithUnclebigbayLogo';
-import { IconButton } from '../ui/IconButton';
-import { XMark } from '../icons/XMark';
+import { SlideOver, SlideOverHeader } from '../../atoms/SlideOver';
+import { CodeWithUnclebigbayLogo } from '../../atoms/CodeWithUnclebigbayLogo';
+import { IconButton } from '../../atoms/IconButton';
+import { XMark } from '../../icons/XMark';
 
 type Props = {};
 

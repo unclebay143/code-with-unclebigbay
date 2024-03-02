@@ -1,9 +1,9 @@
 'use client';
 
-import { DashboardSubheading } from '@/components/dashboard/dashboard-subheading';
+import { DashboardSubheading } from '@/components/molecules/dashboard/dashboard-subheading';
 // import { EmptyState } from '@/components/dashboard/empty-state';
-import { WhiteArea } from '@/components/dashboard/white-area';
-import { Button } from '@/components/ui/Button';
+import { WhiteArea } from '@/components/molecules/dashboard/white-area';
+import { Button } from '@/components/atoms/Button';
 import { communityMember, communityMembers } from '@/utils/dummy-data';
 import { MoreHorizontal, Trophy } from 'lucide-react';
 import Image from 'next/image';
@@ -107,12 +107,9 @@ const Page = () => {
                         )}
                       </div>
                       <div className="flex items-center gap-2">
-                        <Link
-                          href=""
-                          className="relative rounded-full h-10 w-10 overflow-hidden"
-                        >
+                        <div className="relative rounded-full h-10 w-10 overflow-hidden">
                           <Image src={photo} alt="" fill />
-                        </Link>
+                        </div>
                       </div>
                       <div className="text-center capitalize">
                         <p className="text-slate-700 font-semibold">{name}</p>
