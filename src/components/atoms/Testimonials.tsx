@@ -2,7 +2,7 @@ import {
   mapTestimonialSourceToColor,
   mapTestimonialSourceToIcon,
   testimonials,
-} from '@/lib/constants/testimonials';
+} from '@/utils/consts/testimonials';
 import Image from 'next/image';
 import React from 'react';
 

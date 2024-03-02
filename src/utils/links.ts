@@ -1,4 +1,4 @@
-import { CoursesCardGroup } from './../components/ui/CoursesCardGroup';
+import { CoursesCardGroup } from '../components/atoms/CoursesCardGroup';
 export const navLinks = [
   { label: 'Leaderboard', url: 'Leaderboard' },
   { label: 'Events', url: 'events' },
