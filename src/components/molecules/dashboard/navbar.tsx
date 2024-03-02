@@ -1,17 +1,17 @@
 import React from 'react';
 import type { Session } from 'next-auth';
 import Image from 'next/image';
-import { CodeWithUnclebigbayLogo } from '../ui/CodeWithUnclebigbayLogo';
+import { CodeWithUnclebigbayLogo } from '../../atoms/CodeWithUnclebigbayLogo';
 import { ChevronDown, HelpCircle, LogOut, Menu, Settings } from 'lucide-react';
 import { MenuButton } from './menu-button';
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuTrigger,
-} from '../ui/DropdownMenu';
+} from '../../atoms/DropdownMenu';
 import { handleLogout } from '@/utils/auth';
-import { IconButton } from '../ui/IconButton';
-import { Bar3CenterLeft } from '../icons/Bar3CenterLeft';
+import { IconButton } from '../../atoms/IconButton';
+import { Bar3CenterLeft } from '../../icons/Bar3CenterLeft';
 
 type Props = {
   session: Session | null;

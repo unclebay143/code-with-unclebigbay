@@ -1,8 +1,8 @@
 'use client';
 
-import { Courses } from '@/components/dashboard/courses';
-import { DashboardSubheading } from '@/components/dashboard/dashboard-subheading';
-import { WhiteArea } from '@/components/dashboard/white-area';
+import { Courses } from '@/components/molecules/dashboard/courses';
+import { DashboardSubheading } from '@/components/molecules/dashboard/dashboard-subheading';
+import { WhiteArea } from '@/components/molecules/dashboard/white-area';
 import { materials } from '@/utils/dummy-data';
 import React from 'react';
 

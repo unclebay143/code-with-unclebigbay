@@ -2,8 +2,8 @@
 
 import Link from 'next/link';
 import React from 'react';
-import { ChevronRight } from '../icons/ChevronRight';
-import { ArrowRight } from '../icons/ArrowRight';
+import { ChevronRight } from '../../icons/ChevronRight';
+import { ArrowRight } from '../../icons/ArrowRight';
 
 export const HeroSection = () => {
   return (

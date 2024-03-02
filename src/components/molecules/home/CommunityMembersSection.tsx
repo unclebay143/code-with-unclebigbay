@@ -4,12 +4,12 @@ import React from 'react';
 // import { handleAuthentication } from '@/utils/auth';
 // import { Button } from '../ui/Button';
 import { HomeSectionHeading } from '.';
-import { baseURL } from '../../../frontend.config';
+import { baseURL } from '../../../../frontend.config';
 
 type ResponseData = {
   message: string;
   students: {
-    id: string;
+    _id: string;
     username: string;
     photo: string;
     fullName: string;
@@ -75,9 +75,9 @@ export const CommunityMembersSection = async () => {
         </Button> */}
       </div>
       <section className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-y-12 gap-x-8">
-        {students?.map(({ id, fullName, username, stack, photo }) => (
+        {students?.map(({ _id, fullName, username, stack, photo }) => (
           <article
-            key={`communityMembers-${id}`}
+            key={`communityMembers-${_id}`}
             className="flex flex-col gap-3"
           >
             <div className="mx-auto rounded-full overflow-hidden h-20 w-20 transition transform duration-500 ease-in-out hover:scale-125 hover:-rotate-3">
