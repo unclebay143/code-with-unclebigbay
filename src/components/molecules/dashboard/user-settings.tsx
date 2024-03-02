@@ -2,7 +2,6 @@
 import { Button } from '@/components/atoms/Button';
 import React from 'react';
 import Image from 'next/image';
-import { useSession } from 'next-auth/react';
 import { WhiteArea } from './white-area';
 import { DashboardSubheading } from './dashboard-subheading';
 import { SelectCountry } from './country-dropdown';
@@ -15,37 +14,10 @@ import {
 } from '../../atoms/Select';
 import useCurrentStudent from '@/components/hooks/useCurrentStudent';
 
-type Props = {
-  name: string;
-  email: string;
-  image: string;
-};
-
 const UserSettings = () => {
-  const { data: session } = useSession();
-  const user = session?.user as Props;
-  const { data: currentStudent } = useCurrentStudent();
-  console.log(currentStudent);
-
-  // useEffect(() => {
-  //   const fetchStudentProfile = async () => {
-  //     const url = `${baseURL}/api/auth/student`;
-  //     const result = await fetch(url, {
-  //       cache: 'no-store',
-  //       headers: {
-  //         'Content-Type': 'application/json',
-  //       },
-  //     });
-  //     console.log(await result.json());
-
-  //     if (!result.ok) {
-  //       console.log(result.statusText);
-  //       return [];
-  //     }
-  //   };
-  //   fetchStudentProfile();
-  // }, []);
-
+  const { data: user } = useCurrentStudent();
+  const { fullName, email, bio, photo } = user || {};
+  console.log(user);
   return (
     <div className="lg:w-[80%] px-3">
       <div className="flex flex-col gap-4">
@@ -61,8 +33,8 @@ const UserSettings = () => {
                 className="flex flex-col items-center justify-center w-full h-64 rounded-lg bg-gray-50 dark:hover:bg-bray-800 dark:bg-gray-700 hover:bg-gray-100"
               >
                 <Image
-                  src={user?.image}
-                  alt={user?.name}
+                  src={photo}
+                  alt={fullName}
                   width={200}
                   height={200}
                   className="rounded-full"
@@ -89,7 +61,7 @@ const UserSettings = () => {
                 type="text"
                 name=""
                 id="name"
-                value={user?.name}
+                value={fullName}
                 className="disabled:cursor-not-allowed text-sm text-slate-600 p-2 outline-none focus:ring-2 focus:ring-slate-500 focus:border-slate-300 border rounded-md"
                 disabled
               />
@@ -104,7 +76,7 @@ const UserSettings = () => {
               </label>
               <input
                 type="text"
-                value={user?.email}
+                value={email}
                 className="disabled:cursor-not-allowed text-sm text-slate-600 p-2 outline-none focus:ring-2 focus:ring-slate-500 focus:border-slate-300 border rounded-md"
                 disabled
               />
@@ -116,6 +88,7 @@ const UserSettings = () => {
               <textarea
                 className="min-h-[200px] text-sm text-slate-600 p-2 outline-none focus:ring-2 focus:ring-slate-500 focus:border-slate-300 border rounded-md"
                 placeholder="Introduce yourself to the world."
+                value={bio}
               />
             </div>
             <div className="flex flex-col gap-2">
