@@ -31,6 +31,7 @@ specifiers:
   react: ^18
   react-dom: ^18
   react-hook-form: ^7.51.0
+  sonner: ^1.4.3
   tailwindcss: ^3.3.0
   typescript: ^5
   zod: ^3.22.4
@@ -57,6 +58,7 @@ dependencies:
   react: 18.2.0
   react-dom: 18.2.0_react@18.2.0
   react-hook-form: 7.51.0_react@18.2.0
+  sonner: 1.4.3_biqbaboplfbrettd7655fr4n2y
   zod: 3.22.4
 
 devDependencies:
@@ -3584,6 +3586,16 @@ packages:
     resolution: {integrity: sha512-g9Q1haeby36OSStwb4ntCGGGaKsaVSjQ68fBxoQcutl5fS1vuY18H3wSt3jFyFtrkx+Kz0V1G85A4MyAdDMi2Q==}
     engines: {node: '>=8'}
     dev: true
+
+  /sonner/1.4.3_biqbaboplfbrettd7655fr4n2y:
+    resolution: {integrity: sha512-SArYlHbkjqRuLiR0iGY2ZSr09oOrxw081ZZkQPfXrs8aZQLIBOLOdzTYxGJB5yIZ7qL56UEPmrX1YqbODwG0Lw==}
+    peerDependencies:
+      react: ^18.0.0
+      react-dom: ^18.0.0
+    dependencies:
+      react: 18.2.0
+      react-dom: 18.2.0_react@18.2.0
+    dev: false
 
   /source-map-js/1.0.2:
     resolution: {integrity: sha512-R0XvVJ9WusLiqTCEiGCmICCMplcCkIwwR11mOSD9CR5u+IXYdiseeEuXCVAjS54zqwkLcPNnmU4OeJ6tUrWhDw==}
