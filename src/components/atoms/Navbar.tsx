@@ -5,9 +5,9 @@ import { Button } from './Button';
 import { Bar3CenterLeft } from '../icons/Bar3CenterLeft';
 import { IconButton } from './IconButton';
 import { CodeWithUnclebigbayLogo } from './CodeWithUnclebigbayLogo';
-import { navLinks } from '@/lib/links';
+import { navLinks } from '@/utils/links';
 import { SidebarSlideOver } from './SidebarSlideOver';
-import { SectionWrapper } from '../home';
+import { SectionWrapper } from '../molecules/home';
 import { handleAuthentication } from '@/utils/auth';
 import { useSession } from 'next-auth/react';
 

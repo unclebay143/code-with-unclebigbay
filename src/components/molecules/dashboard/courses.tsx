@@ -7,9 +7,9 @@ import {
   SelectItem,
   SelectTrigger,
   SelectViewPort,
-} from '../ui/Select';
-import { Materials } from '../../../types';
-import { Button } from '../ui/Button';
+} from '../../atoms/Select';
+import { Materials } from '../../../../types';
+import { Button } from '../../atoms/Button';
 
 type Props = {
   materials?: Materials;
