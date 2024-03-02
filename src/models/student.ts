@@ -4,8 +4,8 @@ import Joi from 'joi';
 const Schema = mongoose.Schema;
 
 // Enums
-const ALLOWED_GENDER = ['Male', 'Female'];
-const ALLOWED_STACK = ['Frontend', 'Backend', 'Full'];
+const ALLOWED_GENDER = ['male', 'female'];
+const ALLOWED_STACK = ['frontend', 'backend', 'full-stack'];
 
 const studentSchema = new Schema(
   {
