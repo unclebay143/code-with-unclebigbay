@@ -8,8 +8,9 @@ import React, { useRef, useState } from 'react';
 import * as Dialog from '@radix-ui/react-dialog';
 import { MinusCircle, Plus, X } from 'lucide-react';
 import { IconButton } from '@/components/atoms/IconButton';
-import { questions } from '@/utils/dummy-data';
+// import { questions } from '@/utils/dummy-data';
 import { toast } from 'sonner';
+import { EmptyState } from '@/components/molecules/dashboard/empty-state';
 
 type Props = {};
 type Option = { option: string; isCorrect: boolean };
@@ -23,9 +24,11 @@ const emptyOption: Option = {
 const NewQuestionModal = ({
   isOpen,
   close,
+  setQuestions,
 }: {
   isOpen: boolean;
   close: () => void;
+  setQuestions: Function;
 }) => {
   const {
     register,
@@ -87,6 +90,7 @@ const NewQuestionModal = ({
     // not using reset() to prevent resetting 'Create more'
     resetField('options');
     resetField('question');
+    setQuestions((prevQuestions) => [...prevQuestions, question]);
     if (!wantToCreateMore) {
       return close();
     }
@@ -199,6 +203,12 @@ const NewQuestionModal = ({
 
 const Page = (props: Props) => {
   const [openNewQuestionModal, setOpenNewQuestionModal] = useState(false);
+  const [questions, setQuestions] = useState<Question[]>([]);
+  const noQuestions = questions.length === 0;
+  const canShowQuestions = !noQuestions;
+
+  console.log(questions);
+
   return (
     <>
       <WhiteArea border>
@@ -209,33 +219,43 @@ const Page = (props: Props) => {
               New Question
             </Button>
           </div>
-          <WhiteArea border>
-            <ul className="list-decimal list-inside">
-              {questions.map(({ options, question, answer }) => (
-                <li key={question} className="border-b last:border-none py-4">
-                  <span className="inline-block mb-2">{question}</span>
-                  <ol className="pl-2 flex flex-col gap-2 list-inside list-[lower-alpha]">
-                    {options.map((option) => {
-                      const isCorrect = option === answer;
-                      return (
-                        <li className="text-sm" key={option}>
-                          HTML is HyperText Markup Language{' '}
-                          {isCorrect && (
-                            <span className="px-2 py-1 rounded bg-green-100 text-green-600">
-                              answer
-                            </span>
-                          )}
-                        </li>
-                      );
-                    })}
-                  </ol>
-                </li>
-              ))}
-            </ul>
-          </WhiteArea>
+          {noQuestions && (
+            <EmptyState label="Questions and options will appear here..." />
+          )}
+          {canShowQuestions && (
+            <WhiteArea border>
+              <ul className="list-decimal list-inside">
+                {questions.map(({ options, question }) => (
+                  <li
+                    key={question}
+                    className="group border-b last:border-none py-4"
+                  >
+                    <span className="inline-block mb-2">{question}</span>
+                    <ol className="pl-2 flex flex-col gap-2 list-inside list-[lower-alpha]">
+                      {options.map(({ option, isCorrect }) => {
+                        return (
+                          <li className="text-sm" key={option}>
+                            <div>
+                              <h3>{option} </h3>
+                            </div>
+                            {isCorrect && (
+                              <span className="px-2 py-1 rounded bg-green-100 text-green-600">
+                                answer
+                              </span>
+                            )}
+                          </li>
+                        );
+                      })}
+                    </ol>
+                  </li>
+                ))}
+              </ul>
+            </WhiteArea>
+          )}
         </div>
       </WhiteArea>
       <NewQuestionModal
+        setQuestions={setQuestions}
         isOpen={openNewQuestionModal}
         close={() => setOpenNewQuestionModal(false)}
       />
