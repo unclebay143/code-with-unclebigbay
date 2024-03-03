@@ -230,16 +230,16 @@ const Page = () => {
           {canShowQuestions && (
             <WhiteArea border>
               <ul className="list-decimal list-inside">
-                {questions.map(({ options, question }) => (
+                {questions.map(({ options, question }, questionIndex) => (
                   <li
                     key={question}
-                    className="group relative border-b last:border-none py-4"
+                    className="relative border-b last:border-none py-4"
                   >
                     <span className="inline-block mb-2 font-semibold">
                       {question}
                     </span>
                     <ol className="pl-2 flex flex-col gap-2 list-inside list-[lower-alpha]">
-                      {options.map(({ option, isCorrect }) => {
+                      {options.map(({ option, isCorrect }, index) => {
                         return (
                           <li className="text-sm text-slate-800" key={option}>
                             <span className="inline-flex items-center gap-1">
