@@ -8,8 +8,6 @@ import { XMark } from '../../icons/XMark';
 import { SidebarLink } from '../../../../types';
 import { sidebarLinks } from '@/utils/consts/links';
 
-type Props = {};
-
 const SidebarLink = ({ label, Icon, isActive, slug, onClick }: SidebarLink) => {
   return (
     <Link
@@ -25,7 +23,7 @@ const SidebarLink = ({ label, Icon, isActive, slug, onClick }: SidebarLink) => {
   );
 };
 
-export const Sidebar = (props: Props) => {
+export const Sidebar = ({ isAdmin }: { isAdmin: boolean }) => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const pathname = usePathname();
   const currentPageName = pathname.split('/')[2];
@@ -37,19 +35,24 @@ export const Sidebar = (props: Props) => {
         <div
           className={`border rounded-lg flex flex-col gap-1 px-2 fixed py-4 z-10 bg-white dark:bg-slate-950 w-[270px] transition-transform ease-in-out -translate-x-full lg:translate-x-0 ${sidebarOpen && 'translate-x-0'}`}
         >
-          {sidebarLinks.map(({ key, label, Icon, slug, shadowHide }) => {
-            const isCurrentPage = currentPageName === key.toLowerCase();
-            if (shadowHide && !isCurrentPage) return;
-            return (
-              <SidebarLink
-                key={`sidebar-link-${key}`}
-                label={label}
-                Icon={Icon}
-                slug={slug}
-                isActive={isCurrentPage}
-              />
-            );
-          })}
+          {sidebarLinks.map(
+            ({ key, label, Icon, slug, shadowHide, adminAccess }) => {
+              const isCurrentPage = currentPageName === key.toLowerCase();
+              const shouldHideLink =
+                (shadowHide && !isCurrentPage) || (adminAccess && !isAdmin);
+              if (shouldHideLink) return;
+
+              return (
+                <SidebarLink
+                  key={`sidebar-link-${key}`}
+                  label={label}
+                  Icon={Icon}
+                  slug={slug}
+                  isActive={isCurrentPage}
+                />
+              );
+            },
+          )}
         </div>
       </nav>
     </aside>
@@ -59,9 +62,11 @@ export const Sidebar = (props: Props) => {
 export const SidebarMobile = ({
   sidebarOpen,
   setSidebarOpen,
+  isAdmin,
 }: {
   sidebarOpen: boolean;
   setSidebarOpen: Function;
+  isAdmin: boolean;
 }) => {
   const pathname = usePathname();
   const currentPageName = pathname.split('/')[2];
@@ -79,24 +84,28 @@ export const SidebarMobile = ({
             </div>
           </div>
 
-          {sidebarLinks.map(({ key, label, Icon, slug, shadowHide }) => {
-            const isCurrentPage = currentPageName === key.toLowerCase();
-            if (shadowHide && !isCurrentPage) return;
-            return (
-              <SidebarLink
-                key={`sidebar-link-${key}`}
-                label={label}
-                Icon={Icon}
-                slug={slug}
-                isActive={currentPageName === key.toLowerCase()}
-                onClick={() =>
-                  setTimeout(() => {
-                    setSidebarOpen(false);
-                  }, 100)
-                }
-              />
-            );
-          })}
+          {sidebarLinks.map(
+            ({ key, label, Icon, slug, shadowHide, adminAccess }) => {
+              const isCurrentPage = currentPageName === key.toLowerCase();
+              const shouldHideLink =
+                (shadowHide && !isCurrentPage) || (adminAccess && !isAdmin);
+              if (shouldHideLink) return;
+              return (
+                <SidebarLink
+                  key={`sidebar-link-${key}`}
+                  label={label}
+                  Icon={Icon}
+                  slug={slug}
+                  isActive={currentPageName === key.toLowerCase()}
+                  onClick={() =>
+                    setTimeout(() => {
+                      setSidebarOpen(false);
+                    }, 100)
+                  }
+                />
+              );
+            },
+          )}
         </div>
         <div className="flex justify-center mt-10">
           <IconButton
