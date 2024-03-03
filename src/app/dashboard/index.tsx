@@ -1,5 +1,6 @@
 'use client';
 
+import useCurrentStudent from '@/components/hooks/useCurrentStudent';
 import { Navbar } from '@/components/molecules/dashboard/navbar';
 import {
   Sidebar,
@@ -12,6 +13,8 @@ import { useState } from 'react';
 export const DashboardIndex = ({ children }: { children: React.ReactNode }) => {
   const { data: session, status } = useSession();
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const { data: user } = useCurrentStudent();
+  const isAdmin = user?.isAdmin;
 
   if (!session && status === 'loading') return null;
   if (!session && status === 'unauthenticated') redirect('/');
@@ -20,10 +23,11 @@ export const DashboardIndex = ({ children }: { children: React.ReactNode }) => {
     <div className="flex flex-col gap-4 pb-10">
       <Navbar session={session} setSidebarOpen={setSidebarOpen} />
       <main className="relative flex gap-3 w-full max-w-7xl mx-auto px-4 xl:px-0">
-        <Sidebar />
+        <Sidebar isAdmin={isAdmin} />
         <SidebarMobile
           setSidebarOpen={setSidebarOpen}
           sidebarOpen={sidebarOpen}
+          isAdmin={isAdmin}
         />
         <div className="flex flex-col gap-4 w-full dark:bg-slate-950 min-h-screen">
           {children}
