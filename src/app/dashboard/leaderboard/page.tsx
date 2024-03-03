@@ -61,7 +61,7 @@ const Page = () => {
         <DashboardSubheading title="Leaderboard" />
         {/* <EmptyState label="Top 10 students will appear here" /> */}
         <section className="flex flex-col gap-3 overflow-x-scroll sm:overflow-hidden">
-          <div className="flex items-center py-3 rounded-lg text-sm">
+          {/* <div className="flex items-center py-3 rounded-lg text-sm">
             <div className="flex items-center gap-3 text-lg flex-wrap w-[300px] md:w-full">
               <Button size="xs">Frontend</Button>
               <Button appearance="secondary-slate" size="xs">
@@ -80,7 +80,7 @@ const Page = () => {
                 🇨🇮
               </Button>
             </div>
-          </div>
+          </div> */}
           <div className="grid md:grid-cols-3 gap-3">
             {communityMembers
               .slice(0, 3)
@@ -93,15 +93,15 @@ const Page = () => {
                     <Link
                       href=""
                       key={index}
-                      className="relative flex flex-col items-center justify-center gap-3 border rounded-lg p-5"
+                      className="group relative flex flex-col items-center justify-center gap-3 border rounded-lg p-5 bg-slate-950"
                     >
                       <div className="absolute left-3 top-3">
                         {rank === 1 ? (
-                          <p className="rounded-full bg-slate-100 py-3 px-3 text-slate-600">
+                          <p className="rounded-full bg-slate-800 py-3 px-3 text-slate-200">
                             <Trophy size={24} />
                           </p>
                         ) : (
-                          <p className="font-bold text-xl rounded-full bg-slate-100 py-1 px-3 text-slate-600">
+                          <p className="font-bold text-xl rounded-full bg-slate-800 py-1 px-3 text-slate-300">
                             {rank}
                           </p>
                         )}
@@ -111,15 +111,15 @@ const Page = () => {
                           <Image src={photo} alt="" fill />
                         </div>
                       </div>
-                      <div className="text-center capitalize">
-                        <p className="text-slate-700 font-semibold">{name}</p>
-                        <p className="text-slate-500 text-sm">
+                      <div className="text-center capitalize text-slate-300">
+                        <p className="font-semibold group-hover:underline">
+                          {name}
+                        </p>
+                        <p className="text-sm">
                           {stack}
                           {flag}
                         </p>
-                        <p className="text-slate-500 text-sm font-medium">
-                          {totalScore}
-                        </p>
+                        <p className="text-sm font-medium">{totalScore}</p>
                       </div>
                     </Link>
                   );
