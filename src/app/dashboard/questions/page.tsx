@@ -92,8 +92,6 @@ const NewQuestionModal = ({
     }
   };
 
-  console.log(errors);
-
   return (
     <Dialog.Root open={isOpen} onOpenChange={close}>
       <Dialog.Portal>
