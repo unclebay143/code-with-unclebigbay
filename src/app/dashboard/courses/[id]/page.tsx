@@ -83,7 +83,9 @@ const Page = (props: Props) => {
                 </div>
               </div>
               <div className="">
-                <Button size="sm">Attempt assignment</Button>
+                <Button size="sm" asChild>
+                  <Link href={'assignment/1'}>Attempt assignment</Link>
+                </Button>
               </div>
             </section>
           )}
