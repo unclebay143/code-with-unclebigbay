@@ -13,7 +13,7 @@ const button = cva('rounded-full flex items-center text-medium', {
         'disabled:bg-blue-200 disabled:cursor-not-allowed disabled:dark:bg-blue-900 disabled:dark:text-slate-400',
       ],
       'link-secondary': [
-        'text-slate-600 dark:text-slate-300',
+        'text-slate-600 dark:text-slate-300 disabled:text-slate-300',
         'hover:text-slate-800',
       ],
       'secondary-slate': [

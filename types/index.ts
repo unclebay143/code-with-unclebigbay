@@ -50,6 +50,7 @@ export type SidebarLink = {
   isActive?: boolean;
   shadowHide?: boolean;
   onClick?: () => void;
+  adminAccess?: boolean;
 };
 
 export type SidebarLinks = SidebarLink[];
