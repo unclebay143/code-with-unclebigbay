@@ -4,7 +4,7 @@ import { useForm, useFieldArray } from 'react-hook-form';
 import { Button } from '@/components/atoms/Button';
 import { DashboardSubheading } from '@/components/molecules/dashboard/dashboard-subheading';
 import { WhiteArea } from '@/components/molecules/dashboard/white-area';
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import * as Dialog from '@radix-ui/react-dialog';
 import { MinusCircle, Plus, X } from 'lucide-react';
 import { IconButton } from '@/components/atoms/IconButton';
@@ -33,10 +33,11 @@ const NewQuestionModal = ({
     watch,
     control,
     formState: { errors },
+    resetField,
   } = useForm({
     defaultValues: { question: '', options: [emptyOption, emptyOption] },
   });
-
+  const createMoreRef = useRef<HTMLInputElement>(null);
   const { fields, append, remove } = useFieldArray({
     control,
     name: 'options',
@@ -80,8 +81,18 @@ const NewQuestionModal = ({
       return toast.error('Select a correct option');
     }
 
-    return toast.success('New question added.');
+    toast.success('New question added.');
+    console.log(question);
+    const wantToCreateMore = createMoreRef.current!.checked;
+    // not using reset() to prevent resetting 'Create more'
+    resetField('options');
+    resetField('question');
+    if (!wantToCreateMore) {
+      return close();
+    }
   };
+
+  console.log(errors);
 
   return (
     <Dialog.Root open={isOpen} onOpenChange={close}>
@@ -108,7 +119,7 @@ const NewQuestionModal = ({
                 <input
                   type="text"
                   placeholder="What is...?"
-                  className="text-sm text-slate-600 p-2 outline-none focus:ring-2 focus:ring-slate-500 focus:border-slate-300 border rounded-md"
+                  className={`text-sm text-slate-600 p-2 outline-none focus:ring-2 focus:ring-slate-500 focus:border-slate-300 border rounded-md ${errors.question && 'ring-2 ring-red-500'}`}
                   {...register('question', { required: true })}
                 />
               </div>
@@ -121,7 +132,6 @@ const NewQuestionModal = ({
                       size="md"
                       onClick={() => handleRemoveItemField(index)}
                     />
-
                     <label
                       htmlFor={`option-${index}`}
                       className="text-slate-600 text-sm"
@@ -135,7 +145,7 @@ const NewQuestionModal = ({
                       key={field.id}
                       type="text"
                       placeholder="Label"
-                      className="w-full text-sm text-slate-600 p-2 outline-none focus:ring-2 focus:ring-slate-500 focus:border-slate-300 border rounded-md"
+                      className={`w-full text-sm text-slate-600 p-2 outline-none focus:ring-2 focus:ring-slate-500 focus:border-slate-300 border rounded-md  ${errors.options?.length && errors.options.length > 1 && 'ring-2 ring-red-500'}`}
                       {...register(`options.${index}.option`, {
                         required: true,
                       })}
@@ -167,10 +177,14 @@ const NewQuestionModal = ({
               </div>
             </div>
 
-            <div className="flex items-center justify-between pt-5 border-t">
+            <div className="flex items-center justify-between gap-2 pt-5 border-t">
               <div>
                 <label className="flex items-center gap-1">
-                  <input id="" type="checkbox" className="mt-0.5" />
+                  <input
+                    type="checkbox"
+                    className="mt-0.5"
+                    ref={createMoreRef}
+                  />
                   <span className="text-slate-600 text-sm">Create more</span>
                 </label>
               </div>
