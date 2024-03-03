@@ -43,6 +43,6 @@ export const sidebarLinks: SidebarLinks = [
     label: 'Questions',
     slug: 'questions',
     Icon: Book,
-    shadowHide: true,
+    adminAccess: true,
   },
 ];
