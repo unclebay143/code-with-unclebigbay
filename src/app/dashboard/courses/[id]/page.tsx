@@ -10,9 +10,7 @@ import { ChevronDown, ChevronUp, HelpCircle } from 'lucide-react';
 import Link from 'next/link';
 import React, { useState } from 'react';
 
-type Props = {};
-
-const Page = (props: Props) => {
+const Page = () => {
   const { title, embedURL, description, coverImageUrl } = materials[0];
   const [showMore, setShowMore] = useState(false);
   const [startedCourse, setStartedCourse] = useState(false);
@@ -75,17 +73,19 @@ const Page = (props: Props) => {
                     {/* Completed, Enrolled, In Progress, Not Started */}
                   </p>
                 </div>
-                <div className="">
-                  <h3 className="font-medium text-lg text-slate-700">
-                    Date Started:
-                  </h3>
-                  <p className="text-slate-600">May, 24, 2023</p>
+                <div className="flex flex-wrap gap-5 w-full justify-between items-end">
+                  <div className="">
+                    <h3 className="font-medium text-lg text-slate-700">
+                      Date Started:
+                    </h3>
+                    <p className="text-slate-600">May, 24, 2023</p>
+                  </div>
+                  <div className="">
+                    <Button size="sm" asChild>
+                      <Link href={'assignment/1'}>Attempt assignment</Link>
+                    </Button>
+                  </div>
                 </div>
-              </div>
-              <div className="">
-                <Button size="sm" asChild>
-                  <Link href={'assignment/1'}>Attempt assignment</Link>
-                </Button>
               </div>
             </section>
           )}

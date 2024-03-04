@@ -6,7 +6,7 @@ import * as Dialog from '@radix-ui/react-dialog';
 import { MinusCircle, Plus, X } from 'lucide-react';
 import { IconButton } from '@/components/atoms/IconButton';
 import { toast } from 'sonner';
-import { Option, Options, Question, Questions } from '../../../../types';
+import { Option, Options, Question, Questions } from '@/utils/types';
 
 const emptyOption: Option = {
   option: '',
