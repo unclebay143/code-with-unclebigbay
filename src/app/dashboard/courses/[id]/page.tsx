@@ -49,11 +49,15 @@ const Page = () => {
         )}
         <WhiteArea border>
           <button
-            className="flex w-full items-center justify-between"
+            className="group flex w-full items-center justify-between"
             onClick={handleShowMoreVisibility}
           >
-            <span className="text-slate-600 font-medium">Course Details</span>
-            <IconButton Icon={showMore ? ChevronUp : ChevronDown} size="xs" />
+            <span className="text-slate-600 font-medium group-hover:text-slate-800">
+              Course Details
+            </span>
+            <span className="group-hover:animate-pulse">
+              <IconButton Icon={showMore ? ChevronUp : ChevronDown} size="xs" />
+            </span>
           </button>
           {showMore && (
             <section className="flex flex-col items-start gap-5 py-4 px-1">
