@@ -10,7 +10,7 @@ const button = cva('rounded-full flex items-center text-medium', {
         'text-white border-transparent',
         'focus:dark:bg-blue-600',
         'focus:ring focus:ring-offset-2 focus:ring-offset-white focus:ring-blue-600 dark:focus:ring-offset-slate-800',
-        'disabled:bg-blue-200 disabled:cursor-not-allowed disabled:dark:bg-blue-900 disabled:dark:text-slate-400',
+        'disabled:bg-slate-300 disabled:cursor-not-allowed disabled:dark:bg-blue-900 disabled:dark:text-slate-400',
       ],
       'link-secondary': [
         'text-slate-600 dark:text-slate-300 disabled:text-slate-300',

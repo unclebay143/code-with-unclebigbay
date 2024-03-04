@@ -7,7 +7,7 @@ import {
   Settings,
   Trophy,
 } from 'lucide-react';
-import { SidebarLinks } from '../../../types';
+import { SidebarLinks } from '@/utils/types';
 
 export const sidebarLinks: SidebarLinks = [
   { key: 'overview', label: 'overview', slug: 'overview', Icon: BarChart },
