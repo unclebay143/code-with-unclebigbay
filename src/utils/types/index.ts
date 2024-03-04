@@ -55,7 +55,7 @@ export type SidebarLink = {
 
 export type SidebarLinks = SidebarLink[];
 
-export type Option = { option: string; isCorrect: boolean };
+export type Option = { option: string; isCorrect?: boolean };
 export type Options = Option[];
-export type Question = { question: string; options: Options };
+export type Question = { id: string; question: string; options: Options };
 export type Questions = Question[];
