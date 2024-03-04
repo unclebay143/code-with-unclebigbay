@@ -34,7 +34,7 @@ const AssignmentSubmitted = () => {
     </section>
   );
 };
-export const SubmissionIndicator = () => (
+const SubmissionIndicator = () => (
   <div
     className="flex justify-center items-center gap-1 bg-white p-1"
     id="submittingIndicator"
@@ -49,7 +49,6 @@ export const SubmissionIndicator = () => (
 );
 
 const Page = () => {
-  const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
 
   const currentPathname = usePathname();
@@ -58,7 +57,7 @@ const Page = () => {
   const {
     handleSubmit,
     control,
-    formState: { isSubmitted, errors },
+    formState: { isSubmitting, isSubmitted, errors },
   } = useForm({ defaultValues: assignments });
 
   const [questions, setQuestions] = useState<Questions>(assignments);
@@ -80,10 +79,7 @@ const Page = () => {
 
     console.log(payload);
 
-    setIsSubmitting(true);
-
     setTimeout(() => {
-      setIsSubmitting(false);
       window.scrollTo({
         top: 0,
         left: 0,
