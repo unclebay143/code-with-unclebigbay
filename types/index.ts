@@ -58,3 +58,4 @@ export type SidebarLinks = SidebarLink[];
 export type Option = { option: string; isCorrect: boolean };
 export type Options = Option[];
 export type Question = { question: string; options: Options };
+export type Questions = Question[];
