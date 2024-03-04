@@ -12,6 +12,7 @@ import { AddQuestionModal } from '@/components/molecules/dashboard/add-question-
 
 const Page = () => {
   const defaultQuestions = {
+    id: '',
     question: 'What is programming?',
     options: [
       { option: 'Coding', isCorrect: false },
