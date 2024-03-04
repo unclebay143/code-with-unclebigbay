@@ -49,6 +49,9 @@ export const SubmissionIndicator = () => (
 );
 
 const Page = () => {
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitted, setSubmitted] = useState(false);
+
   const currentPathname = usePathname();
   const assignmentId = currentPathname.split('/').pop();
 
@@ -57,9 +60,6 @@ const Page = () => {
     control,
     formState: { isSubmitted, errors },
   } = useForm({ defaultValues: assignments });
-
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [submitted, setSubmitted] = useState(false);
 
   const [questions, setQuestions] = useState<Questions>(assignments);
   const noQuestions = questions.length === 0;
@@ -89,7 +89,7 @@ const Page = () => {
         left: 0,
         behavior: 'smooth',
       });
-    }, 100);
+    }, 3000);
   };
 
   return (
@@ -171,16 +171,22 @@ const Page = () => {
         {submitted && <AssignmentSubmitted />}
         {isSubmitting && (
           <div className="bg-slate-800/20 w-full absolute inset-0 z-5">
-            <div className="relative flex flex-col justify-between items-center h-full">
-              <div className="rounded-b overflow-hidden">
-                <SubmissionIndicator />
-              </div>
+            <div
+              className={`relative flex flex-col ${questions.length > 8 ? 'justify-between' : 'justify-center'} items-center h-full`}
+            >
+              {questions.length > 8 && (
+                <div className="rounded-b overflow-hidden">
+                  <SubmissionIndicator />
+                </div>
+              )}
               <div className="rounded overflow-hidden">
                 <SubmissionIndicator />
               </div>
-              <div className="rounded-t overflow-hidden">
-                <SubmissionIndicator />
-              </div>
+              {questions.length > 8 && (
+                <div className="rounded-t overflow-hidden">
+                  <SubmissionIndicator />
+                </div>
+              )}
             </div>
           </div>
         )}
