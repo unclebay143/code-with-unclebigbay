@@ -3,44 +3,187 @@
 import { Button } from '@/components/atoms/Button';
 import { DashboardSubheading } from '@/components/molecules/dashboard/dashboard-subheading';
 import { WhiteArea } from '@/components/molecules/dashboard/white-area';
-import React, { useState } from 'react';
-import { ArrowLeft } from 'lucide-react';
+import React, { useRef, useState } from 'react';
+import { ArrowLeft, CheckCircle, Rotate3D, RotateCw } from 'lucide-react';
 import { EmptyState } from '@/components/molecules/dashboard/empty-state';
-import { Question } from '../../../../../../types';
+import { Question } from '@/utils/types';
+import { Courses } from '@/components/molecules/dashboard/courses';
 
 type Questions = Question[];
 
+export const AssignmentSubmitted = () => {
+  return (
+    <section className="flex flex-col items-center justify-center gap-3 p-4">
+      <div className="flex flex-col items-center gap-5">
+        <div className="flex flex-col text-center gap-2">
+          <h3 className="text-xl font-medium">
+            Congratulations on Completing Your Assignment! 🎉
+          </h3>
+          <span className="text-slate-500 text-sm">
+            Material: Introduction to HTML
+          </span>
+          <p className="text-slate-600">
+            Checkout the recommended learning material below?
+          </p>
+        </div>
+        {/* Pass recommended courses here */}
+        <Courses hideSearchOptions />
+      </div>
+    </section>
+  );
+};
+export const SubmissionIndicator = () => (
+  <div
+    className="flex justify-center items-center gap-1 bg-white p-1"
+    id="submittingIndicator"
+  >
+    <span className="animate-spin">
+      <RotateCw size={20} />
+    </span>
+    <p className="font-bold">
+      Submitting assignment. Don&apos;t navigate from this page...
+    </p>
+  </div>
+);
+
 const Page = () => {
-  const defaultQuestions = {
-    question: 'What is programming?',
-    options: [
-      { option: 'Coding', isCorrect: false },
-      { option: 'Computer language', isCorrect: true },
-      { option: 'Human language', isCorrect: false },
-    ],
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitted, setSubmitted] = useState(false);
+  const defaultQuestions = [
+    {
+      question: 'What is programming?',
+      options: [
+        { option: 'Coding', isCorrect: false },
+        { option: 'Computer language', isCorrect: true },
+        { option: 'Human language', isCorrect: false },
+      ],
+    },
+    {
+      question: 'What is programming?',
+      options: [
+        { option: 'Coding', isCorrect: false },
+        { option: 'Computer language', isCorrect: true },
+        { option: 'Human language', isCorrect: false },
+      ],
+    },
+    {
+      question: 'What is programming?',
+      options: [
+        { option: 'Coding', isCorrect: false },
+        { option: 'Computer language', isCorrect: true },
+        { option: 'Human language', isCorrect: false },
+      ],
+    },
+    {
+      question: 'What is programming?',
+      options: [
+        { option: 'Coding', isCorrect: false },
+        { option: 'Computer language', isCorrect: true },
+        { option: 'Human language', isCorrect: false },
+      ],
+    },
+    {
+      question: 'What is programming?',
+      options: [
+        { option: 'Coding', isCorrect: false },
+        { option: 'Computer language', isCorrect: true },
+        { option: 'Human language', isCorrect: false },
+      ],
+    },
+    {
+      question: 'What is programming?',
+      options: [
+        { option: 'Coding', isCorrect: false },
+        { option: 'Computer language', isCorrect: true },
+        { option: 'Human language', isCorrect: false },
+      ],
+    },
+    {
+      question: 'What is programming?',
+      options: [
+        { option: 'Coding', isCorrect: false },
+        { option: 'Computer language', isCorrect: true },
+        { option: 'Human language', isCorrect: false },
+      ],
+    },
+    {
+      question: 'What is programming?',
+      options: [
+        { option: 'Coding', isCorrect: false },
+        { option: 'Computer language', isCorrect: true },
+        { option: 'Human language', isCorrect: false },
+      ],
+    },
+    {
+      question: 'What is programming?',
+      options: [
+        { option: 'Coding', isCorrect: false },
+        { option: 'Computer language', isCorrect: true },
+        { option: 'Human language', isCorrect: false },
+      ],
+    },
+    {
+      question: 'What is programming?',
+      options: [
+        { option: 'Coding', isCorrect: false },
+        { option: 'Computer language', isCorrect: true },
+        { option: 'Human language', isCorrect: false },
+      ],
+    },
+    {
+      question: 'What is programming?',
+      options: [
+        { option: 'Coding', isCorrect: false },
+        { option: 'Computer language', isCorrect: true },
+        { option: 'Human language', isCorrect: false },
+      ],
+    },
+  ];
+
+  const [questions, setQuestions] = useState<Questions>(defaultQuestions);
+  const noQuestions = questions.length === 0;
+  const canShowQuestions = !noQuestions && !submitted;
+
+  const handleSubmission = () => {
+    setIsSubmitting(true);
+
+    setTimeout(() => {
+      setIsSubmitting(false);
+      window.scrollTo({
+        top: 0,
+        left: 0,
+        behavior: 'smooth',
+      });
+    }, 10000);
   };
 
-  const [questions, setQuestions] = useState<Questions>([defaultQuestions]);
-  const noQuestions = questions.length === 0;
-  const canShowQuestions = !noQuestions;
-
   return (
-    <>
+    <div className="relative rounded-lg overflow-hidden">
       <WhiteArea border>
-        <div className="flex flex-col gap-5">
-          <div className="flex items-center justify-between">
-            <DashboardSubheading title="Assignment: Introduction to HTML" />
-            <Button size="xs" appearance="secondary-slate">
-              <div className="flex gap-1 items-center">
-                <ArrowLeft size={14} />
-                <span>Back to material</span>
+        {canShowQuestions && (
+          <div className="flex flex-col gap-5">
+            <div className="flex flex-col gap-2 justify-between">
+              <div className="flex items-center justify-between">
+                <DashboardSubheading title="Assignment: Introduction to HTML" />
+                <Button size="xs" appearance="secondary-slate">
+                  <div className="flex gap-1 items-center">
+                    <ArrowLeft size={14} />
+                    <span>Back to material</span>
+                  </div>
+                </Button>
               </div>
-            </Button>
-          </div>
-          {noQuestions && (
-            <EmptyState label="Questions and options will appear here..." />
-          )}
-          {canShowQuestions && (
+              <div className="flex text-slate-600">
+                <div className="text-sm">
+                  <span className="font-medium"> Status: </span>
+                  <span className="text-yellow-500 font-medium">
+                    Not attempted
+                  </span>
+                  <span className="mx-1">&middot;</span>
+                  <span className="font-medium">Total: </span>
+                  <span>{questions.length}</span>
+                </div>
+              </div>
+            </div>
             <WhiteArea border>
               <ul className="list-decimal list-inside">
                 {questions.map(({ options, question }, questionIndex) => (
@@ -72,12 +215,34 @@ const Page = () => {
                   </li>
                 ))}
               </ul>
-              <Button size="xs">Submit</Button>
+              <Button
+                size="xs"
+                disabled={isSubmitting}
+                onClick={handleSubmission}
+              >
+                {isSubmitting ? 'Submitting' : 'Submit'}
+              </Button>
             </WhiteArea>
-          )}
-        </div>
+          </div>
+        )}
+        {submitted && <AssignmentSubmitted />}
+        {isSubmitting && (
+          <div className="bg-slate-800/20 w-full absolute inset-0 z-5">
+            <div className="relative flex flex-col justify-between items-center h-full">
+              <div className="rounded-b overflow-hidden">
+                <SubmissionIndicator />
+              </div>
+              <div className="rounded overflow-hidden">
+                <SubmissionIndicator />
+              </div>
+              <div className="rounded-t overflow-hidden">
+                <SubmissionIndicator />
+              </div>
+            </div>
+          </div>
+        )}
       </WhiteArea>
-    </>
+    </div>
   );
 };
 

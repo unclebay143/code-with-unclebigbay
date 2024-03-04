@@ -9,7 +9,7 @@ import {
   CommunityMembers,
   Materials,
   Overview,
-} from '../../types';
+} from '@/utils/types';
 
 export const activities: Activity[] = [
   { date: Date.now(), title: 'Created an account' },
