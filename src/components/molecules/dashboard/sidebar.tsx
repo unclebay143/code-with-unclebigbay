@@ -1,11 +1,11 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { usePathname } from 'next/navigation';
 import Link from 'next/link';
 import { SlideOver } from '../../atoms/SlideOver';
 import { CodeWithUnclebigbayLogo } from '../../atoms/CodeWithUnclebigbayLogo';
 import { IconButton } from '../../atoms/IconButton';
 import { XMark } from '../../icons/XMark';
-import { SidebarLink } from '../../../../types';
+import { SidebarLink } from '@/utils/types';
 import { sidebarLinks } from '@/utils/consts/links';
 
 const SidebarLink = ({ label, Icon, isActive, slug, onClick }: SidebarLink) => {
@@ -24,7 +24,6 @@ const SidebarLink = ({ label, Icon, isActive, slug, onClick }: SidebarLink) => {
 };
 
 export const Sidebar = ({ isAdmin }: { isAdmin: boolean }) => {
-  const [sidebarOpen, setSidebarOpen] = useState(false);
   const pathname = usePathname();
   const currentPageName = pathname.split('/')[2];
 
@@ -32,16 +31,14 @@ export const Sidebar = ({ isAdmin }: { isAdmin: boolean }) => {
     <aside className="hidden lg:flex">
       <nav>
         <div className="transition-all w-0 lg:w-[270px]" />
-        <div
-          className={`border rounded-lg flex flex-col gap-1 px-2 fixed py-4 z-10 bg-white dark:bg-slate-950 w-[270px] transition-transform ease-in-out -translate-x-full lg:translate-x-0 ${sidebarOpen && 'translate-x-0'}`}
-        >
+        <div className="border rounded-lg flex flex-col gap-1 px-2 fixed py-4 z-10 bg-white dark:bg-slate-950 w-[270px]">
           {sidebarLinks.map(
             ({ key, label, Icon, slug, shadowHide, adminAccess }) => {
               const isCurrentPage = currentPageName === key.toLowerCase();
-              const shouldHideLink =
-                (shadowHide && !isCurrentPage) || (adminAccess && !isAdmin);
+              const requireAdminAccess = adminAccess && !isAdmin;
+              const shadowHidden = shadowHide && !isCurrentPage;
+              const shouldHideLink = shadowHidden || requireAdminAccess;
               if (shouldHideLink) return;
-
               return (
                 <SidebarLink
                   key={`sidebar-link-${key}`}

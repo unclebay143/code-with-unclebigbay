@@ -31,6 +31,7 @@ const materialSchema = new Schema({
   author: { type: Schema.Types.ObjectId, ref: 'Student', required: true },
   coAuthors: [{ type: Schema.Types.ObjectId, ref: 'Student' }],
   assignment: [{ type: Schema.Types.ObjectId, ref: 'Question' }],
+  recommendedCourses: [{ type: Schema.Types.ObjectId, ref: 'Material' }],
 });
 
 const Material = models.Material || model('Material', materialSchema);
