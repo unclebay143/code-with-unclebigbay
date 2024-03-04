@@ -3,13 +3,12 @@
 import { DashboardSubheading } from '@/components/molecules/dashboard/dashboard-subheading';
 // import { EmptyState } from '@/components/dashboard/empty-state';
 import { WhiteArea } from '@/components/molecules/dashboard/white-area';
-import { Button } from '@/components/atoms/Button';
 import { communityMember, communityMembers } from '@/utils/dummy-data';
 import { MoreHorizontal, Trophy } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
 import React from 'react';
-import { CommunityMember } from '../../../../types';
+import { CommunityMember } from '@/utils/types';
 
 const LeaderboardCard = ({
   rank,
