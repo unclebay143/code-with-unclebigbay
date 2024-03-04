@@ -13,7 +13,7 @@ import { assignments } from '@/utils/dummy-data';
 
 type Questions = Question[];
 
-export const AssignmentSubmitted = () => {
+const AssignmentSubmitted = () => {
   return (
     <section className="flex flex-col items-center justify-center gap-3 p-4">
       <div className="flex flex-col items-center gap-5">
