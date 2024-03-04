@@ -5,7 +5,7 @@ import { SlideOver } from '../../atoms/SlideOver';
 import { CodeWithUnclebigbayLogo } from '../../atoms/CodeWithUnclebigbayLogo';
 import { IconButton } from '../../atoms/IconButton';
 import { XMark } from '../../icons/XMark';
-import { SidebarLink } from '../../../../types';
+import { SidebarLink } from '@/utils/types';
 import { sidebarLinks } from '@/utils/consts/links';
 
 const SidebarLink = ({ label, Icon, isActive, slug, onClick }: SidebarLink) => {

@@ -7,7 +7,7 @@ import React, { useState } from 'react';
 import { Edit, Trash } from 'lucide-react';
 import { IconButton } from '@/components/atoms/IconButton';
 import { EmptyState } from '@/components/molecules/dashboard/empty-state';
-import { Questions } from '../../../../types';
+import { Questions } from '@/utils/types';
 import { AddQuestionModal } from '@/components/molecules/dashboard/add-question-modal';
 
 const Page = () => {
