@@ -30,7 +30,11 @@ export const AddQuestionModal = ({
     formState: { isSubmitting, errors },
     resetField,
   } = useForm({
-    defaultValues: { question: '', options: [emptyOption, emptyOption] },
+    defaultValues: {
+      id: '',
+      question: '',
+      options: [emptyOption, emptyOption],
+    },
   });
   const createMoreRef = useRef<HTMLInputElement>(null);
   const { fields, append, remove } = useFieldArray({

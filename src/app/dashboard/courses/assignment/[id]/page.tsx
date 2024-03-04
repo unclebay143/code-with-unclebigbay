@@ -3,11 +3,13 @@
 import { Button } from '@/components/atoms/Button';
 import { DashboardSubheading } from '@/components/molecules/dashboard/dashboard-subheading';
 import { WhiteArea } from '@/components/molecules/dashboard/white-area';
-import React, { useRef, useState } from 'react';
-import { ArrowLeft, CheckCircle, Rotate3D, RotateCw } from 'lucide-react';
-import { EmptyState } from '@/components/molecules/dashboard/empty-state';
+import React, { useState } from 'react';
+import { ArrowLeft, RotateCw } from 'lucide-react';
 import { Question } from '@/utils/types';
 import { Courses } from '@/components/molecules/dashboard/courses';
+import { Controller, useForm } from 'react-hook-form';
+import { usePathname } from 'next/navigation';
+import { assignments } from '@/utils/dummy-data';
 
 type Questions = Question[];
 
@@ -47,104 +49,37 @@ export const SubmissionIndicator = () => (
 );
 
 const Page = () => {
+  const currentPathname = usePathname();
+  const assignmentId = currentPathname.split('/').pop();
+
+  const {
+    handleSubmit,
+    control,
+    formState: { isSubmitted, errors },
+  } = useForm({ defaultValues: assignments });
+
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
-  const defaultQuestions = [
-    {
-      question: 'What is programming?',
-      options: [
-        { option: 'Coding', isCorrect: false },
-        { option: 'Computer language', isCorrect: true },
-        { option: 'Human language', isCorrect: false },
-      ],
-    },
-    {
-      question: 'What is programming?',
-      options: [
-        { option: 'Coding', isCorrect: false },
-        { option: 'Computer language', isCorrect: true },
-        { option: 'Human language', isCorrect: false },
-      ],
-    },
-    {
-      question: 'What is programming?',
-      options: [
-        { option: 'Coding', isCorrect: false },
-        { option: 'Computer language', isCorrect: true },
-        { option: 'Human language', isCorrect: false },
-      ],
-    },
-    {
-      question: 'What is programming?',
-      options: [
-        { option: 'Coding', isCorrect: false },
-        { option: 'Computer language', isCorrect: true },
-        { option: 'Human language', isCorrect: false },
-      ],
-    },
-    {
-      question: 'What is programming?',
-      options: [
-        { option: 'Coding', isCorrect: false },
-        { option: 'Computer language', isCorrect: true },
-        { option: 'Human language', isCorrect: false },
-      ],
-    },
-    {
-      question: 'What is programming?',
-      options: [
-        { option: 'Coding', isCorrect: false },
-        { option: 'Computer language', isCorrect: true },
-        { option: 'Human language', isCorrect: false },
-      ],
-    },
-    {
-      question: 'What is programming?',
-      options: [
-        { option: 'Coding', isCorrect: false },
-        { option: 'Computer language', isCorrect: true },
-        { option: 'Human language', isCorrect: false },
-      ],
-    },
-    {
-      question: 'What is programming?',
-      options: [
-        { option: 'Coding', isCorrect: false },
-        { option: 'Computer language', isCorrect: true },
-        { option: 'Human language', isCorrect: false },
-      ],
-    },
-    {
-      question: 'What is programming?',
-      options: [
-        { option: 'Coding', isCorrect: false },
-        { option: 'Computer language', isCorrect: true },
-        { option: 'Human language', isCorrect: false },
-      ],
-    },
-    {
-      question: 'What is programming?',
-      options: [
-        { option: 'Coding', isCorrect: false },
-        { option: 'Computer language', isCorrect: true },
-        { option: 'Human language', isCorrect: false },
-      ],
-    },
-    {
-      question: 'What is programming?',
-      options: [
-        { option: 'Coding', isCorrect: false },
-        { option: 'Computer language', isCorrect: true },
-        { option: 'Human language', isCorrect: false },
-      ],
-    },
-  ];
 
-  const [questions, setQuestions] = useState<Questions>(defaultQuestions);
+  const [questions, setQuestions] = useState<Questions>(assignments);
   const noQuestions = questions.length === 0;
   const canShowQuestions = !noQuestions && !submitted;
 
-  const handleSubmission = () => {
+  const onSubmit = (data: Questions) => {
+    const assignmentResponse = questions.map((question, index) => ({
+      questionId: question.id,
+      question: question.question,
+      answer: data[index]?.question || '', // Use the selected answer, or empty string if not selected
+    }));
+
+    const payload = {
+      materialId: '0',
+      assignmentId,
+      responses: assignmentResponse,
+    };
+
+    console.log(payload);
+
     setIsSubmitting(true);
 
     setTimeout(() => {
@@ -154,7 +89,7 @@ const Page = () => {
         left: 0,
         behavior: 'smooth',
       });
-    }, 10000);
+    }, 100);
   };
 
   return (
@@ -185,43 +120,51 @@ const Page = () => {
               </div>
             </div>
             <WhiteArea border>
-              <ul className="list-decimal list-inside">
-                {questions.map(({ options, question }, questionIndex) => (
-                  <li
-                    key={question}
-                    className="relative border-b last:border-none py-4"
-                  >
-                    <span className="inline-block mb-2 font-semibold">
-                      {question}
-                    </span>
-                    <ol className="pl-2 flex flex-col gap-2 list-inside list-[lower-alpha]">
-                      {options.map(({ option, isCorrect }, index) => {
-                        return (
-                          <li className="text-sm text-slate-800" key={option}>
-                            <span className="inline-flex items-center gap-1">
-                              <label className="flex items-center gap-1">
-                                <input
-                                  type="radio"
-                                  className="mt-0.5"
-                                  name={questionIndex.toString()}
-                                />
-                                {option}
-                              </label>
-                            </span>
-                          </li>
-                        );
-                      })}
-                    </ol>
-                  </li>
-                ))}
-              </ul>
-              <Button
-                size="xs"
-                disabled={isSubmitting}
-                onClick={handleSubmission}
-              >
-                {isSubmitting ? 'Submitting' : 'Submit'}
-              </Button>
+              <form onSubmit={handleSubmit(onSubmit)}>
+                <ul className="list-decimal list-inside">
+                  {questions.map(({ options, question }, questionIndex) => (
+                    <li
+                      key={question}
+                      className="relative border-b last:border-none py-4"
+                    >
+                      <span className="inline-block mb-2 font-semibold">
+                        {question}
+                      </span>
+                      <ol className="pl-2 flex flex-col gap-2 list-inside list-[lower-alpha]">
+                        {options.map(({ option, isCorrect }, index) => {
+                          return (
+                            <li className="text-sm text-slate-800" key={option}>
+                              <span className="inline-flex items-center gap-1">
+                                <label className="flex items-center gap-1">
+                                  <Controller
+                                    name={`${questionIndex}.question`}
+                                    control={control}
+                                    defaultValue={`${questionIndex}.option`}
+                                    render={({ field }) => (
+                                      <input
+                                        {...field}
+                                        value={option}
+                                        type="radio"
+                                        className="mt-0.5"
+                                        // name={question}
+                                        // {...register(`response-${question}`)}
+                                      />
+                                    )}
+                                  />
+                                  {option}
+                                </label>
+                              </span>
+                            </li>
+                          );
+                        })}
+                      </ol>
+                    </li>
+                  ))}
+                </ul>
+                <Button size="xs" disabled={isSubmitting} type="submit">
+                  {isSubmitting ? 'Submitting' : 'Submit'}
+                </Button>
+              </form>
             </WhiteArea>
           </div>
         )}

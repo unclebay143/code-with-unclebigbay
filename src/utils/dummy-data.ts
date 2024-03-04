@@ -494,3 +494,24 @@ export const questions = [
     answer: "<script src='xxx.js'>",
   },
 ];
+
+export const assignments = [
+  {
+    id: '1',
+    question: 'What is programming?',
+    options: [
+      { option: 'Coding', choice: false },
+      { option: 'Computer language', choice: false },
+      { option: 'Power', choice: false },
+    ],
+  },
+  {
+    id: '2',
+    question: 'Which of these is a programming language?',
+    options: [
+      { option: 'css', choice: false },
+      { option: 'javascript', choice: false },
+      { option: 'Human language', choice: false },
+    ],
+  },
+];
