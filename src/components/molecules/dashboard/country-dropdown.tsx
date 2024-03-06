@@ -12,7 +12,9 @@ interface Country {
   // other details can be added for future use if needed
 }
 
-export const SelectCountry = () => {
+export const SelectCountry = (props: {
+  onValueChange: (...event: any[]) => void;
+}) => {
   const [countries, setCountries] = useState<Country[]>([]);
 
   useEffect(() => {
@@ -36,7 +38,7 @@ export const SelectCountry = () => {
   }, []);
 
   return (
-    <Select onValueChange={(e) => console.log(e)}>
+    <Select {...props}>
       <SelectTrigger
         size="md"
         placeholder="Select a country"

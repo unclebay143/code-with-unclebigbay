@@ -52,4 +52,5 @@ export const professionalDetailSchema = z.object({
 
 export const personalDetailSchema = z.object({
   bio: z.string().or(z.literal('')),
+  nationality: z.string().or(z.literal('')),
 });

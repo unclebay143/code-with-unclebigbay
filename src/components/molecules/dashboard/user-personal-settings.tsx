@@ -1,13 +1,14 @@
 'use client';
+
 import { Button } from '@/components/atoms/Button';
-import React from 'react';
+import React, { useEffect } from 'react';
 import Image from 'next/image';
 import { WhiteArea } from './white-area';
 import { DashboardSubheading } from './dashboard-subheading';
 import { SelectCountry } from './country-dropdown';
 import useCurrentStudent from '@/components/hooks/useCurrentStudent';
 import * as z from 'zod';
-import { useForm, SubmitHandler } from 'react-hook-form';
+import { useForm, SubmitHandler, Controller } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { personalDetailSchema } from '@/validation/userSocialValidation';
 import { toast } from 'sonner';
@@ -18,14 +19,21 @@ type personalDetailSchemaType = z.infer<typeof personalDetailSchema>;
 
 const UserPersonalSettings = () => {
   const { data: user } = useCurrentStudent();
-  const { fullName, email, bio, photo } = user || {};
+  const fullName = user?.fullName;
+  const email = user?.email;
+  const photo = user?.photo;
 
   const {
+    control,
+    reset,
     register,
     handleSubmit,
     formState: { errors },
   } = useForm<personalDetailSchemaType>({
     resolver: zodResolver(personalDetailSchema),
+    defaultValues: {
+      bio: user?.bio,
+    },
   });
 
   const onSubmit: SubmitHandler<personalDetailSchemaType> = (data) => {
@@ -36,6 +44,16 @@ const UserPersonalSettings = () => {
       console.log(err);
     }
   };
+
+  useEffect(() => {
+    if (user) {
+      reset({
+        bio: user?.bio,
+      });
+    }
+  }, [user, reset]);
+
+  const bioErrorMessage = errors.bio?.message;
 
   return (
     <div className="flex flex-col gap-4">
@@ -78,10 +96,9 @@ const UserPersonalSettings = () => {
               </label>
               <input
                 type="text"
-                name=""
                 id="name"
-                value={fullName}
                 className="disabled:cursor-not-allowed text-sm text-slate-600 p-2 outline-none focus:ring-2 focus:ring-slate-500 focus:border-slate-300 border rounded-md"
+                value={fullName}
                 disabled
               />
             </div>
@@ -95,8 +112,8 @@ const UserPersonalSettings = () => {
               </label>
               <input
                 type="text"
-                value={email}
                 className="disabled:cursor-not-allowed text-sm text-slate-600 p-2 outline-none focus:ring-2 focus:ring-slate-500 focus:border-slate-300 border rounded-md"
+                value={email}
                 disabled
               />
             </div>
@@ -106,14 +123,11 @@ const UserPersonalSettings = () => {
               </label>
               <textarea
                 className="min-h-[200px] text-sm text-slate-600 placeholder:text-slate-600 p-2 outline-none focus:ring-2 focus:ring-slate-500 focus:border-slate-300 border rounded-md"
-                placeholder={bio}
-                // value={bio}
+                placeholder="Introduce yourself to the world."
                 {...register('bio')}
               />
-              {errors.bio && (
-                <span className="text-sm text-red-600">
-                  {errors.bio.message}
-                </span>
+              {bioErrorMessage && (
+                <span className="text-sm text-red-600">{bioErrorMessage}</span>
               )}
             </div>
             <div className="flex flex-col gap-2">
@@ -124,7 +138,13 @@ const UserPersonalSettings = () => {
                   location.
                 </p>
               </label>
-              <SelectCountry />
+              <Controller
+                control={control}
+                name="nationality"
+                render={({ field }) => (
+                  <SelectCountry onValueChange={field.onChange} />
+                )}
+              />
             </div>
             <div className="flex">
               <Button size="sm">Update</Button>
