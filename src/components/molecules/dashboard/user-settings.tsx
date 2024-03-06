@@ -11,8 +11,8 @@ const UserSettings = () => {
     <div className="lg:w-[80%] px-3">
       <div className="flex flex-col gap-4">
         <UserPersonalSettings />
-        {/* <UserProfessionalSettings />
-        <UserSocialSettings /> */}
+        <UserProfessionalSettings />
+        <UserSocialSettings />
         <WhiteArea border>
           <div className="flex justify-between items-center gap-5">
             <div>
