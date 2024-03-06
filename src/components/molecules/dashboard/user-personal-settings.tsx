@@ -33,6 +33,7 @@ const UserPersonalSettings = () => {
     resolver: zodResolver(personalDetailSchema),
     defaultValues: {
       bio: user?.bio,
+      location: user?.location,
     },
   });
 
@@ -49,6 +50,7 @@ const UserPersonalSettings = () => {
     if (user) {
       reset({
         bio: user?.bio,
+        location: user?.location,
       });
     }
   }, [user, reset]);
@@ -142,7 +144,10 @@ const UserPersonalSettings = () => {
                 control={control}
                 name="location"
                 render={({ field }) => (
-                  <SelectCountry onValueChange={field.onChange} />
+                  <SelectCountry
+                    onValueChange={field.onChange}
+                    defaultValue={field.value}
+                  />
                 )}
               />
             </div>
