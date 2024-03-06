@@ -42,6 +42,7 @@ interface CustomResponse extends Response {
   params: { username: string };
 }
 
+// Student profile update
 const POST = async (req: Request, res: CustomResponse) => {
   try {
     const { username } = res.params; // to ensure username in the api route [username] is same as the one in the body

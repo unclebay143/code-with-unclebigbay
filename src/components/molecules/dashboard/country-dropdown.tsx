@@ -9,11 +9,14 @@ import {
 
 interface Country {
   name: { common: string };
-  // other details can be added for future use if needed
 }
 
-export const SelectCountry = () => {
+export const SelectCountry = (props: {
+  onValueChange: (...event: any[]) => void;
+  defaultValue?: string;
+}) => {
   const [countries, setCountries] = useState<Country[]>([]);
+  const isLoading = countries.length === 0;
 
   useEffect(() => {
     const fetchData = async () => {
@@ -36,23 +39,39 @@ export const SelectCountry = () => {
   }, []);
 
   return (
-    <Select onValueChange={(e) => console.log(e)}>
-      <SelectTrigger
-        size="md"
-        placeholder="Select a country"
-        shape="md-rectangle"
-      />
-      <SelectContent>
-        <SelectViewPort>
-          {countries.map((country, index) => (
-            <SelectItem
-              value={country.name.common}
-              label={country.name.common}
-              key={index}
+    <>
+      {isLoading ? (
+        <Select>
+          <SelectTrigger
+            size="md"
+            placeholder={props.defaultValue}
+            shape="md-rectangle"
+            disabled
+          />
+        </Select>
+      ) : (
+        <>
+          <Select {...props}>
+            <SelectTrigger
+              size="md"
+              disabled={isLoading}
+              placeholder={'Select a country'}
+              shape="md-rectangle"
             />
-          ))}
-        </SelectViewPort>
-      </SelectContent>
-    </Select>
+            <SelectContent>
+              <SelectViewPort>
+                {countries.map((country, index) => (
+                  <SelectItem
+                    value={country.name.common}
+                    label={country.name.common}
+                    key={index}
+                  />
+                ))}
+              </SelectViewPort>
+            </SelectContent>
+          </Select>
+        </>
+      )}
+    </>
   );
 };
