@@ -23,7 +23,7 @@ const UserSocialSettings = () => {
     stackoverflow: user?.socials?.stackoverflow,
     facebook: user?.socials?.facebook,
     instagram: user?.socials?.instagram,
-    linkedIn: user?.socials?.linkedIn,
+    linkedIn: user?.socials?.linkedin,
     mastodon: user?.socials?.mastodon,
     youtube: user?.socials?.youtube,
   };
