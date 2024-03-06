@@ -6,7 +6,7 @@ const questionSchema = new Schema({
   question: { type: String, required: true },
   options: [
     {
-      label: { type: String, required: true },
+      option: { type: String, required: true },
       isCorrect: { type: Boolean, default: false },
     },
   ],
