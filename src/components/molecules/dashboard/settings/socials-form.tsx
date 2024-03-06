@@ -1,25 +1,41 @@
 'use client';
 import { Button } from '@/components/atoms/Button';
-import React from 'react';
-import { WhiteArea } from './white-area';
-import { DashboardSubheading } from './dashboard-subheading';
+import React, { useEffect } from 'react';
+import { WhiteArea } from '../white-area';
+import { DashboardSubheading } from '../dashboard-subheading';
 import * as z from 'zod';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { ProfileUpdateSchema } from '@/validation/userSocialValidation';
 import { toast } from 'sonner';
+import useCurrentStudent from '@/components/hooks/useCurrentStudent';
 
 ProfileUpdateSchema;
 
 type profileUpdateSchemaType = z.infer<typeof ProfileUpdateSchema>;
 
 const UserSocialSettings = () => {
+  const { data: user } = useCurrentStudent();
+
+  const defaultValues = {
+    github: user?.socials?.github,
+    x: user?.socials?.x,
+    stackoverflow: user?.socials?.stackoverflow,
+    facebook: user?.socials?.facebook,
+    instagram: user?.socials?.instagram,
+    linkedIn: user?.socials?.linkedIn,
+    mastodon: user?.socials?.mastodon,
+    youtube: user?.socials?.youtube,
+  };
+
   const {
+    reset,
     register,
     handleSubmit,
     formState: { errors, isDirty, dirtyFields },
   } = useForm<profileUpdateSchemaType>({
     resolver: zodResolver(ProfileUpdateSchema),
+    defaultValues,
   });
 
   const onSubmit: SubmitHandler<profileUpdateSchemaType> = (data) => {
@@ -30,6 +46,15 @@ const UserSocialSettings = () => {
       console.log(err);
     }
   };
+
+  useEffect(() => {
+    if (user) {
+      reset(defaultValues);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [user]);
+
+  const disableUpdateBtn = !isDirty;
   return (
     <WhiteArea border>
       <form onSubmit={handleSubmit(onSubmit)}>
@@ -82,12 +107,10 @@ const UserSocialSettings = () => {
                 type="text"
                 placeholder="https://x.com/@username"
                 className="text-sm text-slate-600 p-2 outline-none focus:ring-2 focus:ring-slate-500 focus:border-slate-300 border rounded-md"
-                {...register('twitter')}
+                {...register('x')}
               />
-              {errors.twitter && (
-                <span className="text-sm text-red-600">
-                  {errors.twitter.message}
-                </span>
+              {errors.x && (
+                <span className="text-sm text-red-600">{errors.x.message}</span>
               )}
             </div>
             <div className="flex flex-col gap-2">

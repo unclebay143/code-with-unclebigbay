@@ -11,7 +11,7 @@ export const ProfileUpdateSchema = z.object({
     .url()
     .includes('https://facebook.com/', { message: 'Invalid facebook URL' })
     .or(z.literal('')),
-  twitter: z
+  x: z
     .string()
     .url()
     .includes('https://x.com/', { message: 'Invalid twitter URL' })

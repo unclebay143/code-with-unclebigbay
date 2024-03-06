@@ -1,15 +1,15 @@
 'use client';
 import { Button } from '@/components/atoms/Button';
 import React, { useEffect } from 'react';
-import { WhiteArea } from './white-area';
-import { DashboardSubheading } from './dashboard-subheading';
+import { WhiteArea } from '../white-area';
+import { DashboardSubheading } from '../dashboard-subheading';
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectViewPort,
-} from '../../atoms/Select';
+} from '../../../atoms/Select';
 import * as z from 'zod';
 import { useForm, SubmitHandler, Controller } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
