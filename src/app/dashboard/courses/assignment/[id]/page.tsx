@@ -10,6 +10,7 @@ import { Courses } from '@/components/molecules/dashboard/courses';
 import { Controller, useForm } from 'react-hook-form';
 import { usePathname } from 'next/navigation';
 import { assignments } from '@/utils/dummy-data';
+import { toast } from 'sonner';
 
 type Questions = Question[];
 
@@ -60,16 +61,23 @@ const Page = () => {
     formState: { isSubmitting, isSubmitted, errors },
   } = useForm({ defaultValues: assignments });
 
+  console.log(errors);
+
   const [questions, setQuestions] = useState<Questions>(assignments);
   const noQuestions = questions.length === 0;
   const canShowQuestions = !noQuestions && !submitted;
 
   const onSubmit = (data: Questions) => {
-    const assignmentResponse = questions.map((question, index) => ({
-      questionId: question.id,
-      question: question.question,
-      answer: data[index]?.question || '', // Use the selected answer, or empty string if not selected
-    }));
+    const assignmentResponse = questions.map((question, index) => {
+      const answer = data[index];
+      console.log({ answer });
+      // if (data[index].question)
+      return {
+        questionId: question.id,
+        question: question.question,
+        answer: data[index]?.question,
+      };
+    });
 
     const payload = {
       materialId: '0',
@@ -78,6 +86,7 @@ const Page = () => {
     };
 
     console.log(payload);
+    toast.success('Assignment submitted');
 
     setTimeout(() => {
       window.scrollTo({

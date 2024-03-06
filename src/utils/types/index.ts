@@ -67,3 +67,37 @@ export type Question = {
   answerExplanation?: string;
 };
 export type Questions = Question[];
+
+export type Student = {
+  fullName: string;
+  email: string;
+  username: string;
+  bio: string;
+  socials: {
+    portfolio: string;
+    blog: string;
+    github: string;
+    x: string;
+    facebook: string;
+    mastodon: string;
+    thread: string;
+    stackoverflow: string;
+    linkedin: string;
+    youtube: string;
+    instagram: string;
+  };
+  stack: string;
+  photo: string;
+  isPro: boolean;
+  accountOnHold: boolean;
+  isBanned: boolean;
+  isAnonymous: boolean;
+  isSuperAdmin: boolean;
+  isAdmin: boolean;
+  isModerator: boolean;
+  nationality: string;
+  state: string;
+  location: string;
+  gender: string;
+  interests: string;
+};
