@@ -1,7 +1,10 @@
 import React from 'react';
 
-type Props = { title: string };
+type Props = { title: string; color?: string };
 
-export const DashboardSubheading = ({ title }: Props) => {
-  return <h2 className="text-slate-700 font-medium">{title}</h2>;
+export const DashboardSubheading = ({
+  title,
+  color = 'text-slate-700',
+}: Props) => {
+  return <h2 className={`font-medium ${color}`}>{title}</h2>;
 };

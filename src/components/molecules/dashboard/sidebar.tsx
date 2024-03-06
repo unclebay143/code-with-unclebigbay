@@ -23,7 +23,7 @@ const SidebarLink = ({ label, Icon, isActive, slug, onClick }: SidebarLink) => {
   );
 };
 
-export const Sidebar = ({ isAdmin }: { isAdmin: boolean }) => {
+export const Sidebar = ({ isAdmin }: { isAdmin?: boolean }) => {
   const pathname = usePathname();
   const currentPageName = pathname.split('/')[2];
 
@@ -63,7 +63,7 @@ export const SidebarMobile = ({
 }: {
   sidebarOpen: boolean;
   setSidebarOpen: Function;
-  isAdmin: boolean;
+  isAdmin?: boolean;
 }) => {
   const pathname = usePathname();
   const currentPageName = pathname.split('/')[2];
