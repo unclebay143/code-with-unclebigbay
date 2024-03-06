@@ -11,7 +11,7 @@ import {
   SelectViewPort,
 } from '../../atoms/Select';
 import * as z from 'zod';
-import { useForm, SubmitHandler } from 'react-hook-form';
+import { useForm, SubmitHandler, Controller } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { professionalDetailSchema } from '@/validation/userSocialValidation';
 import { toast } from 'sonner';
@@ -22,6 +22,7 @@ type professionalDetailSchemaType = z.infer<typeof professionalDetailSchema>;
 
 const UserProfessionalSettings = () => {
   const {
+    control,
     register,
     handleSubmit,
     formState: { errors },
@@ -48,20 +49,25 @@ const UserProfessionalSettings = () => {
             <label htmlFor="stack">
               <DashboardSubheading title="Stack" />
             </label>
-
-            <Select onValueChange={(e) => console.log(e)}>
-              <SelectTrigger
-                size="md"
-                placeholder="Select a stack"
-                shape="md-rectangle"
-              />
-              <SelectContent>
-                <SelectViewPort>
-                  <SelectItem value={'frontend'} label={'Frontend'} />
-                  <SelectItem value={'backend'} label={'Backend'} />
-                </SelectViewPort>
-              </SelectContent>
-            </Select>
+            <Controller
+              control={control}
+              name="stack"
+              render={({ field }) => (
+                <Select onValueChange={field.onChange}>
+                  <SelectTrigger
+                    size="md"
+                    placeholder="Select a stack"
+                    shape="md-rectangle"
+                  />
+                  <SelectContent>
+                    <SelectViewPort>
+                      <SelectItem value={'frontend'} label={'Frontend'} />
+                      <SelectItem value={'backend'} label={'Backend'} />
+                    </SelectViewPort>
+                  </SelectContent>
+                </Select>
+              )}
+            />
           </div>
 
           <div className="flex flex-col gap-2">

@@ -25,7 +25,7 @@ const UserSettings = () => {
             </div>
 
             <label htmlFor="one" className="check-label">
-              <input id="one" type="custom-checkbox" />
+              <input id="one" type="checkbox" className="custom-checkbox" />
             </label>
           </div>
         </WhiteArea>
