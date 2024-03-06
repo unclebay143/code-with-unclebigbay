@@ -1,5 +1,6 @@
 'use client';
 import React, { ChangeEvent, useState } from 'react';
+import { toast } from 'sonner';
 import { WhiteArea } from '../white-area';
 import { DashboardSubheading } from '../dashboard-subheading';
 import useCurrentStudent from '@/components/hooks/useCurrentStudent';
@@ -13,6 +14,7 @@ const AnonymityForm = () => {
     const status = e.target.checked;
     setIsAnonymous(status);
     console.log({ anonymity: status });
+    toast.success('Anonymity status updated.');
   };
 
   return (

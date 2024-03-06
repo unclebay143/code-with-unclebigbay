@@ -59,29 +59,31 @@ const UserPersonalSettings = () => {
 
   return (
     <div className="flex flex-col gap-4">
-      <WhiteArea border>
-        <section className="flex flex-col gap-4 justify-stretch">
-          <label htmlFor="photo" className="border-b pb-3">
-            <DashboardSubheading title="Profile Picture" />
-            <p className="text-slate-500 text-sm">Sourced from GitHub</p>
-          </label>
-          <div className="flex flex-col items-start">
-            <label
-              htmlFor="photo"
-              className="flex flex-col items-center justify-center w-full h-64 rounded-lg bg-gray-50 dark:hover:bg-bray-800 dark:bg-gray-700 hover:bg-gray-100"
-            >
-              <Image
-                src={photo}
-                alt={fullName}
-                width={200}
-                height={200}
-                className="rounded-full"
-              />
-              <input disabled id="photo" type="file" className="hidden" />
+      {photo && (
+        <WhiteArea border>
+          <section className="flex flex-col gap-4 justify-stretch">
+            <label htmlFor="photo" className="border-b pb-3">
+              <DashboardSubheading title="Profile Picture" />
+              <p className="text-slate-500 text-sm">Sourced from GitHub</p>
             </label>
-          </div>
-        </section>
-      </WhiteArea>
+            <div className="flex flex-col items-start">
+              <label
+                htmlFor="photo"
+                className="flex flex-col items-center justify-center w-full h-64 rounded-lg bg-gray-50 dark:hover:bg-bray-800 dark:bg-gray-700 hover:bg-gray-100"
+              >
+                <Image
+                  src={photo}
+                  alt={fullName || ''}
+                  width={200}
+                  height={200}
+                  className="rounded-full"
+                />
+                <input disabled id="photo" type="file" className="hidden" />
+              </label>
+            </div>
+          </section>
+        </WhiteArea>
+      )}
 
       <WhiteArea border>
         <form onSubmit={handleSubmit(onSubmit)}>
