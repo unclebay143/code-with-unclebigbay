@@ -2,16 +2,22 @@ import mongoose, { model, models } from 'mongoose';
 
 const Schema = mongoose.Schema;
 
-const questionSchema = new Schema({
-  question: { type: String, required: true },
-  options: [
-    {
-      option: { type: String, required: true },
-      isCorrect: { type: Boolean, default: false },
-    },
-  ],
-  answerExplanation: { type: String, default: null },
-});
+const questionSchema = new Schema(
+  {
+    question: { type: String, required: true },
+    options: [
+      {
+        option: { type: String, required: true },
+        isCorrect: { type: Boolean, default: false },
+      },
+    ],
+    answerExplanation: { type: String, default: null },
+  },
+  {
+    timestamps: true,
+    collection: 'questions',
+  },
+);
 
 const Question = models.Question || model('Question', questionSchema);
 

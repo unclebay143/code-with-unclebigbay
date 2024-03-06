@@ -54,9 +54,11 @@ const POST = async (req: Request, res: Response) => {
 const GET = async () => {
   try {
     await connectViaMongoose();
-    const questions = await Question.find({}).select(
-      '_id question options.option options._id answerExplanation',
-    );
+    const questions = await Question.find({})
+      .sort({ createdAt: -1 })
+      .select(
+        '_id question options.option options._id answerExplanation createdAt',
+      );
     return NextResponse.json(
       { message: 'Questions fetched successfully', questions },
       {
