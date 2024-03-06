@@ -3,9 +3,9 @@
 import { Button } from '@/components/atoms/Button';
 import React, { useEffect } from 'react';
 import Image from 'next/image';
-import { WhiteArea } from './white-area';
-import { DashboardSubheading } from './dashboard-subheading';
-import { SelectCountry } from './country-dropdown';
+import { WhiteArea } from '../white-area';
+import { DashboardSubheading } from '../dashboard-subheading';
+import { SelectCountry } from '../country-dropdown';
 import useCurrentStudent from '@/components/hooks/useCurrentStudent';
 import * as z from 'zod';
 import { useForm, SubmitHandler, Controller } from 'react-hook-form';
