@@ -24,8 +24,8 @@ const UserSocialSettings = () => {
 
   const onSubmit: SubmitHandler<profileUpdateSchemaType> = (data) => {
     try {
-      toast.success('Profile updated successfully.');
       console.log(data);
+      toast.success('Profile updated successfully.');
     } catch (err) {
       console.log(err);
     }
