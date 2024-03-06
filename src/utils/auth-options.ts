@@ -20,7 +20,6 @@ export const authOptions = {
   callbacks: {
     async signIn({ profile: studentUserProfile }) {
       await connectViaMongoose();
-
       const student = await Student.findOne({
         email: studentUserProfile?.email,
       });
