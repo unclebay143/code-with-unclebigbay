@@ -14,7 +14,8 @@ const studentSchema = new Schema(
     username: { type: String },
     bio: { type: String },
     socials: {
-      website: { type: String, default: '' },
+      portfolio: { type: String, default: '' },
+      blog: { type: String, default: '' },
       github: { type: String, default: '' },
       x: { type: String, default: '' },
       facebook: { type: String, default: '' },
