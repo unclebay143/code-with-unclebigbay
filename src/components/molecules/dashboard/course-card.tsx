@@ -1,5 +1,5 @@
 import React from 'react';
-import { Material } from '../../../../types';
+import { Material } from '@/utils/types';
 import { PlayCircle } from 'lucide-react';
 import type { LucideIcon } from 'lucide-react';
 import Image from 'next/image';
@@ -19,6 +19,7 @@ export const CourseCard = ({ layout = 'grid', material }: CourseCardProps) => {
     video: PlayCircle,
   };
   const Icon = mapTypeToIcon[type];
+  const courseLink = `/dashboard/courses/${id}`;
   return (
     <>
       {layout === 'card' && (
@@ -38,29 +39,27 @@ export const CourseCard = ({ layout = 'grid', material }: CourseCardProps) => {
       )}
 
       {layout === 'grid' && (
-        <div className="border rounded-lg overflow-hidden transition-colors duration-200 ease-in-out hover:border-slate-300">
+        <Link
+          href={courseLink}
+          className="border rounded-lg overflow-hidden transition-colors duration-200 ease-in-out hover:border-slate-300"
+          prefetch={true}
+        >
           <div className="h-[196px] relative">
-            <Link
-              href={`/dashboard/courses/${id}`}
-              className="h-full w-full inline-block relative"
-            >
+            <div className="h-full w-full inline-block relative">
               <Image
                 src={coverImageUrl}
                 alt=""
                 className="w-full h-full"
                 fill
               />
-            </Link>
+            </div>
           </div>
           <section className="h-full p-6 flex flex-col gap-3">
             <div className="flex flex-col gap-3">
               <div className="flex items-start justify-between">
-                <Link
-                  href=""
-                  className="text-gray-700 font-medium hover:text-slate-800 text-lg line-clamp-2"
-                >
+                <div className="text-gray-700 font-medium hover:text-slate-800 text-lg line-clamp-2">
                   {title}
-                </Link>
+                </div>
                 <span className="py-1 px-3 rounded-full bg-slate-100 text-xs font-semibold">
                   {duration}
                 </span>
@@ -75,7 +74,7 @@ export const CourseCard = ({ layout = 'grid', material }: CourseCardProps) => {
               )}
             </div>
           </section>
-        </div>
+        </Link>
       )}
     </>
   );
