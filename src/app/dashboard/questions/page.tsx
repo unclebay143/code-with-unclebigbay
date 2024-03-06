@@ -13,12 +13,7 @@ import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 
 const Page = () => {
-  const {
-    isPending,
-    error,
-    data: questions,
-    isFetching,
-  } = useQuery({
+  const { data: questions, isFetching } = useQuery({
     queryKey: ['questions'],
     queryFn: () =>
       axios
@@ -28,7 +23,7 @@ const Page = () => {
 
   const [openNewQuestionModal, setOpenNewQuestionModal] = useState(false);
   const noQuestions = questions?.length === 0;
-  const canShowQuestions = !noQuestions;
+  const canShowQuestions = !isFetching;
 
   return (
     <>
@@ -43,42 +38,44 @@ const Page = () => {
           {noQuestions && (
             <EmptyState label="Questions and options will appear here..." />
           )}
-          {canShowQuestions && (
-            <WhiteArea border>
-              <ul className="list-decimal list-inside">
-                {questions?.map(({ options, question }) => (
-                  <li
-                    key={question}
-                    className="relative border-b last:border-none py-4"
-                  >
-                    <span className="inline-block mb-2 font-semibold">
-                      {question}
-                    </span>
-                    <ol className="pl-2 flex flex-col gap-2 list-inside list-[lower-alpha]">
-                      {options.map(({ option, isCorrect }) => {
-                        return (
-                          <li className="text-sm text-slate-800" key={option}>
-                            <span className="inline-flex items-center gap-1">
-                              {option}
-                              {isCorrect && (
-                                <span className="text-xs px-2 py-0.5 rounded bg-green-100 text-green-600">
-                                  answer
-                                </span>
-                              )}
-                            </span>
-                          </li>
-                        );
-                      })}
-                    </ol>
-                    <div className="absolute top-0 right-0 flex flex-col gap-1">
-                      <IconButton Icon={Edit} size="sm" />
-                      <IconButton Icon={Trash} size="sm" />
-                    </div>
-                  </li>
-                ))}
-              </ul>
-            </WhiteArea>
-          )}
+          <WhiteArea border>
+            <div className="min-h-screen">
+              {canShowQuestions && (
+                <ul className="list-decimal list-inside">
+                  {questions?.map(({ options, question }) => (
+                    <li
+                      key={question}
+                      className="relative border-b last:border-none py-4"
+                    >
+                      <span className="inline-block mb-2 font-semibold">
+                        {question}
+                      </span>
+                      <ol className="pl-2 flex flex-col gap-2 list-inside list-[lower-alpha]">
+                        {options.map(({ option, isCorrect }) => {
+                          return (
+                            <li className="text-sm text-slate-800" key={option}>
+                              <span className="inline-flex items-center gap-1">
+                                {option}
+                                {isCorrect && (
+                                  <span className="text-xs px-2 py-0.5 rounded bg-green-100 text-green-600">
+                                    answer
+                                  </span>
+                                )}
+                              </span>
+                            </li>
+                          );
+                        })}
+                      </ol>
+                      <div className="absolute top-0 right-0 flex flex-col gap-1">
+                        <IconButton Icon={Edit} size="sm" />
+                        <IconButton Icon={Trash} size="sm" />
+                      </div>
+                    </li>
+                  ))}
+                </ul>
+              )}
+            </div>
+          </WhiteArea>
         </div>
       </WhiteArea>
       <AddQuestionModal
