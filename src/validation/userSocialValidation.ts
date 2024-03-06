@@ -1,11 +1,6 @@
 import * as z from 'zod';
 
 export const ProfileUpdateSchema = z.object({
-  website: z
-    .string()
-    .url()
-    .includes('https://', { message: 'Invalid web address' })
-    .or(z.literal('')),
   github: z
     .string()
     .url()
@@ -19,7 +14,7 @@ export const ProfileUpdateSchema = z.object({
   twitter: z
     .string()
     .url()
-    .includes('https://twitter.com/', { message: 'Invalid twitter URL' })
+    .includes('https://x.com/', { message: 'Invalid twitter URL' })
     .or(z.literal('')),
   linkedIn: z
     .string()
@@ -50,6 +45,7 @@ export const ProfileUpdateSchema = z.object({
 });
 
 export const professionalDetailSchema = z.object({
+  stack: z.string().or(z.literal('')),
   portfolio: z.string().url().or(z.literal('')),
   blog: z.string().url().or(z.literal('')),
 });

@@ -17,7 +17,7 @@ const UserSocialSettings = () => {
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    formState: { errors, isDirty, dirtyFields },
   } = useForm<profileUpdateSchemaType>({
     resolver: zodResolver(ProfileUpdateSchema),
   });
