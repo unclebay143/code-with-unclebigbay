@@ -500,18 +500,18 @@ export const assignments = [
     id: '1',
     question: 'What is programming?',
     options: [
-      { option: 'Coding', choice: false },
-      { option: 'Computer language', choice: false },
-      { option: 'Power', choice: false },
+      { option: 'Coding', isCorrect: true },
+      { option: 'Computer language' },
+      { option: 'Power' },
     ],
   },
   {
     id: '2',
     question: 'Which of these is a programming language?',
     options: [
-      { option: 'css', choice: false },
-      { option: 'javascript', choice: false },
-      { option: 'Human language', choice: false },
+      { option: 'css' },
+      { option: 'javascript', isCorrect: true },
+      { option: 'Human language' },
     ],
   },
 ];
