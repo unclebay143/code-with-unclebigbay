@@ -1,6 +1,6 @@
 'use client';
 import { Button } from '@/components/atoms/Button';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { WhiteArea } from './white-area';
 import { DashboardSubheading } from './dashboard-subheading';
 import {
@@ -15,19 +15,29 @@ import { useForm, SubmitHandler, Controller } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { professionalDetailSchema } from '@/validation/userSocialValidation';
 import { toast } from 'sonner';
+import useCurrentStudent from '@/components/hooks/useCurrentStudent';
 
 professionalDetailSchema;
 
 type professionalDetailSchemaType = z.infer<typeof professionalDetailSchema>;
 
 const UserProfessionalSettings = () => {
+  const { data: user } = useCurrentStudent();
+
   const {
+    reset,
     control,
     register,
     handleSubmit,
-    formState: { errors },
+    formState: { errors, isDirty },
+    getValues,
   } = useForm<professionalDetailSchemaType>({
     resolver: zodResolver(professionalDetailSchema),
+    defaultValues: {
+      stack: user?.stack,
+      portfolio: user?.socials?.portfolio,
+      blog: user?.socials?.blog,
+    },
   });
 
   const onSubmit: SubmitHandler<professionalDetailSchemaType> = (data) => {
@@ -38,6 +48,22 @@ const UserProfessionalSettings = () => {
       console.log(err);
     }
   };
+
+  useEffect(() => {
+    if (user) {
+      reset({
+        stack: user?.stack,
+        portfolio: user?.socials?.portfolio,
+        blog: user?.socials?.blog,
+      });
+    }
+  }, [user, reset]);
+
+  function capitalizeFirstLetter(word: string) {
+    if (!word) return;
+    return word.charAt(0).toUpperCase() + word.slice(1);
+  }
+
   return (
     <WhiteArea border>
       <form onSubmit={handleSubmit(onSubmit)}>
@@ -56,7 +82,7 @@ const UserProfessionalSettings = () => {
                 <Select onValueChange={field.onChange}>
                   <SelectTrigger
                     size="md"
-                    placeholder="Select a stack"
+                    placeholder={capitalizeFirstLetter(field.value)}
                     shape="md-rectangle"
                   />
                   <SelectContent>
