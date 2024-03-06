@@ -61,40 +61,48 @@ const Page = () => {
     formState: { isSubmitting, isSubmitted, errors },
   } = useForm({ defaultValues: assignments });
 
-  console.log(errors);
-
   const [questions, setQuestions] = useState<Questions>(assignments);
   const noQuestions = questions.length === 0;
   const canShowQuestions = !noQuestions && !submitted;
 
   const onSubmit = (data: Questions) => {
-    const assignmentResponse = questions.map((question, index) => {
-      const answer = data[index];
-      console.log({ answer });
-      // if (data[index].question)
-      return {
-        questionId: question.id,
-        question: question.question,
-        answer: data[index]?.question,
-      };
-    });
+    const isEmptyOptionRegex = /^0\.[a-zA-Z0-9]+$/; // 0.option
 
-    const payload = {
-      materialId: '0',
-      assignmentId,
-      responses: assignmentResponse,
-    };
+    try {
+      const assignmentResponse = questions.map((question, index) => {
+        const answerToQuestion = data[index].question;
+        const isEmptyOption = isEmptyOptionRegex.test(answerToQuestion);
 
-    console.log(payload);
-    toast.success('Assignment submitted');
+        if (isEmptyOption) {
+          throw Error('Some questions are not answered');
+        }
 
-    setTimeout(() => {
-      window.scrollTo({
-        top: 0,
-        left: 0,
-        behavior: 'smooth',
+        return {
+          questionId: question.id,
+          question: question.question,
+          answer: answerToQuestion,
+        };
       });
-    }, 3000);
+
+      const payload = {
+        materialId: '0',
+        assignmentId,
+        responses: assignmentResponse,
+      };
+
+      console.log(payload);
+      toast.success('Assignment submitted');
+
+      setTimeout(() => {
+        window.scrollTo({
+          top: 0,
+          left: 0,
+          behavior: 'smooth',
+        });
+      }, 3000);
+    } catch (e: any) {
+      toast.error(e.message);
+    }
   };
 
   return (
