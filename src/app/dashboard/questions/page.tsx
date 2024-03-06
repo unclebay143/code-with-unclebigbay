@@ -9,21 +9,25 @@ import { IconButton } from '@/components/atoms/IconButton';
 import { EmptyState } from '@/components/molecules/dashboard/empty-state';
 import { Questions } from '@/utils/types';
 import { AddQuestionModal } from '@/components/molecules/dashboard/add-question-modal';
+import { useQuery } from '@tanstack/react-query';
+import axios from 'axios';
 
 const Page = () => {
-  const defaultQuestions = {
-    id: '',
-    question: 'What is programming?',
-    options: [
-      { option: 'Coding', isCorrect: false },
-      { option: 'Computer language', isCorrect: true },
-      { option: 'Human language', isCorrect: false },
-    ],
-  };
+  const {
+    isPending,
+    error,
+    data: questions,
+    isFetching,
+  } = useQuery({
+    queryKey: ['questions'],
+    queryFn: () =>
+      axios
+        .get('/api/questions')
+        .then((res) => res.data.questions as Questions),
+  });
 
   const [openNewQuestionModal, setOpenNewQuestionModal] = useState(false);
-  const [questions, setQuestions] = useState<Questions>([defaultQuestions]);
-  const noQuestions = questions.length === 0;
+  const noQuestions = questions?.length === 0;
   const canShowQuestions = !noQuestions;
 
   return (
@@ -42,7 +46,7 @@ const Page = () => {
           {canShowQuestions && (
             <WhiteArea border>
               <ul className="list-decimal list-inside">
-                {questions.map(({ options, question }) => (
+                {questions?.map(({ options, question }) => (
                   <li
                     key={question}
                     className="relative border-b last:border-none py-4"
@@ -78,7 +82,6 @@ const Page = () => {
         </div>
       </WhiteArea>
       <AddQuestionModal
-        setQuestions={setQuestions}
         isOpen={openNewQuestionModal}
         close={() => setOpenNewQuestionModal(false)}
       />

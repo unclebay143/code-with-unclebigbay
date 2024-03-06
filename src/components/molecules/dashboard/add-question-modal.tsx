@@ -6,7 +6,9 @@ import * as Dialog from '@radix-ui/react-dialog';
 import { MinusCircle, Plus, X } from 'lucide-react';
 import { IconButton } from '@/components/atoms/IconButton';
 import { toast } from 'sonner';
-import { Option, Options, Question, Questions } from '@/utils/types';
+import { Option, Options, Question } from '@/utils/types';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
+import axios from 'axios';
 
 const emptyOption: Option = {
   option: '',
@@ -16,13 +18,23 @@ const emptyOption: Option = {
 export const AddQuestionModal = ({
   isOpen,
   close,
-  setQuestions,
 }: {
   isOpen: boolean;
   close: () => void;
-  setQuestions: Function;
 }) => {
+  const queryClient = useQueryClient();
+  const mutation = useMutation({
+    mutationFn: (newQuestion: Question) => {
+      return axios.post('/api/questions', newQuestion);
+    },
+    onSuccess() {
+      queryClient.invalidateQueries({ queryKey: ['questions'] });
+      toast.success('New question added.');
+    },
+  });
+
   const {
+    getValues,
     register,
     handleSubmit,
     watch,
@@ -31,9 +43,9 @@ export const AddQuestionModal = ({
     resetField,
   } = useForm({
     defaultValues: {
-      id: '',
       question: '',
       options: [emptyOption, emptyOption],
+      answerExplanation: '',
     },
   });
   const createMoreRef = useRef<HTMLInputElement>(null);
@@ -51,6 +63,9 @@ export const AddQuestionModal = ({
   });
 
   const disableAddOptionBtn = controlledOptionFields.length === 5;
+  const showAnswerExplanationField = getValues().options.some(
+    (option) => option.isCorrect,
+  );
 
   const handleAddOption = () => {
     if (disableAddOptionBtn) return;
@@ -79,14 +94,14 @@ export const AddQuestionModal = ({
     if (isInvalid && noCorrectOption) {
       return toast.error('Select a correct option');
     }
+    mutation.mutate(question);
 
-    toast.success('New question added.');
-    console.log(question);
     const wantToCreateMore = createMoreRef.current!.checked;
     // not using reset() to prevent resetting 'Create more'
     resetField('options');
     resetField('question');
-    setQuestions((prevQuestions: Questions) => [...prevQuestions, question]);
+    resetField('answerExplanation');
+    // setQuestions((prevQuestions: Questions) => [...prevQuestions, question]);
     if (!wantToCreateMore) {
       return close();
     }
@@ -142,7 +157,7 @@ export const AddQuestionModal = ({
                     <input
                       key={field.id}
                       type="text"
-                      placeholder="Label"
+                      placeholder="Option"
                       className={`w-full text-sm text-slate-600 p-2 outline-none focus:ring-2 focus:ring-slate-500 focus:border-slate-300 border rounded-md  ${errors.options?.length && errors.options.length > 1 && 'ring-2 ring-red-500'}`}
                       {...register(`options.${index}.option`, {
                         required: true,
@@ -156,6 +171,7 @@ export const AddQuestionModal = ({
                   </div>
                 </div>
               ))}
+
               <div className="flex items-center justify-end">
                 {disableAddOptionBtn && (
                   <span className="text-sm text-red-500">
@@ -168,11 +184,36 @@ export const AddQuestionModal = ({
                   size="xs"
                   onClick={handleAddOption}
                   disabled={disableAddOptionBtn}
+                  type="button"
                 >
                   <Plus size={16} />
                   <span className="text-sm">Add option</span>
                 </Button>
               </div>
+
+              {showAnswerExplanationField && (
+                <div className="flex flex-col gap-2">
+                  <div className="text-slate-600">
+                    <label
+                      htmlFor="answerExplanation"
+                      className="text-slate-600 text-sm"
+                    >
+                      <DashboardSubheading
+                        title="Answer Explanation"
+                        color="text-green-600"
+                      />
+                    </label>
+                  </div>
+                  <div className="text-slate-600">
+                    <input
+                      type="text"
+                      placeholder="i.e. The correct answer is option x because..."
+                      className={`w-full text-sm text-slate-600 p-2 outline-none focus:ring-2 focus:ring-slate-500 focus:border-slate-300 border rounded-md  ${errors.options?.length && errors.options.length > 1 && 'ring-2 ring-red-500'}`}
+                      {...register('answerExplanation')}
+                    />
+                  </div>
+                </div>
+              )}
             </div>
 
             <div className="flex items-center justify-between gap-2 pt-5 border-t">

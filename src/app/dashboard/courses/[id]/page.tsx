@@ -9,11 +9,15 @@ import { materials } from '@/utils/dummy-data';
 import { ChevronDown, ChevronUp, HelpCircle } from 'lucide-react';
 import Link from 'next/link';
 import React, { useState } from 'react';
+import { usePathname } from 'next/navigation';
 
 const Page = () => {
   const { title, embedURL, description, coverImageUrl } = materials[0];
   const [showMore, setShowMore] = useState(false);
   const [startedCourse, setStartedCourse] = useState(false);
+
+  const currentPathname = usePathname();
+  const courseId = currentPathname.split('/').pop();
 
   const handleShowMoreVisibility = () => {
     setShowMore((prevVisibility) => !prevVisibility);
@@ -86,7 +90,9 @@ const Page = () => {
                   </div>
                   <div className="">
                     <Button size="sm" asChild>
-                      <Link href={'assignment/1'}>Attempt assignment</Link>
+                      <Link href={`${courseId}/assignment/1`}>
+                        Attempt assignment
+                      </Link>
                     </Button>
                   </div>
                 </div>
