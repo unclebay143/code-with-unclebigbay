@@ -140,7 +140,7 @@ const UserPersonalSettings = () => {
               </label>
               <Controller
                 control={control}
-                name="nationality"
+                name="location"
                 render={({ field }) => (
                   <SelectCountry onValueChange={field.onChange} />
                 )}
