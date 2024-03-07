@@ -39,7 +39,7 @@ const Page = () => {
             <EmptyState label="Questions and options will appear here..." />
           )}
           <WhiteArea border>
-            <div className="min-h-screen">
+            <div className={`${canShowQuestions ? 'h-auto' : 'min-h-[50vh]'}`}>
               {canShowQuestions && (
                 <ul className="list-decimal list-inside">
                   {questions?.map(({ options, question }) => (
