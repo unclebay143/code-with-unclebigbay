@@ -1,3 +1,4 @@
+import { Metadata } from 'next';
 import { ChannelIntroVideoSection } from '@/components/molecules/home/ChannelIntroVideoSection';
 import { CommunityMembersSection } from '@/components/molecules/home/CommunityMembersSection';
 import { TestimonialSection } from '@/components/molecules/home/TestimonialSection';
@@ -6,7 +7,7 @@ import { Navbar } from '@/components/atoms/Navbar';
 import { Footer } from '@/components/atoms/Footer';
 import { HeroSection } from '@/components/molecules/home/HeroSection';
 import { SectionWrapper } from '@/components/molecules/home';
-import { Metadata } from 'next';
+import { Courses } from '@/components/molecules/dashboard/courses';
 
 export const metadata: Metadata = {
   title: 'Code with Unclebigbay',

@@ -4,6 +4,8 @@ import * as RadixDropdownMenu from '@radix-ui/react-dropdown-menu';
 interface DropdownMenuProps extends RadixDropdownMenu.DropdownMenuProps {}
 interface DropdownMenuTriggerProps
   extends RadixDropdownMenu.DropdownMenuTriggerProps {}
+interface DropdownMenuItemProps
+  extends RadixDropdownMenu.DropdownMenuItemProps {}
 interface DropdownMenuContentProps
   extends RadixDropdownMenu.DropdownMenuContentProps {
   width?: number;
@@ -14,6 +16,9 @@ export const DropdownMenu = (props: DropdownMenuProps) => {
 };
 export const DropdownMenuTrigger = (props: DropdownMenuTriggerProps) => {
   return <RadixDropdownMenu.Trigger {...props} asChild />;
+};
+export const DropdownMenuItem = (props: DropdownMenuItemProps) => {
+  return <RadixDropdownMenu.Item {...props} asChild />;
 };
 export const DropdownMenuContent = (props: DropdownMenuContentProps) => {
   const { width } = props;

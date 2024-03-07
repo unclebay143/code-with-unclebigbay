@@ -9,9 +9,10 @@ import {
   DropdownMenuContent,
   DropdownMenuTrigger,
 } from '../../atoms/DropdownMenu';
-import { handleLogout } from '@/utils/auth';
+import { handleAuthentication, handleLogout } from '@/utils/auth';
 import { IconButton } from '../../atoms/IconButton';
 import { Bar3CenterLeft } from '../../icons/Bar3CenterLeft';
+import { Button } from '@/components/atoms/Button';
 
 type Props = {
   session: Session | null;
@@ -33,25 +34,23 @@ export const Navbar = ({ session, setSidebarOpen }: Props) => {
             Icon={Bar3CenterLeft}
           />
         </div>
-        <div className="flex gap-4 items-center">
-          <section>
+        <section>
+          {user ? (
             <section className="relative border p-0.5 rounded-full">
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
                   <button className="flex h-9 w-9 overflow-hidden rounded-full hover:opacity-90">
-                    {user ? (
-                      <>
-                        <Image
-                          src={user?.image}
-                          alt={user?.name}
-                          width={100}
-                          height={100}
-                        />
-                        <div className="absolute z-50 bottom-0 right-0 border ring-1 ring-slate-50 rounded-lg bg-slate-200">
-                          <ChevronDown size="12" />
-                        </div>
-                      </>
-                    ) : null}
+                    <>
+                      <Image
+                        src={user?.image}
+                        alt={user?.name}
+                        width={100}
+                        height={100}
+                      />
+                      <div className="absolute z-50 bottom-0 right-0 border ring-1 ring-slate-50 rounded-lg bg-slate-200">
+                        <ChevronDown size="12" />
+                      </div>
+                    </>
                   </button>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent>
@@ -77,13 +76,24 @@ export const Navbar = ({ session, setSidebarOpen }: Props) => {
                   <MenuButton
                     label="Sign out"
                     Icon={LogOut}
-                    onClick={() => handleLogout()}
+                    onClick={() =>
+                      handleLogout({ nextUrl: window.location.href })
+                    }
                   />
                 </DropdownMenuContent>
               </DropdownMenu>
             </section>
-          </section>
-        </div>
+          ) : (
+            <Button
+              size="xs"
+              onClick={() =>
+                handleAuthentication({ nextUrl: window.location.href })
+              }
+            >
+              Sign in
+            </Button>
+          )}
+        </section>
       </section>
     </nav>
   );

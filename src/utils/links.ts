@@ -1,7 +1,6 @@
-import { CoursesCardGroup } from '../components/atoms/CoursesCardGroup';
 export const navLinks = [
-  { label: 'Leaderboard', url: 'Leaderboard' },
+  { label: 'Leaderboard', url: '/dashboard/leaderboard' },
   { label: 'Events', url: 'events' },
-  { label: 'Community', url: 'community' },
-  { label: 'Courses', url: 'courses' },
+  { label: 'Community', url: '/dashboard/community' },
+  { label: 'Courses', url: '/dashboard/courses' },
 ];
