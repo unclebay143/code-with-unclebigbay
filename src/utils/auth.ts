@@ -1,11 +1,15 @@
 import { signIn, signOut } from 'next-auth/react';
 
-export const handleAuthentication = () =>
+export const handleAuthentication = (props: any) => {
+  const { nextUrl } = props;
   signIn('github', {
-    callbackUrl: `${window.location.origin}/dashboard`,
+    callbackUrl: nextUrl || `${window.location.origin}/dashboard`,
   });
+};
 
-export const handleLogout = () =>
+export const handleLogout = (props: any) => {
+  const { nextUrl } = props;
   signOut({
-    callbackUrl: `${window.location.origin}`,
+    callbackUrl: nextUrl || `${window.location.origin}`,
   });
+};

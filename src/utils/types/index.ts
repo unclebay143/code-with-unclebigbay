@@ -51,6 +51,7 @@ export type SidebarLink = {
   shadowHide?: boolean;
   onClick?: () => void;
   adminAccess?: boolean;
+  requireAuth: boolean;
 };
 
 export type SidebarLinks = SidebarLink[];
