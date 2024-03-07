@@ -9,6 +9,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import React from 'react';
 import { CommunityMember } from '@/utils/types';
+import { useSession } from 'next-auth/react';
 
 const LeaderboardCard = ({
   rank,
@@ -30,7 +31,7 @@ const LeaderboardCard = ({
         <div>
           <Link
             href=""
-            className="font-semibold text-slate-700 group-hover:underline"
+            className="font-medium text-slate-600 group-hover:underline"
           >
             {name}
           </Link>
@@ -54,6 +55,8 @@ const LeaderboardCard = ({
 };
 
 const Page = () => {
+  const { data: session } = useSession();
+
   return (
     <WhiteArea border>
       <div className="flex flex-col gap-3">
@@ -92,15 +95,15 @@ const Page = () => {
                     <Link
                       href=""
                       key={index}
-                      className="group relative flex flex-col items-center justify-center gap-3 border rounded-lg p-5 bg-slate-950"
+                      className="group relative flex flex-col items-center justify-center gap-3 border rounded-lg p-5 bg-slate-200"
                     >
                       <div className="absolute left-3 top-3">
                         {rank === 1 ? (
-                          <p className="rounded-full bg-slate-800 py-3 px-3 text-slate-200">
+                          <p className="rounded-full bg-slate-700 py-3 px-3 text-slate-200">
                             <Trophy size={24} />
                           </p>
                         ) : (
-                          <p className="font-bold text-xl rounded-full bg-slate-800 py-1 px-3 text-slate-300">
+                          <p className="font-bold text-xl rounded-full bg-slate-700 py-1 px-3 text-slate-300">
                             {rank}
                           </p>
                         )}
@@ -110,7 +113,7 @@ const Page = () => {
                           <Image src={photo} alt="" fill />
                         </div>
                       </div>
-                      <div className="text-center capitalize text-slate-300">
+                      <div className="text-center capitalize text-slate-800">
                         <p className="font-semibold group-hover:underline">
                           {name}
                         </p>
@@ -146,19 +149,24 @@ const Page = () => {
                 );
               },
             )}
-          <div className="my-1 text-slate-600">
-            <MoreHorizontal size={20} />
-          </div>
 
-          <LeaderboardCard
-            rank={communityMember.rank}
-            username={communityMember?.username}
-            photo={communityMember?.photo}
-            name={communityMember?.name}
-            stack={communityMember?.stack}
-            flag={communityMember?.flag}
-            totalScore={communityMember?.totalScore}
-          />
+          {session && (
+            <>
+              <div className="my-1 text-slate-600">
+                <MoreHorizontal size={20} />
+              </div>
+
+              <LeaderboardCard
+                rank={communityMember.rank}
+                username={communityMember?.username}
+                photo={communityMember?.photo}
+                name={communityMember?.name}
+                stack={communityMember?.stack}
+                flag={communityMember?.flag}
+                totalScore={communityMember?.totalScore}
+              />
+            </>
+          )}
         </section>
       </div>
     </WhiteArea>
