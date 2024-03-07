@@ -7,6 +7,7 @@ import {
   SidebarMobile,
 } from '@/components/molecules/dashboard/sidebar';
 import { handleAuthentication } from '@/utils/auth';
+import { sidebarLinks } from '@/utils/consts/links';
 import { useSession } from 'next-auth/react';
 import { usePathname } from 'next/navigation';
 import { useState } from 'react';
@@ -19,7 +20,10 @@ export const DashboardIndex = ({ children }: { children: React.ReactNode }) => {
   const pathname = usePathname();
   const currentPageName = pathname.split('/')[2];
 
-  const allowedDashboardRoute = ['courses', 'leaderboard'];
+  const allowedDashboardRoute = sidebarLinks.map((link) => {
+    if (!link.requireAuth) return link.key;
+  });
+
   const canAccessWithoutAuth = allowedDashboardRoute.includes(currentPageName);
 
   const isCheckingAuthStatus = !session && status === 'loading';

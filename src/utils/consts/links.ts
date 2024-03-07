@@ -51,8 +51,8 @@ export const sidebarLinks: SidebarLinks = [
     label: 'Help Centers',
     slug: 'help-centers',
     Icon: HelpCircle,
-    shadowHide: true,
-    requireAuth: true,
+    shadowHide: false,
+    requireAuth: false,
   },
   {
     key: 'questions',

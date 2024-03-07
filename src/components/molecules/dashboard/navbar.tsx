@@ -76,9 +76,7 @@ export const Navbar = ({ session, setSidebarOpen }: Props) => {
                   <MenuButton
                     label="Sign out"
                     Icon={LogOut}
-                    onClick={() =>
-                      handleLogout({ nextUrl: window.location.href })
-                    }
+                    onClick={() => handleLogout()}
                   />
                 </DropdownMenuContent>
               </DropdownMenu>

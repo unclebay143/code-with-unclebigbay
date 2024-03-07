@@ -18,7 +18,7 @@ export const DropdownMenuTrigger = (props: DropdownMenuTriggerProps) => {
   return <RadixDropdownMenu.Trigger {...props} asChild />;
 };
 export const DropdownMenuItem = (props: DropdownMenuItemProps) => {
-  return <RadixDropdownMenu.Item {...props} asChild />;
+  return <RadixDropdownMenu.Item {...props} asChild className="outline-none" />;
 };
 export const DropdownMenuContent = (props: DropdownMenuContentProps) => {
   const { width } = props;
