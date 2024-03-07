@@ -52,6 +52,7 @@ export type SidebarLink = {
   onClick?: () => void;
   adminAccess?: boolean;
   requireAuth: boolean;
+  disabled?: boolean;
 };
 
 export type SidebarLinks = SidebarLink[];

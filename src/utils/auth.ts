@@ -7,9 +7,8 @@ export const handleAuthentication = (props: any) => {
   });
 };
 
-export const handleLogout = (props: any) => {
-  const { nextUrl } = props;
+export const handleLogout = () => {
   signOut({
-    callbackUrl: nextUrl || `${window.location.origin}`,
+    callbackUrl: `${window.location.origin}`,
   });
 };
