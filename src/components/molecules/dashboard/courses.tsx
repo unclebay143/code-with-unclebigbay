@@ -1,3 +1,5 @@
+'use client';
+
 import React from 'react';
 import { CourseCard } from './course-card';
 import { materials as defaultMaterials } from '@/utils/dummy-data';

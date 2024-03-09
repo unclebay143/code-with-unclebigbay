@@ -1,5 +1,7 @@
 import { LucideIcon } from 'lucide-react';
 
+export type Optional<T, K extends keyof T> = Pick<Partial<T>, K> & Omit<T, K>;
+
 export type Material = {
   title: string;
   description: string;
@@ -51,6 +53,8 @@ export type SidebarLink = {
   shadowHide?: boolean;
   onClick?: () => void;
   adminAccess?: boolean;
+  requireAuth: boolean;
+  disabled?: boolean;
 };
 
 export type SidebarLinks = SidebarLink[];
@@ -60,12 +64,16 @@ export type Option = {
   isCorrect?: boolean;
 };
 export type Options = Option[];
+export type Tag = { _id?: string; name: string; slug: string; logo: string };
+export type Tags = Tag[];
 export type Question = {
-  id?: string;
+  _id?: string;
   question: string;
   options: Options;
   answerExplanation?: string;
+  tags?: Tags;
 };
+
 export type Questions = Question[];
 
 export type Student = {

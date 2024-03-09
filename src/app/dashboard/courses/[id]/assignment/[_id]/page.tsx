@@ -5,7 +5,7 @@ import { DashboardSubheading } from '@/components/molecules/dashboard/dashboard-
 import { WhiteArea } from '@/components/molecules/dashboard/white-area';
 import React, { useState } from 'react';
 import { ArrowLeft, RotateCw } from 'lucide-react';
-import { Question } from '@/utils/types';
+import { Optional, Question, Tags } from '@/utils/types';
 import { Courses } from '@/components/molecules/dashboard/courses';
 import { Controller, useForm } from 'react-hook-form';
 import { usePathname } from 'next/navigation';
@@ -61,6 +61,8 @@ const Page = () => {
     formState: { isSubmitting, isSubmitted, errors },
   } = useForm({ defaultValues: assignments });
 
+  type QuestionWithoutTags = Omit<Question, 'tags'>;
+
   const [questions, setQuestions] = useState<Questions>(assignments);
   const noQuestions = questions.length === 0;
   const canShowQuestions = !noQuestions && !submitted;
@@ -78,7 +80,7 @@ const Page = () => {
         }
 
         return {
-          questionId: question.id,
+          questionId: question._id,
           question: question.question,
           answer: answerToQuestion,
         };

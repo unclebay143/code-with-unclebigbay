@@ -1,6 +1,9 @@
 import { NextResponse } from 'next/server';
 import connectViaMongoose from '@/utils/mongoose';
 import { Question } from '@/models/question';
+import { getServerSessionWithAuthOptions } from '@/utils/auth-options';
+import { Student } from '@/models/student';
+import { Student as StudentType } from '@/utils/types';
 
 // {
 //   "question": "Is java a programming language?",
@@ -54,10 +57,24 @@ const POST = async (req: Request, res: Response) => {
 const GET = async () => {
   try {
     await connectViaMongoose();
+    const session = await getServerSessionWithAuthOptions();
+    if (!session) {
+      return NextResponse.json(
+        { message: 'No valid session' },
+        {
+          status: 404,
+        },
+      );
+    }
+    const student: StudentType | null = await Student.findOne({
+      email: session.user.email,
+    });
+
+    const isAdmin = student?.isAdmin;
     const questions = await Question.find({})
       .sort({ createdAt: -1 })
       .select(
-        '_id question options.option options._id answerExplanation createdAt',
+        `_id question options.option options._id answerExplanation createdAt tags ${isAdmin && 'options.isCorrect'}`,
       );
     return NextResponse.json(
       { message: 'Questions fetched successfully', questions },
