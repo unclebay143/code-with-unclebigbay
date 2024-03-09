@@ -144,11 +144,13 @@ export const AddQuestionModal = ({
               {controlledOptionFields.map((field, index) => (
                 <div className="flex flex-col gap-2" key={field.id}>
                   <div className="text-slate-600 flex items-center">
-                    <IconButton
-                      Icon={MinusCircle}
-                      size="md"
-                      onClick={() => handleRemoveItemField(index)}
-                    />
+                    {controlledOptionFields.length > 2 && (
+                      <IconButton
+                        Icon={MinusCircle}
+                        size="md"
+                        onClick={() => handleRemoveItemField(index)}
+                      />
+                    )}
                     <label
                       htmlFor={`option-${index}`}
                       className="text-slate-600 text-sm"
