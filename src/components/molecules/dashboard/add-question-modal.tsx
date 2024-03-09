@@ -1,15 +1,14 @@
+import React, { useRef, useState } from 'react';
 import { useForm, useFieldArray } from 'react-hook-form';
+import { MinusCircle, Plus, X } from 'lucide-react';
+import { toast } from 'sonner';
+import axios from 'axios';
 import { Button } from '@/components/atoms/Button';
 import { DashboardSubheading } from '@/components/molecules/dashboard/dashboard-subheading';
-import React, { useRef, useState } from 'react';
 import * as Dialog from '@radix-ui/react-dialog';
-import { MinusCircle, Plus, X } from 'lucide-react';
 import { IconButton } from '@/components/atoms/IconButton';
-import { toast } from 'sonner';
 import { Option, Options, Question, Tag, Tags } from '@/utils/types';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import axios from 'axios';
-import Image from 'next/image';
 
 const emptyOption: Option = {
   option: '',
