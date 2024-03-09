@@ -10,19 +10,33 @@ import {
 import { SidebarLinks } from '@/utils/types';
 
 export const sidebarLinks: SidebarLinks = [
-  { key: 'overview', label: 'overview', slug: 'overview', Icon: BarChart },
-  { key: 'courses', label: 'courses', slug: 'courses', Icon: LibraryBig },
+  {
+    key: 'overview',
+    label: 'overview',
+    slug: 'overview',
+    Icon: BarChart,
+    requireAuth: true,
+  },
+  {
+    key: 'courses',
+    label: 'courses',
+    slug: 'courses',
+    Icon: LibraryBig,
+    requireAuth: false,
+  },
   {
     key: 'leaderboard',
     label: 'leaderboard',
     slug: 'leaderboard',
     Icon: Trophy,
+    requireAuth: false,
   },
   {
     key: 'activity',
     label: 'Activity Log',
     slug: 'activity',
     Icon: ActivityIcon,
+    requireAuth: true,
   },
   {
     key: 'settings',
@@ -30,13 +44,15 @@ export const sidebarLinks: SidebarLinks = [
     slug: 'settings',
     Icon: Settings,
     shadowHide: true,
+    requireAuth: true,
   },
   {
     key: 'help-centers',
     label: 'Help Centers',
     slug: 'help-centers',
     Icon: HelpCircle,
-    shadowHide: true,
+    shadowHide: false,
+    requireAuth: false,
   },
   {
     key: 'questions',
@@ -44,5 +60,6 @@ export const sidebarLinks: SidebarLinks = [
     slug: 'questions',
     Icon: Book,
     adminAccess: true,
+    requireAuth: true,
   },
 ];

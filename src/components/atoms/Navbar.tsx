@@ -71,6 +71,7 @@ export const Navbar = () => {
           <SidebarSlideOver
             isOpen={sidebarVisibility}
             close={() => setSidebarVisibility(false)}
+            session={session}
           />
         </section>
       </SectionWrapper>
