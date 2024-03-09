@@ -23,7 +23,7 @@ const Page = () => {
 
   const [openNewQuestionModal, setOpenNewQuestionModal] = useState(false);
   const noQuestions = questions?.length === 0;
-  const canShowQuestions = !isFetching;
+  const canShowQuestions = !isFetching && !noQuestions;
 
   return (
     <>
@@ -38,9 +38,11 @@ const Page = () => {
           {noQuestions && (
             <EmptyState label="Questions and options will appear here..." />
           )}
-          <WhiteArea border>
-            <div className={`${canShowQuestions ? 'h-auto' : 'min-h-[50vh]'}`}>
-              {canShowQuestions && (
+          {canShowQuestions && (
+            <WhiteArea border>
+              <div
+                className={`${canShowQuestions ? 'h-auto' : 'min-h-[50vh]'}`}
+              >
                 <ul className="list-decimal list-inside">
                   {questions?.map(({ options, question, tags }) => {
                     const hasTags = tags.length > 0;
@@ -67,6 +69,7 @@ const Page = () => {
                           </span>
                           <ol className="pl-2 flex flex-col gap-2 list-inside list-[lower-alpha]">
                             {options.map(({ option, isCorrect }) => {
+                              console.log(isCorrect);
                               return (
                                 <li
                                   className="text-sm text-slate-800"
@@ -93,9 +96,9 @@ const Page = () => {
                     );
                   })}
                 </ul>
-              )}
-            </div>
-          </WhiteArea>
+              </div>
+            </WhiteArea>
+          )}
         </div>
       </WhiteArea>
       <AddQuestionModal
