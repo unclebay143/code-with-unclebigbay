@@ -45,7 +45,7 @@ const Page = () => {
               >
                 <ul className="list-decimal list-inside">
                   {questions?.map(({ options, question, tags }) => {
-                    const hasTags = tags.length > 0;
+                    const hasTags = tags && tags.length > 0;
                     return (
                       <li
                         key={question}
