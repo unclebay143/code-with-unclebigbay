@@ -12,6 +12,7 @@ const questionSchema = new Schema(
       },
     ],
     answerExplanation: { type: String, default: null },
+    tags: [{ name: String, slug: String, logo: String }],
   },
   {
     timestamps: true,
