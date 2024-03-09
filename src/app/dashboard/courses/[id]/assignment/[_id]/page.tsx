@@ -80,7 +80,7 @@ const Page = () => {
         }
 
         return {
-          questionId: question.id,
+          questionId: question._id,
           question: question.question,
           answer: answerToQuestion,
         };
