@@ -1,3 +1,4 @@
+import { DropdownMenuItem } from '@/components/atoms/DropdownMenu';
 import { LucideIcon } from 'lucide-react';
 import Link from 'next/link';
 import React from 'react';
@@ -24,16 +25,18 @@ export const MenuButton = ({
     danger: 'text-red-500 hover:text-red-800 hover:bg-red-100',
   };
   return (
-    // Todo: fix ts error
-    // @ts-ignore
-    <Component
-      className={`w-full flex items-center gap-1 ${mapColorToType[type]} p-2 rounded-lg`}
-      {...componentProps}
-    >
-      <span>
-        <Icon size="16" />
-      </span>
-      <span className="text-sm">{label}</span>
-    </Component>
+    <DropdownMenuItem>
+      {/* Todo: fix ts error */}
+      {/* @ts-ignore */}
+      <Component
+        className={`w-full flex items-center gap-1 ${mapColorToType[type]} p-2 rounded-lg`}
+        {...componentProps}
+      >
+        <span>
+          <Icon size="16" />
+        </span>
+        <span className="text-sm">{label}</span>
+      </Component>
+    </DropdownMenuItem>
   );
 };
