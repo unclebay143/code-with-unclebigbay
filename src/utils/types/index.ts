@@ -1,5 +1,7 @@
 import { LucideIcon } from 'lucide-react';
 
+export type Optional<T, K extends keyof T> = Pick<Partial<T>, K> & Omit<T, K>;
+
 export type Material = {
   title: string;
   description: string;
