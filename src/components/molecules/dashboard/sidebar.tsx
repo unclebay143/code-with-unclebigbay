@@ -27,7 +27,7 @@ const SidebarLink = ({
       {/* @ts-ignore */}
       <Component
         {...componentProps}
-        className={`p-3 capitalize rounded-md flex items-center gap-1.5 text-sm text-slate-600 hover:bg-slate-100 w-full ${isActive && 'bg-slate-100 text-slate-950 font-medium'} ${disabled && 'bg-white border-slate-200 cursor-not-allowed text-slate-300'}`}
+        className={`p-3 capitalize rounded-md flex items-center gap-1.5 text-sm hover:bg-slate-100 w-full ${isActive ? 'bg-slate-100 text-slate-800 font-medium' : 'text-slate-600'} ${disabled && 'bg-white border-slate-200 cursor-not-allowed text-slate-300'}`}
       >
         <span>
           <Icon size="18" />

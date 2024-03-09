@@ -47,52 +47,49 @@ const Page = () => {
                   {questions?.map(({ options, question, tags }) => {
                     const hasTags = tags.length > 0;
                     return (
-                      <>
+                      <li
+                        key={question}
+                        className="relative border-b last:border-none py-4"
+                      >
+                        <span className="inline-block font-semibold">
+                          {question}
+                        </span>
+                        <ol className="pl-2 flex flex-col gap-2 list-inside list-[lower-alpha]">
+                          {options.map(({ option, isCorrect }) => {
+                            return (
+                              <li
+                                className="text-sm text-slate-800"
+                                key={option}
+                              >
+                                <span className="inline-flex items-center gap-1">
+                                  {option}
+                                  {isCorrect && (
+                                    <span className="text-xs px-2 py-0.5 rounded bg-green-100 text-green-600">
+                                      answer
+                                    </span>
+                                  )}
+                                </span>
+                              </li>
+                            );
+                          })}
+                        </ol>
+                        <div className="absolute top-0 right-0 flex flex-col gap-1">
+                          <IconButton Icon={Edit} size="sm" />
+                          <IconButton Icon={Trash} size="sm" />
+                        </div>
                         {hasTags && (
                           <div className="flex items-center gap-1 pt-4 first:pt-0">
                             {tags.map(({ _id, name }) => (
                               <span
                                 key={_id}
-                                className="bg-green-50 text-green-800 text-xs rounded font-medium px-1.5"
+                                className="bg-blue-50 text-blue-800 text-xs rounded px-1.5"
                               >
                                 {name}
                               </span>
                             ))}
                           </div>
                         )}
-                        <li
-                          key={question}
-                          className="relative border-b last:border-none py-4"
-                        >
-                          <span className="inline-block mb-2 font-semibold">
-                            {question}
-                          </span>
-                          <ol className="pl-2 flex flex-col gap-2 list-inside list-[lower-alpha]">
-                            {options.map(({ option, isCorrect }) => {
-                              console.log(isCorrect);
-                              return (
-                                <li
-                                  className="text-sm text-slate-800"
-                                  key={option}
-                                >
-                                  <span className="inline-flex items-center gap-1">
-                                    {option}
-                                    {isCorrect && (
-                                      <span className="text-xs px-2 py-0.5 rounded bg-green-100 text-green-600">
-                                        answer
-                                      </span>
-                                    )}
-                                  </span>
-                                </li>
-                              );
-                            })}
-                          </ol>
-                          <div className="absolute top-0 right-0 flex flex-col gap-1">
-                            <IconButton Icon={Edit} size="sm" />
-                            <IconButton Icon={Trash} size="sm" />
-                          </div>
-                        </li>
-                      </>
+                      </li>
                     );
                   })}
                 </ul>
