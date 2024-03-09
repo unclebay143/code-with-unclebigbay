@@ -11,15 +11,18 @@ import { Questions } from '@/utils/types';
 import { AddQuestionModal } from '@/components/molecules/dashboard/add-question-modal';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
+import useQuestion from '@/components/hooks/useQuestion';
 
 const Page = () => {
-  const { data: questions, isFetching } = useQuery({
-    queryKey: ['questions'],
-    queryFn: () =>
-      axios
-        .get('/api/questions')
-        .then((res) => res.data.questions as Questions),
-  });
+  // const { data: questions, isFetching } = useQuery({
+  //   queryKey: ['questions'],
+  //   queryFn: () =>
+  //     axios
+  //       .get('/api/questions')
+  //       .then((res) => res.data.questions as Questions),
+  // });
+
+  const { questions, isFetching } = useQuestion();
 
   const [openNewQuestionModal, setOpenNewQuestionModal] = useState(false);
   const noQuestions = questions?.length === 0;
