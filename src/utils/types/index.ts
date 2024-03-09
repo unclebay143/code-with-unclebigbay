@@ -69,7 +69,7 @@ export type Question = {
   question: string;
   options: Options;
   answerExplanation?: string;
-  tags: Tags;
+  tags?: Tags;
 };
 
 export type Questions = Question[];
