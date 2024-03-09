@@ -57,7 +57,7 @@ const GET = async () => {
     const questions = await Question.find({})
       .sort({ createdAt: -1 })
       .select(
-        '_id question options.option options._id answerExplanation createdAt',
+        '_id question options.option options._id answerExplanation createdAt tags',
       );
     return NextResponse.json(
       { message: 'Questions fetched successfully', questions },
