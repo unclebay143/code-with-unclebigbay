@@ -1,14 +1,15 @@
 import { useForm, useFieldArray } from 'react-hook-form';
 import { Button } from '@/components/atoms/Button';
 import { DashboardSubheading } from '@/components/molecules/dashboard/dashboard-subheading';
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
 import * as Dialog from '@radix-ui/react-dialog';
 import { MinusCircle, Plus, X } from 'lucide-react';
 import { IconButton } from '@/components/atoms/IconButton';
 import { toast } from 'sonner';
-import { Option, Options, Question } from '@/utils/types';
+import { Option, Options, Question, Tag, Tags } from '@/utils/types';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import axios from 'axios';
+import Image from 'next/image';
 
 const emptyOption: Option = {
   option: '',
@@ -22,6 +23,8 @@ export const AddQuestionModal = ({
   isOpen: boolean;
   close: () => void;
 }) => {
+  const [tags, setTags] = useState<Tags>([]);
+  const [currentTag, setCurrentTag] = useState<string>('');
   const queryClient = useQueryClient();
   const mutation = useMutation({
     mutationFn: (newQuestion: Question) => {
@@ -46,6 +49,7 @@ export const AddQuestionModal = ({
       question: '',
       options: [emptyOption, emptyOption],
       answerExplanation: '',
+      tags: [],
     },
   });
   const createMoreRef = useRef<HTMLInputElement>(null);
@@ -94,14 +98,15 @@ export const AddQuestionModal = ({
     if (isInvalid && noCorrectOption) {
       return toast.error('Select a correct option');
     }
-    mutation.mutate(question);
+    const newQuestion = { ...question, tags };
+    mutation.mutate(newQuestion);
 
     const wantToCreateMore = createMoreRef.current!.checked;
     // not using reset() to prevent resetting 'Create more'
     resetField('options');
     resetField('question');
     resetField('answerExplanation');
-    // setQuestions((prevQuestions: Questions) => [...prevQuestions, question]);
+    setTags([]);
     if (!wantToCreateMore) {
       return close();
     }
@@ -189,6 +194,84 @@ export const AddQuestionModal = ({
                   <Plus size={16} />
                   <span className="text-sm">Add option</span>
                 </Button>
+              </div>
+
+              <div className="relative">
+                <div className="flex flex-col gap-2">
+                  <div className="text-slate-600">
+                    <label htmlFor="tags" className="text-slate-600 text-sm">
+                      <DashboardSubheading title="Select tags" />
+                    </label>
+                  </div>
+                  <div className="text-slate-600">
+                    <input
+                      autoComplete="off"
+                      type="text"
+                      id="tags"
+                      placeholder="Type tag"
+                      className="w-full text-sm text-slate-600 p-2 outline-none focus:ring-2 focus:ring-slate-500 focus:border-slate-300 border rounded-md"
+                      value={currentTag}
+                      onChange={(e) => {
+                        const inputValue = e.target.value;
+                        let cleanedInputValue = inputValue.replace(/\s/g, '-'); // remove space
+                        setCurrentTag(cleanedInputValue);
+                      }}
+                    />
+                  </div>
+                </div>
+                {currentTag && (
+                  <div className="absolute right-0 w-full h-auto bg-white rounded-md shadow-lg top-100 dark:bg-slate-800">
+                    <button
+                      type="button"
+                      className=" w-full text-left px-4 py-3 hover:bg-slate-50"
+                      onClick={() => {
+                        const alreadyExist = tags.some(
+                          ({ name }) => name === currentTag.toLowerCase(),
+                        );
+
+                        if (alreadyExist) {
+                          toast.success('Tag already selected');
+                          setCurrentTag('');
+                          return;
+                        }
+
+                        const newTag: Tag = {
+                          name: currentTag.toLowerCase(),
+                          slug: currentTag,
+                          logo: '',
+                        };
+
+                        setTags((prevTags) => [...prevTags, newTag]);
+                        setCurrentTag('');
+                      }}
+                    >
+                      {currentTag}
+                    </button>
+                  </div>
+                )}
+                <div className="flex flex-wrap gap-1 pt-1">
+                  {tags.map(({ name }) => {
+                    return (
+                      <div className="flex items-center" key={name}>
+                        <span className="bg-slate-50 text-xs rounded font-medium px-1">
+                          {name}
+                        </span>
+                        <button
+                          type="button"
+                          onClick={() => {
+                            const removedTag = tags.filter(
+                              (prevTag) => prevTag.name !== name,
+                            );
+                            setTags(removedTag);
+                          }}
+                          className="text-red-500"
+                        >
+                          <X className="h-3 w-3" />
+                        </button>
+                      </div>
+                    );
+                  })}
+                </div>
               </div>
 
               {showAnswerExplanationField && (
