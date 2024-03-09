@@ -6,6 +6,7 @@ import { Courses } from '@/components/molecules/dashboard/courses';
 import { DashboardSubheading } from '@/components/molecules/dashboard/dashboard-subheading';
 import { WhiteArea } from '@/components/molecules/dashboard/white-area';
 import { materials } from '@/utils/dummy-data';
+import Link from 'next/link';
 // import { Sparkles } from 'lucide-react';
 import React from 'react';
 
@@ -35,11 +36,8 @@ const Page = () => {
           <div className="flex items-center justify-between">
             <DashboardSubheading title="Available Courses" />
             {isAdmin && (
-              <Button
-                size="xs"
-                //  onClick={() => setOpenNewQuestionModal(true)}
-              >
-                New course
+              <Button size="xs" asChild>
+                <Link href="/dashboard/courses/new">New course</Link>
               </Button>
             )}
           </div>
