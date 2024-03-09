@@ -67,7 +67,7 @@ export type Options = Option[];
 export type Tag = { _id?: string; name: string; slug: string; logo: string };
 export type Tags = Tag[];
 export type Question = {
-  id?: string;
+  _id?: string;
   question: string;
   options: Options;
   answerExplanation?: string;
