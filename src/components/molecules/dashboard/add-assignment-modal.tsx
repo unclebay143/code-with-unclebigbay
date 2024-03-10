@@ -27,7 +27,9 @@ export const AddAssignmentModal = ({
         </div>
         {questions?.map((questions, index) => {
           const { _id, question } = questions;
-          const isChecked = selectedQuestions[index]?._id === _id;
+          const isChecked = !!selectedQuestions.find(
+            (selectedQuestion) => selectedQuestion._id === _id,
+          );
           return (
             <div
               className="flex gap-2 items-center"
