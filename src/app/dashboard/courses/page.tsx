@@ -5,7 +5,6 @@ import useCurrentStudent from '@/components/hooks/useCurrentStudent';
 import { Courses } from '@/components/molecules/dashboard/courses';
 import { DashboardSubheading } from '@/components/molecules/dashboard/dashboard-subheading';
 import { WhiteArea } from '@/components/molecules/dashboard/white-area';
-import { materials } from '@/utils/dummy-data';
 import Link from 'next/link';
 // import { Sparkles } from 'lucide-react';
 import React from 'react';
@@ -41,7 +40,7 @@ const Page = () => {
               </Button>
             )}
           </div>
-          <Courses materials={materials} showCounter />
+          <Courses showCounter />
         </div>
       </WhiteArea>
     </div>
