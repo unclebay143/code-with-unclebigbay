@@ -4,6 +4,7 @@ import { Question } from '@/models/question';
 import { getServerSessionWithAuthOptions } from '@/utils/auth-options';
 import { Student } from '@/models/student';
 import { Student as StudentType } from '@/utils/types';
+import { Tag } from '@/models/tag';
 
 const POST = async (req: Request, res: Response) => {
   const body = await req.json();
@@ -62,7 +63,7 @@ const GET = async () => {
       .select(
         `_id question options.option options._id answerExplanation createdAt tags ${isAdmin && 'options.isCorrect'}`,
       )
-      .populate('tags');
+      .populate('tags', '_id name slug logo', Tag);
     return NextResponse.json(
       { message: 'Questions fetched successfully', questions },
       {
