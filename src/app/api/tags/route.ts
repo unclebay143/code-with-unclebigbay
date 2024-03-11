@@ -16,7 +16,7 @@ const POST = async (req: Request) => {
 const GET = async () => {
   try {
     await connectViaMongoose();
-    const tags = Tag.find({});
+    const tags = await Tag.find({});
     return NextResponse.json(
       { message: 'Tags fetched successfully', tags },
       { status: 200 },

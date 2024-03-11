@@ -19,15 +19,14 @@ export const DashboardIndex = ({ children }: { children: React.ReactNode }) => {
   const isAdmin = user?.isAdmin;
   const pathname = usePathname();
   const currentPageName = pathname.split('/')[2];
-
   const adminRoute = pathname.includes('/admin');
 
   const allowedDashboardRoute = sidebarLinks.map((link) => {
     if (!link.requireAuth) return link.key;
   });
 
+  const requireAdminAccess = user && !isAdmin && adminRoute;
   const canAccessWithoutAuth = allowedDashboardRoute.includes(currentPageName);
-
   const isCheckingAuthStatus = !session && status === 'loading';
   const requireAuth =
     !session && status === 'unauthenticated' && !canAccessWithoutAuth;
@@ -41,9 +40,10 @@ export const DashboardIndex = ({ children }: { children: React.ReactNode }) => {
     return null;
   }
 
-  if (adminRoute) {
-    redirect('/dashboard/overview');
+  if (requireAdminAccess) {
+    return redirect('/dashboard/overview');
   }
+
   return (
     <div className="flex flex-col gap-4 pb-10">
       <Navbar session={session} setSidebarOpen={setSidebarOpen} />
