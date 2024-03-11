@@ -5,6 +5,7 @@ import {
   HelpCircle,
   LibraryBig,
   Settings,
+  TagIcon,
   Trophy,
 } from 'lucide-react';
 import { SidebarLinks } from '@/utils/types';
@@ -59,6 +60,14 @@ export const sidebarLinks: SidebarLinks = [
     label: 'Questions',
     slug: 'admin/questions',
     Icon: Book,
+    adminAccess: true,
+    requireAuth: true,
+  },
+  {
+    key: 'tags',
+    label: 'Tags',
+    slug: 'admin/tags',
+    Icon: TagIcon,
     adminAccess: true,
     requireAuth: true,
   },

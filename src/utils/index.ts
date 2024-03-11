@@ -3,3 +3,6 @@ export const convertEmptyStringToNull = (str: string) =>
 
 export const convertNullableStringToEmptyString = (str?: string | null) =>
   str ?? '';
+
+export const convertWhiteSpaceToDash = (value: string) =>
+  value.replace(/\s/g, '-'); // remove space
