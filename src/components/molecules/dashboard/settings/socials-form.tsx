@@ -54,7 +54,6 @@ const UserSocialSettings = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user]);
 
-  const disableUpdateBtn = !isDirty;
   return (
     <WhiteArea border>
       <form onSubmit={handleSubmit(onSubmit)}>
@@ -74,7 +73,7 @@ const UserSocialSettings = () => {
               <input
                 type="text"
                 placeholder="https://github.com/username"
-                className="text-sm text-slate-600 p-2 outline-none focus:ring-2 focus:ring-slate-500 focus:border-slate-300 border rounded-md"
+                className="text-sm text-slate-600 p-2 outline-none lowercase focus:ring-2 focus:ring-slate-500 focus:border-slate-300 border rounded-md"
                 {...register('github')}
               />
               {errors.github && (
@@ -90,7 +89,7 @@ const UserSocialSettings = () => {
               <input
                 type="text"
                 placeholder="https://linkedin.com/in/username"
-                className="text-sm text-slate-600 p-2 outline-none focus:ring-2 focus:ring-slate-500 focus:border-slate-300 border rounded-md"
+                className="text-sm text-slate-600 p-2 outline-none lowercase focus:ring-2 focus:ring-slate-500 focus:border-slate-300 border rounded-md"
                 {...register('linkedIn')}
               />
               {errors.linkedIn && (
@@ -106,7 +105,7 @@ const UserSocialSettings = () => {
               <input
                 type="text"
                 placeholder="https://x.com/@username"
-                className="text-sm text-slate-600 p-2 outline-none focus:ring-2 focus:ring-slate-500 focus:border-slate-300 border rounded-md"
+                className="text-sm text-slate-600 p-2 outline-none lowercase focus:ring-2 focus:ring-slate-500 focus:border-slate-300 border rounded-md"
                 {...register('x')}
               />
               {errors.x && (
@@ -120,7 +119,7 @@ const UserSocialSettings = () => {
               <input
                 type="text"
                 placeholder="https://facebook.com/username"
-                className="text-sm text-slate-600 p-2 outline-none focus:ring-2 focus:ring-slate-500 focus:border-slate-300 border rounded-md"
+                className="text-sm text-slate-600 p-2 outline-none lowercase focus:ring-2 focus:ring-slate-500 focus:border-slate-300 border rounded-md"
                 {...register('facebook')}
               />
               {errors.facebook && (
@@ -136,7 +135,7 @@ const UserSocialSettings = () => {
               <input
                 type="text"
                 placeholder="https://instagram.com/username"
-                className="text-sm text-slate-600 p-2 outline-none focus:ring-2 focus:ring-slate-500 focus:border-slate-300 border rounded-md"
+                className="text-sm text-slate-600 p-2 outline-none lowercase focus:ring-2 focus:ring-slate-500 focus:border-slate-300 border rounded-md"
                 {...register('instagram')}
               />
               {errors.instagram && (
@@ -152,7 +151,7 @@ const UserSocialSettings = () => {
               <input
                 type="text"
                 placeholder="https://stackoverflow.com/users/7953084/username"
-                className="text-sm text-slate-600 p-2 outline-none focus:ring-2 focus:ring-slate-500 focus:border-slate-300 border rounded-md"
+                className="text-sm text-slate-600 p-2 outline-none lowercase focus:ring-2 focus:ring-slate-500 focus:border-slate-300 border rounded-md"
                 {...register('stackoverflow')}
               />
               {errors.stackoverflow && (
@@ -168,7 +167,7 @@ const UserSocialSettings = () => {
               <input
                 type="text"
                 placeholder="https://youtube.com/@username"
-                className="text-sm text-slate-600 p-2 outline-none focus:ring-2 focus:ring-slate-500 focus:border-slate-300 border rounded-md"
+                className="text-sm text-slate-600 p-2 outline-none lowercase focus:ring-2 focus:ring-slate-500 focus:border-slate-300 border rounded-md"
                 {...register('youtube')}
               />
               {errors.youtube && (
@@ -184,7 +183,7 @@ const UserSocialSettings = () => {
               <input
                 type="text"
                 placeholder="https://mastodon.com/@username"
-                className="text-sm text-slate-600 p-2 outline-none focus:ring-2 focus:ring-slate-500 focus:border-slate-300 border rounded-md"
+                className="text-sm text-slate-600 p-2 outline-none lowercase focus:ring-2 focus:ring-slate-500 focus:border-slate-300 border rounded-md"
                 {...register('mastodon')}
               />
               {errors.mastodon && (
