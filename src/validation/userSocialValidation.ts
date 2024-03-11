@@ -19,7 +19,7 @@ export const ProfileUpdateSchema = z.object({
   linkedIn: z
     .string()
     .url()
-    .includes('https://linkedIn.com/', { message: 'Invalid linkedIn URL' })
+    .includes('https://linkedin.com/', { message: 'Invalid linkedIn URL' })
     .or(z.literal('')),
   instagram: z
     .string()
