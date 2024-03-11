@@ -1,7 +1,7 @@
-import { Tag, Tags } from '@/utils/types';
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import axios from 'axios';
 import { toast } from 'sonner';
+import { Tag, Tags } from '@/utils/types';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 
 const useTag = () => {
   const queryClient = useQueryClient();

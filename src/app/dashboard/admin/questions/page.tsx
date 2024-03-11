@@ -11,11 +11,11 @@ import { AddQuestionModal } from '@/components/molecules/dashboard/add-question-
 import useQuestion from '@/components/hooks/useQuestion';
 
 const Page = () => {
-  const { questions, isFetching } = useQuestion();
-
+  const { questions, mutation } = useQuestion();
   const [openNewQuestionModal, setOpenNewQuestionModal] = useState(false);
-  const noQuestions = questions?.length === 0;
-  const canShowQuestions = !isFetching && !noQuestions;
+  const noQuestions = questions?.length === 1;
+
+  const showQuestions = questions && questions?.length > 1;
 
   return (
     <>
@@ -30,11 +30,9 @@ const Page = () => {
           {noQuestions && (
             <EmptyState label="Questions and options will appear here..." />
           )}
-          {canShowQuestions && (
+          {showQuestions && (
             <WhiteArea border>
-              <div
-                className={`${canShowQuestions ? 'h-auto' : 'min-h-[50vh]'}`}
-              >
+              <div className={`${showQuestions ? 'h-auto' : 'min-h-[50vh]'}`}>
                 <ul className="list-decimal list-inside">
                   {questions?.map(({ options, question, tags }) => {
                     const hasTags = tags && tags.length > 0;
@@ -93,6 +91,7 @@ const Page = () => {
       <AddQuestionModal
         isOpen={openNewQuestionModal}
         close={() => setOpenNewQuestionModal(false)}
+        mutation={mutation}
       />
     </>
   );

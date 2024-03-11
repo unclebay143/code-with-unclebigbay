@@ -1,7 +1,7 @@
-import { NewQuestion, Questions } from '@/utils/types';
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import axios from 'axios';
 import { toast } from 'sonner';
+import { NewQuestion, Questions } from '@/utils/types';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 
 const useQuestion = () => {
   const queryClient = useQueryClient();
@@ -16,11 +16,7 @@ const useQuestion = () => {
     queryFn: () =>
       axios
         .get('/api/questions')
-        .then((res) => res.data.questions as Questions)
-        .catch((error) => {
-          toast.error(error);
-          return [];
-        }),
+        .then((res) => res.data.questions as Questions),
   });
 
   const mutation = useMutation({

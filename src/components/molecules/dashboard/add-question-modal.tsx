@@ -6,11 +6,19 @@ import { Button } from '@/components/atoms/Button';
 import { DashboardSubheading } from '@/components/molecules/dashboard/dashboard-subheading';
 import * as Dialog from '@radix-ui/react-dialog';
 import { IconButton } from '@/components/atoms/IconButton';
-import { Option, Options, Question, Tag, Tags } from '@/utils/types';
+import {
+  NewQuestion,
+  Option,
+  Options,
+  Question,
+  Tag,
+  Tags,
+} from '@/utils/types';
 import { ModalWrapper } from './modal-wrapper';
 import useTag from '@/components/hooks/useTag';
 import { convertWhiteSpaceToDash } from '@/utils';
-import useQuestion from '@/components/hooks/useQuestion';
+import { UseMutationResult } from '@tanstack/react-query';
+import { AxiosResponse } from 'axios';
 
 const emptyOption: Option = {
   option: '',
@@ -20,14 +28,20 @@ const emptyOption: Option = {
 export const AddQuestionModal = ({
   isOpen,
   close,
+  mutation,
 }: {
   isOpen: boolean;
   close: () => void;
+  mutation: UseMutationResult<
+    AxiosResponse<any, any>,
+    any,
+    NewQuestion,
+    unknown
+  >;
 }) => {
   const [showSuggestedTags, setShowSelectedTags] = useState(false);
   const [selectTags, setSelectedTags] = useState<Tags>([]);
   const { tags, mutation: createTag } = useTag();
-  const { mutation } = useQuestion();
   const [currentTag, setCurrentTag] = useState<string>('');
 
   const {
@@ -79,6 +93,7 @@ export const AddQuestionModal = ({
     remove(index);
   };
   const onSubmit = async (question: Question) => {
+
     const correctOptions: Options = question.options.filter(
       (option) => option.isCorrect,
     );
