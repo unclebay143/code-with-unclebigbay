@@ -12,7 +12,8 @@ const questionSchema = new Schema(
       },
     ],
     answerExplanation: { type: String, default: null },
-    tags: [{ name: String, slug: String, logo: String }],
+    tags: [{ type: Schema.Types.ObjectId, ref: 'Tag' }],
+    isActive: { type: 'Boolean', default: true },
   },
   {
     timestamps: true,
