@@ -2,7 +2,6 @@
 
 import React from 'react';
 import { CourseCard } from './course-card';
-import { materials as defaultMaterials } from '@/utils/dummy-data';
 import {
   Select,
   SelectContent,
@@ -12,6 +11,7 @@ import {
 } from '../../atoms/Select';
 import { Materials } from '@/utils/types';
 import { Button } from '../../atoms/Button';
+import useMaterial from '@/components/hooks/useMaterial';
 
 type Props = {
   materials?: Materials;
@@ -22,12 +22,15 @@ type Props = {
 };
 
 export const Courses = ({
-  materials = defaultMaterials,
+  materials,
   showLoadMoreButton,
   hideSearchOptions,
   showCounter,
   size,
 }: Props) => {
+  const { materials: defaultMaterials } = useMaterial();
+  const data = materials || defaultMaterials;
+
   return (
     <section className="flex flex-col gap-3">
       {hideSearchOptions || (
@@ -50,11 +53,9 @@ export const Courses = ({
           </div>
         </div>
       )}
-      {showCounter && (
-        <p className="text-slate-600">Total: {materials.length}</p>
-      )}
+      {showCounter && <p className="text-slate-600">Total: {data?.length}</p>}
       <section className="max-w-full grid sm:grid-cols-2 xl:grid-cols-3 gap-3">
-        {materials?.slice(0, size).map((material) => {
+        {data?.slice(0, size).map((material) => {
           return <CourseCard key={material.title} material={material} />;
         })}
       </section>
