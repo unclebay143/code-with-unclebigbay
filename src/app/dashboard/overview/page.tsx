@@ -5,14 +5,16 @@ import { EmptyState } from '@/components/molecules/dashboard/empty-state';
 import { WhiteArea } from '@/components/molecules/dashboard/white-area';
 import { QuoteOfTheDay } from '@/components/molecules/dashboard/quote-of-the-day';
 import { DashboardSubheading } from '@/components/molecules/dashboard/dashboard-subheading';
-import { materials, overviews } from '@/utils/dummy-data';
+import { overviews } from '@/utils/dummy-data';
 import { OverviewCard } from '@/components/molecules/dashboard/overview-card';
 import { ActivityLogs } from '@/components/molecules/dashboard/activity-logs';
 import { Courses } from '@/components/molecules/dashboard/courses';
+import useMaterial from '@/components/hooks/useMaterial';
 
 const Page = () => {
+  const { materials } = useMaterial();
   const [showQuoteWidget, setShowQuoteWidget] = useState<boolean>(true);
-  const noRecentMaterials = materials.length === 0;
+  const noRecentMaterials = materials && materials.length === 0;
   const [courseFilter, setCourseFilter] = useState<
     'total' | 'pending' | 'completed'
   >('total');
