@@ -57,7 +57,7 @@ export const sidebarLinks: SidebarLinks = [
   {
     key: 'questions',
     label: 'Questions',
-    slug: 'questions',
+    slug: 'admin/questions',
     Icon: Book,
     adminAccess: true,
     requireAuth: true,
