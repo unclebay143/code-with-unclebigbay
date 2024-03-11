@@ -64,7 +64,13 @@ export type Option = {
   isCorrect?: boolean;
 };
 export type Options = Option[];
-export type Tag = { _id?: string; name: string; slug: string; logo: string };
+export type Tag = {
+  _id?: string;
+  name: string;
+  slug: string;
+  logo: string;
+  wiki?: string;
+};
 export type Tags = Tag[];
 export type Question = {
   _id?: string;
