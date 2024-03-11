@@ -9,7 +9,7 @@ import {
 import { handleAuthentication } from '@/utils/auth';
 import { sidebarLinks } from '@/utils/consts/links';
 import { useSession } from 'next-auth/react';
-import { usePathname } from 'next/navigation';
+import { redirect, usePathname } from 'next/navigation';
 import { useState } from 'react';
 
 export const DashboardIndex = ({ children }: { children: React.ReactNode }) => {
@@ -19,6 +19,8 @@ export const DashboardIndex = ({ children }: { children: React.ReactNode }) => {
   const isAdmin = user?.isAdmin;
   const pathname = usePathname();
   const currentPageName = pathname.split('/')[2];
+
+  const adminRoute = pathname.includes('/admin');
 
   const allowedDashboardRoute = sidebarLinks.map((link) => {
     if (!link.requireAuth) return link.key;
@@ -39,6 +41,9 @@ export const DashboardIndex = ({ children }: { children: React.ReactNode }) => {
     return null;
   }
 
+  if (adminRoute) {
+    redirect('/dashboard/overview');
+  }
   return (
     <div className="flex flex-col gap-4 pb-10">
       <Navbar session={session} setSidebarOpen={setSidebarOpen} />

@@ -37,7 +37,7 @@ const Page = () => {
             <DashboardSubheading title="Available Courses" />
             {isAdmin && (
               <Button size="xs" asChild>
-                <Link href="/dashboard/courses/new">New course</Link>
+                <Link href="/dashboard/admin/courses/new">New course</Link>
               </Button>
             )}
           </div>
