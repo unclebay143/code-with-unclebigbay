@@ -68,7 +68,7 @@ export type Tag = {
   _id?: string;
   name: string;
   slug: string;
-  logo: string;
+  logo?: string;
   wiki?: string;
 };
 export type Tags = Tag[];
@@ -78,6 +78,14 @@ export type Question = {
   options: Options;
   answerExplanation?: string;
   tags?: Tags;
+};
+
+export type NewQuestion = {
+  _id?: string;
+  question: string;
+  options: Options;
+  answerExplanation?: string;
+  tags?: any;
 };
 
 export type Questions = Question[];

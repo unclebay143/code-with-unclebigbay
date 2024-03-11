@@ -5,20 +5,6 @@ import { getServerSessionWithAuthOptions } from '@/utils/auth-options';
 import { Student } from '@/models/student';
 import { Student as StudentType } from '@/utils/types';
 
-// {
-//   "question": "Is java a programming language?",
-//   "options": [
-//     {
-//       "option": "yes",
-//       "isCorrect": true
-//     },
-//     {
-//       "option": "no",
-//     }
-//   ],
-//   "answerExplanation": "HTML is not a programming language"
-// }
-
 const POST = async (req: Request, res: Response) => {
   const body = await req.json();
 
@@ -71,11 +57,12 @@ const GET = async () => {
     });
 
     const isAdmin = student?.isAdmin;
-    const questions = await Question.find({})
+    const questions = await Question.find({ isActive: true })
       .sort({ createdAt: -1 })
       .select(
         `_id question options.option options._id answerExplanation createdAt tags ${isAdmin && 'options.isCorrect'}`,
-      );
+      )
+      .populate('tags');
     return NextResponse.json(
       { message: 'Questions fetched successfully', questions },
       {
@@ -91,14 +78,6 @@ const GET = async () => {
     );
   }
 };
-
-// const updatePayload = {
-//   _id: '65e824d55d931c34b12b8a30',
-//   title: 'updated_title',
-//   'options.0.label': 'updated_option_label_1', // Update the first option label
-//   'options.0.isCorrect': true, // Update the first option isCorrect value
-//   answerExplanation: 'updated_answer_explanation',
-// };
 
 const PATCH = async (req: Request, res: Response) => {
   const body = await req.json();
@@ -140,7 +119,11 @@ const DELETE = async (req: Request, res: Response) => {
   const body = await req.json();
   try {
     await connectViaMongoose();
-    await Question.deleteOne({ _id: body._id });
+    await Question.findOneAndUpdate(
+      { _id: body._id },
+      { $set: { isActive: false } },
+      { new: true },
+    );
     return NextResponse.json(
       { message: 'Question deleted' },
       {

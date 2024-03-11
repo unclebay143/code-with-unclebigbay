@@ -16,7 +16,7 @@ const POST = async (req: Request) => {
 const GET = async () => {
   try {
     await connectViaMongoose();
-    const tags = await Tag.find({});
+    const tags = await Tag.find({ isActive: true });
     return NextResponse.json(
       { message: 'Tags fetched successfully', tags },
       { status: 200 },
@@ -26,4 +26,29 @@ const GET = async () => {
   }
 };
 
-export { GET, POST };
+const DELETE = async (req: Request, res: Response) => {
+  const body = await req.json();
+  try {
+    await connectViaMongoose();
+    await Tag.findOneAndUpdate(
+      { _id: body._id },
+      { $set: { isActive: false } },
+      { new: true },
+    );
+    return NextResponse.json(
+      { message: 'Tag deleted' },
+      {
+        status: 200,
+      },
+    );
+  } catch (e: any) {
+    return NextResponse.json(
+      { error: e.message },
+      {
+        status: 500,
+      },
+    );
+  }
+};
+
+export { GET, POST, DELETE };
