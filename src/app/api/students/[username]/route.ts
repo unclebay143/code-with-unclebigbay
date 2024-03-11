@@ -3,7 +3,7 @@ import { Student } from '@/models/student';
 import connectViaMongoose from '@/utils/mongoose';
 
 const GET = async (
-  req: Request,
+  _: Request,
   { params }: { params: { username: string } },
 ) => {
   try {
@@ -35,8 +35,6 @@ const GET = async (
     );
   }
 };
-
-// const test = { "_id": "65db8485f354001f95de3fd8", "username": "unclebay143", "stack": "backend" }
 
 interface CustomResponse extends Response {
   params: { username: string };
