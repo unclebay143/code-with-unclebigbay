@@ -7,26 +7,15 @@ import React, { useState } from 'react';
 import { Edit, Trash } from 'lucide-react';
 import { IconButton } from '@/components/atoms/IconButton';
 import { EmptyState } from '@/components/molecules/dashboard/empty-state';
-import { Questions } from '@/utils/types';
 import { AddQuestionModal } from '@/components/molecules/dashboard/add-question-modal';
-import { useQuery } from '@tanstack/react-query';
-import axios from 'axios';
 import useQuestion from '@/components/hooks/useQuestion';
 
 const Page = () => {
-  // const { data: questions, isFetching } = useQuery({
-  //   queryKey: ['questions'],
-  //   queryFn: () =>
-  //     axios
-  //       .get('/api/questions')
-  //       .then((res) => res.data.questions as Questions),
-  // });
-
-  const { questions, isFetching } = useQuestion();
-
+  const { questions, mutation } = useQuestion();
   const [openNewQuestionModal, setOpenNewQuestionModal] = useState(false);
-  const noQuestions = questions?.length === 0;
-  const canShowQuestions = !isFetching && !noQuestions;
+  const noQuestions = questions?.length === 1;
+
+  const showQuestions = questions && questions?.length > 1;
 
   return (
     <>
@@ -41,11 +30,9 @@ const Page = () => {
           {noQuestions && (
             <EmptyState label="Questions and options will appear here..." />
           )}
-          {canShowQuestions && (
+          {showQuestions && (
             <WhiteArea border>
-              <div
-                className={`${canShowQuestions ? 'h-auto' : 'min-h-[50vh]'}`}
-              >
+              <div className={`${showQuestions ? 'h-auto' : 'min-h-[50vh]'}`}>
                 <ul className="list-decimal list-inside">
                   {questions?.map(({ options, question, tags }) => {
                     const hasTags = tags && tags.length > 0;
@@ -104,6 +91,7 @@ const Page = () => {
       <AddQuestionModal
         isOpen={openNewQuestionModal}
         close={() => setOpenNewQuestionModal(false)}
+        mutation={mutation}
       />
     </>
   );

@@ -9,7 +9,7 @@ import {
 import { handleAuthentication } from '@/utils/auth';
 import { sidebarLinks } from '@/utils/consts/links';
 import { useSession } from 'next-auth/react';
-import { usePathname } from 'next/navigation';
+import { redirect, usePathname } from 'next/navigation';
 import { useState } from 'react';
 
 export const DashboardIndex = ({ children }: { children: React.ReactNode }) => {
@@ -19,13 +19,14 @@ export const DashboardIndex = ({ children }: { children: React.ReactNode }) => {
   const isAdmin = user?.isAdmin;
   const pathname = usePathname();
   const currentPageName = pathname.split('/')[2];
+  const adminRoute = pathname.includes('/admin');
 
   const allowedDashboardRoute = sidebarLinks.map((link) => {
     if (!link.requireAuth) return link.key;
   });
 
+  const requireAdminAccess = user && !isAdmin && adminRoute;
   const canAccessWithoutAuth = allowedDashboardRoute.includes(currentPageName);
-
   const isCheckingAuthStatus = !session && status === 'loading';
   const requireAuth =
     !session && status === 'unauthenticated' && !canAccessWithoutAuth;
@@ -37,6 +38,10 @@ export const DashboardIndex = ({ children }: { children: React.ReactNode }) => {
   if (requireAuth) {
     handleAuthentication({ nextUrl: window.location.href });
     return null;
+  }
+
+  if (requireAdminAccess) {
+    return redirect('/dashboard/overview');
   }
 
   return (
