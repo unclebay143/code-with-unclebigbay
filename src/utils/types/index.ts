@@ -3,15 +3,12 @@ import { LucideIcon } from 'lucide-react';
 export type Optional<T, K extends keyof T> = Pick<Partial<T>, K> & Omit<T, K>;
 
 export type Material = {
+  type?: string;
   title: string;
   description: string;
-  url: string;
-  type: 'video' | 'post';
+  ytVideoId: string;
   coverImageUrl: string;
-  embedURL: string;
-  duration: string;
-  date: string;
-  enrolled?: boolean;
+  viewTime: number;
 };
 
 export type Materials = Material[];
@@ -91,6 +88,7 @@ export type NewQuestion = {
 export type Questions = Question[];
 
 export type Student = {
+  _id: string;
   fullName: string;
   email: string;
   username: string;
