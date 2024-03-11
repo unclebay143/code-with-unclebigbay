@@ -12,14 +12,13 @@ type CourseCardProps = {
 };
 
 export const CourseCard = ({ layout = 'grid', material }: CourseCardProps) => {
-  const { type, title, description, coverImageUrl, viewTime } = material;
-  const id = window.crypto.randomUUID();
+  const { _id, type, title, description, coverImageUrl, viewTime } = material;
 
   const mapTypeToIcon: { [key: string]: LucideIcon } = {
     video: PlayCircle,
   };
   const Icon = mapTypeToIcon[type!];
-  const courseLink = `/dashboard/courses/${id}`;
+  const courseLink = `/dashboard/courses/${_id}`;
   return (
     <>
       {layout === 'card' && (

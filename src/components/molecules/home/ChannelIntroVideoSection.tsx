@@ -14,7 +14,7 @@ export const ChannelIntroVideoSection = () => {
             </span>
           </div>
           <section className="rounded overflow-hidden ring-1 ring-slate-800">
-            <YTVideo embedURL="https://www.youtube.com/embed/JH77WsDH8yY" />
+            <YTVideo ytVideoId="JH77WsDH8yY" />
           </section>
         </section>
       </SectionWrapper>
