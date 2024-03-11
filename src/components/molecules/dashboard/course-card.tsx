@@ -4,6 +4,7 @@ import { PlayCircle } from 'lucide-react';
 import type { LucideIcon } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
+import { formatTime } from '@/utils';
 
 type CourseCardProps = {
   material: Material;
@@ -11,14 +12,13 @@ type CourseCardProps = {
 };
 
 export const CourseCard = ({ layout = 'grid', material }: CourseCardProps) => {
-  const { type, title, description, coverImageUrl, duration, enrolled } =
-    material;
+  const { type, title, description, coverImageUrl, viewTime } = material;
   const id = window.crypto.randomUUID();
 
   const mapTypeToIcon: { [key: string]: LucideIcon } = {
     video: PlayCircle,
   };
-  const Icon = mapTypeToIcon[type];
+  const Icon = mapTypeToIcon[type!];
   const courseLink = `/dashboard/courses/${id}`;
   return (
     <>
@@ -33,7 +33,7 @@ export const CourseCard = ({ layout = 'grid', material }: CourseCardProps) => {
             </h3>
           </div>
           <span className="p-1 px-1.5 rounded-full bg-slate-100 text-xs font-medium">
-            30 mins
+            {formatTime(viewTime)}
           </span>
         </div>
       )}
@@ -61,18 +61,18 @@ export const CourseCard = ({ layout = 'grid', material }: CourseCardProps) => {
                   {title}
                 </div>
                 <span className="py-1 px-3 rounded-full bg-slate-100 text-xs font-semibold">
-                  {duration}
+                  {formatTime(viewTime)}
                 </span>
               </div>
               <p className="text-slate-500">{description}</p>
             </div>
-            <div>
+            {/* <div>
               {enrolled && (
                 <span className="w-fit text-xs rounded px-3 py-1 bg-slate-100 text-slate-600 font-medium">
                   Enrolled
                 </span>
               )}
-            </div>
+            </div> */}
           </section>
         </Link>
       )}

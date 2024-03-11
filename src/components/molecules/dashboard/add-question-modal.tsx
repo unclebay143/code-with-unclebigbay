@@ -1,15 +1,24 @@
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useForm, useFieldArray } from 'react-hook-form';
 import { MinusCircle, Plus, X } from 'lucide-react';
 import { toast } from 'sonner';
-import axios from 'axios';
 import { Button } from '@/components/atoms/Button';
 import { DashboardSubheading } from '@/components/molecules/dashboard/dashboard-subheading';
 import * as Dialog from '@radix-ui/react-dialog';
 import { IconButton } from '@/components/atoms/IconButton';
-import { Option, Options, Question, Tag, Tags } from '@/utils/types';
-import { useMutation, useQueryClient } from '@tanstack/react-query';
+import {
+  NewQuestion,
+  Option,
+  Options,
+  Question,
+  Tag,
+  Tags,
+} from '@/utils/types';
 import { ModalWrapper } from './modal-wrapper';
+import useTag from '@/components/hooks/useTag';
+import { convertWhiteSpaceToDash } from '@/utils';
+import { UseMutationResult } from '@tanstack/react-query';
+import { AxiosResponse } from 'axios';
 
 const emptyOption: Option = {
   option: '',
@@ -19,22 +28,21 @@ const emptyOption: Option = {
 export const AddQuestionModal = ({
   isOpen,
   close,
+  mutation,
 }: {
   isOpen: boolean;
   close: () => void;
+  mutation: UseMutationResult<
+    AxiosResponse<any, any>,
+    any,
+    NewQuestion,
+    unknown
+  >;
 }) => {
-  const [tags, setTags] = useState<Tags>([]);
+  const [showSuggestedTags, setShowSelectedTags] = useState(false);
+  const [selectTags, setSelectedTags] = useState<Tags>([]);
+  const { tags, mutation: createTag } = useTag();
   const [currentTag, setCurrentTag] = useState<string>('');
-  const queryClient = useQueryClient();
-  const mutation = useMutation({
-    mutationFn: (newQuestion: Question) => {
-      return axios.post('/api/questions', newQuestion);
-    },
-    onSuccess() {
-      queryClient.invalidateQueries({ queryKey: ['questions'] });
-      toast.success('New question added.');
-    },
-  });
 
   const {
     getValues,
@@ -52,6 +60,7 @@ export const AddQuestionModal = ({
       tags: [],
     },
   });
+
   const createMoreRef = useRef<HTMLInputElement>(null);
   const { fields, append, remove } = useFieldArray({
     control,
@@ -84,6 +93,7 @@ export const AddQuestionModal = ({
     remove(index);
   };
   const onSubmit = async (question: Question) => {
+
     const correctOptions: Options = question.options.filter(
       (option) => option.isCorrect,
     );
@@ -98,18 +108,90 @@ export const AddQuestionModal = ({
     if (isInvalid && noCorrectOption) {
       return toast.error('Select a correct option');
     }
-    const newQuestion = { ...question, tags };
-    mutation.mutate(newQuestion);
 
+    const newQuestion = { ...question, tags: selectTags.map((tag) => tag._id) };
+    mutation.mutate(newQuestion);
     const wantToCreateMore = createMoreRef.current!.checked;
-    // not using reset() to prevent resetting 'Create more'
-    resetField('options');
-    resetField('question');
-    resetField('answerExplanation');
-    setTags([]);
+
     if (!wantToCreateMore) {
       return close();
     }
+  };
+
+  useEffect(() => {
+    if (mutation.isSuccess) {
+      // not using reset() to prevent resetting 'Create more'
+      resetField('options');
+      resetField('question');
+      resetField('answerExplanation');
+      setSelectedTags([]);
+    }
+  }, [mutation.isSuccess, resetField]);
+
+  const SuggestedTags = () => {
+    if (!currentTag && !showSuggestedTags) return;
+
+    const excludeSelectedTags = tags?.filter(
+      (tag) => !selectTags.some((selectTag) => selectTag._id === tag._id),
+    );
+
+    const filteredTags = excludeSelectedTags
+      ?.map((tag) => {
+        if (tag.name.toLowerCase().includes(currentTag.toLowerCase()))
+          return tag as Tag;
+      }) // array contains undefined for which doesn't exist
+      .filter((tag) => tag !== undefined); // filter out undefineds
+
+    return (
+      <div className="absolute right-0 w-full h-auto bg-white rounded-md shadow-lg top-100 dark:bg-slate-800">
+        {currentTag && filteredTags && filteredTags?.length < 1 && (
+          <button
+            type="button"
+            className="capitalize text-sm text-slate-600 font-medium w-full text-left px-4 py-3 hover:bg-slate-50"
+            onClick={() => {
+              createTag.mutate({
+                name: currentTag,
+                slug: convertWhiteSpaceToDash(currentTag),
+              });
+            }}
+          >
+            Note found. Create{' '}
+            <span className="font-semibold text-green-800 lowercase">
+              &quot;{currentTag}&quot;
+            </span>{' '}
+            as a tag
+          </button>
+        )}
+
+        {filteredTags?.map((tag) => {
+          if (!tag) return;
+          return (
+            <button
+              key={tag?._id}
+              type="button"
+              className="lowercase text-sm text-slate-600 font-medium w-full text-left px-4 py-3 hover:bg-slate-50"
+              onClick={() => {
+                const alreadyExist = selectTags.some(
+                  ({ name }) => name === currentTag.toLowerCase(),
+                );
+
+                if (alreadyExist) {
+                  toast.success('Tag already selected');
+                  setCurrentTag('');
+                  return;
+                }
+
+                setSelectedTags((prevTags) => [...prevTags, tag as Tag]);
+                setCurrentTag('');
+                setShowSelectedTags(false);
+              }}
+            >
+              {tag?.name}
+            </button>
+          );
+        })}
+      </div>
+    );
   };
 
   return (
@@ -158,7 +240,7 @@ export const AddQuestionModal = ({
                 <input
                   key={field.id}
                   type="text"
-                  placeholder="Option"
+                  placeholder=""
                   className={`w-full text-sm text-slate-600 p-2 outline-none focus:ring-2 focus:ring-slate-500 focus:border-slate-300 border rounded-md  ${errors.options?.length && errors.options.length > 1 && 'ring-2 ring-red-500'}`}
                   {...register(`options.${index}.option`, {
                     required: true,
@@ -202,9 +284,10 @@ export const AddQuestionModal = ({
                   autoComplete="off"
                   type="text"
                   id="tags"
-                  placeholder="Type tag"
+                  placeholder="Search or create tag"
                   className="w-full text-sm text-slate-600 p-2 outline-none focus:ring-2 focus:ring-slate-500 focus:border-slate-300 border rounded-md"
                   value={currentTag}
+                  onFocus={() => setShowSelectedTags(true)}
                   onChange={(e) => {
                     const inputValue = e.target.value;
                     let cleanedInputValue = inputValue.replace(/\s/g, '-'); // remove space
@@ -213,50 +296,21 @@ export const AddQuestionModal = ({
                 />
               </div>
             </div>
-            {currentTag && (
-              <div className="absolute right-0 w-full h-auto bg-white rounded-md shadow-lg top-100 dark:bg-slate-800">
-                <button
-                  type="button"
-                  className=" w-full text-left px-4 py-3 hover:bg-slate-50"
-                  onClick={() => {
-                    const alreadyExist = tags.some(
-                      ({ name }) => name === currentTag.toLowerCase(),
-                    );
-
-                    if (alreadyExist) {
-                      toast.success('Tag already selected');
-                      setCurrentTag('');
-                      return;
-                    }
-
-                    const newTag: Tag = {
-                      name: currentTag.toLowerCase(),
-                      slug: currentTag,
-                      logo: '',
-                    };
-
-                    setTags((prevTags) => [...prevTags, newTag]);
-                    setCurrentTag('');
-                  }}
-                >
-                  {currentTag}
-                </button>
-              </div>
-            )}
+            <SuggestedTags />
             <div className="flex flex-wrap gap-1 pt-1">
-              {tags.map(({ name }) => {
+              {selectTags.map(({ name }) => {
                 return (
                   <div className="flex items-center" key={name}>
-                    <span className="bg-slate-50 text-xs rounded font-medium px-1">
+                    <span className="bg-slate-50 text-xs rounded font-medium px-1 lowercase">
                       {name}
                     </span>
                     <button
                       type="button"
                       onClick={() => {
-                        const removedTag = tags.filter(
+                        const removedTag = selectTags.filter(
                           (prevTag) => prevTag.name !== name,
                         );
-                        setTags(removedTag);
+                        setSelectedTags(removedTag);
                       }}
                       className="text-red-500"
                     >
