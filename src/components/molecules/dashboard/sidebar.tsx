@@ -8,6 +8,7 @@ import { XMark } from '../../icons/XMark';
 import { SidebarLink } from '@/utils/types';
 import { sidebarLinks } from '@/utils/consts/links';
 import { Tooltip } from '@/components/atoms/Tooltip';
+import { WhiteArea } from './white-area';
 
 const SidebarLink = ({
   label,

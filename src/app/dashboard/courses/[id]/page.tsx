@@ -41,7 +41,7 @@ const Page = () => {
               </section>
             ) : (
               <section
-                className="relative flex justify-center items-center rounded overflow-hidden aspect-video bg-slate-5 bg-no-repeat bg-cover"
+                className="relative flex justify-center items-center rounded overflow-hidden aspect-video bg-slate-5 bg-no-repeat bg-center bg-cover"
                 style={{ backgroundImage: `url(${material?.coverImageUrl})` }}
               >
                 <div className="absolute bg-black/60 inset-0 w-full" />

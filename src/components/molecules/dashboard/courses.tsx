@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import { CourseCard } from './course-card';
+import { CourseCard, CourseCardSkeleton } from './course-card';
 import {
   Select,
   SelectContent,
@@ -28,7 +28,7 @@ export const Courses = ({
   showCounter,
   size,
 }: Props) => {
-  const { materials: defaultMaterials } = useMaterial();
+  const { materials: defaultMaterials, isFetching } = useMaterial();
   const data = materials || defaultMaterials;
 
   return (
@@ -55,9 +55,21 @@ export const Courses = ({
       )}
       {showCounter && <p className="text-slate-600">Total: {data?.length}</p>}
       <section className="max-w-full grid sm:grid-cols-2 xl:grid-cols-3 gap-3">
-        {data?.slice(0, size).map((material) => {
-          return <CourseCard key={material.title} material={material} />;
-        })}
+        {isFetching ? (
+          <>
+            {Array(3)
+              .fill({})
+              .map((_, index) => (
+                <CourseCardSkeleton key={`CourseCardSkeleton-${index}`} />
+              ))}
+          </>
+        ) : (
+          <>
+            {data?.slice(0, size).map((material) => {
+              return <CourseCard key={material.title} material={material} />;
+            })}
+          </>
+        )}
       </section>
       {showLoadMoreButton && (
         <section className="flex justify-center">
