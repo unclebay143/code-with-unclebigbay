@@ -43,7 +43,7 @@ export const CourseCard = ({ layout = 'grid', material }: CourseCardProps) => {
           className="border rounded-lg overflow-hidden transition-colors duration-200 ease-in-out hover:border-slate-300"
           prefetch={true}
         >
-          <div className="h-[196px] relative">
+          <div className="h-[180px] relative">
             <div className="h-full w-full inline-block relative">
               <Image
                 src={coverImageUrl}
@@ -59,11 +59,11 @@ export const CourseCard = ({ layout = 'grid', material }: CourseCardProps) => {
                 <div className="text-gray-700 font-medium hover:text-slate-800 text-lg line-clamp-2">
                   {title}
                 </div>
-                <span className="py-1 px-3 rounded-full bg-slate-100 text-xs font-semibold">
+                <span className="py-1 px-2 whitespace-nowrap rounded-full bg-slate-100 text-xs font-semibold">
                   {formatTime(viewTime)}
                 </span>
               </div>
-              <p className="text-slate-500">{description}</p>
+              <p className="text-slate-500 line-clamp-6">{description}</p>
             </div>
             {/* <div>
               {enrolled && (
@@ -81,25 +81,23 @@ export const CourseCard = ({ layout = 'grid', material }: CourseCardProps) => {
 
 export const CourseCardSkeleton = () => {
   return (
-    <div className="border rounded-lg overflow-hidden transition-colors duration-200 ease-in-out hover:border-slate-300">
+    <div className="animate-pulse border rounded-lg overflow-hidden transition-colors duration-200 ease-in-out hover:border-slate-300">
       <div className="h-[196px] relative">
-        <div className="h-full w-full inline-block relative"></div>
+        <div className="h-full w-full bg-slate-50 inline-block relative"></div>
       </div>
-      <section className="h-full p-6 flex flex-col gap-3">
+      <section className="h-full  p-6 flex flex-col gap-3">
         <div className="flex flex-col gap-3">
-          <div className="flex items-start justify-between">
-            <div className="text-gray-700 font-medium hover:text-slate-800 text-lg line-clamp-2"></div>
-            <span className="py-1 px-3 rounded-full bg-slate-100 text-xs font-semibold"></span>
+          <div className="flex gap-4 items-start justify-between">
+            <div className="h-5 w-full rounded-full text-gray-700 font-medium hover:text-slate-800 text-lg line-clamp-2 bg-slate-50" />
+            <div className="h-5 w-10 rounded-full bg-slate-50" />
           </div>
-          <p className="text-slate-500"></p>
+          <p className="bg-slate-50 w-1/2 h-5 rounded-full" />
+          <p className="bg-slate-50 w-full h-5 rounded-full" />
+          <p className="bg-slate-50 w-full h-5 rounded-full" />
+          <p className="bg-slate-50 w-full h-5 rounded-full" />
+          <p className="bg-slate-50 w-1/2 h-5 rounded-full" />
+          <p className="bg-slate-50 w-full h-5 rounded-full" />
         </div>
-        {/* <div>
-              {enrolled && (
-                <span className="w-fit text-xs rounded px-3 py-1 bg-slate-100 text-slate-600 font-medium">
-                  Enrolled
-                </span>
-              )}
-            </div> */}
       </section>
     </div>
   );
