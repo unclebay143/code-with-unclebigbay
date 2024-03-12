@@ -23,7 +23,7 @@ const Page = () => {
       {showQuoteWidget && (
         <QuoteOfTheDay close={() => setShowQuoteWidget(false)} />
       )}
-      <WhiteArea twClass="bg-slate-50" border>
+      <WhiteArea twClass="bg-indigo-50/60 border-indigo-50" border>
         <section className="flex flex-col gap-3">
           <DashboardSubheading title="Your course overview" />
           <section className="w-full grid sm:grid-cols-2 md:grid-cols-3 gap-5">

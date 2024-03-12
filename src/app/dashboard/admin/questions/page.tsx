@@ -22,7 +22,12 @@ const Page = () => {
       <WhiteArea border>
         <div className="flex flex-col gap-5">
           <div className="flex items-center justify-between">
-            <DashboardSubheading title="Question management" />
+            <div className="flex items-center gap-2">
+              <DashboardSubheading title="Question management" />
+              <span className="rounded-full px-2 bg-slate-100 font-medium text-slate-600 text-sm">
+                {questions?.length}
+              </span>
+            </div>
             <Button size="xs" onClick={() => setOpenNewQuestionModal(true)}>
               New Question
             </Button>
