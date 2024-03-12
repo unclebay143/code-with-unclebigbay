@@ -2,6 +2,7 @@ import axios from 'axios';
 import { toast } from 'sonner';
 import { Material, Materials } from '@/utils/types';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { redirect } from 'next/navigation';
 
 const useMaterial = () => {
   const queryClient = useQueryClient();
@@ -22,9 +23,11 @@ const useMaterial = () => {
     mutationFn: (newMaterial: Material) => {
       return axios.post('/api/materials', newMaterial);
     },
-    onSuccess() {
+    onSuccess({ data }) {
       queryClient.invalidateQueries({ queryKey: ['materials'] });
+      const courseId = data.material._id;
       toast.success('New material added.');
+      window.location.href = `/dashboard/courses/${courseId}`;
     },
     onError(error: any) {
       toast.success(error.response.data.message);
