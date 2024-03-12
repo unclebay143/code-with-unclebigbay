@@ -78,3 +78,29 @@ export const CourseCard = ({ layout = 'grid', material }: CourseCardProps) => {
     </>
   );
 };
+
+export const CourseCardSkeleton = () => {
+  return (
+    <div className="border rounded-lg overflow-hidden transition-colors duration-200 ease-in-out hover:border-slate-300">
+      <div className="h-[196px] relative">
+        <div className="h-full w-full inline-block relative"></div>
+      </div>
+      <section className="h-full p-6 flex flex-col gap-3">
+        <div className="flex flex-col gap-3">
+          <div className="flex items-start justify-between">
+            <div className="text-gray-700 font-medium hover:text-slate-800 text-lg line-clamp-2"></div>
+            <span className="py-1 px-3 rounded-full bg-slate-100 text-xs font-semibold"></span>
+          </div>
+          <p className="text-slate-500"></p>
+        </div>
+        {/* <div>
+              {enrolled && (
+                <span className="w-fit text-xs rounded px-3 py-1 bg-slate-100 text-slate-600 font-medium">
+                  Enrolled
+                </span>
+              )}
+            </div> */}
+      </section>
+    </div>
+  );
+};

@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import { CourseCard } from './course-card';
+import { CourseCard, CourseCardSkeleton } from './course-card';
 import {
   Select,
   SelectContent,
@@ -58,6 +58,7 @@ export const Courses = ({
         {data?.slice(0, size).map((material) => {
           return <CourseCard key={material.title} material={material} />;
         })}
+        <CourseCardSkeleton />
       </section>
       {showLoadMoreButton && (
         <section className="flex justify-center">
