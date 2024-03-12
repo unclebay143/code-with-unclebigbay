@@ -2,19 +2,6 @@ import { LucideIcon } from 'lucide-react';
 
 export type Optional<T, K extends keyof T> = Pick<Partial<T>, K> & Omit<T, K>;
 
-export type Material = {
-  createdAt?: string;
-  _id?: string;
-  type?: string;
-  title: string;
-  description: string;
-  ytVideoId: string;
-  coverImageUrl: string;
-  viewTime: number;
-};
-
-export type Materials = Material[];
-
 export type Activity = {
   type?: string;
   date: number;
@@ -123,3 +110,17 @@ export type Student = {
   gender: string;
   interests: string;
 };
+
+export type Material = {
+  createdAt?: string;
+  _id?: string;
+  type?: string;
+  title: string;
+  description: string;
+  ytVideoId: string;
+  coverImageUrl: string;
+  viewTime: number;
+  tags: Tags;
+};
+
+export type Materials = Material[];
