@@ -1,4 +1,5 @@
 'use client';
+
 import { Button } from '@/components/atoms/Button';
 import React, { useEffect } from 'react';
 import { WhiteArea } from '../white-area';
@@ -9,8 +10,6 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { ProfileUpdateSchema } from '@/validation/userSocialValidation';
 import { toast } from 'sonner';
 import useCurrentStudent from '@/components/hooks/useCurrentStudent';
-
-ProfileUpdateSchema;
 
 type profileUpdateSchemaType = z.infer<typeof ProfileUpdateSchema>;
 
@@ -32,7 +31,7 @@ const UserSocialSettings = () => {
     reset,
     register,
     handleSubmit,
-    formState: { errors, isDirty, dirtyFields },
+    formState: { errors },
   } = useForm<profileUpdateSchemaType>({
     resolver: zodResolver(ProfileUpdateSchema),
     defaultValues,
