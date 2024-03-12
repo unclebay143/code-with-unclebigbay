@@ -7,6 +7,7 @@ import { EmptyState } from '@/components/molecules/dashboard/empty-state';
 import { WhiteArea } from '@/components/molecules/dashboard/white-area';
 import { convertWhiteSpaceToDash } from '@/utils';
 import { Tag } from '@/utils/types';
+import { Tag as TagIcon } from 'lucide-react';
 import React from 'react';
 import { useForm } from 'react-hook-form';
 
@@ -93,7 +94,12 @@ const Page = () => {
             </WhiteArea>
           </div>
           <section className="flex flex-col gap-3 w-full">
-            <DashboardSubheading title="Tags" />
+            <div className="flex items-center gap-2">
+              <DashboardSubheading title="Tags" />
+              <span className="rounded-full px-2 bg-slate-100 font-medium text-slate-600 text-sm">
+                {tags?.length}
+              </span>
+            </div>
             {noTags && (
               <EmptyState label="Tags will appear here when you create them" />
             )}
@@ -105,8 +111,8 @@ const Page = () => {
                       <tr key={_id}>
                         <td className="border-b p-4 capitalize text-slate-600 text-sm">
                           <div>
-                            <span>
-                              {index + 1}. {}
+                            <span className="flex items-center gap-1">
+                              <TagIcon size={12} />
                               {name}
                             </span>
                           </div>

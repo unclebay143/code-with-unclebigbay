@@ -14,6 +14,7 @@ const materialSchema = new Schema(
     },
     title: { type: String },
     subTitle: { type: String, default: '' },
+    brief: { type: String, default: '' },
     description: { type: String, default: '' },
     url: { type: String, default: '' },
     ytVideoId: { type: String, default: '' },
