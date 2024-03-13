@@ -41,7 +41,7 @@ interface CustomResponse extends Response {
 }
 
 // Student profile update
-const POST = async (req: Request, res: CustomResponse) => {
+const PATCH = async (req: Request, res: CustomResponse) => {
   try {
     const { username } = res.params; // to ensure username in the api route [username] is same as the one in the body
     const body = await req.json();
@@ -79,4 +79,4 @@ const POST = async (req: Request, res: CustomResponse) => {
   }
 };
 
-export { GET, POST };
+export { GET, PATCH };
