@@ -92,9 +92,8 @@ export const AddQuestionModal = ({
     }
     remove(index);
   };
-  const onSubmit = async (question: Question) => {
-
-    const correctOptions: Options = question.options.filter(
+  const onSubmit = async (question: any) => {
+    const correctOptions: Options = (question as Question).options.filter(
       (option) => option.isCorrect,
     );
     const correctOptionMoreThanOne = correctOptions.length > 1;
