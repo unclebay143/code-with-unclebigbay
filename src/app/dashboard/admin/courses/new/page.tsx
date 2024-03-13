@@ -8,7 +8,14 @@ import { AddAssignmentModal } from '@/components/molecules/dashboard/add-assignm
 import { DashboardSubheading } from '@/components/molecules/dashboard/dashboard-subheading';
 import { WhiteArea } from '@/components/molecules/dashboard/white-area';
 import { convertWhiteSpaceToDash } from '@/utils';
-import { Material, Questions, Tag, Tags } from '@/utils/types';
+import {
+  Assignment,
+  Material,
+  Question,
+  Questions,
+  Tag,
+  Tags,
+} from '@/utils/types';
 import { X } from 'lucide-react';
 import Link from 'next/link';
 import React, { useState } from 'react';
@@ -27,11 +34,7 @@ const Page = () => {
     useState<boolean>(false);
   const { data: user } = useCurrentStudent();
 
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm({
+  const { register, handleSubmit } = useForm({
     defaultValues: {
       title: '',
       description: '',
@@ -41,8 +44,10 @@ const Page = () => {
       author: user?._id,
     },
   });
-  const createNewCourse = (data: Material) => {
-    const newCourse = {
+  const createNewCourse = (data: any) => {
+    console.log(selectTags.map((tag) => tag._id));
+
+    const newCourse: Material = {
       ...data,
       type: 'video',
       assignment: selectedQuestions.map((question) => question._id),

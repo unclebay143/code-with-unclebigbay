@@ -2,6 +2,7 @@ import {
   ActivityIcon,
   BarChart,
   Book,
+  DoorOpen,
   HelpCircle,
   LibraryBig,
   Settings,
@@ -11,6 +12,15 @@ import {
 import { SidebarLinks } from '@/utils/types';
 
 export const sidebarLinks: SidebarLinks = [
+  {
+    key: 'onboard',
+    label: 'onboard',
+    slug: 'onboard',
+    Icon: DoorOpen,
+    requireAuth: false,
+    showOnBoard: true,
+    hideAfterOnboard: true,
+  },
   {
     key: 'overview',
     label: 'overview',
@@ -38,6 +48,7 @@ export const sidebarLinks: SidebarLinks = [
     slug: 'activity',
     Icon: ActivityIcon,
     requireAuth: true,
+    showOnBoard: true,
   },
   {
     key: 'settings',
@@ -54,6 +65,7 @@ export const sidebarLinks: SidebarLinks = [
     Icon: HelpCircle,
     shadowHide: false,
     requireAuth: false,
+    showOnBoard: true,
   },
   {
     key: 'questions',
