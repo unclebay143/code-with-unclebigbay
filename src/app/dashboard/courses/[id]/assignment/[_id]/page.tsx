@@ -5,7 +5,7 @@ import { DashboardSubheading } from '@/components/molecules/dashboard/dashboard-
 import { WhiteArea } from '@/components/molecules/dashboard/white-area';
 import React, { useState } from 'react';
 import { ArrowLeft, RotateCw } from 'lucide-react';
-import { Optional, Question, Tags } from '@/utils/types';
+import { Question } from '@/utils/types';
 import { Courses } from '@/components/molecules/dashboard/courses';
 import { Controller, useForm } from 'react-hook-form';
 import { usePathname } from 'next/navigation';
