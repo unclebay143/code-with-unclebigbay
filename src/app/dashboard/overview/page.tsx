@@ -18,6 +18,7 @@ const Page = () => {
   const [courseFilter, setCourseFilter] = useState<
     'total' | 'pending' | 'completed'
   >('total');
+
   return (
     <section className="flex flex-col gap-3">
       {showQuoteWidget && (
@@ -51,6 +52,7 @@ const Page = () => {
           </section>
         )}
       </WhiteArea>
+
       <ActivityLogs />
     </section>
   );
