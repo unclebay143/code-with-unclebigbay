@@ -23,11 +23,11 @@ const Page = () => {
   const handleShowMoreVisibility = () => {
     setShowMore((prevVisibility) => !prevVisibility);
   };
-
+  const showCourse = !isFetching && material;
   return (
     <>
-      {!isFetching && material && (
-        <WhiteArea border>
+      <WhiteArea border>
+        {showCourse ? (
           <div className="flex flex-col gap-5">
             <div className="flex items-center justify-between gap-1 text-xl text-slate-600">
               <DashboardSubheading title={material?.title} />
@@ -115,8 +115,18 @@ const Page = () => {
               )}
             </WhiteArea>
           </div>
-        </WhiteArea>
-      )}
+        ) : (
+          <div className="flex flex-col gap-5 animate-pulse">
+            <div className="flex items-center justify-between gap-52">
+              <div className="bg-slate-50 w-full h-8 rounded" />
+              <div className="bg-slate-50 w-1 h-1 p-5 rounded-full" />
+            </div>
+
+            <section className="rounded aspect-video bg-slate-50" />
+            <section className="rounded-lg h-20 bg-slate-50" />
+          </div>
+        )}
+      </WhiteArea>
     </>
   );
 };

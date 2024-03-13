@@ -2,7 +2,6 @@ import axios from 'axios';
 import { toast } from 'sonner';
 import { Material, Materials } from '@/utils/types';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
-import { redirect } from 'next/navigation';
 
 const useMaterial = () => {
   const queryClient = useQueryClient();

@@ -74,6 +74,10 @@ const UserProfessionalSettings = () => {
           <div className="flex flex-col gap-2">
             <label htmlFor="stack">
               <DashboardSubheading title="Stack" />
+              <p className="text-slate-500 text-sm">
+                This determines the course content tailored specifically for you
+                on our platform.
+              </p>
             </label>
             <Controller
               control={control}
