@@ -1,6 +1,6 @@
 import { LucideIcon } from 'lucide-react';
 
-export type Optional<T, K extends keyof T> = Pick<Partial<T>, K> & Omit<T, K>;
+// export type Optional<T, K extends keyof T> = Pick<Partial<T>, K> & Omit<T, K>;
 
 export type Activity = {
   type?: string;
@@ -41,6 +41,8 @@ export type SidebarLink = {
   adminAccess?: boolean;
   requireAuth: boolean;
   disabled?: boolean;
+  showOnBoard?: boolean;
+  hideAfterOnboard?: boolean;
 };
 
 export type SidebarLinks = SidebarLink[];
@@ -50,6 +52,7 @@ export type Option = {
   isCorrect?: boolean;
 };
 export type Options = Option[];
+
 export type Tag = {
   _id?: string;
   name: string;
@@ -58,6 +61,7 @@ export type Tag = {
   wiki?: string;
 };
 export type Tags = Tag[];
+
 export type Question = {
   _id?: string;
   question: string;
@@ -65,16 +69,17 @@ export type Question = {
   answerExplanation?: string;
   tags?: Tags;
 };
-
 export type NewQuestion = {
   _id?: string;
   question: string;
   options: Options;
   answerExplanation?: string;
-  tags?: any;
+  tags?: Tags;
 };
 
 export type Questions = Question[];
+
+export type Assignment = Questions[];
 
 export type Student = {
   _id: string;
@@ -113,7 +118,7 @@ export type Student = {
 
 export type Material = {
   createdAt?: string;
-  _id?: string;
+  _id: string;
   type?: string;
   title: string;
   description: string;
@@ -121,6 +126,7 @@ export type Material = {
   coverImageUrl: string;
   viewTime: number;
   tags: Tags;
+  assignment: Assignment;
 };
 
 export type Materials = Material[];

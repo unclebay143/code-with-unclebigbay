@@ -8,7 +8,6 @@ import { XMark } from '../../icons/XMark';
 import { SidebarLink } from '@/utils/types';
 import { sidebarLinks } from '@/utils/consts/links';
 import { Tooltip } from '@/components/atoms/Tooltip';
-import { WhiteArea } from './white-area';
 
 const SidebarLink = ({
   label,
@@ -42,12 +41,14 @@ const SidebarLink = ({
 export const Sidebar = ({
   isAdmin,
   isLoggedIn,
+  isOnboardingCompleted,
 }: {
   isAdmin?: boolean;
   isLoggedIn?: boolean;
+  isOnboardingCompleted?: boolean;
 }) => {
   const pathname = usePathname();
-  const currentPageName = pathname.split('/')[2];
+  const currentPageName = pathname.split('/')[2] || pathname.split('/')[1];
 
   return (
     <aside className="hidden lg:flex">
@@ -63,11 +64,20 @@ export const Sidebar = ({
               shadowHide,
               adminAccess,
               requireAuth,
+              showOnBoard,
+              hideAfterOnboard,
             }) => {
               const isCurrentPage = currentPageName === key.toLowerCase();
               const requireAdminAccess = adminAccess && !isAdmin;
               const shadowHidden = shadowHide && !isCurrentPage;
-              const shouldHideLink = shadowHidden || requireAdminAccess;
+              const hideTillOnboard = !isOnboardingCompleted && !showOnBoard;
+              const _hideAfterOnboard =
+                isOnboardingCompleted && hideAfterOnboard;
+              const shouldHideLink =
+                hideTillOnboard ||
+                _hideAfterOnboard ||
+                shadowHidden ||
+                requireAdminAccess;
               const _requireAuth = !isLoggedIn && requireAuth;
 
               if (shouldHideLink) return;
@@ -95,11 +105,13 @@ export const SidebarMobile = ({
   setSidebarOpen,
   isAdmin,
   isLoggedIn,
+  isOnboardingCompleted,
 }: {
   sidebarOpen: boolean;
   setSidebarOpen: Function;
   isAdmin?: boolean;
   isLoggedIn?: boolean;
+  isOnboardingCompleted: boolean;
 }) => {
   const pathname = usePathname();
   const currentPageName = pathname.split('/')[2];
@@ -126,10 +138,14 @@ export const SidebarMobile = ({
               shadowHide,
               adminAccess,
               requireAuth,
+              showOnBoard,
             }) => {
               const isCurrentPage = currentPageName === key.toLowerCase();
+              const hideTillOnboard = !isOnboardingCompleted && !showOnBoard;
               const shouldHideLink =
-                (shadowHide && !isCurrentPage) || (adminAccess && !isAdmin);
+                hideTillOnboard ||
+                (shadowHide && !isCurrentPage) ||
+                (adminAccess && !isAdmin);
               const showRequireAuthMessage = !isLoggedIn && requireAuth;
               if (shouldHideLink) return;
               return (
