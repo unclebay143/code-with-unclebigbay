@@ -4,7 +4,6 @@ import { IconButton } from '@/components/atoms/IconButton';
 import { YTVideo } from '@/components/atoms/YTVideo';
 import { WhiteArea } from '@/components/molecules/dashboard/white-area';
 import { ChevronDown, ChevronUp } from 'lucide-react';
-import { redirect } from 'next/navigation';
 import React, { useEffect, useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import {
@@ -17,12 +16,9 @@ import {
 import useCurrentStudent from '@/components/hooks/useCurrentStudent';
 import { Button } from '@/components/atoms/Button';
 
-type Props = {};
-
-const Page = (props: Props) => {
-  const { data: currentStudent, isFetching, update } = useCurrentStudent();
+const Page = () => {
+  const { data: currentStudent, update } = useCurrentStudent();
   const [showMore, setShowMore] = useState(false);
-  const onboardingCompleted = currentStudent && !!currentStudent?.stack;
 
   const { control, handleSubmit } = useForm({
     defaultValues: {
@@ -44,8 +40,6 @@ const Page = (props: Props) => {
 
   useEffect(() => {
     if (update.isSuccess) {
-      console.log('run');
-
       window.location.href = '/dashboard/overview';
     }
   }, [update.isSuccess]);
