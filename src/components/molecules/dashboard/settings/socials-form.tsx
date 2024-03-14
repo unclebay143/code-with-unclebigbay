@@ -14,17 +14,17 @@ import useCurrentStudent from '@/components/hooks/useCurrentStudent';
 type profileUpdateSchemaType = z.infer<typeof ProfileUpdateSchema>;
 
 const UserSocialSettings = () => {
-  const { data: user } = useCurrentStudent();
+  const { data: currentStudent, update } = useCurrentStudent();
 
   const defaultValues = {
-    github: user?.socials?.github,
-    x: user?.socials?.x,
-    stackoverflow: user?.socials?.stackoverflow,
-    facebook: user?.socials?.facebook,
-    instagram: user?.socials?.instagram,
-    linkedIn: user?.socials?.linkedin,
-    mastodon: user?.socials?.mastodon,
-    youtube: user?.socials?.youtube,
+    github: currentStudent?.socials?.github,
+    x: currentStudent?.socials?.x,
+    stackoverflow: currentStudent?.socials?.stackoverflow,
+    facebook: currentStudent?.socials?.facebook,
+    instagram: currentStudent?.socials?.instagram,
+    linkedIn: currentStudent?.socials?.linkedin,
+    mastodon: currentStudent?.socials?.mastodon,
+    youtube: currentStudent?.socials?.youtube,
   };
 
   const {
@@ -37,21 +37,33 @@ const UserSocialSettings = () => {
     defaultValues,
   });
 
+  // const onSubmit: SubmitHandler<profileUpdateSchemaType> = (data) => {
+  //   try {
+  //     console.log(data);
+  //     toast.success('Profile updated successfully.');
+  //   } catch (err) {
+  //     console.log(err);
+  //   }
+  // };
+
   const onSubmit: SubmitHandler<profileUpdateSchemaType> = (data) => {
     try {
-      console.log(data);
-      toast.success('Profile updated successfully.');
+      update.mutate({
+        username: currentStudent?.username,
+        _id: currentStudent?._id,
+        socials: data,
+      });
     } catch (err) {
       console.log(err);
     }
   };
 
   useEffect(() => {
-    if (user) {
+    if (currentStudent) {
       reset(defaultValues);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [user]);
+  }, [currentStudent]);
 
   return (
     <WhiteArea border>
