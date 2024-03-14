@@ -29,8 +29,7 @@ const UserProfessionalSettings = () => {
     control,
     register,
     handleSubmit,
-    formState: { errors, isDirty },
-    getValues,
+    formState: { errors },
   } = useForm<professionalDetailSchemaType>({
     resolver: zodResolver(professionalDetailSchema),
     defaultValues: {
