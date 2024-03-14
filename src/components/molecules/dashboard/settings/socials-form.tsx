@@ -21,7 +21,7 @@ const UserSocialSettings = () => {
     stackoverflow: currentStudent?.socials?.stackoverflow,
     facebook: currentStudent?.socials?.facebook,
     instagram: currentStudent?.socials?.instagram,
-    linkedIn: currentStudent?.socials?.linkedin,
+    linkedin: currentStudent?.socials?.linkedin,
     mastodon: currentStudent?.socials?.mastodon,
     youtube: currentStudent?.socials?.youtube,
   };
@@ -91,11 +91,11 @@ const UserSocialSettings = () => {
                 type="text"
                 placeholder="https://linkedin.com/in/username"
                 className="text-sm text-slate-600 p-2 outline-none lowercase focus:ring-2 focus:ring-slate-500 focus:border-slate-300 border rounded-md"
-                {...register('linkedIn')}
+                {...register('linkedin')}
               />
-              {errors.linkedIn && (
+              {errors.linkedin && (
                 <span className="text-sm text-red-600">
-                  {errors.linkedIn.message}
+                  {errors.linkedin.message}
                 </span>
               )}
             </div>
