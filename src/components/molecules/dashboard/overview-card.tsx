@@ -38,12 +38,13 @@ export const OverviewCard = ({
             <span className={mapIdToColor[id]}>
               <Icon size="24" />
             </span>
-            <h2 className={mapIdToColor[id]}>{label}</h2>
+            <h2 className={`${mapIdToColor[id]} capitalize`}>{label}</h2>
           </div>
           <h3 className="ml-8 text-sm text-slate-600">{count} courses</h3>
         </div>
         <span className="text-slate-400">
-          {active ? <CheckCircle2 size={20} /> : <Circle size={20} />}
+          {/* {active ? <CheckCircle2 size={20} /> : <Circle size={20} />} */}
+          <Circle size={20} />
         </span>
       </div>
     </button>
