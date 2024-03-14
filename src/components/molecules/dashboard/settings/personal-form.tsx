@@ -33,7 +33,6 @@ const UserPersonalSettings = () => {
     resolver: zodResolver(personalDetailSchema),
     defaultValues: {
       bio: user?.bio,
-      location: user?.location,
     },
   });
 
@@ -53,7 +52,6 @@ const UserPersonalSettings = () => {
     if (user) {
       reset({
         bio: user?.bio,
-        location: user?.location,
       });
     }
   }, [user, reset]);
