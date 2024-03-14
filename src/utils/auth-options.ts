@@ -30,7 +30,6 @@ export const authOptions = {
           email: studentUserProfile?.email,
           username: studentUserProfile?.login,
           bio: studentUserProfile?.bio,
-          location: studentUserProfile?.location,
           photo: studentUserProfile?.avatar_url,
         };
 
