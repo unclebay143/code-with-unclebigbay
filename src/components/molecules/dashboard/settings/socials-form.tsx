@@ -8,7 +8,6 @@ import * as z from 'zod';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { ProfileUpdateSchema } from '@/validation/userSocialValidation';
-import { toast } from 'sonner';
 import useCurrentStudent from '@/components/hooks/useCurrentStudent';
 
 type profileUpdateSchemaType = z.infer<typeof ProfileUpdateSchema>;
@@ -36,15 +35,6 @@ const UserSocialSettings = () => {
     resolver: zodResolver(ProfileUpdateSchema),
     defaultValues,
   });
-
-  // const onSubmit: SubmitHandler<profileUpdateSchemaType> = (data) => {
-  //   try {
-  //     console.log(data);
-  //     toast.success('Profile updated successfully.');
-  //   } catch (err) {
-  //     console.log(err);
-  //   }
-  // };
 
   const onSubmit: SubmitHandler<profileUpdateSchemaType> = (data) => {
     try {
