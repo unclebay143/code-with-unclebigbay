@@ -47,7 +47,7 @@ const Page = () => {
           <EmptyState label="Your recent learning material will appear here" />
         ) : (
           <section className="flex flex-col gap-3">
-            <DashboardSubheading title="Recent learning materials" />
+            <DashboardSubheading title="Personalized learning materials" />
             <Courses size={10} showLoadMoreButton />
           </section>
         )}
