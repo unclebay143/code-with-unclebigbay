@@ -22,6 +22,7 @@ professionalDetailSchema;
 type professionalDetailSchemaType = z.infer<typeof professionalDetailSchema>;
 
 const UserProfessionalSettings = () => {
+  const { data: currentStudent, update } = useCurrentStudent();
   const { data: user } = useCurrentStudent();
 
   const {
@@ -41,8 +42,16 @@ const UserProfessionalSettings = () => {
 
   const onSubmit: SubmitHandler<professionalDetailSchemaType> = (data) => {
     try {
-      toast.success('Profile updated successfully.');
-      console.log(data);
+      update.mutate({
+        username: currentStudent?.username,
+        _id: currentStudent?._id,
+        stack: data.stack,
+        socials: {
+          ...user?.socials,
+          portfolio: data.portfolio,
+          blog: data.blog,
+        },
+      });
     } catch (err) {
       console.log(err);
     }
