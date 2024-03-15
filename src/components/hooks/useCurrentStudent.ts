@@ -18,7 +18,7 @@ const useCurrentStudent = () => {
     },
     onSuccess() {
       queryClient.invalidateQueries({ queryKey: ['currentStudentData'] });
-      toast.success('Profile updated.');
+      toast.success('Profile updated.'); // Todo: make this toast message dynamic through prop, i.e usage anonymity message
     },
     onError(error: any) {
       toast.success(error.response.data.message);

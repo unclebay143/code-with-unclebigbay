@@ -41,7 +41,7 @@ const UserSocialSettings = () => {
       update.mutate({
         username: currentStudent?.username,
         _id: currentStudent?._id,
-        socials: data,
+        socials: { ...currentStudent?.socials, ...data },
       });
     } catch (err) {
       console.log(err);
