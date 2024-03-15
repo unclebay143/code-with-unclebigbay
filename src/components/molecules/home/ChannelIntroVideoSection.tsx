@@ -13,7 +13,7 @@ export const ChannelIntroVideoSection = () => {
               I&apos;m Uncle-Big-Bay
             </span>
           </div>
-          <section className="rounded overflow-hidden ring-1 ring-slate-800">
+          <section className="rounded-lg overflow-hidden ring-1 ring-slate-800">
             <YTVideo ytVideoId="JH77WsDH8yY" />
           </section>
         </section>
