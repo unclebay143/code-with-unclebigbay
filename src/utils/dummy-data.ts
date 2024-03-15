@@ -29,7 +29,7 @@ export const activities: Activity[] = [
 ];
 
 export const overviews: Overview[] = [
-  { id: 'total', label: 'Total', Icon: LibraryBig, count: 2 },
+  { id: 'total', label: 'Total', Icon: LibraryBig, count: 103 },
   {
     id: 'pending',
     label: 'Pending',
