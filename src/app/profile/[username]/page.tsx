@@ -90,8 +90,8 @@ const Profile = async ({ params }: { params: { username: string } }) => {
                       </div>
                       {/* <Button size="xs">Hire me</Button> */}
                       {networkingMedium && (
-                        <div>
-                          <Button size="xs">
+                        <div className="flex items-start">
+                          <Button size="xs" asChild>
                             <a
                               href={networkingMedium.url}
                               target="_blank"
