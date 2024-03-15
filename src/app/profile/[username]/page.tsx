@@ -9,6 +9,8 @@ import {
   Twitter,
   Youtube,
 } from 'lucide-react';
+import type { LucideIcon } from 'lucide-react';
+
 import { Button } from '@/components/atoms/Button';
 import { WhiteArea } from '@/components/molecules/dashboard/white-area';
 import { baseURL } from '../../../../frontend.config';
@@ -18,6 +20,7 @@ import { SectionWrapper } from '@/components/molecules/home';
 import { IconButton } from '@/components/atoms/IconButton';
 import { Footer } from '@/components/atoms/Footer';
 import { getServerSessionWithAuthOptions } from '@/utils/auth-options';
+import { Student } from '@/utils/types';
 
 async function getCurrentStudent(username: string) {
   try {
@@ -41,7 +44,21 @@ const Profile = async ({ params }: { params: { username: string } }) => {
   const data = await getCurrentStudent(params?.username);
   if (!data) notFound();
   const { studentRes, canUpdateProfile } = data || {};
-  const { student } = studentRes;
+  const { student } = studentRes as { student: Student };
+
+  const mapFollowToSocial: {
+    [key: string]: { url: string; Icon: LucideIcon; label: string };
+  } = {
+    linkedin: {
+      url: student.socials.linkedin,
+      Icon: Linkedin,
+      label: 'Connect',
+    },
+    x: { url: student.socials.x, Icon: Twitter, label: 'Follow' },
+  };
+  const linkedin = student.socials.linkedin ? 'linkedin' : '';
+  const x = student.socials.x ? 'x' : '';
+  const networkingMedium = mapFollowToSocial[linkedin || x];
 
   return (
     <div className="flex flex-col gap-5">
@@ -71,28 +88,31 @@ const Profile = async ({ params }: { params: { username: string } }) => {
                           {student?.stack} Developer
                         </p>
                       </div>
-
-                      <div>
-                        {/* <Button size="xs">Hire me</Button> */}
-                        <Button size="xs">
-                          <a
-                            href={student.socials.x}
-                            target="_blank"
-                            rel="noopener"
-                            className="flex items-center gap-1"
-                          >
-                            <span>Follow</span>
-                            <Twitter size="12" />
-                          </a>
-                        </Button>
-                      </div>
+                      {/* <Button size="xs">Hire me</Button> */}
+                      {networkingMedium && (
+                        <div>
+                          <Button size="xs">
+                            <a
+                              href={networkingMedium.url}
+                              target="_blank"
+                              rel="noopener"
+                              className="flex items-center gap-1"
+                            >
+                              <span>{networkingMedium.label}</span>
+                              <networkingMedium.Icon size="12" />
+                            </a>
+                          </Button>
+                        </div>
+                      )}
                     </div>
                   </div>
                   <div className="flex flex-col gap-3 items-end">
-                    <h3 className="font-medium">
-                      <span className="text-slate-600">Total Points: </span>{' '}
-                      1890
-                    </h3>
+                    {!student.isAnonymous && (
+                      <h3 className="font-medium">
+                        <span className="text-slate-600">Total Points: </span>{' '}
+                        1890
+                      </h3>
+                    )}
                     {canUpdateProfile && (
                       <Button size="xs" appearance="secondary-slate" asChild>
                         <Link href="/dashboard/settings">Update</Link>
