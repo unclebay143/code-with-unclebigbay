@@ -27,7 +27,7 @@ async function getCurrentStudent(username: string) {
     const session = await getServerSessionWithAuthOptions();
     const url = `${baseURL}/api/students/${username}`;
     const result = await fetch(url, {
-      cache: 'force-cache',
+      cache: 'no-cache',
     });
     const studentRes = await result.json();
     const canUpdateProfile = session?.user.email === studentRes.student.email;
