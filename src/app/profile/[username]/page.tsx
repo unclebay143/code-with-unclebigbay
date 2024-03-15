@@ -29,9 +29,8 @@ async function getCurrentStudent(username: string) {
     const studentRes = await result.json();
     const canUpdateProfile = session?.user.email === studentRes.student.email;
 
-    if (!result.ok) {
-      return notFound();
-    }
+    if (!result.ok) return undefined;
+
     return { studentRes, canUpdateProfile };
   } catch (e: any) {
     console.log({ message: e.message });
@@ -40,6 +39,7 @@ async function getCurrentStudent(username: string) {
 
 const Profile = async ({ params }: { params: { username: string } }) => {
   const data = await getCurrentStudent(params?.username);
+  if (!data) notFound();
   const { studentRes, canUpdateProfile } = data || {};
   const { student } = studentRes;
 
