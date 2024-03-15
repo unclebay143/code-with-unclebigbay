@@ -7,6 +7,7 @@ import { getServerSession, type NextAuthOptions } from 'next-auth';
 import GitHubProvider from 'next-auth/providers/github';
 import connectViaMongoose from './mongoose';
 import { Student } from '@/models/student';
+import { AuditTrail } from '@/models/audit-trail';
 
 export const authOptions = {
   providers: [
@@ -33,9 +34,21 @@ export const authOptions = {
           photo: studentUserProfile?.avatar_url,
         };
 
-        await Student.create(newStudent);
+        const student = await Student.create(newStudent);
+        // if (student) {
+        //   const studentId = student._id;
+        //   await AuditTrail.create({
+        //     student: studentId,
+        //     title: 'Created an account',
+        //   });
+        // }
         return true;
       }
+
+      // await AuditTrail.create({
+      //   student: student._id,
+      //   title: 'Logged in',
+      // });
 
       return true;
     },
