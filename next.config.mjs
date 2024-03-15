@@ -29,6 +29,14 @@ const nextConfig = {
         source: '/dashboard',
         destination: '/dashboard/overview',
       },
+      {
+        source: '/@:path',
+        destination: `/profile/:path`,
+      },
+      {
+        source: '/@:path/:slug*',
+        destination: `/profile/:path/:slug*`,
+      },
     ];
   },
 };
