@@ -42,13 +42,21 @@ const Page = () => {
           </section>
         </section>
       </WhiteArea>
+      {/* <section className="flex gap-1">
+        <button className="rounded-full py-1 px-3 text-slate-600 bg-slate-100 text-sm font-medium">
+          Recent
+        </button>
+        <button className="rounded-full py-1 px-3 text-slate-600 bg-slate-100 text-sm font-medium">
+          Personalized
+        </button>
+      </section> */}
       <WhiteArea border>
         {noRecentMaterials ? (
           <EmptyState label="Your recent learning material will appear here" />
         ) : (
           <section className="flex flex-col gap-3">
             <DashboardSubheading title="Recent learning materials" />
-            <Courses size={10} showLoadMoreButton />
+            <Courses size={10} hideSearchOptions />
           </section>
         )}
       </WhiteArea>
