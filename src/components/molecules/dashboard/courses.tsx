@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import React, { useEffect } from 'react';
 import { CourseCard, CourseCardSkeleton } from './course-card';
 import {
   Select,
@@ -19,6 +19,8 @@ type Props = {
   showCounter?: boolean;
   hideSearchOptions?: boolean;
   size?: number;
+  setCount?: Function;
+  hideReachedEnd?: boolean;
 };
 
 export const Courses = ({
@@ -26,10 +28,21 @@ export const Courses = ({
   showLoadMoreButton,
   hideSearchOptions,
   showCounter,
+  hideReachedEnd,
   size,
+  setCount,
 }: Props) => {
   const { materials: defaultMaterials, isFetching } = useMaterial();
   const data = materials || defaultMaterials;
+  const count = data?.length;
+
+  const noData = !isFetching && data && data?.length < 1;
+
+  useEffect(() => {
+    if (setCount) {
+      setCount(count);
+    }
+  }, [count, setCount]);
 
   return (
     <section className="flex flex-col gap-3">
@@ -66,7 +79,7 @@ export const Courses = ({
         ) : (
           <>
             {data?.slice(0, size).map((material) => {
-              return <CourseCard key={material.title} material={material} />;
+              return <CourseCard key={material._id} material={material} />;
             })}
           </>
         )}
@@ -78,7 +91,13 @@ export const Courses = ({
           </Button>
         </section>
       )}
-      {showLoadMoreButton || (
+      {noData && (
+        <div className="text-center py-5 text-slate-600">
+          <p>No course available at this time.</p>
+        </div>
+      )}
+
+      {(!noData && hideReachedEnd) || (
         <div className="text-center py-5 text-slate-600">
           <p>You&apos;ve reached the end 👋🏽</p>
         </div>

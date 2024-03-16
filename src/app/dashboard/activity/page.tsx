@@ -1,7 +1,7 @@
 import { ActivityLogs } from '@/components/molecules/dashboard/activity-logs';
 import React from 'react';
 
-const Page = () => {
-  return <ActivityLogs defaultCount={15} />;
+const Page = async () => {
+  return <ActivityLogs defaultCount={15} hideShowMore />;
 };
 export default Page;

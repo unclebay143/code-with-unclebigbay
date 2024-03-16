@@ -2,6 +2,17 @@ import { LucideIcon } from 'lucide-react';
 
 // export type Optional<T, K extends keyof T> = Pick<Partial<T>, K> & Omit<T, K>;
 
+export type Audit = {
+  _id?: string;
+  studentId: string;
+  createdAt?: string;
+  title: string;
+  description?: string;
+  url?: string;
+};
+
+export type Audits = Audit[];
+
 export type Activity = {
   type?: string;
   date: number;
@@ -79,10 +90,16 @@ export type NewQuestion = {
 
 export type Questions = Question[];
 
-export type Assignment = Questions[];
+export type Assignment = {
+  _id?: string;
+  material?: Material;
+  questions: Questions;
+};
+export type Assignments = Assignment[];
 
 export type Student = {
   _id: string;
+  createdAt: string;
   fullName: string;
   email: string;
   username: string;
@@ -117,8 +134,8 @@ export type Student = {
 };
 
 export type Material = {
-  createdAt?: string;
   _id: string;
+  createdAt?: string;
   type?: string;
   title: string;
   description: string;
