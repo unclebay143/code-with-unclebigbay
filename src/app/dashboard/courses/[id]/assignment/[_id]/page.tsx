@@ -74,6 +74,7 @@ const Page = () => {
 
       console.log(payload);
       toast.success('Assignment submitted');
+      window.onbeforeunload = null;
       window.location.href = `/dashboard/courses/${materialId}/assignment/${assignmentId}/submitted`;
     } catch (e: any) {
       toast.error(e.message);
