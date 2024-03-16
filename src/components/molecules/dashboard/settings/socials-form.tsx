@@ -8,23 +8,22 @@ import * as z from 'zod';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { ProfileUpdateSchema } from '@/validation/userSocialValidation';
-import { toast } from 'sonner';
 import useCurrentStudent from '@/components/hooks/useCurrentStudent';
 
 type profileUpdateSchemaType = z.infer<typeof ProfileUpdateSchema>;
 
 const UserSocialSettings = () => {
-  const { data: user } = useCurrentStudent();
+  const { data: currentStudent, update } = useCurrentStudent();
 
   const defaultValues = {
-    github: user?.socials?.github,
-    x: user?.socials?.x,
-    stackoverflow: user?.socials?.stackoverflow,
-    facebook: user?.socials?.facebook,
-    instagram: user?.socials?.instagram,
-    linkedIn: user?.socials?.linkedin,
-    mastodon: user?.socials?.mastodon,
-    youtube: user?.socials?.youtube,
+    github: currentStudent?.socials?.github,
+    x: currentStudent?.socials?.x,
+    stackoverflow: currentStudent?.socials?.stackoverflow,
+    facebook: currentStudent?.socials?.facebook,
+    instagram: currentStudent?.socials?.instagram,
+    linkedin: currentStudent?.socials?.linkedin,
+    mastodon: currentStudent?.socials?.mastodon,
+    youtube: currentStudent?.socials?.youtube,
   };
 
   const {
@@ -39,19 +38,22 @@ const UserSocialSettings = () => {
 
   const onSubmit: SubmitHandler<profileUpdateSchemaType> = (data) => {
     try {
-      console.log(data);
-      toast.success('Profile updated successfully.');
+      update.mutate({
+        username: currentStudent?.username,
+        _id: currentStudent?._id,
+        socials: { ...currentStudent?.socials, ...data },
+      });
     } catch (err) {
       console.log(err);
     }
   };
 
   useEffect(() => {
-    if (user) {
+    if (currentStudent) {
       reset(defaultValues);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [user]);
+  }, [currentStudent]);
 
   return (
     <WhiteArea border>
@@ -89,11 +91,11 @@ const UserSocialSettings = () => {
                 type="text"
                 placeholder="https://linkedin.com/in/username"
                 className="text-sm text-slate-600 p-2 outline-none lowercase focus:ring-2 focus:ring-slate-500 focus:border-slate-300 border rounded-md"
-                {...register('linkedIn')}
+                {...register('linkedin')}
               />
-              {errors.linkedIn && (
+              {errors.linkedin && (
                 <span className="text-sm text-red-600">
-                  {errors.linkedIn.message}
+                  {errors.linkedin.message}
                 </span>
               )}
             </div>
