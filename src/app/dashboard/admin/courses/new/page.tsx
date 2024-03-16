@@ -50,7 +50,7 @@ const Page = () => {
     const newCourse: Material = {
       ...data,
       type: 'video',
-      assignment: selectedQuestions.map((question) => question._id),
+      questions: selectedQuestions.map((question) => question._id),
       tags: selectTags.map((tag) => tag._id),
     };
     mutation.mutate(newCourse);

@@ -123,7 +123,9 @@ const Page = () => {
                       {!hasNoAssignment && (
                         <div className="">
                           <Button size="sm" asChild>
-                            <Link href={`${courseId}/assignment/1`}>
+                            <Link
+                              href={`${courseId}/assignment/${material._id}`}
+                            >
                               Attempt assignment
                             </Link>
                           </Button>
