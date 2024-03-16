@@ -23,7 +23,7 @@ export const DashboardIndex = ({
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const isAdmin = currentStudent?.isAdmin;
   const pathname = usePathname();
-  const currentPageName = pathname.split('/')[2];
+  const currentPageName = pathname.split('/')[2] || pathname.split('/')[1];
   const adminRoute = pathname.includes('/admin');
   const onboardingRoutes = sidebarLinks.map((link) => {
     if (link.showOnBoard) {

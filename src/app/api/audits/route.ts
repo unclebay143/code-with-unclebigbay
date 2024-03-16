@@ -15,10 +15,10 @@ const GET = async () => {
     }
 
     const student = await Student.findOne({ email: session.user.email });
-    const audit = await AuditTrail.findOne({ student: student.id });
+    const audit = await AuditTrail.find({ student: student.id });
 
     return NextResponse.json(
-      { message: 'Student audit fetched', audit },
+      { message: 'Student audits fetched', audit },
       { status: 200 },
     );
   } catch (e: any) {
@@ -29,6 +29,12 @@ const GET = async () => {
 const POST = async (req: Request) => {
   try {
     const body = await req.json();
+    if (!body.studentId) {
+      return NextResponse.json(
+        { message: 'studentId is required' },
+        { status: 403 },
+      );
+    }
     await connectViaMongoose();
     await AuditTrail.create({ student: body.studentId, ...body });
     return NextResponse.json({ message: 'Audit logged.' }, { status: 200 });
