@@ -8,6 +8,8 @@ const GET = async (_: Request, { params }: { params: { _id: string } }) => {
 
     await connectViaMongoose();
     const material = await Material.findOne({ _id }).populate('tags');
+    console.log(material);
+
     if (!material) {
       return NextResponse.json(
         { message: 'Material not found.', material },
