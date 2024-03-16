@@ -1,6 +1,8 @@
 import { Assignment } from '@/models/assignment';
+import { AssignmentResponse } from '@/models/assignmentResponse';
 import { Material } from '@/models/material';
 import { Question } from '@/models/question';
+import { Student } from '@/models/student';
 import { getServerSessionWithAuthOptions } from '@/utils/auth-options';
 import connectViaMongoose from '@/utils/mongoose';
 import { NextResponse } from 'next/server';
@@ -14,10 +16,27 @@ const GET = async (_: Request, { params }: { params: { _id: string } }) => {
         { status: 403 },
       );
     }
-
-    const _id = params._id;
     await connectViaMongoose();
-    const assignment = await Assignment.findOne({ _id })
+
+    const student = await Student.findOne({ email: session.user.email });
+    const assignmentId = params._id;
+    const studentId = student._id;
+
+    const alreadyResponded = await AssignmentResponse.findOne({
+      assignment: assignmentId,
+      student: studentId,
+    });
+
+    if (alreadyResponded) {
+      return NextResponse.json(
+        { message: 'Assignment response fetched.', alreadyResponded },
+        {
+          status: 200,
+        },
+      );
+    }
+
+    const assignment = await Assignment.findOne({ _id: assignmentId })
       .select('_id material questions')
       .populate('_id material', 'title', Material)
       .populate(

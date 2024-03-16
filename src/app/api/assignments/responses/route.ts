@@ -73,7 +73,7 @@ const POST = async (req: Request) => {
     const newAssignmentResponse = await AssignmentResponse.create(payload);
     const updateStudentAssignmentsRecord = await Student.findOneAndUpdate(
       { _id: assignmentResponseBody.student },
-      { $push: { assignment: assignmentResponseBody.assignment } },
+      { $push: { assignments: assignmentResponseBody.assignment } },
       { new: true },
     );
     await updateStudentAssignmentsRecord.save();
