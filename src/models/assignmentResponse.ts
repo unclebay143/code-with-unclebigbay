@@ -1,7 +1,7 @@
 import mongoose, { model, models } from 'mongoose';
 
 const Schema = mongoose.Schema;
-const ALLOWED_STATUS = ['PASSED', 'FAILED'];
+const ALLOWED_STATUS = ['not attempted', 'passed', 'failed'];
 
 const assignmentResponseSchema = new Schema({
   student: {
@@ -20,10 +20,10 @@ const assignmentResponseSchema = new Schema({
     index: true,
   },
   score: { type: Number },
-  status: { type: String, enum: ALLOWED_STATUS },
-  responses: [
+  status: { type: String, enum: ALLOWED_STATUS, default: 'not attempted' },
+  response: [
     {
-      questionId: {
+      question: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Question',
       },
