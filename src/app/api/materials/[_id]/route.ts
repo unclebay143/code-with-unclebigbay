@@ -7,7 +7,7 @@ const GET = async (_: Request, { params }: { params: { _id: string } }) => {
     const _id = params._id;
 
     await connectViaMongoose();
-    const material = await Material.findOne({ _id });
+    const material = await Material.findOne({ _id }).populate('tags');
     if (!material) {
       return NextResponse.json(
         { message: 'Material not found.', material },
