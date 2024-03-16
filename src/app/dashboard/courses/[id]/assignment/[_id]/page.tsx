@@ -56,7 +56,9 @@ const Page = () => {
   const assignmentId = currentPathname.split('/').pop();
   const { assignment, isFetching } = useAssignmentById(assignmentId!);
   const materialId = assignment?.materialId;
-  const [submitted, setSubmitted] = useState(false);
+  const [submitted] = useState(false);
+
+  console.log(assignment);
 
   const {
     handleSubmit,
