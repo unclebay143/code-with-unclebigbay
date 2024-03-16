@@ -1,16 +1,16 @@
 'use client';
 
+import React, { useState } from 'react';
+import { usePathname } from 'next/navigation';
+import { toast } from 'sonner';
 import { Button } from '@/components/atoms/Button';
 import { DashboardSubheading } from '@/components/molecules/dashboard/dashboard-subheading';
 import { WhiteArea } from '@/components/molecules/dashboard/white-area';
-import React, { useState } from 'react';
 import { ArrowLeft, RotateCw } from 'lucide-react';
 import { Question } from '@/utils/types';
 import { Courses } from '@/components/molecules/dashboard/courses';
 import { Controller, useForm } from 'react-hook-form';
-import { usePathname } from 'next/navigation';
-import { assignments } from '@/utils/dummy-data';
-import { toast } from 'sonner';
+// import { assignments } from '@/utils/dummy-data';
 
 type Questions = Question[];
 
@@ -50,66 +50,66 @@ const SubmissionIndicator = () => (
 );
 
 const Page = () => {
-  const [submitted, setSubmitted] = useState(false);
+  // const [submitted, setSubmitted] = useState(false);
 
-  const currentPathname = usePathname();
-  const assignmentId = currentPathname.split('/').pop();
+  // const currentPathname = usePathname();
+  // const assignmentId = currentPathname.split('/').pop();
 
-  const {
-    handleSubmit,
-    control,
-    formState: { isSubmitting, isSubmitted, errors },
-  } = useForm({ defaultValues: assignments });
+  // const {
+  //   handleSubmit,
+  //   control,
+  //   formState: { isSubmitting, isSubmitted, errors },
+  // } = useForm({ defaultValues: assignments });
 
-  type QuestionWithoutTags = Omit<Question, 'tags'>;
+  // type QuestionWithoutTags = Omit<Question, 'tags'>;
 
-  const [questions, setQuestions] = useState<Questions>(assignments);
-  const noQuestions = questions.length === 0;
-  const canShowQuestions = !noQuestions && !submitted;
+  // const [questions, setQuestions] = useState<Questions>(assignments);
+  // const noQuestions = questions.length === 0;
+  // const canShowQuestions = !noQuestions && !submitted;
 
-  const onSubmit = (data: Questions) => {
-    const isEmptyOptionRegex = /^0\.[a-zA-Z0-9]+$/; // 0.option
+  // const onSubmit = (data: Questions) => {
+  //   const isEmptyOptionRegex = /^0\.[a-zA-Z0-9]+$/; // 0.option
 
-    try {
-      const assignmentResponse = questions.map((question, index) => {
-        const answerToQuestion = data[index].question;
-        const isEmptyOption = isEmptyOptionRegex.test(answerToQuestion);
+  //   try {
+  //     const assignmentResponse = questions.map((question, index) => {
+  //       const answerToQuestion = data[index].question;
+  //       const isEmptyOption = isEmptyOptionRegex.test(answerToQuestion);
 
-        if (isEmptyOption) {
-          throw Error('Some questions are not answered');
-        }
+  //       if (isEmptyOption) {
+  //         throw Error('Some questions are not answered');
+  //       }
 
-        return {
-          questionId: question._id,
-          question: question.question,
-          answer: answerToQuestion,
-        };
-      });
+  //       return {
+  //         questionId: question._id,
+  //         question: question.question,
+  //         answer: answerToQuestion,
+  //       };
+  //     });
 
-      const payload = {
-        materialId: '0',
-        assignmentId,
-        responses: assignmentResponse,
-      };
+  //     const payload = {
+  //       materialId: '0',
+  //       assignmentId,
+  //       responses: assignmentResponse,
+  //     };
 
-      console.log(payload);
-      toast.success('Assignment submitted');
+  //     console.log(payload);
+  //     toast.success('Assignment submitted');
 
-      setTimeout(() => {
-        window.scrollTo({
-          top: 0,
-          left: 0,
-          behavior: 'smooth',
-        });
-      }, 3000);
-    } catch (e: any) {
-      toast.error(e.message);
-    }
-  };
+  //     setTimeout(() => {
+  //       window.scrollTo({
+  //         top: 0,
+  //         left: 0,
+  //         behavior: 'smooth',
+  //       });
+  //     }, 3000);
+  //   } catch (e: any) {
+  //     toast.error(e.message);
+  //   }
+  // };
 
   return (
     <div className="relative rounded-lg overflow-hidden">
-      <WhiteArea border>
+      {/* <WhiteArea border>
         {canShowQuestions && (
           <div className="flex flex-col gap-5">
             <div className="flex flex-col gap-2 justify-between">
@@ -206,6 +206,7 @@ const Page = () => {
           </div>
         )}
       </WhiteArea>
+         */}
     </div>
   );
 };
