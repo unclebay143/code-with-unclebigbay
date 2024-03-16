@@ -38,8 +38,6 @@ const Page = () => {
     },
   });
   const createNewCourse = (data: any) => {
-    console.log(selectTags.map((tag) => tag._id));
-
     const newCourse: Material = {
       ...data,
       type: 'video',
