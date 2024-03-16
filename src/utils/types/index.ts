@@ -90,7 +90,12 @@ export type NewQuestion = {
 
 export type Questions = Question[];
 
-export type Assignment = Questions[];
+export type Assignment = {
+  _id?: string;
+  material?: Material;
+  questions: Questions;
+};
+export type Assignments = Assignment[];
 
 export type Student = {
   _id: string;
@@ -129,8 +134,8 @@ export type Student = {
 };
 
 export type Material = {
-  createdAt?: string;
   _id: string;
+  createdAt?: string;
   type?: string;
   title: string;
   description: string;

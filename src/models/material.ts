@@ -32,7 +32,7 @@ const materialSchema = new Schema(
     contentMarkdown: { type: String, default: '' },
     author: { type: Schema.Types.ObjectId, ref: 'Student' },
     coAuthors: [{ type: Schema.Types.ObjectId, ref: 'Student' }],
-    assignment: [{ type: Schema.Types.ObjectId, ref: 'Question' }],
+    assignment: { type: Schema.Types.ObjectId, ref: 'Assignment' },
     recommendedCourses: [{ type: Schema.Types.ObjectId, ref: 'Material' }],
     tags: [{ type: Schema.Types.ObjectId, ref: 'Tag' }],
     isActive: { type: 'Boolean', default: true },

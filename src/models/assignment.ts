@@ -4,7 +4,7 @@ const Schema = mongoose.Schema;
 
 const assignmentSchema = new Schema(
   {
-    materialId: {
+    material: {
       type: mongoose.Schema.Types.ObjectId,
       ref: 'Material',
     },
