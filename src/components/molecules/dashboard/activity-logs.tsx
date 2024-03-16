@@ -9,10 +9,16 @@ import useAudit from '@/components/hooks/useAudit';
 
 export const ActivityLogs = ({
   defaultCount = 5,
+  hideShowMore,
 }: {
   defaultCount?: number;
+  hideShowMore?: boolean;
 }) => {
   const { audits } = useAudit();
+
+  const renderTitle = (title: string) => (
+    <h3 className="text-slate-600 ">{title}</h3>
+  );
   return (
     <WhiteArea border>
       <div className="flex flex-col gap-5">
@@ -20,7 +26,7 @@ export const ActivityLogs = ({
         <div className="-my-6">
           {audits
             ?.slice(0, defaultCount)
-            .map(({ _id, createdAt, title, description }) => {
+            .map(({ _id, createdAt, title, description, url }) => {
               return (
                 <div className="relative pl-8 sm:pl-32 py-6 group" key={_id}>
                   {/* {type && (
@@ -37,9 +43,13 @@ export const ActivityLogs = ({
                         year: '2-digit',
                       })}
                     </time>
-                    <Link href="" className="text-slate-600 hover:underline">
-                      {title}
-                    </Link>
+                    {url ? (
+                      <Link href="" className="hover:underline">
+                        {renderTitle(title)}
+                      </Link>
+                    ) : (
+                      renderTitle(title)
+                    )}
                   </div>
                   {description && (
                     <div className="text-slate-500">{description} </div>
@@ -47,11 +57,13 @@ export const ActivityLogs = ({
                 </div>
               );
             })}
-          <div className="relative pl-8 sm:pl-32 py-6 group">
-            <Button size="sm" appearance="secondary-slate">
-              Show more
-            </Button>
-          </div>
+          {!hideShowMore && (
+            <div className="relative pl-8 sm:pl-32 py-6 flex items-start">
+              <Button size="sm" appearance="secondary-slate" asChild>
+                <Link href="/dashboard/activity">Show more</Link>
+              </Button>
+            </div>
+          )}
         </div>
       </div>
     </WhiteArea>

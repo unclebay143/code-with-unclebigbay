@@ -4,6 +4,7 @@ import { LucideIcon } from 'lucide-react';
 
 export type Audit = {
   _id?: string;
+  studentId: string;
   createdAt?: string;
   title: string;
   description?: string;

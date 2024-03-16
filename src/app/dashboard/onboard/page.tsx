@@ -25,7 +25,6 @@ const Page = () => {
   const {
     control,
     handleSubmit,
-    getValues,
     formState: { isDirty, isValid },
   } = useForm({
     defaultValues: {
@@ -38,15 +37,18 @@ const Page = () => {
   };
 
   const handleStackUpdate = (data: { stack: string }) => {
-    update.mutate({
-      username: currentStudent?.username,
-      _id: currentStudent?._id,
-      stack: data.stack,
-    });
-    newAudit.mutate({
-      title: 'Onboarding completed',
-      description: `Update stack to ${data.stack}`,
-    });
+    if (currentStudent) {
+      update.mutate({
+        username: currentStudent.username,
+        _id: currentStudent._id,
+        stack: data.stack,
+      });
+      newAudit.mutate({
+        studentId: currentStudent._id,
+        title: 'Onboarding completed 🎉',
+        description: `Update stack to ${data.stack}`,
+      });
+    }
   };
 
   const disableBtn = !isDirty || !isValid;
