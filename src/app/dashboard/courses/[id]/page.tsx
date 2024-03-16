@@ -10,6 +10,7 @@ import Link from 'next/link';
 import React, { useState } from 'react';
 import { usePathname } from 'next/navigation';
 import { useMaterialById } from '@/components/hooks/useMaterial';
+import { Tags } from '@/utils/types';
 
 const Page = () => {
   const [showMore, setShowMore] = useState(false);
@@ -25,8 +26,7 @@ const Page = () => {
     setShowMore((prevVisibility) => !prevVisibility);
   };
   const showCourse = !isFetching && material;
-
-  console.log(material?.tags);
+  const tags = material?.tags as Tags;
 
   return (
     <>
@@ -106,7 +106,7 @@ const Page = () => {
                         }).format(new Date(material.createdAt!))}
                       </p>
                     </div> */}
-                    <div className="flex flex-wrap gap-5 w-full justify-between items-end">
+                    <div className="flex flex-wrap gap-5 w-full justify-between items-start">
                       <div className="">
                         <h3 className="font-medium text-lg text-slate-700">
                           Date Published:
@@ -131,6 +131,18 @@ const Page = () => {
                       )}
                     </div>
                   </div>
+                  {!(tags.length === 0) && (
+                    <div className="flex flex-wrap gap-1">
+                      {tags?.map(({ name, _id }) => (
+                        <span
+                          key={_id}
+                          className="px-2 capitalize rounded-full bg-indigo-100/20 text-slate-600 text-sm border"
+                        >
+                          {name}
+                        </span>
+                      ))}
+                    </div>
+                  )}
                 </section>
               )}
             </WhiteArea>
