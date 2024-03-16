@@ -1,4 +1,5 @@
 import { Assignment } from '@/models/assignment';
+import { Material } from '@/models/material';
 import { Question } from '@/models/question';
 import { getServerSessionWithAuthOptions } from '@/utils/auth-options';
 import connectViaMongoose from '@/utils/mongoose';
@@ -17,7 +18,8 @@ const GET = async (_: Request, { params }: { params: { _id: string } }) => {
     const _id = params._id;
     await connectViaMongoose();
     const assignment = await Assignment.findOne({ _id })
-      .select('_id materialId questions')
+      .select('_id material questions')
+      .populate('_id material', 'title', Material)
       .populate(
         'questions',
         '_id question options._id options.option',

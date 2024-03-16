@@ -93,8 +93,8 @@ export const CourseCardSkeleton = () => {
           </div>
           <p className="bg-slate-50 w-1/2 h-5 rounded-full" />
           <p className="bg-slate-50 w-full h-5 rounded-full" />
-          <p className="bg-slate-50 w-full h-5 rounded-full" />
-          <p className="bg-slate-50 w-full h-5 rounded-full" />
+          {/* <p className="bg-slate-50 w-full h-5 rounded-full" />
+          <p className="bg-slate-50 w-full h-5 rounded-full" /> */}
           <p className="bg-slate-50 w-1/2 h-5 rounded-full" />
           <p className="bg-slate-50 w-full h-5 rounded-full" />
         </div>
