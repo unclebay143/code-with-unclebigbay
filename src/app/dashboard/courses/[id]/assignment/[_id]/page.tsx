@@ -1,40 +1,17 @@
 'use client';
 
+import React from 'react';
+import { usePathname } from 'next/navigation';
+import { toast } from 'sonner';
 import { Button } from '@/components/atoms/Button';
 import { DashboardSubheading } from '@/components/molecules/dashboard/dashboard-subheading';
 import { WhiteArea } from '@/components/molecules/dashboard/white-area';
-import React, { useState } from 'react';
-import { ArrowLeft, RotateCw } from 'lucide-react';
-import { Question } from '@/utils/types';
-import { Courses } from '@/components/molecules/dashboard/courses';
+import { ArrowLeft, Loader, RotateCw } from 'lucide-react';
 import { Controller, useForm } from 'react-hook-form';
-import { usePathname } from 'next/navigation';
-import { assignments } from '@/utils/dummy-data';
-import { toast } from 'sonner';
+import { useAssignmentById } from '@/components/hooks/useAssignment';
+import { Questions } from '@/utils/types';
+import { useWarnBeforePageReload } from '@/components/hooks/useWarnBeforePageReload';
 
-type Questions = Question[];
-
-const AssignmentSubmitted = () => {
-  return (
-    <section className="flex flex-col items-center justify-center gap-3 p-4">
-      <div className="flex flex-col items-center gap-5">
-        <div className="flex flex-col text-center gap-2">
-          <h3 className="text-xl font-medium">
-            Congratulations on Completing Your Assignment! 🎉
-          </h3>
-          <span className="text-slate-500 text-sm">
-            Material: Introduction to HTML
-          </span>
-          <p className="text-slate-600">
-            Checkout the recommended learning material below?
-          </p>
-        </div>
-        {/* Pass recommended courses here */}
-        <Courses hideSearchOptions />
-      </div>
-    </section>
-  );
-};
 const SubmissionIndicator = () => (
   <div
     className="flex justify-center items-center gap-1 bg-white p-1"
@@ -50,28 +27,29 @@ const SubmissionIndicator = () => (
 );
 
 const Page = () => {
-  const [submitted, setSubmitted] = useState(false);
-
   const currentPathname = usePathname();
   const assignmentId = currentPathname.split('/').pop();
+  const { assignment, isFetching } = useAssignmentById(assignmentId!);
+  const materialId = assignment?.material?._id;
 
   const {
     handleSubmit,
     control,
-    formState: { isSubmitting, isSubmitted, errors },
-  } = useForm({ defaultValues: assignments });
+    // getValues,
+    formState: { isSubmitting, isDirty, isValid },
+  } = useForm({ defaultValues: assignment?.questions });
 
-  type QuestionWithoutTags = Omit<Question, 'tags'>;
-
-  const [questions, setQuestions] = useState<Questions>(assignments);
-  const noQuestions = questions.length === 0;
-  const canShowQuestions = !noQuestions && !submitted;
+  const questions = assignment?.questions as Questions;
+  const canShowQuestions = !isFetching && !isSubmitting;
+  // console.log(getValues());
+  // Disable button when all questions are not answered - all fields required
+  const disableBtn = !isDirty || !isValid || isSubmitting;
 
   const onSubmit = (data: Questions) => {
     const isEmptyOptionRegex = /^0\.[a-zA-Z0-9]+$/; // 0.option
 
     try {
-      const assignmentResponse = questions.map((question, index) => {
+      const assignmentResponse = questions?.map((question, index) => {
         const answerToQuestion = data[index].question;
         const isEmptyOption = isEmptyOptionRegex.test(answerToQuestion);
 
@@ -86,40 +64,50 @@ const Page = () => {
         };
       });
 
+      if (!assignmentResponse) return null;
+
       const payload = {
-        materialId: '0',
+        materialId: materialId,
         assignmentId,
         responses: assignmentResponse,
       };
 
       console.log(payload);
       toast.success('Assignment submitted');
-
-      setTimeout(() => {
-        window.scrollTo({
-          top: 0,
-          left: 0,
-          behavior: 'smooth',
-        });
-      }, 3000);
+      window.location.href = `/dashboard/courses/${materialId}/assignment/${assignmentId}/submitted`;
     } catch (e: any) {
       toast.error(e.message);
     }
   };
 
+  useWarnBeforePageReload();
+
   return (
     <div className="relative rounded-lg overflow-hidden">
-      <WhiteArea border>
-        {canShowQuestions && (
+      {isFetching && (
+        <WhiteArea twClass="!p-0 bg-slate-50 animate-pulse" border>
+          <div className="flex items-center justify-center min-h-[80vh] gap-2 text-slate-600">
+            <span>Loading assignment...</span>
+            <span className="animate-spin">
+              <Loader />
+            </span>
+          </div>
+        </WhiteArea>
+      )}
+      {canShowQuestions && (
+        <WhiteArea border>
           <div className="flex flex-col gap-5">
             <div className="flex flex-col gap-2 justify-between">
               <div className="flex items-center justify-between">
                 <DashboardSubheading title="Assignment: Introduction to HTML" />
                 <Button size="xs" appearance="secondary-slate">
-                  <div className="flex gap-1 items-center">
+                  <a
+                    href={`/dashboard/courses/${materialId}`}
+                    className="flex gap-1 items-center"
+                  >
                     <ArrowLeft size={14} />
                     <span>Back to material</span>
-                  </div>
+                  </a>
                 </Button>
               </div>
               <div className="flex text-slate-600">
@@ -127,17 +115,21 @@ const Page = () => {
                   <span className="font-medium"> Status: </span>
                   <span className="text-yellow-500 font-medium">
                     Not attempted
+                    {/* Failed, pass */}
                   </span>
                   <span className="mx-1">&middot;</span>
                   <span className="font-medium">Total: </span>
-                  <span>{questions.length}</span>
+                  <span>{questions?.length}</span>
+                  {/* <span className="mx-1">&middot;</span>
+                  <span className="font-medium">Score: </span>
+                  <span>{questions?.length}</span> */}
                 </div>
               </div>
             </div>
             <WhiteArea border>
               <form onSubmit={handleSubmit(onSubmit)}>
                 <ul className="list-decimal list-inside">
-                  {questions.map(({ options, question }, questionIndex) => (
+                  {questions?.map(({ options, question }, questionIndex) => (
                     <li
                       key={question}
                       className="relative border-b last:border-none py-4"
@@ -161,8 +153,6 @@ const Page = () => {
                                         value={option}
                                         type="radio"
                                         className="mt-0.5"
-                                        // name={question}
-                                        // {...register(`response-${question}`)}
                                       />
                                     )}
                                   />
@@ -176,20 +166,21 @@ const Page = () => {
                     </li>
                   ))}
                 </ul>
-                <Button size="xs" disabled={isSubmitting} type="submit">
+                <Button size="xs" disabled={disableBtn} type="submit">
                   {isSubmitting ? 'Submitting' : 'Submit'}
                 </Button>
               </form>
             </WhiteArea>
           </div>
-        )}
-        {submitted && <AssignmentSubmitted />}
-        {isSubmitting && (
+        </WhiteArea>
+      )}
+      {isSubmitting && (
+        <WhiteArea border>
           <div className="bg-slate-800/20 w-full absolute inset-0 z-5">
             <div
-              className={`relative flex flex-col ${questions.length > 8 ? 'justify-between' : 'justify-center'} items-center h-full`}
+              className={`relative flex flex-col ${questions?.length > 8 ? 'justify-between' : 'justify-center'} items-center h-full`}
             >
-              {questions.length > 8 && (
+              {questions?.length > 8 && (
                 <div className="rounded-b overflow-hidden">
                   <SubmissionIndicator />
                 </div>
@@ -197,15 +188,15 @@ const Page = () => {
               <div className="rounded overflow-hidden">
                 <SubmissionIndicator />
               </div>
-              {questions.length > 8 && (
+              {questions?.length > 8 && (
                 <div className="rounded-t overflow-hidden">
                   <SubmissionIndicator />
                 </div>
               )}
             </div>
           </div>
-        )}
-      </WhiteArea>
+        </WhiteArea>
+      )}
     </div>
   );
 };
