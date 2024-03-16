@@ -40,15 +40,12 @@ const studentSchema = new Schema(
     location: { type: String },
     gender: { type: String, enum: ALLOWED_GENDER },
     interests: [{ type: String }],
+    assignments: [{ type: mongoose.SchemaTypes.ObjectId, ref: 'Assignment' }],
   },
   {
     toJSON: {
       transform: function (doc, ret) {
         ret.userId = ret._id;
-        // delete ret.createdAt;
-        // delete ret.updatedAt;
-        // delete ret.__v;
-        // delete ret._id;
       },
     },
     timestamps: true,
