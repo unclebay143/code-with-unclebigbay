@@ -1,49 +1,17 @@
 'use client';
 
-import React, { useState } from 'react';
+import React from 'react';
 import { usePathname } from 'next/navigation';
 import { toast } from 'sonner';
 import { Button } from '@/components/atoms/Button';
 import { DashboardSubheading } from '@/components/molecules/dashboard/dashboard-subheading';
 import { WhiteArea } from '@/components/molecules/dashboard/white-area';
 import { ArrowLeft, Loader, RotateCw } from 'lucide-react';
-import { Courses } from '@/components/molecules/dashboard/courses';
 import { Controller, useForm } from 'react-hook-form';
 import { useAssignmentById } from '@/components/hooks/useAssignment';
 import { Questions } from '@/utils/types';
 import { useWarnBeforePageReload } from '@/components/hooks/useWarnBeforePageReload';
 
-const AssignmentSubmitted = ({ courseTitle }: { courseTitle?: string }) => {
-  return (
-    <WhiteArea border>
-      <section className="flex flex-col items-center justify-center gap-3 p-4">
-        <div className="w-full flex flex-col items-center gap-5">
-          <div className="flex flex-col text-center gap-2">
-            {courseTitle && (
-              <span className="text-slate-500 text-sm">{courseTitle}</span>
-            )}
-            <h3 className="text-xl font-medium">
-              Well-done for Completing Your Assignment! 🎉
-            </h3>
-            <div className="flex justify-center">
-              <Button size="xs" appearance="secondary-slate">
-                View score
-              </Button>
-            </div>
-            <span className="my-2 text-slate-600 text-sm">OR</span>
-            <p className="text-slate-600">
-              Checkout the recommended learning material below.
-            </p>
-          </div>
-          {/* Pass recommended courses here */}
-          <div className="w-full">
-            <Courses hideSearchOptions hideReachedEnd />
-          </div>
-        </div>
-      </section>
-    </WhiteArea>
-  );
-};
 const SubmissionIndicator = () => (
   <div
     className="flex justify-center items-center gap-1 bg-white p-1"
@@ -63,8 +31,6 @@ const Page = () => {
   const assignmentId = currentPathname.split('/').pop();
   const { assignment, isFetching } = useAssignmentById(assignmentId!);
   const materialId = assignment?.material?._id;
-  const materialTitle = assignment?.material?.title;
-  const [submitted, setSubmitted] = useState(false);
 
   const {
     handleSubmit,
@@ -74,7 +40,7 @@ const Page = () => {
   } = useForm({ defaultValues: assignment?.questions });
 
   const questions = assignment?.questions as Questions;
-  const canShowQuestions = !isFetching && !isSubmitting && !submitted;
+  const canShowQuestions = !isFetching && !isSubmitting;
   // console.log(getValues());
   // Disable button when all questions are not answered - all fields required
   const disableBtn = !isDirty || !isValid || isSubmitting;
@@ -108,15 +74,7 @@ const Page = () => {
 
       console.log(payload);
       toast.success('Assignment submitted');
-      setSubmitted(true);
-
-      setTimeout(() => {
-        window.scrollTo({
-          top: 0,
-          left: 0,
-          behavior: 'smooth',
-        });
-      }, 3000);
+      window.location.href = `/dashboard/courses/${materialId}/assignment/${assignmentId}/submitted`;
     } catch (e: any) {
       toast.error(e.message);
     }
@@ -216,8 +174,7 @@ const Page = () => {
           </div>
         </WhiteArea>
       )}
-      {submitted && <AssignmentSubmitted courseTitle={materialTitle} />}
-      {isSubmitting && !submitted && (
+      {isSubmitting && (
         <WhiteArea border>
           <div className="bg-slate-800/20 w-full absolute inset-0 z-5">
             <div
