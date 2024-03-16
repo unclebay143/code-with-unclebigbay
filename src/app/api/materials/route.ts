@@ -63,7 +63,7 @@ const POST = async (req: Request) => {
 
       await Assignment.findOneAndUpdate(
         { _id: assignment._id },
-        { materialId: material._id },
+        { material: material._id },
       );
 
       return NextResponse.json(

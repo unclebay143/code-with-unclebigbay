@@ -20,6 +20,7 @@ type Props = {
   hideSearchOptions?: boolean;
   size?: number;
   setCount?: Function;
+  hideReachedEnd?: boolean;
 };
 
 export const Courses = ({
@@ -27,6 +28,7 @@ export const Courses = ({
   showLoadMoreButton,
   hideSearchOptions,
   showCounter,
+  hideReachedEnd,
   size,
   setCount,
 }: Props) => {
@@ -34,7 +36,7 @@ export const Courses = ({
   const data = materials || defaultMaterials;
   const count = data?.length;
 
-  const noData = data && data?.length < 1;
+  const noData = !isFetching && data && data?.length < 1;
 
   useEffect(() => {
     if (setCount) {
@@ -77,7 +79,7 @@ export const Courses = ({
         ) : (
           <>
             {data?.slice(0, size).map((material) => {
-              return <CourseCard key={material.title} material={material} />;
+              return <CourseCard key={material._id} material={material} />;
             })}
           </>
         )}
@@ -95,7 +97,7 @@ export const Courses = ({
         </div>
       )}
 
-      {!noData && (
+      {(!noData && hideReachedEnd) || (
         <div className="text-center py-5 text-slate-600">
           <p>You&apos;ve reached the end 👋🏽</p>
         </div>

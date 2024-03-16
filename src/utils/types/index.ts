@@ -92,7 +92,7 @@ export type Questions = Question[];
 
 export type Assignment = {
   _id?: string;
-  materialId?: string;
+  material?: Material;
   questions: Questions;
 };
 export type Assignments = Assignment[];
@@ -134,8 +134,8 @@ export type Student = {
 };
 
 export type Material = {
-  createdAt?: string;
   _id: string;
+  createdAt?: string;
   type?: string;
   title: string;
   description: string;
