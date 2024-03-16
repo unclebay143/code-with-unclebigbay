@@ -61,8 +61,8 @@ export const CommunityMembersSection = async () => {
               </span>
             </>
           }
-          copy="Join thousands of aspiring developers on a journey to mastering
-                web development in 2024."
+          copy="Join happy aspiring developers on a journey to mastering
+                web development."
         />
         {/* Todo: This won't work bcos this component is ss - Convert to link to redirect to login page (if login page is created) */}
         {/* 
@@ -75,6 +75,31 @@ export const CommunityMembersSection = async () => {
         </Button> */}
       </div>
       <section className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-y-12 gap-x-8">
+        {students?.map(({ _id, fullName, username, stack, photo }) => (
+          <Link
+            href={`/@${username}`}
+            key={`communityMembers-${_id}`}
+            className="flex flex-col gap-3 border rounded overflow-hidden"
+          >
+            <div className="mx-auto overflow-hidden h-full w-full transition transform duration-500 ease-in-out hover:scale-105 ">
+              <Image
+                src={photo}
+                height={200}
+                width={200}
+                className="w-full"
+                alt=""
+              />
+            </div>
+            <div className="px-4 pb-4 pt-2">
+              <h3 className="font-medium text-slate-950 hover:underline">
+                {fullName}
+              </h3>
+              <p className="text-slate-600 text-sm capitalize">{stack}</p>
+            </div>
+          </Link>
+        ))}
+      </section>
+      {/* <section className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-y-12 gap-x-8">
         {students?.map(({ _id, fullName, username, stack, photo }) => (
           <article
             key={`communityMembers-${_id}`}
@@ -97,7 +122,7 @@ export const CommunityMembersSection = async () => {
             </Link>
           </article>
         ))}
-      </section>
+      </section> */}
     </section>
   );
 };
