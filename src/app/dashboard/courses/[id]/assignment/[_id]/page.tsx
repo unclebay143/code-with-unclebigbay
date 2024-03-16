@@ -79,17 +79,18 @@ const Page = () => {
 
       console.log(payload);
 
+      // @ts-ignore
       addNewResponse.mutate(payload);
-      window.onbeforeunload = null;
+      // window.onbeforeunload = null;
       window.location.href = `/dashboard/courses/${materialId}/assignment/${assignmentId}/submitted`;
     } catch (e: any) {
       toast.error(e.message);
     }
   };
 
-  useWarnBeforePageReload();
+  // useWarnBeforePageReload();
 
-  if (!assignment) {
+  if (!isFetching && !assignment) {
     window.location.href = `/dashboard/courses/${materialId}/assignment/${assignmentId}/responded`;
     return null;
   }

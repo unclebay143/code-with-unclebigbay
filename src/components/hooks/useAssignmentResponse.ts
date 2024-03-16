@@ -1,22 +1,14 @@
 import axios from 'axios';
-import { Assignment } from '@/utils/types';
 import { useQuery } from '@tanstack/react-query';
 
 const useAssignmentResponseById = (_id: string) => {
-  const {
-    data: response,
-    isFetching,
-    error,
-    isPending,
-  } = useQuery({
+  const { data, isFetching, error, isPending } = useQuery({
     queryKey: ['response', _id],
     queryFn: () =>
-      axios
-        .get('/api/assignments/responses/' + _id)
-        .then((res) => res.data.assignmentResponse),
+      axios.get('/api/assignments/responses/' + _id).then((res) => res.data),
   });
 
-  return { response, isFetching, error, isPending };
+  return { data, isFetching, error, isPending };
 };
 
 export { useAssignmentResponseById };

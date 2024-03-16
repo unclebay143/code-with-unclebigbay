@@ -24,7 +24,11 @@ const GET = async (_: Request, { params }: { params: { _id: string } }) => {
     const assignmentResponse = await AssignmentResponse.findOne({
       student: studentId,
       assignment: assignmentId,
-    }).populate('response.question', 'question answerExplanation', Question);
+    }).populate(
+      'response.question',
+      'question answerExplanation options.option options._id options.isCorrect status grade score',
+      Question,
+    );
 
     if (!assignmentResponse) {
       return NextResponse.json(
