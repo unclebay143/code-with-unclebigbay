@@ -83,6 +83,7 @@ export type Assignment = Questions[];
 
 export type Student = {
   _id: string;
+  createdAt: string;
   fullName: string;
   email: string;
   username: string;

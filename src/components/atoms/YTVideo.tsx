@@ -2,7 +2,7 @@ import { Loader } from 'lucide-react';
 
 export function YTVideo({ ytVideoId }: { ytVideoId: string }) {
   return (
-    <div className="relative border bg-slate-50 aspect-video overflow-hidden rounded-lg">
+    <div className="relative border-transparent bg-slate-50 aspect-video overflow-hidden rounded-lg">
       <div className="absolute inset-0 flex justify-center items-center">
         <span className="animate-spin">
           <Loader />
