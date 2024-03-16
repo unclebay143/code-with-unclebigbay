@@ -101,6 +101,7 @@ const UserProfessionalSettings = () => {
                     <SelectViewPort>
                       <SelectItem value={'frontend'} label={'Frontend'} />
                       <SelectItem value={'backend'} label={'Backend'} />
+                      <SelectItem value={'full-stack'} label={'Full-stack'} />
                     </SelectViewPort>
                   </SelectContent>
                 </Select>
