@@ -7,12 +7,10 @@ import { Button } from '@/components/atoms/Button';
 import { DashboardSubheading } from '@/components/molecules/dashboard/dashboard-subheading';
 import { WhiteArea } from '@/components/molecules/dashboard/white-area';
 import { ArrowLeft, RotateCw } from 'lucide-react';
-import { Question } from '@/utils/types';
 import { Courses } from '@/components/molecules/dashboard/courses';
 import { Controller, useForm } from 'react-hook-form';
-// import { assignments } from '@/utils/dummy-data';
-
-type Questions = Question[];
+import { useAssignmentById } from '@/components/hooks/useAssignment';
+import { Questions } from '@/utils/types';
 
 const AssignmentSubmitted = () => {
   return (
@@ -50,66 +48,66 @@ const SubmissionIndicator = () => (
 );
 
 const Page = () => {
-  // const [submitted, setSubmitted] = useState(false);
+  const currentPathname = usePathname();
+  const assignmentId = currentPathname.split('/').pop();
+  const { assignment } = useAssignmentById(assignmentId!);
+  const [submitted, setSubmitted] = useState(false);
 
-  // const currentPathname = usePathname();
-  // const assignmentId = currentPathname.split('/').pop();
-
-  // const {
-  //   handleSubmit,
-  //   control,
-  //   formState: { isSubmitting, isSubmitted, errors },
-  // } = useForm({ defaultValues: assignments });
+  const {
+    handleSubmit,
+    control,
+    formState: { isSubmitting },
+  } = useForm({ defaultValues: assignment?.questions });
 
   // type QuestionWithoutTags = Omit<Question, 'tags'>;
+  const questions = assignment?.questions as Questions;
 
-  // const [questions, setQuestions] = useState<Questions>(assignments);
-  // const noQuestions = questions.length === 0;
-  // const canShowQuestions = !noQuestions && !submitted;
+  const noQuestions = questions?.length === 0;
+  const canShowQuestions = !noQuestions && !submitted;
 
-  // const onSubmit = (data: Questions) => {
-  //   const isEmptyOptionRegex = /^0\.[a-zA-Z0-9]+$/; // 0.option
+  const onSubmit = (data: Questions) => {
+    const isEmptyOptionRegex = /^0\.[a-zA-Z0-9]+$/; // 0.option
 
-  //   try {
-  //     const assignmentResponse = questions.map((question, index) => {
-  //       const answerToQuestion = data[index].question;
-  //       const isEmptyOption = isEmptyOptionRegex.test(answerToQuestion);
+    try {
+      const assignmentResponse = questions?.map((question, index) => {
+        const answerToQuestion = data[index].question;
+        const isEmptyOption = isEmptyOptionRegex.test(answerToQuestion);
 
-  //       if (isEmptyOption) {
-  //         throw Error('Some questions are not answered');
-  //       }
+        if (isEmptyOption) {
+          throw Error('Some questions are not answered');
+        }
 
-  //       return {
-  //         questionId: question._id,
-  //         question: question.question,
-  //         answer: answerToQuestion,
-  //       };
-  //     });
+        return {
+          questionId: question._id,
+          question: question.question,
+          answer: answerToQuestion,
+        };
+      });
 
-  //     const payload = {
-  //       materialId: '0',
-  //       assignmentId,
-  //       responses: assignmentResponse,
-  //     };
+      const payload = {
+        materialId: '0',
+        assignmentId,
+        responses: assignmentResponse,
+      };
 
-  //     console.log(payload);
-  //     toast.success('Assignment submitted');
+      console.log(payload);
+      toast.success('Assignment submitted');
 
-  //     setTimeout(() => {
-  //       window.scrollTo({
-  //         top: 0,
-  //         left: 0,
-  //         behavior: 'smooth',
-  //       });
-  //     }, 3000);
-  //   } catch (e: any) {
-  //     toast.error(e.message);
-  //   }
-  // };
+      setTimeout(() => {
+        window.scrollTo({
+          top: 0,
+          left: 0,
+          behavior: 'smooth',
+        });
+      }, 3000);
+    } catch (e: any) {
+      toast.error(e.message);
+    }
+  };
 
   return (
     <div className="relative rounded-lg overflow-hidden">
-      {/* <WhiteArea border>
+      <WhiteArea border>
         {canShowQuestions && (
           <div className="flex flex-col gap-5">
             <div className="flex flex-col gap-2 justify-between">
@@ -130,14 +128,14 @@ const Page = () => {
                   </span>
                   <span className="mx-1">&middot;</span>
                   <span className="font-medium">Total: </span>
-                  <span>{questions.length}</span>
+                  <span>{questions?.length}</span>
                 </div>
               </div>
             </div>
             <WhiteArea border>
               <form onSubmit={handleSubmit(onSubmit)}>
                 <ul className="list-decimal list-inside">
-                  {questions.map(({ options, question }, questionIndex) => (
+                  {questions?.map(({ options, question }, questionIndex) => (
                     <li
                       key={question}
                       className="relative border-b last:border-none py-4"
@@ -187,9 +185,9 @@ const Page = () => {
         {isSubmitting && (
           <div className="bg-slate-800/20 w-full absolute inset-0 z-5">
             <div
-              className={`relative flex flex-col ${questions.length > 8 ? 'justify-between' : 'justify-center'} items-center h-full`}
+              className={`relative flex flex-col ${questions?.length > 8 ? 'justify-between' : 'justify-center'} items-center h-full`}
             >
-              {questions.length > 8 && (
+              {questions?.length > 8 && (
                 <div className="rounded-b overflow-hidden">
                   <SubmissionIndicator />
                 </div>
@@ -197,7 +195,7 @@ const Page = () => {
               <div className="rounded overflow-hidden">
                 <SubmissionIndicator />
               </div>
-              {questions.length > 8 && (
+              {questions?.length > 8 && (
                 <div className="rounded-t overflow-hidden">
                   <SubmissionIndicator />
                 </div>
@@ -206,7 +204,6 @@ const Page = () => {
           </div>
         )}
       </WhiteArea>
-         */}
     </div>
   );
 };

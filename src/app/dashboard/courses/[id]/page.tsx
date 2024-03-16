@@ -20,7 +20,8 @@ const Page = () => {
   const courseId = currentPathname.split('/').pop();
 
   const { material, isFetching } = useMaterialById(courseId!);
-  const hasNoAssignment = material?.assignment.length === 0;
+  const assignmentId = material?.assignment;
+  const hasAssignment = !!assignmentId;
 
   const handleShowMoreVisibility = () => {
     setShowMore((prevVisibility) => !prevVisibility);
@@ -120,11 +121,11 @@ const Page = () => {
                           }).format(new Date(material.createdAt!))}
                         </p>
                       </div>
-                      {!hasNoAssignment && (
+                      {hasAssignment && (
                         <div className="">
                           <Button size="sm" asChild>
                             <Link
-                              href={`${courseId}/assignment/${material._id}`}
+                              href={`${courseId}/assignment/${assignmentId}`}
                             >
                               Attempt assignment
                             </Link>

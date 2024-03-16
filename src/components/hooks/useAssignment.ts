@@ -1,56 +1,39 @@
 import axios from 'axios';
-import { toast } from 'sonner';
-import { Material, Materials } from '@/utils/types';
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { Assignment, Assignments } from '@/utils/types';
+import { useQuery } from '@tanstack/react-query';
 
 const useAssignment = () => {
-  const queryClient = useQueryClient();
   const {
-    data: materials,
+    data: assignments,
     isFetching,
     error,
     isPending,
   } = useQuery({
-    queryKey: ['materials'],
+    queryKey: ['assignments'],
     queryFn: () =>
       axios
-        .get('/api/materials')
-        .then((res) => res.data.materials as Materials),
+        .get('/api/assignments')
+        .then((res) => res.data.assignments as Assignments),
   });
 
-  const mutation = useMutation({
-    mutationFn: (newMaterial: Material) => {
-      return axios.post('/api/materials', newMaterial);
-    },
-    onSuccess({ data }) {
-      queryClient.invalidateQueries({ queryKey: ['materials'] });
-      const courseId = data.material._id;
-      toast.success('New material added.');
-      window.location.href = `/dashboard/courses/${courseId}`;
-    },
-    onError(error: any) {
-      toast.success(error.response.data.message);
-    },
-  });
-
-  return { materials, isFetching, error, isPending, mutation };
+  return { assignments, isFetching, error, isPending };
 };
 
 const useAssignmentById = (_id: string) => {
   const {
-    data: material,
+    data: assignment,
     isFetching,
     error,
     isPending,
   } = useQuery({
-    queryKey: ['material', _id],
+    queryKey: ['assignment', _id],
     queryFn: () =>
       axios
-        .get('/api/materials/' + _id)
-        .then((res) => res.data.material as Material),
+        .get('/api/assignments/' + _id)
+        .then((res) => res.data.assignment as Assignment),
   });
 
-  return { material, isFetching, error, isPending };
+  return { assignment, isFetching, error, isPending };
 };
 
 export default useAssignment;
