@@ -8,7 +8,9 @@ import { DashboardSubheading } from '@/components/molecules/dashboard/dashboard-
 import { WhiteArea } from '@/components/molecules/dashboard/white-area';
 import { ArrowLeft, Loader, RotateCw } from 'lucide-react';
 import { Controller, useForm } from 'react-hook-form';
-import { useAssignmentById } from '@/components/hooks/useAssignment';
+import useAssignment, {
+  useAssignmentById,
+} from '@/components/hooks/useAssignment';
 import { Questions } from '@/utils/types';
 import { useWarnBeforePageReload } from '@/components/hooks/useWarnBeforePageReload';
 import useCurrentStudent from '@/components/hooks/useCurrentStudent';
@@ -32,6 +34,7 @@ const Page = () => {
   const currentPathname = usePathname();
   const assignmentId = currentPathname.split('/').pop();
   const { assignment, isFetching } = useAssignmentById(assignmentId!);
+  const { mutation: addNewResponse } = useAssignment();
   const materialId = assignment?.material?._id;
 
   const {
@@ -75,7 +78,8 @@ const Page = () => {
       };
 
       console.log(payload);
-      toast.success('Assignment submitted');
+
+      addNewResponse.mutate(payload);
       window.onbeforeunload = null;
       // window.location.href = `/dashboard/courses/${materialId}/assignment/${assignmentId}/submitted`;
     } catch (e: any) {

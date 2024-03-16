@@ -20,6 +20,7 @@ const assignmentResponseSchema = new Schema({
     index: true,
   },
   score: { type: Number },
+  grade: { type: String },
   status: { type: String, enum: ALLOWED_STATUS, default: 'not attempted' },
   response: [
     {
