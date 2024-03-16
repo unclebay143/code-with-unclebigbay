@@ -22,6 +22,7 @@ professionalDetailSchema;
 type professionalDetailSchemaType = z.infer<typeof professionalDetailSchema>;
 
 const UserProfessionalSettings = () => {
+  const { data: currentStudent, update } = useCurrentStudent();
   const { data: user } = useCurrentStudent();
 
   const {
@@ -29,8 +30,7 @@ const UserProfessionalSettings = () => {
     control,
     register,
     handleSubmit,
-    formState: { errors, isDirty },
-    getValues,
+    formState: { errors },
   } = useForm<professionalDetailSchemaType>({
     resolver: zodResolver(professionalDetailSchema),
     defaultValues: {
@@ -42,8 +42,16 @@ const UserProfessionalSettings = () => {
 
   const onSubmit: SubmitHandler<professionalDetailSchemaType> = (data) => {
     try {
-      toast.success('Profile updated successfully.');
-      console.log(data);
+      update.mutate({
+        username: currentStudent?.username,
+        _id: currentStudent?._id,
+        stack: data.stack,
+        socials: {
+          ...user?.socials,
+          portfolio: data.portfolio,
+          blog: data.blog,
+        },
+      });
     } catch (err) {
       console.log(err);
     }
@@ -93,6 +101,7 @@ const UserProfessionalSettings = () => {
                     <SelectViewPort>
                       <SelectItem value={'frontend'} label={'Frontend'} />
                       <SelectItem value={'backend'} label={'Backend'} />
+                      <SelectItem value={'full-stack'} label={'Full-stack'} />
                     </SelectViewPort>
                   </SelectContent>
                 </Select>

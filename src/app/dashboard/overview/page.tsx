@@ -5,11 +5,11 @@ import { EmptyState } from '@/components/molecules/dashboard/empty-state';
 import { WhiteArea } from '@/components/molecules/dashboard/white-area';
 import { QuoteOfTheDay } from '@/components/molecules/dashboard/quote-of-the-day';
 import { DashboardSubheading } from '@/components/molecules/dashboard/dashboard-subheading';
-import { overviews } from '@/utils/dummy-data';
 import { OverviewCard } from '@/components/molecules/dashboard/overview-card';
 import { ActivityLogs } from '@/components/molecules/dashboard/activity-logs';
 import { Courses } from '@/components/molecules/dashboard/courses';
 import useMaterial from '@/components/hooks/useMaterial';
+import { overviews } from '@/utils';
 
 const Page = () => {
   const { materials } = useMaterial();
@@ -42,13 +42,21 @@ const Page = () => {
           </section>
         </section>
       </WhiteArea>
+      {/* <section className="flex gap-1">
+        <button className="rounded-full py-1 px-3 text-slate-600 bg-slate-100 text-sm font-medium">
+          Recent
+        </button>
+        <button className="rounded-full py-1 px-3 text-slate-600 bg-slate-100 text-sm font-medium">
+          Personalized
+        </button>
+      </section> */}
       <WhiteArea border>
         {noRecentMaterials ? (
           <EmptyState label="Your recent learning material will appear here" />
         ) : (
           <section className="flex flex-col gap-3">
             <DashboardSubheading title="Recent learning materials" />
-            <Courses size={10} showLoadMoreButton />
+            <Courses size={10} hideSearchOptions />
           </section>
         )}
       </WhiteArea>
