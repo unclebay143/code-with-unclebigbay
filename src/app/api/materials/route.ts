@@ -1,3 +1,4 @@
+import { Assignment } from '@/models/assignment';
 import { Material } from '@/models/material';
 import { Student } from '@/models/student';
 import { Tag } from '@/models/tag';
@@ -50,7 +51,20 @@ const POST = async (req: Request) => {
   try {
     const body = await req.json();
     await connectViaMongoose();
-    const material = await Material.create(body);
+
+    const { questions, ...otherPropsWithoutQuestions } = body;
+
+    const assignment = await Assignment.create({ questions });
+
+    const material = await Material.create({
+      ...otherPropsWithoutQuestions,
+      assignment: assignment._id,
+    });
+
+    await Assignment.findOneAndUpdate(
+      { _id: assignment._id },
+      { materialId: material._id },
+    );
     return NextResponse.json(
       { message: 'Material created.', material },
       { status: 200 },
