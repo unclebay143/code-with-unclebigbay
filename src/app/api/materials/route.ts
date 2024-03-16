@@ -54,17 +54,26 @@ const POST = async (req: Request) => {
 
     const { questions, ...otherPropsWithoutQuestions } = body;
 
-    const assignment = await Assignment.create({ questions });
+    if (questions.length > 0) {
+      const assignment = await Assignment.create({ questions });
+      const material = await Material.create({
+        ...otherPropsWithoutQuestions,
+        assignment: assignment._id,
+      });
 
-    const material = await Material.create({
-      ...otherPropsWithoutQuestions,
-      assignment: assignment._id,
-    });
+      await Assignment.findOneAndUpdate(
+        { _id: assignment._id },
+        { materialId: material._id },
+      );
 
-    await Assignment.findOneAndUpdate(
-      { _id: assignment._id },
-      { materialId: material._id },
-    );
+      return NextResponse.json(
+        { message: 'Material with assignment created.', material },
+        { status: 200 },
+      );
+    }
+
+    const material = await Material.create(body);
+
     return NextResponse.json(
       { message: 'Material created.', material },
       { status: 200 },
