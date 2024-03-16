@@ -145,10 +145,14 @@ const Page = () => {
                   <span className="font-medium"> Status: </span>
                   <span className="text-yellow-500 font-medium">
                     Not attempted
+                    {/* Failed, pass */}
                   </span>
                   <span className="mx-1">&middot;</span>
                   <span className="font-medium">Total: </span>
                   <span>{questions?.length}</span>
+                  {/* <span className="mx-1">&middot;</span>
+                  <span className="font-medium">Score: </span>
+                  <span>{questions?.length}</span> */}
                 </div>
               </div>
             </div>
