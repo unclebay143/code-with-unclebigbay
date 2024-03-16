@@ -34,6 +34,8 @@ export const Courses = ({
   const data = materials || defaultMaterials;
   const count = data?.length;
 
+  const noData = data && data?.length < 1;
+
   useEffect(() => {
     if (setCount) {
       setCount(count);
@@ -87,7 +89,13 @@ export const Courses = ({
           </Button>
         </section>
       )}
-      {showLoadMoreButton || (
+      {noData && (
+        <div className="text-center py-5 text-slate-600">
+          <p>No course available at this time.</p>
+        </div>
+      )}
+
+      {!noData && (
         <div className="text-center py-5 text-slate-600">
           <p>You&apos;ve reached the end 👋🏽</p>
         </div>
