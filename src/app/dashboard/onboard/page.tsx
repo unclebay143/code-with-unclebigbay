@@ -26,7 +26,7 @@ const Page = () => {
     control,
     handleSubmit,
     getValues,
-    formState: { isSubmitting },
+    formState: { isDirty, isValid },
   } = useForm({
     defaultValues: {
       stack: '',
@@ -49,8 +49,7 @@ const Page = () => {
     });
   };
 
-  const disableBtn = !getValues().stack;
-  console.log(disableBtn);
+  const disableBtn = !isDirty || !isValid;
 
   useEffect(() => {
     if (update.isSuccess) {
