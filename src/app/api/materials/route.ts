@@ -18,8 +18,9 @@ const GET = async () => {
     const student = await Student.findOne({ email: session?.user.email });
     const userStack = student.stack || 'platform-guide';
     const userHasStack = session && userStack;
+    const isFullStack = student.stack === 'full-stack';
 
-    if (userHasStack) {
+    if (userHasStack && !isFullStack) {
       const tag = await Tag.findOne({ name: { $in: userStack } });
 
       if (tag) {
