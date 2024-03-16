@@ -1,4 +1,6 @@
+import { Assignment } from '@/models/assignment';
 import { AssignmentResponse } from '@/models/assignmentResponse';
+import { Question } from '@/models/question';
 import { Student } from '@/models/student';
 import { getServerSessionWithAuthOptions } from '@/utils/auth-options';
 import connectViaMongoose from '@/utils/mongoose';
@@ -22,7 +24,7 @@ const GET = async (_: Request, { params }: { params: { _id: string } }) => {
     const assignmentResponse = await AssignmentResponse.findOne({
       student: studentId,
       assignment: assignmentId,
-    });
+    }).populate('response.question', 'question answerExplanation', Question);
 
     if (!assignmentResponse) {
       return NextResponse.json(

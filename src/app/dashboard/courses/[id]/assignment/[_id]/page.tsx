@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import { usePathname } from 'next/navigation';
+import { redirect, usePathname } from 'next/navigation';
 import { toast } from 'sonner';
 import { Button } from '@/components/atoms/Button';
 import { DashboardSubheading } from '@/components/molecules/dashboard/dashboard-subheading';
@@ -81,13 +81,18 @@ const Page = () => {
 
       addNewResponse.mutate(payload);
       window.onbeforeunload = null;
-      // window.location.href = `/dashboard/courses/${materialId}/assignment/${assignmentId}/submitted`;
+      window.location.href = `/dashboard/courses/${materialId}/assignment/${assignmentId}/submitted`;
     } catch (e: any) {
       toast.error(e.message);
     }
   };
 
   useWarnBeforePageReload();
+
+  if (!assignment) {
+    window.location.href = `/dashboard/courses/${materialId}/assignment/${assignmentId}/responded`;
+    return null;
+  }
 
   return (
     <div className="relative rounded-lg overflow-hidden">
