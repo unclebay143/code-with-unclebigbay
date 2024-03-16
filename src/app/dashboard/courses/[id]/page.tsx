@@ -19,11 +19,15 @@ const Page = () => {
   const courseId = currentPathname.split('/').pop();
 
   const { material, isFetching } = useMaterialById(courseId!);
+  const hasNoAssignment = material?.assignment.length === 0;
 
   const handleShowMoreVisibility = () => {
     setShowMore((prevVisibility) => !prevVisibility);
   };
   const showCourse = !isFetching && material;
+
+  console.log(material?.tags);
+
   return (
     <>
       <WhiteArea border>
@@ -72,7 +76,7 @@ const Page = () => {
               </button>
               {showMore && (
                 <section className="flex flex-col items-start gap-5 py-4 px-1">
-                  <div className="w-full flex gap-5 flex-wrap">
+                  <div className="w-full flex flex-col  gap-5 flex-wrap">
                     <div className="">
                       <h3 className="font-medium text-lg text-slate-700">
                         Description:
@@ -88,10 +92,24 @@ const Page = () => {
                         {/* Completed, Enrolled, In Progress, Not Started */}
                       </p>
                     </div>
+                    {/* Show date when student started course here */}
+                    {/* <div className="">
+                      <h3 className="font-medium text-lg text-slate-700">
+                        Date Started:
+                      </h3>
+                      <p className="text-slate-600">
+                        {new Intl.DateTimeFormat('en-GB', {
+                          weekday: 'long',
+                          year: 'numeric',
+                          month: 'long',
+                          day: 'numeric',
+                        }).format(new Date(material.createdAt!))}
+                      </p>
+                    </div> */}
                     <div className="flex flex-wrap gap-5 w-full justify-between items-end">
                       <div className="">
                         <h3 className="font-medium text-lg text-slate-700">
-                          Date Started:
+                          Date Published:
                         </h3>
                         <p className="text-slate-600">
                           {new Intl.DateTimeFormat('en-GB', {
@@ -102,13 +120,15 @@ const Page = () => {
                           }).format(new Date(material.createdAt!))}
                         </p>
                       </div>
-                      <div className="">
-                        <Button size="sm" asChild>
-                          <Link href={`${courseId}/assignment/1`}>
-                            Attempt assignment
-                          </Link>
-                        </Button>
-                      </div>
+                      {!hasNoAssignment && (
+                        <div className="">
+                          <Button size="sm" asChild>
+                            <Link href={`${courseId}/assignment/1`}>
+                              Attempt assignment
+                            </Link>
+                          </Button>
+                        </div>
+                      )}
                     </div>
                   </div>
                 </section>
