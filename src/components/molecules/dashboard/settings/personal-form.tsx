@@ -11,13 +11,13 @@ import * as z from 'zod';
 import { useForm, SubmitHandler, Controller } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { personalDetailSchema } from '@/validation/userSocialValidation';
-import { toast } from 'sonner';
 
 personalDetailSchema;
 
 type personalDetailSchemaType = z.infer<typeof personalDetailSchema>;
 
 const UserPersonalSettings = () => {
+  const { data: currentStudent, update } = useCurrentStudent();
   const { data: user } = useCurrentStudent();
   const fullName = user?.fullName;
   const email = user?.email;
@@ -39,8 +39,11 @@ const UserPersonalSettings = () => {
 
   const onSubmit: SubmitHandler<personalDetailSchemaType> = (data) => {
     try {
-      toast.success('Profile updated successfully.');
-      console.log(data);
+      update.mutate({
+        username: currentStudent?.username,
+        _id: currentStudent?._id,
+        ...data,
+      });
     } catch (err) {
       console.log(err);
     }

@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import React, { useEffect } from 'react';
 import { CourseCard, CourseCardSkeleton } from './course-card';
 import {
   Select,
@@ -19,6 +19,7 @@ type Props = {
   showCounter?: boolean;
   hideSearchOptions?: boolean;
   size?: number;
+  setCount?: Function;
 };
 
 export const Courses = ({
@@ -27,9 +28,17 @@ export const Courses = ({
   hideSearchOptions,
   showCounter,
   size,
+  setCount,
 }: Props) => {
   const { materials: defaultMaterials, isFetching } = useMaterial();
   const data = materials || defaultMaterials;
+  const count = data?.length;
+
+  useEffect(() => {
+    if (setCount) {
+      setCount(count);
+    }
+  }, [count, setCount]);
 
   return (
     <section className="flex flex-col gap-3">
