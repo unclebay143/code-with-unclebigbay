@@ -72,7 +72,7 @@ const Page = () => {
               </button>
               {showMore && (
                 <section className="flex flex-col items-start gap-5 py-4 px-1">
-                  <div className="flex gap-5 flex-wrap">
+                  <div className="w-full flex gap-5 flex-wrap">
                     <div className="">
                       <h3 className="font-medium text-lg text-slate-700">
                         Description:
