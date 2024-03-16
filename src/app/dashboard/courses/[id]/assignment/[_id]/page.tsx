@@ -1,36 +1,40 @@
 'use client';
 
 import React, { useState } from 'react';
-import { usePathname } from 'next/navigation';
+import { redirect, usePathname } from 'next/navigation';
 import { toast } from 'sonner';
 import { Button } from '@/components/atoms/Button';
 import { DashboardSubheading } from '@/components/molecules/dashboard/dashboard-subheading';
 import { WhiteArea } from '@/components/molecules/dashboard/white-area';
-import { ArrowLeft, RotateCw } from 'lucide-react';
+import { ArrowLeft, Loader, RotateCw } from 'lucide-react';
 import { Courses } from '@/components/molecules/dashboard/courses';
 import { Controller, useForm } from 'react-hook-form';
 import { useAssignmentById } from '@/components/hooks/useAssignment';
 import { Questions } from '@/utils/types';
+import Link from 'next/link';
+import { useWarnBeforePageReload } from '@/components/hooks/useWarnBeforePageReload';
 
 const AssignmentSubmitted = () => {
   return (
-    <section className="flex flex-col items-center justify-center gap-3 p-4">
-      <div className="flex flex-col items-center gap-5">
-        <div className="flex flex-col text-center gap-2">
-          <h3 className="text-xl font-medium">
-            Congratulations on Completing Your Assignment! 🎉
-          </h3>
-          <span className="text-slate-500 text-sm">
-            Material: Introduction to HTML
-          </span>
-          <p className="text-slate-600">
-            Checkout the recommended learning material below?
-          </p>
+    <WhiteArea border>
+      <section className="flex flex-col items-center justify-center gap-3 p-4">
+        <div className="flex flex-col items-center gap-5">
+          <div className="flex flex-col text-center gap-2">
+            <h3 className="text-xl font-medium">
+              Congratulations on Completing Your Assignment! 🎉
+            </h3>
+            <span className="text-slate-500 text-sm">
+              Material: Introduction to HTML
+            </span>
+            <p className="text-slate-600">
+              Checkout the recommended learning material below?
+            </p>
+          </div>
+          {/* Pass recommended courses here */}
+          <Courses hideSearchOptions />
         </div>
-        {/* Pass recommended courses here */}
-        <Courses hideSearchOptions />
-      </div>
-    </section>
+      </section>
+    </WhiteArea>
   );
 };
 const SubmissionIndicator = () => (
@@ -50,20 +54,19 @@ const SubmissionIndicator = () => (
 const Page = () => {
   const currentPathname = usePathname();
   const assignmentId = currentPathname.split('/').pop();
-  const { assignment } = useAssignmentById(assignmentId!);
+  const { assignment, isFetching } = useAssignmentById(assignmentId!);
+  const materialId = assignment?.materialId;
   const [submitted, setSubmitted] = useState(false);
 
   const {
     handleSubmit,
     control,
-    formState: { isSubmitting },
+    formState: { isSubmitting, isDirty, isValid },
   } = useForm({ defaultValues: assignment?.questions });
 
-  // type QuestionWithoutTags = Omit<Question, 'tags'>;
   const questions = assignment?.questions as Questions;
-
-  const noQuestions = questions?.length === 0;
-  const canShowQuestions = !noQuestions && !submitted;
+  const canShowQuestions = !isFetching && !submitted;
+  const disableBtn = !isDirty || !isValid || isSubmitting;
 
   const onSubmit = (data: Questions) => {
     const isEmptyOptionRegex = /^0\.[a-zA-Z0-9]+$/; // 0.option
@@ -85,7 +88,7 @@ const Page = () => {
       });
 
       const payload = {
-        materialId: '0',
+        materialId: materialId,
         assignmentId,
         responses: assignmentResponse,
       };
@@ -105,19 +108,34 @@ const Page = () => {
     }
   };
 
+  useWarnBeforePageReload();
+
   return (
     <div className="relative rounded-lg overflow-hidden">
-      <WhiteArea border>
-        {canShowQuestions && (
+      {!canShowQuestions && (
+        <WhiteArea twClass="!p-0 bg-slate-50 animate-pulse" border>
+          <div className="flex items-center justify-center min-h-[80vh] gap-2 text-slate-600">
+            <span>Loading assignment...</span>
+            <span className="animate-spin">
+              <Loader />
+            </span>
+          </div>
+        </WhiteArea>
+      )}
+      {canShowQuestions && (
+        <WhiteArea border>
           <div className="flex flex-col gap-5">
             <div className="flex flex-col gap-2 justify-between">
               <div className="flex items-center justify-between">
                 <DashboardSubheading title="Assignment: Introduction to HTML" />
                 <Button size="xs" appearance="secondary-slate">
-                  <div className="flex gap-1 items-center">
+                  <a
+                    href={`/dashboard/courses/${materialId}`}
+                    className="flex gap-1 items-center"
+                  >
                     <ArrowLeft size={14} />
                     <span>Back to material</span>
-                  </div>
+                  </a>
                 </Button>
               </div>
               <div className="flex text-slate-600">
@@ -159,8 +177,6 @@ const Page = () => {
                                         value={option}
                                         type="radio"
                                         className="mt-0.5"
-                                        // name={question}
-                                        // {...register(`response-${question}`)}
                                       />
                                     )}
                                   />
@@ -174,15 +190,17 @@ const Page = () => {
                     </li>
                   ))}
                 </ul>
-                <Button size="xs" disabled={isSubmitting} type="submit">
+                <Button size="xs" disabled={disableBtn} type="submit">
                   {isSubmitting ? 'Submitting' : 'Submit'}
                 </Button>
               </form>
             </WhiteArea>
           </div>
-        )}
-        {submitted && <AssignmentSubmitted />}
-        {isSubmitting && (
+        </WhiteArea>
+      )}
+      {submitted && <AssignmentSubmitted />}
+      {isSubmitting && (
+        <WhiteArea border>
           <div className="bg-slate-800/20 w-full absolute inset-0 z-5">
             <div
               className={`relative flex flex-col ${questions?.length > 8 ? 'justify-between' : 'justify-center'} items-center h-full`}
@@ -202,8 +220,8 @@ const Page = () => {
               )}
             </div>
           </div>
-        )}
-      </WhiteArea>
+        </WhiteArea>
+      )}
     </div>
   );
 };
