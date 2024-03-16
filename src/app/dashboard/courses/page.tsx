@@ -7,11 +7,12 @@ import { DashboardSubheading } from '@/components/molecules/dashboard/dashboard-
 import { WhiteArea } from '@/components/molecules/dashboard/white-area';
 import Link from 'next/link';
 // import { Sparkles } from 'lucide-react';
-import React from 'react';
+import React, { useState } from 'react';
 
 const Page = () => {
   const { data: currentUser } = useCurrentStudent();
   const isAdmin = currentUser?.isAdmin;
+  const [count, setCount] = useState();
 
   return (
     <div className="flex flex-col gap-3">
@@ -33,14 +34,17 @@ const Page = () => {
       <WhiteArea border>
         <div className="flex flex-col gap-5">
           <div className="flex items-center justify-between">
-            <DashboardSubheading title="Available Courses" />
+            <DashboardSubheading
+              title={`Available Courses (${count})`}
+              copy="These courses are personalized based on your stack."
+            />
             {isAdmin && (
               <Button size="xs" asChild>
                 <Link href="/dashboard/admin/courses/new">New course</Link>
               </Button>
             )}
           </div>
-          <Courses showCounter />
+          <Courses setCount={setCount} hideSearchOptions />
         </div>
       </WhiteArea>
     </div>

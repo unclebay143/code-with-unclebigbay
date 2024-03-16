@@ -4,7 +4,6 @@ import { IconButton } from '@/components/atoms/IconButton';
 import { YTVideo } from '@/components/atoms/YTVideo';
 import { WhiteArea } from '@/components/molecules/dashboard/white-area';
 import { ChevronDown, ChevronUp } from 'lucide-react';
-import { redirect } from 'next/navigation';
 import React, { useEffect, useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import {
@@ -16,15 +15,18 @@ import {
 } from '@/components/atoms/Select';
 import useCurrentStudent from '@/components/hooks/useCurrentStudent';
 import { Button } from '@/components/atoms/Button';
+import useAudit from '@/components/hooks/useAudit';
 
-type Props = {};
-
-const Page = (props: Props) => {
-  const { data: currentStudent, isFetching, update } = useCurrentStudent();
+const Page = () => {
+  const { data: currentStudent, update } = useCurrentStudent();
+  const { mutation: newAudit } = useAudit();
   const [showMore, setShowMore] = useState(false);
-  const onboardingCompleted = currentStudent && !!currentStudent?.stack;
 
-  const { control, handleSubmit } = useForm({
+  const {
+    control,
+    handleSubmit,
+    formState: { isDirty, isValid },
+  } = useForm({
     defaultValues: {
       stack: '',
     },
@@ -35,17 +37,24 @@ const Page = (props: Props) => {
   };
 
   const handleStackUpdate = (data: { stack: string }) => {
-    update.mutate({
-      username: currentStudent?.username,
-      _id: currentStudent?._id,
-      stack: data.stack,
-    });
+    if (currentStudent) {
+      update.mutate({
+        username: currentStudent.username,
+        _id: currentStudent._id,
+        stack: data.stack,
+      });
+      newAudit.mutate({
+        studentId: currentStudent._id,
+        title: 'Onboarding completed 🎉',
+        description: `Update stack to ${data.stack}`,
+      });
+    }
   };
+
+  const disableBtn = !isDirty || !isValid;
 
   useEffect(() => {
     if (update.isSuccess) {
-      console.log('run');
-
       window.location.href = '/dashboard/overview';
     }
   }, [update.isSuccess]);
@@ -128,7 +137,7 @@ const Page = (props: Props) => {
                     </div>
                   </div>
                   <div>
-                    <Button type="submit" size="sm">
+                    <Button type="submit" size="sm" disabled={disableBtn}>
                       Complete exercise 🎉
                     </Button>
                   </div>
