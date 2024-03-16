@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
-import { redirect, usePathname } from 'next/navigation';
+import { usePathname } from 'next/navigation';
 import { toast } from 'sonner';
 import { Button } from '@/components/atoms/Button';
 import { DashboardSubheading } from '@/components/molecules/dashboard/dashboard-subheading';
@@ -11,27 +11,34 @@ import { Courses } from '@/components/molecules/dashboard/courses';
 import { Controller, useForm } from 'react-hook-form';
 import { useAssignmentById } from '@/components/hooks/useAssignment';
 import { Questions } from '@/utils/types';
-import Link from 'next/link';
 import { useWarnBeforePageReload } from '@/components/hooks/useWarnBeforePageReload';
 
-const AssignmentSubmitted = () => {
+const AssignmentSubmitted = ({ courseTitle }: { courseTitle?: string }) => {
   return (
     <WhiteArea border>
       <section className="flex flex-col items-center justify-center gap-3 p-4">
-        <div className="flex flex-col items-center gap-5">
+        <div className="w-full flex flex-col items-center gap-5">
           <div className="flex flex-col text-center gap-2">
+            {courseTitle && (
+              <span className="text-slate-500 text-sm">{courseTitle}</span>
+            )}
             <h3 className="text-xl font-medium">
-              Congratulations on Completing Your Assignment! 🎉
+              Well-done for Completing Your Assignment! 🎉
             </h3>
-            <span className="text-slate-500 text-sm">
-              Material: Introduction to HTML
-            </span>
+            <div className="flex justify-center">
+              <Button size="xs" appearance="secondary-slate">
+                View score
+              </Button>
+            </div>
+            <span className="my-2 text-slate-600 text-sm">OR</span>
             <p className="text-slate-600">
-              Checkout the recommended learning material below?
+              Checkout the recommended learning material below.
             </p>
           </div>
           {/* Pass recommended courses here */}
-          <Courses hideSearchOptions />
+          <div className="w-full">
+            <Courses hideSearchOptions hideReachedEnd />
+          </div>
         </div>
       </section>
     </WhiteArea>
@@ -55,19 +62,21 @@ const Page = () => {
   const currentPathname = usePathname();
   const assignmentId = currentPathname.split('/').pop();
   const { assignment, isFetching } = useAssignmentById(assignmentId!);
-  const materialId = assignment?.materialId;
-  const [submitted] = useState(false);
-
-  console.log(assignment);
+  const materialId = assignment?.material?._id;
+  const materialTitle = assignment?.material?.title;
+  const [submitted, setSubmitted] = useState(false);
 
   const {
     handleSubmit,
     control,
+    // getValues,
     formState: { isSubmitting, isDirty, isValid },
   } = useForm({ defaultValues: assignment?.questions });
 
   const questions = assignment?.questions as Questions;
-  const canShowQuestions = !isFetching && !submitted;
+  const canShowQuestions = !isFetching && !isSubmitting && !submitted;
+  // console.log(getValues());
+  // Disable button when all questions are not answered - all fields required
   const disableBtn = !isDirty || !isValid || isSubmitting;
 
   const onSubmit = (data: Questions) => {
@@ -89,6 +98,8 @@ const Page = () => {
         };
       });
 
+      if (!assignmentResponse) return null;
+
       const payload = {
         materialId: materialId,
         assignmentId,
@@ -97,6 +108,7 @@ const Page = () => {
 
       console.log(payload);
       toast.success('Assignment submitted');
+      setSubmitted(true);
 
       setTimeout(() => {
         window.scrollTo({
@@ -114,7 +126,7 @@ const Page = () => {
 
   return (
     <div className="relative rounded-lg overflow-hidden">
-      {!canShowQuestions && (
+      {isFetching && (
         <WhiteArea twClass="!p-0 bg-slate-50 animate-pulse" border>
           <div className="flex items-center justify-center min-h-[80vh] gap-2 text-slate-600">
             <span>Loading assignment...</span>
@@ -204,8 +216,8 @@ const Page = () => {
           </div>
         </WhiteArea>
       )}
-      {submitted && <AssignmentSubmitted />}
-      {isSubmitting && (
+      {submitted && <AssignmentSubmitted courseTitle={materialTitle} />}
+      {isSubmitting && !submitted && (
         <WhiteArea border>
           <div className="bg-slate-800/20 w-full absolute inset-0 z-5">
             <div
