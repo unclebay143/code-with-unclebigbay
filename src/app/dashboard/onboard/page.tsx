@@ -15,12 +15,19 @@ import {
 } from '@/components/atoms/Select';
 import useCurrentStudent from '@/components/hooks/useCurrentStudent';
 import { Button } from '@/components/atoms/Button';
+import useAudit from '@/components/hooks/useAudit';
 
 const Page = () => {
   const { data: currentStudent, update } = useCurrentStudent();
+  const { mutation: newAudit } = useAudit();
   const [showMore, setShowMore] = useState(false);
 
-  const { control, handleSubmit } = useForm({
+  const {
+    control,
+    handleSubmit,
+    getValues,
+    formState: { isSubmitting },
+  } = useForm({
     defaultValues: {
       stack: '',
     },
@@ -36,7 +43,14 @@ const Page = () => {
       _id: currentStudent?._id,
       stack: data.stack,
     });
+    newAudit.mutate({
+      title: 'Onboarding completed',
+      description: `Update stack to ${data.stack}`,
+    });
   };
+
+  const disableBtn = !getValues().stack;
+  console.log(disableBtn);
 
   useEffect(() => {
     if (update.isSuccess) {
@@ -122,7 +136,7 @@ const Page = () => {
                     </div>
                   </div>
                   <div>
-                    <Button type="submit" size="sm">
+                    <Button type="submit" size="sm" disabled={disableBtn}>
                       Complete exercise 🎉
                     </Button>
                   </div>

@@ -9,6 +9,12 @@ const GET = async () => {
   try {
     await connectViaMongoose();
     const session = await getServerSessionWithAuthOptions();
+    if (!session) {
+      return NextResponse.json(
+        { message: 'Session required' },
+        { status: 403 },
+      );
+    }
     const student = await Student.findOne({ email: session?.user.email });
     const userStack = student.stack || 'platform-guide';
     const userHasStack = session && userStack;
