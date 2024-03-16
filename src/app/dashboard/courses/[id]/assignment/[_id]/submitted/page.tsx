@@ -14,8 +14,8 @@ const Page = () => {
   const materialId = assignment?.material?._id;
   const materialTitle = assignment?.material?.title;
   const disableBtn = !materialId || !assignmentId;
-
   const assignmentUrl = `/dashboard/courses/${materialId}/assignment/${assignmentId}`;
+
   return (
     <WhiteArea border>
       <section className="flex flex-col items-center justify-center gap-3 p-4">
