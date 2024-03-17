@@ -1,7 +1,7 @@
 'use client';
 
 import { Button } from '@/components/atoms/Button';
-import { useAssignmentById } from '@/components/hooks/useAssignment';
+import { useAssignmentResponseById } from '@/components/hooks/useAssignmentResponse';
 import { Courses } from '@/components/molecules/dashboard/courses';
 import { WhiteArea } from '@/components/molecules/dashboard/white-area';
 import Link from 'next/link';
@@ -10,11 +10,13 @@ import { usePathname } from 'next/navigation';
 const Page = () => {
   const currentPathname = usePathname();
   const assignmentId = currentPathname.split('/')[5];
-  const { assignment } = useAssignmentById(assignmentId);
-  const materialId = assignment?.material?._id;
-  const materialTitle = assignment?.material?.title;
+  const { data } = useAssignmentResponseById(assignmentId);
+
+  const assignmentResponse = data?.assignmentResponse;
+  const materialId = assignmentResponse?.material?._id;
+  const materialTitle = assignmentResponse?.material?.title;
   const disableBtn = !materialId || !assignmentId;
-  const assignmentUrl = `/dashboard/courses/${materialId}/assignment/${assignmentId}`;
+  const assignmentResponseUrl = `/dashboard/courses/${materialId}/assignment/${assignmentId}/responded`;
 
   return (
     <WhiteArea border>
@@ -36,7 +38,7 @@ const Page = () => {
                 </Button>
               ) : (
                 <Button size="xs" appearance="secondary-slate" asChild>
-                  <Link href={assignmentUrl}>View score</Link>
+                  <Link href={assignmentResponseUrl}>View score</Link>
                 </Button>
               )}
             </div>
