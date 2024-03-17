@@ -35,7 +35,9 @@ const Page = () => {
   const assignmentId = currentPathname.split('/').pop();
   const { assignment, isFetching } = useAssignmentById(assignmentId!);
   const { mutation: addNewResponse } = useAssignment();
-  const materialId = assignment?.material?._id;
+  const material = assignment?.material;
+  const materialId = material?._id;
+  const materialTitle = material?.title;
 
   const {
     handleSubmit,
@@ -77,8 +79,6 @@ const Page = () => {
         response: assignmentResponse,
       };
 
-      console.log(payload);
-
       // @ts-ignore
       addNewResponse.mutate(payload);
       // window.onbeforeunload = null;
@@ -112,7 +112,7 @@ const Page = () => {
           <div className="flex flex-col gap-5">
             <div className="flex flex-col gap-2 justify-between">
               <div className="flex items-center justify-between">
-                <DashboardSubheading title="Assignment: Introduction to HTML" />
+                <DashboardSubheading title={`Assignment: ${materialTitle}`} />
                 <Button size="xs" appearance="secondary-slate">
                   <a
                     href={`/dashboard/courses/${materialId}`}

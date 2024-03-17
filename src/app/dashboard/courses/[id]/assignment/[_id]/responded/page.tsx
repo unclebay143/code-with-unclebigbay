@@ -19,8 +19,9 @@ const Page = () => {
   const grade = assignmentResponse?.grade;
   const response = assignmentResponse?.response;
   const totalQuestion = response?.length;
-  const materialId = response?.material?._id;
+  const materialId = assignmentResponse?.material?._id;
   const canShowQuestions = !isFetching;
+  const materialTitle = assignmentResponse?.material?.title;
 
   const mapStatusToColor: { [key: string]: string } = {
     passed: 'text-green-500',
@@ -44,7 +45,7 @@ const Page = () => {
           <div className="flex flex-col gap-5">
             <div className="flex flex-col gap-2 justify-between">
               <div className="flex items-center justify-between">
-                <DashboardSubheading title="Assignment: Introduction to HTML" />
+                <DashboardSubheading title={`Assignment: ${materialTitle}`} />
                 <Button size="xs" appearance="secondary-slate">
                   <a
                     href={`/dashboard/courses/${materialId}`}
@@ -68,7 +69,7 @@ const Page = () => {
                   <span>{totalQuestion}</span>
                   <span className="mx-1 invisible">&middot;</span>
                   <span className="font-medium">Score: </span>
-                  <span>{score / totalQuestion}</span>
+                  <span>{score}</span>
                   <span className="mx-1 invisible">&middot;</span>
                   <span className="font-medium">Grade: </span>
                   <span>{grade}</span>
