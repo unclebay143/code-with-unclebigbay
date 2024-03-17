@@ -1,4 +1,6 @@
 import { AssignmentResponse } from '@/models/assignmentResponse';
+import { AuditTrail } from '@/models/audit-trail';
+import { Material } from '@/models/material';
 import { Question } from '@/models/question';
 import { Student } from '@/models/student';
 import { getServerSessionWithAuthOptions } from '@/utils/auth-options';
@@ -24,7 +26,7 @@ const POST = async (req: Request) => {
     await connectViaMongoose();
     const questions = await Question.find({ _id: { $in: questionIds } });
     const totalQuestions = questions.length;
-    let correctAnswers = 0;
+    let score = 0;
     let grade;
     let status = 'passed';
 
@@ -37,24 +39,23 @@ const POST = async (req: Request) => {
         const correctOption = question.options.find((o: any) => o.isCorrect);
         const isCorrect = correctOption.option === response.answer;
         if (isCorrect) {
-          correctAnswers++;
+          score++;
         }
         return { ...response, isCorrect };
       },
     );
+    const scoreInPercentage = (score / totalQuestions) * 100;
 
-    const score = (correctAnswers / totalQuestions) * 100;
-
-    if (score >= 75) {
+    if (scoreInPercentage >= 75) {
       grade = 'A';
-    } else if (score >= 70) {
+    } else if (scoreInPercentage >= 70) {
       grade = 'B';
-    } else if (score >= 50) {
+    } else if (scoreInPercentage >= 50) {
       grade = 'C';
-    } else if (score >= 45) {
+    } else if (scoreInPercentage >= 45) {
       grade = 'D';
       status = 'failed';
-    } else if (score >= 40) {
+    } else if (scoreInPercentage >= 40) {
       grade = 'E';
       status = 'failed';
     } else {
@@ -77,6 +78,15 @@ const POST = async (req: Request) => {
       { new: true },
     );
     await updateStudentAssignmentsRecord.save();
+
+    const material = await Material.findOne({
+      _id: assignmentResponseBody.material,
+    });
+
+    await AuditTrail.create({
+      title: 'Assignment Submission',
+      description: `You submitted an assignment for ${material.title} on ${Date.now()}. `,
+    });
 
     return NextResponse.json(
       { message: 'Assignment response recorded.', newAssignmentResponse },
