@@ -51,12 +51,12 @@ export const DashboardIndex = ({
     return null;
   }
 
-  const redirectToOnboard = !currentStudent.stack && !pathIsOnboarding;
+  const redirectToOnboard = !currentStudent?.stack && !pathIsOnboarding;
   if (redirectToOnboard) {
     return redirect('/dashboard/onboard');
   }
   const blockOnboardPage =
-    currentStudent.stack && currentPageName === 'onboard';
+    currentStudent?.stack && currentPageName === 'onboard';
   if (blockOnboardPage) {
     return redirect('/dashboard');
   }
