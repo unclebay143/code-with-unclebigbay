@@ -4,7 +4,7 @@ const Schema = mongoose.Schema;
 
 const auditTrailSchema = new Schema(
   {
-    student: { type: Schema.Types.ObjectId, ref: 'Student' },
+    student: { type: Schema.Types.ObjectId, ref: 'Student', required: true },
     title: { type: String, required: true },
     description: { type: String },
     url: { type: String },
