@@ -82,10 +82,10 @@ const POST = async (req: Request) => {
     const material = await Material.findOne({
       _id: assignmentResponseBody.material,
     });
-
     await AuditTrail.create({
+      student: assignmentResponseBody.student,
       title: 'Assignment Submission',
-      description: `You submitted an assignment for ${material.title} on ${Date.now()}. `,
+      description: `You submitted an assignment for ${material.title}`,
     });
 
     return NextResponse.json(
