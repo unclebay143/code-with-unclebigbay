@@ -3,6 +3,7 @@ import React from 'react';
 import Image from 'next/image';
 import {
   ExternalLink,
+  Facebook,
   Github,
   Instagram,
   Linkedin,
@@ -58,6 +59,11 @@ const Profile = async ({ params }: { params: { username: string } }) => {
     x: { url: student.socials.x, Icon: Twitter, label: 'Follow' },
     github: { url: student.socials.github, Icon: Github, label: 'Connect' },
     youtube: { url: student.socials.youtube, Icon: Youtube, label: 'Follow' },
+    facebook: {
+      url: student.socials.facebook,
+      Icon: Facebook,
+      label: 'Follow',
+    },
     instagram: {
       url: student.socials.instagram,
       Icon: Instagram,
