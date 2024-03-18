@@ -4,6 +4,7 @@ import Image from 'next/image';
 import {
   ExternalLink,
   Github,
+  Instagram,
   Linkedin,
   MapPin,
   Twitter,
@@ -55,10 +56,32 @@ const Profile = async ({ params }: { params: { username: string } }) => {
       label: 'Connect',
     },
     x: { url: student.socials.x, Icon: Twitter, label: 'Follow' },
+    github: { url: student.socials.github, Icon: Github, label: 'Connect' },
+    youtube: { url: student.socials.youtube, Icon: Youtube, label: 'Follow' },
+    instagram: {
+      url: student.socials.instagram,
+      Icon: Instagram,
+      label: 'Follow',
+    },
   };
   const linkedin = student.socials.linkedin ? 'linkedin' : '';
   const x = student.socials.x ? 'x' : '';
   const networkingMedium = mapFollowToSocial[linkedin || x];
+
+  const renderSocialIcons = () => {
+    return Object.keys(mapFollowToSocial).map((key) => {
+      const { url, Icon } = mapFollowToSocial[key];
+
+      if (student.socials) {
+        return (
+          <a href={url} key={key} target="_blank" rel="noopener noreferrer">
+            <IconButton Icon={Icon} />
+          </a>
+        );
+      }
+      return null;
+    });
+  };
 
   return (
     <div className="flex flex-col gap-5">
@@ -124,20 +147,7 @@ const Profile = async ({ params }: { params: { username: string } }) => {
               {/* Socials and location */}
               <WhiteArea border>
                 <div className="flex flex-col md:flex-row md:items-center gap-4 justify-between">
-                  <div className="flex gap-3 grow">
-                    <a href="">
-                      <IconButton Icon={Twitter} />
-                    </a>
-                    <a href="">
-                      <IconButton Icon={Linkedin} />
-                    </a>
-                    <a href="">
-                      <IconButton Icon={Youtube} />
-                    </a>
-                    <a href="">
-                      <IconButton Icon={Github} />
-                    </a>
-                  </div>
+                  <div className="flex gap-3 grow">{renderSocialIcons()}</div>
                   <div className="flex flex-col gap-3 sm:flex-row justify-between grow">
                     <div className="flex items-center gap-1 text-slate-600">
                       <MapPin size={16} />
