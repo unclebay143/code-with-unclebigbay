@@ -5,7 +5,7 @@ import { Course, courses } from '@/utils/consts/courses';
 export const CoursesCardGroup = () => {
   return (
     <section
-      className={`relative z-[99999999129px] grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 flex-wrap justify-center`}
+      className={`grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 flex-wrap justify-center`}
     >
       {courses.map((course) => (
         <CourseLinkCard course={course} key={`course-list-${course.title}`} />
