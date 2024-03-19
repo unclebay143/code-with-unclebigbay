@@ -1,11 +1,13 @@
 import React from 'react';
 import { YTVideo } from '../../atoms/YTVideo';
 import { SectionWrapper } from '.';
+import { Meteors } from '@/components/atoms/meteors';
 
 export const ChannelIntroVideoSection = () => {
   return (
     <section className="mt-14 px-5 xl:px-0 py-20 bg-[url('https://cdn.hashnode.com/res/hashnode/image/upload/v1708541386511/29b489ee-ae8f-482d-bdff-9c4cded0e926.png')] bg-cover">
       <SectionWrapper>
+        <Meteors number={20} />
         <section className="flex flex-col gap-10 relative z-30">
           <div className="flex flex-col gap-2 items-center justify-center">
             <h3 className="text-slate-400 text-lg">Hi</h3>
