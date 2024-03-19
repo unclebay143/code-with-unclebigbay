@@ -6,7 +6,6 @@ import { ChevronRight } from '../../icons/ChevronRight';
 import { ArrowRight } from '../../icons/ArrowRight';
 import { Button } from '@/components/atoms/Button';
 import { handleAuthentication } from '@/utils/auth';
-import { Meteors } from '@/components/atoms/meteors';
 
 export const HeroSection = () => {
   return (
