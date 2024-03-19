@@ -22,6 +22,7 @@ export default function Home() {
       <section className="flex flex-col gap-10">
         <Navbar />
         <SectionWrapper>
+          <Meteors />
           <HeroSection />
         </SectionWrapper>
         <SectionWrapper>
