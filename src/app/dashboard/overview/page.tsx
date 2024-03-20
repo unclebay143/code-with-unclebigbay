@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { EmptyState } from '@/components/molecules/dashboard/empty-state';
 import { WhiteArea } from '@/components/molecules/dashboard/white-area';
 import { QuoteOfTheDay } from '@/components/molecules/dashboard/quote-of-the-day';
@@ -7,8 +7,6 @@ import { OverviewCard } from '@/components/molecules/dashboard/overview-card';
 import { ActivityLogs } from '@/components/molecules/dashboard/activity-logs';
 import { Courses } from '@/components/molecules/dashboard/courses';
 import { overviews, showCount } from '@/utils';
-import { useQuery } from '@tanstack/react-query';
-import axios from 'axios';
 import { baseURL } from '../../../../frontend.config';
 import { headers } from 'next/headers';
 
@@ -66,23 +64,16 @@ const Page = async () => {
           <EmptyState label="Your recent learning materials will appear here 🙌🏾" />
         </div>
       )}
-      {/* {!noEnrolledCourses && ( */}
-      <WhiteArea border>
-        <section className="flex flex-col gap-3">
-          {/* {noEnrolledCourses || ( */}
-          {/* <DashboardSubheading
-            title={`Recent learning materials ${showCount(enrolledCoursesCount)}`}
-          /> */}
-          {/* )} */}
-          {/* <Courses
-            size={10}
-            hideSearchOptions
-            courses={enrolledCourses}
-            isFetching={isFetching}
-          /> */}
-        </section>
-      </WhiteArea>
-      {/* )} */}
+      {!noEnrolledCourses && (
+        <WhiteArea border>
+          <section className="flex flex-col gap-3">
+            <DashboardSubheading
+              title={`Recent learning materials ${showCount(enrolledCoursesCount)}`}
+            />
+            <Courses size={10} hideSearchOptions courses={enrolledCourses} />
+          </section>
+        </WhiteArea>
+      )}
 
       <ActivityLogs defaultCount={6} loaderCount={6} />
     </section>
