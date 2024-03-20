@@ -5,11 +5,13 @@ import { EmptyState } from '@/components/molecules/dashboard/empty-state';
 import { WhiteArea } from '@/components/molecules/dashboard/white-area';
 import { QuoteOfTheDay } from '@/components/molecules/dashboard/quote-of-the-day';
 import { DashboardSubheading } from '@/components/molecules/dashboard/dashboard-subheading';
-import { overviews } from '@/utils/dummy-data';
 import { OverviewCard } from '@/components/molecules/dashboard/overview-card';
 import { ActivityLogs } from '@/components/molecules/dashboard/activity-logs';
 import { Courses } from '@/components/molecules/dashboard/courses';
 import useMaterial from '@/components/hooks/useMaterial';
+import { overviews } from '@/utils';
+import { useQuery } from '@tanstack/react-query';
+import axios from 'axios';
 
 const Page = () => {
   const { materials } = useMaterial();
@@ -18,6 +20,20 @@ const Page = () => {
   const [courseFilter, setCourseFilter] = useState<
     'total' | 'pending' | 'completed'
   >('total');
+
+  const { data } = useQuery({
+    queryKey: ['enrolled-materials'],
+    queryFn: () =>
+      axios
+        .get('/api/materials/enroll')
+        .then((res) => res.data.materials.enrolledCourses),
+  });
+
+  // Todo: See if this data structure can be refactor in the BE
+  const enrolledCourses = data?.map((enrolledCourse: any) => {
+    const { course, ...others } = enrolledCourse;
+    return { ...others, ...course };
+  });
 
   return (
     <section className="flex flex-col gap-3">
@@ -55,8 +71,9 @@ const Page = () => {
           <EmptyState label="Your recent learning material will appear here" />
         ) : (
           <section className="flex flex-col gap-3">
+            {/* <DashboardSubheading title="Recent learning materials" /> */}
             <DashboardSubheading title="Recent learning materials" />
-            <Courses size={10} hideSearchOptions />
+            <Courses size={10} hideSearchOptions materials={enrolledCourses} />
           </section>
         )}
       </WhiteArea>

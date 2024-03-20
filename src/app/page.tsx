@@ -8,6 +8,7 @@ import { Footer } from '@/components/atoms/Footer';
 import { HeroSection } from '@/components/molecules/home/HeroSection';
 import { SectionWrapper } from '@/components/molecules/home';
 import { Button } from '@/components/atoms/Button';
+import { Meteors } from '@/components/atoms/meteors';
 
 export const metadata: Metadata = {
   title: 'Code with Unclebigbay',
@@ -21,6 +22,7 @@ export default function Home() {
       <section className="flex flex-col gap-10">
         <Navbar />
         <SectionWrapper>
+          <Meteors />
           <HeroSection />
         </SectionWrapper>
         <SectionWrapper>
@@ -45,6 +47,7 @@ export default function Home() {
           </section>
         </SectionWrapper>
         <SectionWrapper>
+          <Meteors />
           <Footer />
         </SectionWrapper>
       </section>

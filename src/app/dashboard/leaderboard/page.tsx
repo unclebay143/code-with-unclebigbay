@@ -3,13 +3,11 @@
 import { DashboardSubheading } from '@/components/molecules/dashboard/dashboard-subheading';
 // import { EmptyState } from '@/components/dashboard/empty-state';
 import { WhiteArea } from '@/components/molecules/dashboard/white-area';
-import { communityMember, communityMembers } from '@/utils/dummy-data';
-import { MoreHorizontal, Trophy } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
 import React from 'react';
 import { CommunityMember } from '@/utils/types';
-import { useSession } from 'next-auth/react';
+// import { useSession } from 'next-auth/react';
 
 const LeaderboardCard = ({
   rank,
@@ -55,15 +53,16 @@ const LeaderboardCard = ({
 };
 
 const Page = () => {
-  const { data: session } = useSession();
+  // const { data: session } = useSession();
 
   return (
     <WhiteArea border>
       <div className="flex flex-col gap-3">
         <DashboardSubheading title="Leaderboard" />
         {/* <EmptyState label="Top 10 students will appear here" /> */}
+        {/*
         <section className="flex flex-col gap-3 overflow-x-scroll sm:overflow-hidden">
-          {/* <div className="flex items-center py-3 rounded-lg text-sm">
+           <div className="flex items-center py-3 rounded-lg text-sm">
             <div className="flex items-center gap-3 text-lg flex-wrap w-[300px] md:w-full">
               <Button size="xs">Frontend</Button>
               <Button appearance="secondary-slate" size="xs">
@@ -83,7 +82,7 @@ const Page = () => {
               </Button>
             </div>
           </div> */}
-          <div className="grid md:grid-cols-3 gap-3">
+        {/* <div className="grid md:grid-cols-3 gap-3">
             {communityMembers
               .slice(0, 3)
               .map(
@@ -167,7 +166,7 @@ const Page = () => {
               />
             </>
           )}
-        </section>
+        </section> */}
       </div>
     </WhiteArea>
   );
