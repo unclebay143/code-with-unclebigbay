@@ -1,5 +1,6 @@
 import { AuditTrail } from '@/models/audit-trail';
-import { Material } from '@/models/material';
+import { Enroll } from '@/models/enroll';
+import { Course } from '@/models/course';
 import { Student } from '@/models/student';
 import { getServerSessionWithAuthOptions } from '@/utils/auth-options';
 import connectViaMongoose from '@/utils/mongoose';
@@ -8,6 +9,7 @@ import { NextResponse } from 'next/server';
 const GET = async () => {
   try {
     const session = await getServerSessionWithAuthOptions();
+
     if (!session) {
       return NextResponse.json(
         { message: 'Session required' },
@@ -15,14 +17,16 @@ const GET = async () => {
       );
     }
     await connectViaMongoose();
-    let materials = await Student.findOne({
-      email: session?.user.email,
-    })
-      .select('enrolledCourses')
-      .populate('enrolledCourses.course');
+    let student = await Student.findOne({
+      email: session.user.email,
+    });
+
+    const enrolledCourses = await Enroll.find({
+      student: student._id,
+    }).populate('course');
 
     return NextResponse.json(
-      { message: 'Enrolled Courses fetched.', materials },
+      { message: 'Enrolled Courses fetched.', enrolledCourses },
       { status: 200 },
     );
   } catch (e: any) {
@@ -44,7 +48,7 @@ const POST = async (req: Request) => {
     }
 
     await connectViaMongoose();
-    const course = await Material.findById(courseId);
+    const course = await Course.findById(courseId);
     const student = await Student.findById(studentId);
 
     if (!course || !student) {
@@ -54,18 +58,16 @@ const POST = async (req: Request) => {
       );
     }
 
-    course.enrolledStudents.push({ student: studentId });
-    await course.save();
-
-    student.enrolledCourses.push({ course: courseId });
-    await student.save();
-
-    console.log(course.title);
+    await Enroll.create({
+      student: studentId,
+      course: courseId,
+    });
 
     await AuditTrail.create({
       student: studentId,
       title: 'Course',
       description: `Started "${course.title}"`,
+      url: `/dashboard/courses/${courseId}`,
     });
 
     return NextResponse.json({ message: 'Student enrolled.' }, { status: 200 });

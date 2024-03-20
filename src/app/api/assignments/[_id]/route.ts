@@ -1,6 +1,6 @@
 import { Assignment } from '@/models/assignment';
 import { AssignmentResponse } from '@/models/assignmentResponse';
-import { Material } from '@/models/material';
+import { Course } from '@/models/course';
 import { Question } from '@/models/question';
 import { Student } from '@/models/student';
 import { getServerSessionWithAuthOptions } from '@/utils/auth-options';
@@ -37,8 +37,8 @@ const GET = async (_: Request, { params }: { params: { _id: string } }) => {
     }
 
     const assignment = await Assignment.findOne({ _id: assignmentId })
-      .select('_id material questions')
-      .populate('_id material', 'title', Material)
+      .select('_id course questions')
+      .populate('_id course', 'title', Course)
       .populate(
         'questions',
         '_id question options._id options.option',

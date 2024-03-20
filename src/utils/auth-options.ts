@@ -39,7 +39,7 @@ export const authOptions = {
           const studentId = student._id;
           await AuditTrail.create({
             student: studentId,
-            title: 'Created an account',
+            title: 'Created an account 🎉',
           });
         }
         return true;

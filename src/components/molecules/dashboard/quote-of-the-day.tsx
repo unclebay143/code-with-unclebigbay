@@ -1,4 +1,6 @@
-import React from 'react';
+'use client';
+
+import React, { useState } from 'react';
 import { WhiteArea } from './white-area';
 import { EyeOff, MoreVertical, Sparkles, XCircle } from 'lucide-react';
 import {
@@ -8,9 +10,10 @@ import {
 } from '../../atoms/DropdownMenu';
 import { MenuButton } from './menu-button';
 
-type Props = { close: Function };
-
-export const QuoteOfTheDay = ({ close }: Props) => {
+export const QuoteOfTheDay = () => {
+  const [showQuoteWidget, setShowQuoteWidget] = useState<boolean>(true);
+  const close = () => setShowQuoteWidget(false);
+  if (!showQuoteWidget) return null;
   return (
     <WhiteArea shadow>
       <section className="flex justify-between">
