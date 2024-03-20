@@ -35,20 +35,20 @@ export const authOptions = {
         };
 
         const student = await Student.create(newStudent);
-        // if (student) {
-        //   const studentId = student._id;
-        //   await AuditTrail.create({
-        //     student: studentId,
-        //     title: 'Created an account',
-        //   });
-        // }
+        if (student) {
+          const studentId = student._id;
+          await AuditTrail.create({
+            student: studentId,
+            title: 'Created an account',
+          });
+        }
         return true;
       }
 
-      // await AuditTrail.create({
-      //   student: student._id,
-      //   title: 'Logged in',
-      // });
+      await AuditTrail.create({
+        student: student._id,
+        title: 'Logged in',
+      });
 
       return true;
     },

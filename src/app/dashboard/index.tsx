@@ -23,7 +23,7 @@ export const DashboardIndex = ({
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const isAdmin = currentStudent?.isAdmin;
   const pathname = usePathname();
-  const currentPageName = pathname.split('/')[2];
+  const currentPageName = pathname.split('/')[2] || pathname.split('/')[1];
   const adminRoute = pathname.includes('/admin');
   const onboardingRoutes = sidebarLinks.map((link) => {
     if (link.showOnBoard) {
@@ -51,12 +51,12 @@ export const DashboardIndex = ({
     return null;
   }
 
-  const redirectToOnboard = !currentStudent.stack && !pathIsOnboarding;
+  const redirectToOnboard = !currentStudent?.stack && !pathIsOnboarding;
   if (redirectToOnboard) {
     return redirect('/dashboard/onboard');
   }
   const blockOnboardPage =
-    currentStudent.stack && currentPageName === 'onboard';
+    currentStudent?.stack && currentPageName === 'onboard';
   if (blockOnboardPage) {
     return redirect('/dashboard');
   }

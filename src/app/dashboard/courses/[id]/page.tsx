@@ -7,23 +7,46 @@ import { IconButton } from '@/components/atoms/IconButton';
 import { YTVideo } from '@/components/atoms/YTVideo';
 import { ChevronDown, ChevronUp, HelpCircle } from 'lucide-react';
 import Link from 'next/link';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { usePathname } from 'next/navigation';
 import { useMaterialById } from '@/components/hooks/useMaterial';
+import { Tags } from '@/utils/types';
+import useCurrentStudent from '@/components/hooks/useCurrentStudent';
+import axios from 'axios';
+import { formatDate } from '@/utils';
 
 const Page = () => {
   const [showMore, setShowMore] = useState(false);
-  const [startedCourse, setStartedCourse] = useState(false);
+  const [startedCourse, setStartedCourse] = useState<boolean>();
 
+  const { data: currentStudent } = useCurrentStudent();
   const currentPathname = usePathname();
   const courseId = currentPathname.split('/').pop();
-
   const { material, isFetching } = useMaterialById(courseId!);
+  const isEnrolled = material?.isEnrolled;
+  const enrolledDate = material?.enrolledDate;
+  const enrolledStudentsCount = material?.enrolledStudents?.length || 0;
+
+  const assignmentId = material?.assignment;
+  const hasAssignment = !!assignmentId;
 
   const handleShowMoreVisibility = () => {
     setShowMore((prevVisibility) => !prevVisibility);
   };
   const showCourse = !isFetching && material;
+  const tags = material?.tags as Tags;
+
+  const handleEnroll = () => {
+    const payload = { studentId: currentStudent?._id, courseId: material?._id };
+    axios.post('/api/materials/enroll', payload).then((res) => {
+      setStartedCourse(true);
+    });
+  };
+
+  useEffect(() => {
+    setStartedCourse(isEnrolled);
+  }, [isEnrolled]);
+
   return (
     <>
       <WhiteArea border>
@@ -46,11 +69,8 @@ const Page = () => {
               >
                 <div className="absolute bg-black/60 inset-0 w-full" />
                 <div className="z-[1]">
-                  <Button
-                    onClick={() => setStartedCourse(true)}
-                    appearance="secondary-slate"
-                  >
-                    Start course
+                  <Button onClick={handleEnroll} appearance="secondary-slate">
+                    Start Learning
                   </Button>
                 </div>
               </section>
@@ -72,43 +92,72 @@ const Page = () => {
               </button>
               {showMore && (
                 <section className="flex flex-col items-start gap-5 py-4 px-1">
-                  <div className="flex gap-5 flex-wrap">
-                    <div className="">
+                  <div className="w-full flex flex-col  gap-5 flex-wrap">
+                    <div>
                       <h3 className="font-medium text-lg text-slate-700">
                         Description:
                       </h3>
                       <p className="text-slate-600">{material?.description}</p>
                     </div>
-                    <div className="">
+                    <div>
+                      <h3 className="font-medium text-lg text-slate-700">
+                        Date Published:
+                      </h3>
+                      <p className="text-slate-600">
+                        {formatDate(material.createdAt!)}
+                      </p>
+                    </div>
+                    <div>
                       <h3 className="font-medium text-lg text-slate-700">
                         Status:
                       </h3>
                       <p className="text-slate-600">
-                        {startedCourse ? 'In Progress' : 'Not Started'}
+                        {startedCourse ? 'Enrolled' : 'Not Started'}
                         {/* Completed, Enrolled, In Progress, Not Started */}
                       </p>
                     </div>
-                    <div className="flex flex-wrap gap-5 w-full justify-between items-end">
-                      <div className="">
+                    <div>
+                      <h3 className="font-medium text-lg text-slate-700">
+                        Date Enrolled:
+                      </h3>
+                      <p className="text-slate-600">
+                        {formatDate(enrolledDate!)}
+                      </p>
+                    </div>
+                    {enrolledStudentsCount > 2 && (
+                      <div>
                         <h3 className="font-medium text-lg text-slate-700">
-                          Date Started:
+                          Enrolled:
                         </h3>
                         <p className="text-slate-600">
-                          {new Intl.DateTimeFormat('en-GB', {
-                            weekday: 'long',
-                            year: 'numeric',
-                            month: 'long',
-                            day: 'numeric',
-                          }).format(new Date(material.createdAt!))}
+                          {enrolledStudentsCount}
                         </p>
                       </div>
-                      <div className="">
-                        <Button size="sm" asChild>
-                          <Link href={`${courseId}/assignment/1`}>
-                            Attempt assignment
-                          </Link>
-                        </Button>
-                      </div>
+                    )}
+                    <div className="flex flex-wrap gap-5 w-full justify-between items-end">
+                      {!(tags.length === 0) && (
+                        <div className="flex flex-wrap gap-1">
+                          {tags?.map(({ name, _id }) => (
+                            <span
+                              key={_id}
+                              className="px-2 capitalize rounded-full bg-indigo-100/20 text-slate-600 text-sm border"
+                            >
+                              {name}
+                            </span>
+                          ))}
+                        </div>
+                      )}
+                      {hasAssignment && (
+                        <div>
+                          <Button size="sm" asChild>
+                            <Link
+                              href={`${courseId}/assignment/${assignmentId}`}
+                            >
+                              Attempt assignment
+                            </Link>
+                          </Button>
+                        </div>
+                      )}
                     </div>
                   </div>
                 </section>

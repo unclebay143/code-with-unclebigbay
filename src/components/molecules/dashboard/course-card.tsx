@@ -40,7 +40,7 @@ export const CourseCard = ({ layout = 'grid', material }: CourseCardProps) => {
       {layout === 'grid' && (
         <Link
           href={courseLink}
-          className="border rounded-lg overflow-hidden transition-colors duration-200 ease-in-out hover:border-slate-300"
+          className="border rounded-xl overflow-hidden transition-colors duration-200 ease-in-out hover:border-slate-300"
           prefetch={true}
         >
           <div className="h-[180px] relative">
@@ -81,8 +81,8 @@ export const CourseCard = ({ layout = 'grid', material }: CourseCardProps) => {
 
 export const CourseCardSkeleton = () => {
   return (
-    <div className="animate-pulse border rounded-lg overflow-hidden transition-colors duration-200 ease-in-out hover:border-slate-300">
-      <div className="h-[196px] relative">
+    <div className="animate-pulse border rounded-xl overflow-hidden transition-colors duration-200 ease-in-out hover:border-slate-300">
+      <div className="h-[180px] relative">
         <div className="h-full w-full bg-slate-50 inline-block relative"></div>
       </div>
       <section className="h-full  p-6 flex flex-col gap-3">
@@ -93,9 +93,9 @@ export const CourseCardSkeleton = () => {
           </div>
           <p className="bg-slate-50 w-1/2 h-5 rounded-full" />
           <p className="bg-slate-50 w-full h-5 rounded-full" />
-          <p className="bg-slate-50 w-full h-5 rounded-full" />
-          <p className="bg-slate-50 w-full h-5 rounded-full" />
-          <p className="bg-slate-50 w-1/2 h-5 rounded-full" />
+          {/* <p className="bg-slate-50 w-full h-5 rounded-full" />
+          <p className="bg-slate-50 w-full h-5 rounded-full" /> */}
+          {/* <p className="bg-slate-50 w-1/2 h-5 rounded-full" /> */}
           <p className="bg-slate-50 w-full h-5 rounded-full" />
         </div>
       </section>

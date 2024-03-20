@@ -12,8 +12,8 @@ export const Footer = () => {
           [This Space Intentionally Left Blank]
         </h2>
         <p className="text-slate-300 italic">
-          The bottom of every page is padded so readers can maintain a
-          consistent eyeline.
+          The bottom of every page is padded so you can maintain a consistent
+          eye-line.
         </p>
       </section>
       <section className="py-5 border-t flex flex-col gap-3 sm:flex-row sm:justify-between sm:items-center">
