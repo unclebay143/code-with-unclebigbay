@@ -20,6 +20,8 @@ const Page = () => {
   const disableBtn = !courseId || !assignmentId;
   const assignmentResponseUrl = `/dashboard/courses/${courseId}/assignment/${assignmentId}/responded`;
 
+  if (!assignmentId || !courseId) return;
+
   return (
     <WhiteArea border>
       <section className="flex flex-col items-center justify-center gap-3 p-4">

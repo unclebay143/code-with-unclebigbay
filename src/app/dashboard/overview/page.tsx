@@ -14,7 +14,7 @@ async function getEnrolledCourses() {
   try {
     const url = `${baseURL}/api/courses/enroll`;
     const result = await fetch(url, {
-      cache: 'no-store',
+      cache: 'force-cache',
       headers: headers(),
     });
 

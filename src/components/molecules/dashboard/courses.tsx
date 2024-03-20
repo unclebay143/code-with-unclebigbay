@@ -62,7 +62,7 @@ export const Courses = ({
       <section
         className={`${isFetching && 'xl:h-[416px]'} max-w-full grid sm:grid-cols-2 xl:grid-cols-3 gap-3`}
       >
-        {isFetching ? (
+        {isFetching && (
           <>
             {Array(3)
               .fill({})
@@ -70,7 +70,8 @@ export const Courses = ({
                 <CourseCardSkeleton key={`CourseCardSkeleton-${index}`} />
               ))}
           </>
-        ) : (
+        )}
+        {!noData && (
           <>
             {courses?.slice(0, size).map((course) => {
               return <CourseCard key={course._id} course={course} />;
