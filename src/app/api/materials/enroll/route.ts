@@ -7,7 +7,6 @@ import { NextResponse } from 'next/server';
 
 const GET = async () => {
   try {
-    await connectViaMongoose();
     const session = await getServerSessionWithAuthOptions();
     if (!session) {
       return NextResponse.json(
@@ -15,6 +14,7 @@ const GET = async () => {
         { status: 403 },
       );
     }
+    await connectViaMongoose();
     const enrolledCourses = await Student.findOne({
       email: session?.user.email,
     })
@@ -34,7 +34,6 @@ const GET = async () => {
 const POST = async (req: Request) => {
   try {
     const body = await req.json();
-    await connectViaMongoose();
 
     const { courseId, studentId } = body;
 
@@ -45,6 +44,7 @@ const POST = async (req: Request) => {
       );
     }
 
+    await connectViaMongoose();
     const course = await Material.findById(courseId);
     const student = await Student.findById(studentId);
 
@@ -55,12 +55,10 @@ const POST = async (req: Request) => {
       );
     }
 
-    course.enrolledStudents += 1;
-
-    course.enrolledCourses.push(studentId);
+    course.enrolledStudents.push({ student: studentId });
     await course.save();
 
-    student.enrolledCourses.push(courseId);
+    student.enrolledCourses.push({ course: courseId });
     await student.save();
 
     return NextResponse.json({ message: 'Student enrolled.' }, { status: 200 });

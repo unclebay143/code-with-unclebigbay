@@ -37,7 +37,10 @@ const materialSchema = new Schema(
     tags: [{ type: Schema.Types.ObjectId, ref: 'Tag' }],
     isActive: { type: 'Boolean', default: true },
     enrolledStudents: [
-      { type: mongoose.Schema.Types.ObjectId, ref: 'Material' },
+      {
+        student: { type: mongoose.Schema.Types.ObjectId, ref: 'Student' },
+        enrolledDate: { type: Date, default: Date.now },
+      },
     ],
   },
   {
