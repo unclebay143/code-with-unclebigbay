@@ -14,12 +14,12 @@ export const ProfileUpdateSchema = z.object({
   x: z
     .string()
     .url()
-    .includes('https://x.com/', { message: 'Invalid twitter URL' })
+    .includes('https://twitter.com/', { message: 'Invalid twitter URL' })
     .or(z.literal('')),
   linkedin: z
     .string()
     .url()
-    .includes('https://linkedin.com/', { message: 'Invalid linkedIn URL' })
+    .includes('https://www.linkedin.com/', { message: 'Invalid linkedIn URL' })
     .or(z.literal('')),
   instagram: z
     .string()
