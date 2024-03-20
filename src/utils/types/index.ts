@@ -156,7 +156,7 @@ export type Course = {
   assignment: Assignment;
   isEnrolled: boolean;
   enrolledDate?: string;
-  enrolledStudents?: string[];
+  enrolledStudentsCount?: number;
 };
 
 export type Courses = Course[];

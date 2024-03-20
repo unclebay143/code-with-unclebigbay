@@ -51,7 +51,7 @@ const studentSchema = new Schema(
   {
     toJSON: {
       transform: function (doc, ret) {
-        ret.userId = ret._id;
+        delete ret.__v;
       },
     },
     timestamps: true,
