@@ -17,6 +17,7 @@ import { formatDate } from '@/utils';
 
 const Page = () => {
   const [showMore, setShowMore] = useState(false);
+  const [startedCourse, setStartedCourse] = useState<boolean>();
 
   const { data: currentStudent } = useCurrentStudent();
   const currentPathname = usePathname();
@@ -24,7 +25,7 @@ const Page = () => {
   const { material, isFetching } = useMaterialById(courseId!);
   const isEnrolled = material?.isEnrolled;
   const enrolledDate = material?.enrolledDate;
-  const [startedCourse, setStartedCourse] = useState<boolean>();
+  const enrolledStudentsCount = material?.enrolledStudents?.length || 0;
 
   const assignmentId = material?.assignment;
   const hasAssignment = !!assignmentId;
@@ -123,6 +124,16 @@ const Page = () => {
                         {formatDate(enrolledDate!)}
                       </p>
                     </div>
+                    {enrolledStudentsCount > 2 && (
+                      <div>
+                        <h3 className="font-medium text-lg text-slate-700">
+                          Enrolled:
+                        </h3>
+                        <p className="text-slate-600">
+                          {enrolledStudentsCount}
+                        </p>
+                      </div>
+                    )}
                     <div className="flex flex-wrap gap-5 w-full justify-between items-end">
                       {!(tags.length === 0) && (
                         <div className="flex flex-wrap gap-1">
