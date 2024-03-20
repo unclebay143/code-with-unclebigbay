@@ -1,16 +1,19 @@
 'use client';
 
 import React from 'react';
-import { usePathname } from 'next/navigation';
+import { redirect, usePathname } from 'next/navigation';
 import { toast } from 'sonner';
 import { Button } from '@/components/atoms/Button';
 import { DashboardSubheading } from '@/components/molecules/dashboard/dashboard-subheading';
 import { WhiteArea } from '@/components/molecules/dashboard/white-area';
 import { ArrowLeft, Loader, RotateCw } from 'lucide-react';
 import { Controller, useForm } from 'react-hook-form';
-import { useAssignmentById } from '@/components/hooks/useAssignment';
+import useAssignment, {
+  useAssignmentById,
+} from '@/components/hooks/useAssignment';
 import { Questions } from '@/utils/types';
 import { useWarnBeforePageReload } from '@/components/hooks/useWarnBeforePageReload';
+import useCurrentStudent from '@/components/hooks/useCurrentStudent';
 
 const SubmissionIndicator = () => (
   <div
@@ -27,10 +30,14 @@ const SubmissionIndicator = () => (
 );
 
 const Page = () => {
+  const { data: student } = useCurrentStudent();
   const currentPathname = usePathname();
   const assignmentId = currentPathname.split('/').pop();
   const { assignment, isFetching } = useAssignmentById(assignmentId!);
-  const materialId = assignment?.material?._id;
+  const { mutation: addNewResponse } = useAssignment();
+  const material = assignment?.material;
+  const materialId = material?._id;
+  const materialTitle = material?.title;
 
   const {
     handleSubmit,
@@ -58,8 +65,7 @@ const Page = () => {
         }
 
         return {
-          questionId: question._id,
-          question: question.question,
+          question: question._id,
           answer: answerToQuestion,
         };
       });
@@ -67,20 +73,27 @@ const Page = () => {
       if (!assignmentResponse) return null;
 
       const payload = {
-        materialId: materialId,
-        assignmentId,
-        responses: assignmentResponse,
+        student: student?._id,
+        material: materialId,
+        assignment: assignmentId,
+        response: assignmentResponse,
       };
 
-      console.log(payload);
-      toast.success('Assignment submitted');
+      // @ts-ignore
+      addNewResponse.mutate(payload);
+      // window.onbeforeunload = null;
       window.location.href = `/dashboard/courses/${materialId}/assignment/${assignmentId}/submitted`;
     } catch (e: any) {
       toast.error(e.message);
     }
   };
 
-  useWarnBeforePageReload();
+  // useWarnBeforePageReload();
+
+  if (!isFetching && !assignment) {
+    window.location.href = `/dashboard/courses/${materialId}/assignment/${assignmentId}/responded`;
+    return null;
+  }
 
   return (
     <div className="relative rounded-lg overflow-hidden">
@@ -99,7 +112,7 @@ const Page = () => {
           <div className="flex flex-col gap-5">
             <div className="flex flex-col gap-2 justify-between">
               <div className="flex items-center justify-between">
-                <DashboardSubheading title="Assignment: Introduction to HTML" />
+                <DashboardSubheading title={`Assignment: ${materialTitle}`} />
                 <Button size="xs" appearance="secondary-slate">
                   <a
                     href={`/dashboard/courses/${materialId}`}

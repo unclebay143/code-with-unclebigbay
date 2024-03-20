@@ -16,38 +16,26 @@ const GET = async (_: Request, { params }: { params: { _id: string } }) => {
         { status: 403 },
       );
     }
-    await connectViaMongoose();
 
+    await connectViaMongoose();
     const student = await Student.findOne({ email: session.user.email });
     const assignmentId = params._id;
     const studentId = student._id;
 
-    const alreadyResponded = await AssignmentResponse.findOne({
-      assignment: assignmentId,
+    const assignmentResponse = await AssignmentResponse.findOne({
       student: studentId,
-    });
-
-    if (alreadyResponded) {
-      return NextResponse.json(
-        { message: 'Assignment response fetched.', alreadyResponded },
-        {
-          status: 200,
-        },
-      );
-    }
-
-    const assignment = await Assignment.findOne({ _id: assignmentId })
-      .select('_id material questions')
-      .populate('_id material', 'title', Material)
+      assignment: assignmentId,
+    })
       .populate(
-        'questions',
-        '_id question options._id options.option',
+        'response.question',
+        'question answerExplanation options.option options._id options.isCorrect status grade score',
         Question,
-      );
+      )
+      .populate('material', 'title', Material);
 
-    if (!assignment) {
+    if (!assignmentResponse) {
       return NextResponse.json(
-        { message: 'Assignment not found.', assignment },
+        { message: 'Assignment Response not found.', assignmentResponse },
         {
           status: 404,
         },
@@ -55,7 +43,7 @@ const GET = async (_: Request, { params }: { params: { _id: string } }) => {
     }
 
     return NextResponse.json(
-      { message: 'Assignment fetched.', assignment },
+      { message: 'Assignment response fetched.', assignmentResponse },
       {
         status: 200,
       },
