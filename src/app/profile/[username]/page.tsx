@@ -2,6 +2,7 @@ import Link from 'next/link';
 import React from 'react';
 import Image from 'next/image';
 import {
+  CalendarDays,
   ExternalLink,
   Facebook,
   Github,
@@ -32,6 +33,7 @@ async function getCurrentStudent(username: string) {
       cache: 'no-cache',
     });
     const studentRes = await result.json();
+
     const canUpdateProfile = session?.user.email === studentRes.student.email;
 
     if (!result.ok) return undefined;
@@ -44,38 +46,42 @@ async function getCurrentStudent(username: string) {
 
 const Profile = async ({ params }: { params: { username: string } }) => {
   const data = await getCurrentStudent(params?.username);
+
   if (!data) notFound();
+
   const { studentRes, canUpdateProfile } = data || {};
   const { student } = studentRes as { student: Student };
+  const socials = student?.socials || {};
 
   const mapFollowToSocial: {
     [key: string]: { url: string; Icon: LucideIcon; label: string };
   } = {
     linkedin: {
-      url: student.socials.linkedin,
+      url: socials.linkedin,
       Icon: Linkedin,
       label: 'Connect',
     },
-    x: { url: student.socials.x, Icon: Twitter, label: 'Follow' },
-    github: { url: student.socials.github, Icon: Github, label: 'Connect' },
-    youtube: { url: student.socials.youtube, Icon: Youtube, label: 'Follow' },
+    x: { url: socials.x, Icon: Twitter, label: 'Follow' },
+    github: { url: socials.github, Icon: Github, label: 'Connect' },
+    youtube: { url: socials.youtube, Icon: Youtube, label: 'Follow' },
     facebook: {
-      url: student.socials.facebook,
+      url: socials.facebook,
       Icon: Facebook,
       label: 'Follow',
     },
     instagram: {
-      url: student.socials.instagram,
+      url: socials.instagram,
       Icon: Instagram,
       label: 'Follow',
     },
   };
-  const linkedin = student.socials.linkedin ? 'linkedin' : '';
-  const x = student.socials.x ? 'x' : '';
-  const github = student.socials.github ? 'github' : '';
-  const youtube = student.socials.youtube ? 'youtube' : '';
-  const facebook = student.socials.facebook ? 'facebook' : '';
-  const instagram = student.socials.instagram ? 'instagram' : '';
+  const linkedin = socials.linkedin ? 'linkedin' : '';
+  const x = socials.x ? 'x' : '';
+  const github = socials.github ? 'github' : '';
+  const youtube = socials.youtube ? 'youtube' : '';
+  const facebook = socials.facebook ? 'facebook' : '';
+  const instagram = socials.instagram ? 'instagram' : '';
+
   const networkingMedium =
     mapFollowToSocial[
       linkedin || x || github || youtube || facebook || instagram
@@ -143,12 +149,12 @@ const Profile = async ({ params }: { params: { username: string } }) => {
                     </div>
                   </div>
                   <div className="flex flex-col gap-3 items-end">
-                    {!student.isAnonymous && (
+                    {/* {!student.isAnonymous && (
                       <h3 className="font-medium">
                         <span className="text-slate-600">Total Points: </span>{' '}
                         1890
                       </h3>
-                    )}
+                    )} */}
                     {canUpdateProfile && (
                       <Button size="xs" appearance="secondary-slate" asChild>
                         <Link href="/dashboard/settings">Update</Link>
@@ -160,21 +166,27 @@ const Profile = async ({ params }: { params: { username: string } }) => {
               {/* Socials and location */}
               <WhiteArea border>
                 <div className="flex flex-col md:flex-row md:items-center gap-4 justify-between">
-                  <div className="flex gap-3 grow">{renderSocialIcons()}</div>
+                  {networkingMedium && (
+                    <div className="flex gap-3 grow">{renderSocialIcons()}</div>
+                  )}
                   <div className="flex flex-col gap-3 sm:flex-row justify-between grow">
-                    <div className="flex items-center gap-1 text-slate-600">
-                      <MapPin size={16} />
-                      <h3>{student.location}</h3>
+                    {student.location && (
+                      <div className="flex items-center gap-1 text-slate-600">
+                        <MapPin size={16} />
+                        <h3>{student.location}</h3>
+                      </div>
+                    )}
+                    <div className="text-slate-600 flex items-center gap-1">
+                      <CalendarDays size={16} />
+                      <span>
+                        Joined{' '}
+                        {new Intl.DateTimeFormat('en-GB', {
+                          year: 'numeric',
+                          month: 'long',
+                          day: 'numeric',
+                        }).format(new Date(student.createdAt!))}
+                      </span>
                     </div>
-
-                    <span className="text-slate-600">
-                      Joined{' '}
-                      {new Intl.DateTimeFormat('en-GB', {
-                        year: 'numeric',
-                        month: 'long',
-                        day: 'numeric',
-                      }).format(new Date(student.createdAt!))}
-                    </span>
                   </div>
                 </div>
               </WhiteArea>
@@ -189,35 +201,35 @@ const Profile = async ({ params }: { params: { username: string } }) => {
               </WhiteArea>
 
               {/* Links */}
-              {(student.socials.blog || student.socials.portfolio) && (
+              {(socials.blog || socials.portfolio) && (
                 <WhiteArea border>
                   <h2 className="font-semibold text-slate-700 mb-3">Links</h2>
                   <div className="flex flex-col gap-6">
-                    {student.socials.blog && (
+                    {socials.blog && (
                       <div>
                         <h2 className="font-medium">Blog</h2>
                         <a
                           className="text-blue-500 hover:underline flex items-center gap-1"
                           target="_blank"
                           rel="noopener"
-                          href={student.socials.blog}
+                          href={socials.blog}
                         >
                           <ExternalLink size={16} />
-                          {student.socials.blog}
+                          {socials.blog}
                         </a>
                       </div>
                     )}
-                    {student.socials.portfolio && (
+                    {socials.portfolio && (
                       <div>
                         <h2 className="font-medium">Portfolio</h2>
                         <a
                           className="text-blue-500 hover:underline flex items-center gap-1"
                           target="_blank"
                           rel="noopener"
-                          href={student.socials.portfolio}
+                          href={socials.portfolio}
                         >
                           <ExternalLink size={16} />
-                          {student.socials.portfolio}
+                          {socials.portfolio}
                         </a>
                       </div>
                     )}
