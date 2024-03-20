@@ -7,10 +7,11 @@ const enrollSchema = new Schema(
     student: { type: Schema.Types.ObjectId, ref: 'Student' },
     enrolledDate: { type: Date, default: Date.now },
     isCompleted: { type: Boolean, default: false },
+    completionDate: { type: Date },
   },
   {
     timestamps: true,
-    collection: 'students',
+    collection: 'enrolls',
   },
 );
 

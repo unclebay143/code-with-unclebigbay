@@ -3,7 +3,6 @@ import { AuditTrail } from '@/models/audit-trail';
 import { Course } from '@/models/course';
 import { Enroll } from '@/models/enroll';
 import { Question } from '@/models/question';
-import { Student } from '@/models/student';
 import { getServerSessionWithAuthOptions } from '@/utils/auth-options';
 import connectViaMongoose from '@/utils/mongoose';
 import { NextResponse } from 'next/server';
@@ -75,26 +74,22 @@ const POST = async (req: Request) => {
     };
 
     const newAssignmentResponse = await AssignmentResponse.create(payload);
-    const updateStudentAssignmentsRecord = await Student.findOneAndUpdate(
-      { _id: studentId },
-      { $push: { assignments: assignmentResponseBody.assignment } },
-      { new: true },
-    );
-    await updateStudentAssignmentsRecord.save();
 
     const course = await Course.findOne({
       _id: courseId,
     });
+
     await Enroll.findOneAndUpdate(
-      { _id: courseId },
+      { course: courseId, student: studentId },
       {
         isCompleted: true,
+        completionDate: Date.now(),
       },
     );
 
     await AuditTrail.create({
       student: studentId,
-      title: 'Assignment Submission',
+      title: 'Assignment Submission 🙌🏾',
       description: `You submitted an assignment for "${course.title}"`,
     });
 
