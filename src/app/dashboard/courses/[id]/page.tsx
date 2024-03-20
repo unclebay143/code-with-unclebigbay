@@ -11,11 +11,14 @@ import React, { useState } from 'react';
 import { usePathname } from 'next/navigation';
 import { useMaterialById } from '@/components/hooks/useMaterial';
 import { Tags } from '@/utils/types';
+import useCurrentStudent from '@/components/hooks/useCurrentStudent';
+import axios from 'axios';
 
 const Page = () => {
   const [showMore, setShowMore] = useState(false);
   const [startedCourse, setStartedCourse] = useState(false);
 
+  const { data: currentStudent } = useCurrentStudent();
   const currentPathname = usePathname();
   const courseId = currentPathname.split('/').pop();
 
@@ -28,6 +31,14 @@ const Page = () => {
   };
   const showCourse = !isFetching && material;
   const tags = material?.tags as Tags;
+
+  const handleEnroll = () => {
+    const payload = { studentId: currentStudent?._id, courseId: material?._id };
+    axios.post('/api/materials/enroll', payload).then((res) => {
+      console.log(res.data);
+      setStartedCourse(true);
+    });
+  };
 
   return (
     <>
@@ -51,10 +62,7 @@ const Page = () => {
               >
                 <div className="absolute bg-black/60 inset-0 w-full" />
                 <div className="z-[1]">
-                  <Button
-                    onClick={() => setStartedCourse(true)}
-                    appearance="secondary-slate"
-                  >
+                  <Button onClick={handleEnroll} appearance="secondary-slate">
                     Start Learning
                   </Button>
                 </div>
