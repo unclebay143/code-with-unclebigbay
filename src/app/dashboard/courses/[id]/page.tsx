@@ -10,6 +10,7 @@ import Link from 'next/link';
 import React, { useState } from 'react';
 import { usePathname } from 'next/navigation';
 import { useMaterialById } from '@/components/hooks/useMaterial';
+import { Tags } from '@/utils/types';
 
 const Page = () => {
   const [showMore, setShowMore] = useState(false);
@@ -19,11 +20,15 @@ const Page = () => {
   const courseId = currentPathname.split('/').pop();
 
   const { material, isFetching } = useMaterialById(courseId!);
+  const assignmentId = material?.assignment;
+  const hasAssignment = !!assignmentId;
 
   const handleShowMoreVisibility = () => {
     setShowMore((prevVisibility) => !prevVisibility);
   };
   const showCourse = !isFetching && material;
+  const tags = material?.tags as Tags;
+
   return (
     <>
       <WhiteArea border>
@@ -72,7 +77,7 @@ const Page = () => {
               </button>
               {showMore && (
                 <section className="flex flex-col items-start gap-5 py-4 px-1">
-                  <div className="flex gap-5 flex-wrap">
+                  <div className="w-full flex flex-col  gap-5 flex-wrap">
                     <div className="">
                       <h3 className="font-medium text-lg text-slate-700">
                         Description:
@@ -88,10 +93,24 @@ const Page = () => {
                         {/* Completed, Enrolled, In Progress, Not Started */}
                       </p>
                     </div>
-                    <div className="flex flex-wrap gap-5 w-full justify-between items-end">
+                    {/* Show date when student started course here */}
+                    {/* <div className="">
+                      <h3 className="font-medium text-lg text-slate-700">
+                        Date Started:
+                      </h3>
+                      <p className="text-slate-600">
+                        {new Intl.DateTimeFormat('en-GB', {
+                          weekday: 'long',
+                          year: 'numeric',
+                          month: 'long',
+                          day: 'numeric',
+                        }).format(new Date(material.createdAt!))}
+                      </p>
+                    </div> */}
+                    <div className="flex flex-wrap gap-5 w-full justify-between items-start">
                       <div className="">
                         <h3 className="font-medium text-lg text-slate-700">
-                          Date Started:
+                          Date Published:
                         </h3>
                         <p className="text-slate-600">
                           {new Intl.DateTimeFormat('en-GB', {
@@ -102,15 +121,31 @@ const Page = () => {
                           }).format(new Date(material.createdAt!))}
                         </p>
                       </div>
-                      <div className="">
-                        <Button size="sm" asChild>
-                          <Link href={`${courseId}/assignment/1`}>
-                            Attempt assignment
-                          </Link>
-                        </Button>
-                      </div>
+                      {hasAssignment && (
+                        <div className="">
+                          <Button size="sm" asChild>
+                            <Link
+                              href={`${courseId}/assignment/${assignmentId}`}
+                            >
+                              Attempt assignment
+                            </Link>
+                          </Button>
+                        </div>
+                      )}
                     </div>
                   </div>
+                  {!(tags.length === 0) && (
+                    <div className="flex flex-wrap gap-1">
+                      {tags?.map(({ name, _id }) => (
+                        <span
+                          key={_id}
+                          className="px-2 capitalize rounded-full bg-indigo-100/20 text-slate-600 text-sm border"
+                        >
+                          {name}
+                        </span>
+                      ))}
+                    </div>
+                  )}
                 </section>
               )}
             </WhiteArea>

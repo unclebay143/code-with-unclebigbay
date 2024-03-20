@@ -8,14 +8,7 @@ import { AddAssignmentModal } from '@/components/molecules/dashboard/add-assignm
 import { DashboardSubheading } from '@/components/molecules/dashboard/dashboard-subheading';
 import { WhiteArea } from '@/components/molecules/dashboard/white-area';
 import { convertWhiteSpaceToDash } from '@/utils';
-import {
-  Assignment,
-  Material,
-  Question,
-  Questions,
-  Tag,
-  Tags,
-} from '@/utils/types';
+import { Material, Questions, Tag, Tags } from '@/utils/types';
 import { X } from 'lucide-react';
 import Link from 'next/link';
 import React, { useState } from 'react';
@@ -45,12 +38,10 @@ const Page = () => {
     },
   });
   const createNewCourse = (data: any) => {
-    console.log(selectTags.map((tag) => tag._id));
-
     const newCourse: Material = {
       ...data,
       type: 'video',
-      assignment: selectedQuestions.map((question) => question._id),
+      questions: selectedQuestions.map((question) => question._id),
       tags: selectTags.map((tag) => tag._id),
     };
     mutation.mutate(newCourse);
@@ -122,22 +113,15 @@ const Page = () => {
     );
   };
 
+  const showSelectedQuestions = selectedQuestions.length > 0;
+
   return (
     <>
       <WhiteArea border>
-        <div className="flex flex-col gap-10">
-          <div className="flex flex-col gap-3">
-            <div className="flex items-center justify-between">
+        <form onSubmit={handleSubmit(createNewCourse)}>
+          <div className="flex flex-col gap-10">
+            <div className="flex flex-col gap-3">
               <DashboardSubheading title="New course" />
-              <Button
-                size="xs"
-                appearance="secondary-slate"
-                onClick={() => setOpenAssignmentModal(true)}
-              >
-                Add assignment
-              </Button>
-            </div>
-            <form onSubmit={handleSubmit(createNewCourse)}>
               <div className="flex flex-col gap-3">
                 <div className="flex flex-col gap-2">
                   <label htmlFor="question" className="text-sm">
@@ -259,33 +243,51 @@ const Page = () => {
                     })}
                   </div>
                 </div>
-                <div>
-                  <Button size="xs" type="submit">
-                    Publish
+                <div className="flex items-center justify-between">
+                  <Button
+                    type="button"
+                    size="xs"
+                    appearance="secondary-slate"
+                    onClick={() => setOpenAssignmentModal(true)}
+                  >
+                    Add assignment
                   </Button>
+                  {!showSelectedQuestions && (
+                    <Button size="xs" type="submit">
+                      Publish
+                    </Button>
+                  )}
                 </div>
               </div>
-            </form>
-          </div>
-
-          {selectedQuestions.length > 0 && (
-            <div className="flex flex-col gap-2">
-              <DashboardSubheading title="Assignment" />
-              <ul className="list-decimal list-inside">
-                {selectedQuestions.map(({ _id, question, options }) => {
-                  const correctOption = options.find(
-                    (option) => option.isCorrect,
-                  );
-                  return (
-                    <li key={_id} className="mt-2">
-                      Q: {question} - Ans: {correctOption?.option}
-                    </li>
-                  );
-                })}
-              </ul>
             </div>
-          )}
-        </div>
+
+            {showSelectedQuestions && (
+              <div className="flex flex-col gap-2">
+                <DashboardSubheading title="Assignment" />
+                <ul className="list-decimal list-inside">
+                  {selectedQuestions.map(({ _id, question, options }) => {
+                    const correctOption = options.find(
+                      (option) => option.isCorrect,
+                    );
+                    return (
+                      <li key={_id} className="mt-2">
+                        Q: {question} - Ans: {correctOption?.option}
+                      </li>
+                    );
+                  })}
+                </ul>
+              </div>
+            )}
+
+            {showSelectedQuestions && (
+              <div>
+                <Button size="xs" type="submit">
+                  Publish
+                </Button>
+              </div>
+            )}
+          </div>
+        </form>
       </WhiteArea>
       <AddAssignmentModal
         open={openAssignmentModal}
