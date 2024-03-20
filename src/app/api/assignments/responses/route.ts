@@ -1,6 +1,7 @@
 import { AssignmentResponse } from '@/models/assignmentResponse';
 import { AuditTrail } from '@/models/audit-trail';
 import { Course } from '@/models/course';
+import { Enroll } from '@/models/enroll';
 import { Question } from '@/models/question';
 import { Student } from '@/models/student';
 import { getServerSessionWithAuthOptions } from '@/utils/auth-options';
@@ -10,6 +11,8 @@ import { NextResponse } from 'next/server';
 const POST = async (req: Request) => {
   try {
     const assignmentResponseBody = await req.json();
+    const courseId = assignmentResponseBody.course;
+    const studentId = assignmentResponseBody.student;
 
     const session = await getServerSessionWithAuthOptions();
     if (!session) {
@@ -73,17 +76,24 @@ const POST = async (req: Request) => {
 
     const newAssignmentResponse = await AssignmentResponse.create(payload);
     const updateStudentAssignmentsRecord = await Student.findOneAndUpdate(
-      { _id: assignmentResponseBody.student },
+      { _id: studentId },
       { $push: { assignments: assignmentResponseBody.assignment } },
       { new: true },
     );
     await updateStudentAssignmentsRecord.save();
 
     const course = await Course.findOne({
-      _id: assignmentResponseBody.course,
+      _id: courseId,
     });
+    await Enroll.findOneAndUpdate(
+      { _id: courseId },
+      {
+        isCompleted: true,
+      },
+    );
+
     await AuditTrail.create({
-      student: assignmentResponseBody.student,
+      student: studentId,
       title: 'Assignment Submission',
       description: `You submitted an assignment for "${course.title}"`,
     });

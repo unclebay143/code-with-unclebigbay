@@ -1,4 +1,3 @@
-import { Assignment } from '@/models/assignment';
 import { AssignmentResponse } from '@/models/assignmentResponse';
 import { Course } from '@/models/course';
 import { Question } from '@/models/question';
