@@ -36,6 +36,9 @@ const materialSchema = new Schema(
     recommendedCourses: [{ type: Schema.Types.ObjectId, ref: 'Material' }],
     tags: [{ type: Schema.Types.ObjectId, ref: 'Tag' }],
     isActive: { type: 'Boolean', default: true },
+    enrolledStudents: [
+      { type: mongoose.Schema.Types.ObjectId, ref: 'Material' },
+    ],
   },
   {
     timestamps: true,
