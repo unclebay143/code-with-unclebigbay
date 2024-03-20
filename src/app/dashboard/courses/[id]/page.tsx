@@ -55,7 +55,7 @@ const Page = () => {
                     onClick={() => setStartedCourse(true)}
                     appearance="secondary-slate"
                   >
-                    Start course
+                    Start Learning
                   </Button>
                 </div>
               </section>
