@@ -5,6 +5,7 @@ import useCourse from '@/components/hooks/useCourse';
 import useCurrentStudent from '@/components/hooks/useCurrentStudent';
 import { Courses } from '@/components/molecules/dashboard/courses';
 import { DashboardSubheading } from '@/components/molecules/dashboard/dashboard-subheading';
+import { EmptyState } from '@/components/molecules/dashboard/empty-state';
 import { WhiteArea } from '@/components/molecules/dashboard/white-area';
 import { showCount } from '@/utils';
 import Link from 'next/link';
@@ -16,6 +17,7 @@ const Page = () => {
   const isAdmin = currentUser?.isAdmin;
   const { courses, isFetching } = useCourse();
   const count = courses?.length || 0;
+  const noCourses = courses?.length === 0;
 
   return (
     <div className="flex flex-col gap-3">
@@ -41,6 +43,7 @@ const Page = () => {
               title={`Available Courses ${showCount(count)}`}
               copy="These courses are personalized based on your stack."
             />
+
             {isAdmin && (
               <Button size="xs" asChild>
                 <Link href="/dashboard/admin/courses/new">New course</Link>
@@ -54,6 +57,7 @@ const Page = () => {
           />
         </div>
       </WhiteArea>
+      {noCourses && <EmptyState label="No course to display here ☹️" />}
     </div>
   );
 };

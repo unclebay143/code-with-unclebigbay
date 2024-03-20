@@ -1,4 +1,5 @@
 'use client';
+
 import React from 'react';
 import { CourseCard, CourseCardSkeleton } from './course-card';
 import {
@@ -10,7 +11,6 @@ import {
 } from '../../atoms/Select';
 import { Courses as CoursesType } from '@/utils/types';
 import { Button } from '../../atoms/Button';
-import { EmptyState } from './empty-state';
 
 type Props = {
   courses?: CoursesType;
@@ -32,6 +32,7 @@ export const Courses = ({
   isFetching,
 }: Props) => {
   const noData = !isFetching && courses && courses?.length < 1;
+  const showReachedEnd = !isFetching && !noData;
 
   return (
     <section className="flex flex-col gap-3">
@@ -59,7 +60,7 @@ export const Courses = ({
         <p className="text-slate-600">Total: {courses?.length}</p>
       )}
       <section
-        className={`${isFetching && 'lg:h-[416px]'} max-w-full grid sm:grid-cols-2 xl:grid-cols-3 gap-3`}
+        className={`${isFetching && 'xl:h-[416px]'} max-w-full grid sm:grid-cols-2 xl:grid-cols-3 gap-3`}
       >
         {isFetching ? (
           <>
@@ -78,7 +79,7 @@ export const Courses = ({
         )}
       </section>
 
-      {showLoadMoreButton && (
+      {showLoadMoreButton && !hideReachedEnd && (
         <section className="flex justify-center">
           <Button appearance="secondary-slate" size="sm">
             Load more
@@ -86,18 +87,9 @@ export const Courses = ({
         </section>
       )}
 
-      {(!isFetching && (noData || hideReachedEnd)) || (
+      {showReachedEnd && (
         <div className="text-center py-5 text-slate-600">
           <p>You&apos;ve reached the end 👋🏽</p>
-        </div>
-      )}
-
-      {noData && (
-        <div className="lg:h-[416px]">
-          <EmptyState
-            label="Your recent learning materials will appear here 🙌🏾"
-            noBorder
-          />
         </div>
       )}
     </section>

@@ -12,10 +12,10 @@ import useQuestion from '@/components/hooks/useQuestion';
 import { showCount } from '@/utils';
 
 const Page = () => {
-  const { questions, mutation } = useQuestion();
+  const { questions, mutation, isFetching } = useQuestion();
   const [openNewQuestionModal, setOpenNewQuestionModal] = useState(false);
   const questionCount = questions?.length || 0;
-  const noQuestions = questionCount === 1;
+  const noQuestions = questionCount === 0;
   const showQuestions = !noQuestions;
 
   return (
@@ -37,7 +37,7 @@ const Page = () => {
           )}
           {showQuestions && (
             <WhiteArea border>
-              <div className="min-h-screen">
+              <div className={`${isFetching && 'min-h-screen'}`}>
                 <ul className="list-decimal list-inside">
                   {questions?.map(({ options, question, tags }) => {
                     const hasTags = tags && tags.length > 0;
