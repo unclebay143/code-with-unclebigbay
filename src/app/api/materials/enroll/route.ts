@@ -60,7 +60,13 @@ const POST = async (req: Request) => {
     student.enrolledCourses.push({ course: courseId });
     await student.save();
 
-    await AuditTrail.create({});
+    console.log(course.title);
+
+    await AuditTrail.create({
+      student: studentId,
+      title: 'Course',
+      description: `Started "${course.title}"`,
+    });
 
     return NextResponse.json({ message: 'Student enrolled.' }, { status: 200 });
   } catch (e: any) {
