@@ -101,7 +101,7 @@ export const Courses = ({
         </div>
       )}
 
-      {(!noData && hideReachedEnd) || (
+      {noData || hideReachedEnd || (
         <div className="text-center py-5 text-slate-600">
           <p>You&apos;ve reached the end 👋🏽</p>
         </div>

@@ -21,12 +21,19 @@ const Page = () => {
     'total' | 'pending' | 'completed'
   >('total');
 
-  const { data, isFetching, error, isPending } = useQuery({
-    queryKey: ['enrolled-materialsss'],
-    queryFn: () => axios.get('/api/materials/enroll').then((res) => res.data),
+  const { data } = useQuery({
+    queryKey: ['enrolled-materials'],
+    queryFn: () =>
+      axios
+        .get('/api/materials/enroll')
+        .then((res) => res.data.materials.enrolledCourses),
   });
 
-  console.log(data);
+  // Todo: See if this data structure can be refactor in the BE
+  const enrolledCourses = data?.map((enrolledCourse: any) => {
+    const { course, ...others } = enrolledCourse;
+    return { ...others, ...course };
+  });
 
   return (
     <section className="flex flex-col gap-3">
@@ -64,8 +71,9 @@ const Page = () => {
           <EmptyState label="Your recent learning material will appear here" />
         ) : (
           <section className="flex flex-col gap-3">
+            {/* <DashboardSubheading title="Recent learning materials" /> */}
             <DashboardSubheading title="Recent learning materials" />
-            <Courses size={10} hideSearchOptions />
+            <Courses size={10} hideSearchOptions materials={enrolledCourses} />
           </section>
         )}
       </WhiteArea>
