@@ -18,7 +18,7 @@ const GET = async () => {
     }
     await connectViaMongoose();
     let student = await Student.findOne({
-      email: 'unclebigbay@hashnode.com',
+      email: session.user.email,
     });
 
     const enrolledCourses = await Enroll.find({
@@ -58,23 +58,16 @@ const POST = async (req: Request) => {
       );
     }
 
-    // await Enroll.create({
-    //   student: studentId,
-    //   course: courseId,
-    // });
-
-    course.enrolledStudents.push({ student: studentId });
-    await course.save();
-
-    student.enrolledCourses.push({ course: courseId });
-    await student.save();
-
-    console.log(course.title);
+    await Enroll.create({
+      student: studentId,
+      course: courseId,
+    });
 
     await AuditTrail.create({
       student: studentId,
       title: 'Course',
       description: `Started "${course.title}"`,
+      url: `/dashboard/courses/${courseId}`,
     });
 
     return NextResponse.json({ message: 'Student enrolled.' }, { status: 200 });

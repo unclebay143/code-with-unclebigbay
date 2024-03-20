@@ -14,18 +14,21 @@ import { Tags } from '@/utils/types';
 import useCurrentStudent from '@/components/hooks/useCurrentStudent';
 import axios from 'axios';
 import { formatDate } from '@/utils';
+import { Tooltip } from '@/components/atoms/Tooltip';
 
 const Page = () => {
   const [showMore, setShowMore] = useState(false);
   const [startedCourse, setStartedCourse] = useState<boolean>();
 
   const { data: currentStudent } = useCurrentStudent();
+  const studentId = currentStudent?._id;
   const currentPathname = usePathname();
   const courseId = currentPathname.split('/').pop();
   const { course, isFetching } = useCourseById(courseId!);
   const isEnrolled = course?.isEnrolled;
   const enrolledDate = course?.enrolledDate;
-  const enrolledStudentsCount = course?.enrolledStudents?.length || 0;
+  const enrolledStudentsCount = course?.enrolledStudentsCount;
+  console.log(enrolledStudentsCount);
 
   const assignmentId = course?.assignment;
   const hasAssignment = !!assignmentId;
@@ -37,7 +40,7 @@ const Page = () => {
   const tags = course?.tags as Tags;
 
   const handleEnroll = () => {
-    const payload = { studentId: currentStudent?._id, courseId: course?._id };
+    const payload = { studentId, courseId };
     axios.post('/api/courses/enroll', payload).then((res) => {
       setStartedCourse(true);
     });
@@ -116,20 +119,22 @@ const Page = () => {
                         {/* Completed, Enrolled, In Progress, Not Started */}
                       </p>
                     </div>
-                    <div>
-                      <h3 className="font-medium text-lg text-slate-700">
-                        Date Enrolled:
-                      </h3>
-                      <p className="text-slate-600">
-                        {formatDate(enrolledDate!)}
-                      </p>
-                    </div>
-                    {enrolledStudentsCount > 2 && (
+                    {startedCourse && (
                       <div>
+                        <h3 className="font-medium text-lg text-slate-700">
+                          Date Enrolled:
+                        </h3>
+                        <p className="text-slate-600">
+                          {formatDate(enrolledDate!)}
+                        </p>
+                      </div>
+                    )}
+                    {enrolledStudentsCount !== 0 && (
+                      <div className="flex items-center gap-3">
                         <h3 className="font-medium text-lg text-slate-700">
                           Enrolled:
                         </h3>
-                        <p className="text-slate-600">
+                        <p className="text-slate-600 font-semibold text-sm">
                           {enrolledStudentsCount}
                         </p>
                       </div>
@@ -149,13 +154,25 @@ const Page = () => {
                       )}
                       {hasAssignment && (
                         <div>
-                          <Button size="sm" asChild>
-                            <Link
-                              href={`${courseId}/assignment/${assignmentId}`}
+                          {startedCourse ? (
+                            <Button
+                              size="sm"
+                              disabled={!startedCourse}
+                              asChild={startedCourse ? true : false}
                             >
-                              Attempt assignment
-                            </Link>
-                          </Button>
+                              <Link
+                                href={`${courseId}/assignment/${assignmentId}`}
+                              >
+                                Attempt assignment
+                              </Link>
+                            </Button>
+                          ) : (
+                            <Tooltip tooltip="Start course to attempt assignment">
+                              <Button size="sm" disabled>
+                                Attempt assignment
+                              </Button>
+                            </Tooltip>
+                          )}
                         </div>
                       )}
                     </div>

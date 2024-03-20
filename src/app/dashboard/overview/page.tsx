@@ -21,6 +21,7 @@ async function getEnrolledCourses() {
     if (!result.ok) {
       console.log(result.statusText);
     }
+
     return result.json();
   } catch (error) {
     console.log({ error });
@@ -29,6 +30,9 @@ async function getEnrolledCourses() {
 
 const Page = async () => {
   const { enrolledCourses } = await getEnrolledCourses();
+  const iterableEnrolledCourses = enrolledCourses.map(
+    (enrolledCourse: any) => enrolledCourse.course,
+  );
   const enrolledCoursesCount = enrolledCourses?.length;
   const noEnrolledCourses = enrolledCoursesCount === 0;
 
@@ -70,7 +74,11 @@ const Page = async () => {
             <DashboardSubheading
               title={`Recent learning materials ${showCount(enrolledCoursesCount)}`}
             />
-            <Courses size={10} hideSearchOptions courses={enrolledCourses} />
+            <Courses
+              size={10}
+              hideSearchOptions
+              courses={iterableEnrolledCourses}
+            />
           </section>
         </WhiteArea>
       )}
