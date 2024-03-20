@@ -1,6 +1,7 @@
 'use client';
 
 import { Button } from '@/components/atoms/Button';
+import useCourse from '@/components/hooks/useCourse';
 import useCurrentStudent from '@/components/hooks/useCurrentStudent';
 import { Courses } from '@/components/molecules/dashboard/courses';
 import { DashboardSubheading } from '@/components/molecules/dashboard/dashboard-subheading';
@@ -8,12 +9,13 @@ import { WhiteArea } from '@/components/molecules/dashboard/white-area';
 import { showCount } from '@/utils';
 import Link from 'next/link';
 // import { Sparkles } from 'lucide-react';
-import React, { useState } from 'react';
+import React from 'react';
 
 const Page = () => {
   const { data: currentUser } = useCurrentStudent();
   const isAdmin = currentUser?.isAdmin;
-  const [count, setCount] = useState<number | string>(0);
+  const { courses, isFetching } = useCourse();
+  const count = courses?.length || 0;
 
   return (
     <div className="flex flex-col gap-3">
@@ -45,7 +47,11 @@ const Page = () => {
               </Button>
             )}
           </div>
-          <Courses setCount={setCount} hideSearchOptions />
+          <Courses
+            courses={courses}
+            isFetching={isFetching}
+            hideSearchOptions
+          />
         </div>
       </WhiteArea>
     </div>
