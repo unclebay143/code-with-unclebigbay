@@ -1,3 +1,4 @@
+import { YTVideo } from '@/components/atoms/YTVideo';
 import { DashboardSubheading } from '@/components/molecules/dashboard/dashboard-subheading';
 import { WhiteArea } from '@/components/molecules/dashboard/white-area';
 import { Youtube } from 'lucide-react';
@@ -91,6 +92,12 @@ const Page = () => {
           </p>
         </section>
       </div>
+      <section className="flex flex-col gap-5 mt-10">
+        <h3 className="text-center text-2xl font-medium text-slate-600">
+          How to use platform?
+        </h3>
+        <YTVideo ytVideoId="JH77WsDH8yY" />
+      </section>
     </WhiteArea>
   );
 };

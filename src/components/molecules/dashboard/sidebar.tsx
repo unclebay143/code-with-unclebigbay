@@ -119,7 +119,7 @@ export const SidebarMobile = ({
       isOpen={sidebarOpen}
       closeSlideOver={() => setSidebarOpen(false)}
     >
-      <div className="flex flex-col justify-between min-h-screen pb-20">
+      <div className="flex flex-col justify-between pb-20">
         <div>
           <div className="flex flex-col gap-3 pt-5 mb-5">
             <div className="px-3">

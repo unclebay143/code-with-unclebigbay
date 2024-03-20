@@ -28,6 +28,8 @@ const GET = async () => {
         const courses = await Course.find({
           isActive: true,
           tags: { $in: tag._id },
+        }).sort({
+          createdAt: -1,
         });
 
         return NextResponse.json(
@@ -37,7 +39,9 @@ const GET = async () => {
       }
     }
 
-    const courses = await Course.find({ isActive: true });
+    const courses = await Course.find({ isActive: true }).sort({
+      createdAt: -1,
+    });
     return NextResponse.json(
       { message: 'Courses fetched.', courses },
       { status: 200 },
