@@ -154,6 +154,9 @@ export type Material = {
   viewTime: number;
   tags: Tags;
   assignment: Assignment;
+  isEnrolled: boolean;
+  enrolledDate?: string;
+  enrolledStudents?: string[];
 };
 
 export type Materials = Material[];
