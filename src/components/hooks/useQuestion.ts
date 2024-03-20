@@ -13,6 +13,9 @@ const useQuestion = () => {
     isPending,
   } = useQuery({
     queryKey: ['questions'],
+    refetchOnWindowFocus: false,
+    refetchOnReconnect: true,
+    refetchOnMount: false,
     queryFn: () =>
       axios
         .get('/api/questions')
