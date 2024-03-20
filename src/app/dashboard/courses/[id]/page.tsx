@@ -7,7 +7,7 @@ import { IconButton } from '@/components/atoms/IconButton';
 import { YTVideo } from '@/components/atoms/YTVideo';
 import { ChevronDown, ChevronUp, HelpCircle } from 'lucide-react';
 import Link from 'next/link';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { usePathname } from 'next/navigation';
 import { useMaterialById } from '@/components/hooks/useMaterial';
 import { Tags } from '@/utils/types';
@@ -16,13 +16,15 @@ import axios from 'axios';
 
 const Page = () => {
   const [showMore, setShowMore] = useState(false);
-  const [startedCourse, setStartedCourse] = useState(false);
 
   const { data: currentStudent } = useCurrentStudent();
   const currentPathname = usePathname();
   const courseId = currentPathname.split('/').pop();
-
   const { material, isFetching } = useMaterialById(courseId!);
+  const isEnrolled = material?.isEnrolled;
+  const enrolledDate = material?.enrolledDate;
+  const [startedCourse, setStartedCourse] = useState<boolean>();
+
   const assignmentId = material?.assignment;
   const hasAssignment = !!assignmentId;
 
@@ -35,10 +37,13 @@ const Page = () => {
   const handleEnroll = () => {
     const payload = { studentId: currentStudent?._id, courseId: material?._id };
     axios.post('/api/materials/enroll', payload).then((res) => {
-      console.log(res.data);
       setStartedCourse(true);
     });
   };
+
+  useEffect(() => {
+    setStartedCourse(isEnrolled);
+  }, [isEnrolled]);
 
   return (
     <>
@@ -97,14 +102,14 @@ const Page = () => {
                         Status:
                       </h3>
                       <p className="text-slate-600">
-                        {startedCourse ? 'In Progress' : 'Not Started'}
+                        {startedCourse ? 'Enrolled' : 'Not Started'}
                         {/* Completed, Enrolled, In Progress, Not Started */}
                       </p>
                     </div>
                     {/* Show date when student started course here */}
-                    {/* <div className="">
+                    <div className="">
                       <h3 className="font-medium text-lg text-slate-700">
-                        Date Started:
+                        Date Enrolled:
                       </h3>
                       <p className="text-slate-600">
                         {new Intl.DateTimeFormat('en-GB', {
@@ -112,9 +117,9 @@ const Page = () => {
                           year: 'numeric',
                           month: 'long',
                           day: 'numeric',
-                        }).format(new Date(material.createdAt!))}
+                        }).format(new Date(enrolledDate))}
                       </p>
-                    </div> */}
+                    </div>
                     <div className="flex flex-wrap gap-5 w-full justify-between items-start">
                       <div className="">
                         <h3 className="font-medium text-lg text-slate-700">
