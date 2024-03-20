@@ -1,5 +1,5 @@
 import React from 'react';
-import { Material } from '@/utils/types';
+import { Course } from '@/utils/types';
 import { PlayCircle } from 'lucide-react';
 import type { LucideIcon } from 'lucide-react';
 import Image from 'next/image';
@@ -7,12 +7,12 @@ import Link from 'next/link';
 import { formatTime } from '@/utils';
 
 type CourseCardProps = {
-  material: Material;
+  course: Course;
   layout?: 'grid' | 'card';
 };
 
-export const CourseCard = ({ layout = 'grid', material }: CourseCardProps) => {
-  const { _id, type, title, description, coverImageUrl, viewTime } = material;
+export const CourseCard = ({ layout = 'grid', course }: CourseCardProps) => {
+  const { _id, type, title, description, coverImageUrl, viewTime } = course;
 
   const mapTypeToIcon: { [key: string]: LucideIcon } = {
     video: PlayCircle,

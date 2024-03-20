@@ -2,13 +2,13 @@
 
 import { Button } from '@/components/atoms/Button';
 import useCurrentStudent from '@/components/hooks/useCurrentStudent';
-import useMaterial from '@/components/hooks/useMaterial';
+import useCourse from '@/components/hooks/useCourse';
 import useTag from '@/components/hooks/useTag';
 import { AddAssignmentModal } from '@/components/molecules/dashboard/add-assignment-modal';
 import { DashboardSubheading } from '@/components/molecules/dashboard/dashboard-subheading';
 import { WhiteArea } from '@/components/molecules/dashboard/white-area';
 import { convertWhiteSpaceToDash } from '@/utils';
-import { Material, Questions, Tag, Tags } from '@/utils/types';
+import { Course, Questions, Tag, Tags } from '@/utils/types';
 import { X } from 'lucide-react';
 import Link from 'next/link';
 import React, { useState } from 'react';
@@ -21,7 +21,7 @@ const Page = () => {
   const [selectTags, setSelectedTags] = useState<Tags>([]);
   const [currentTag, setCurrentTag] = useState<string>('');
 
-  const { mutation } = useMaterial();
+  const { mutation } = useCourse();
   const [selectedQuestions, setSelectedQuestions] = useState<Questions>([]);
   const [openAssignmentModal, setOpenAssignmentModal] =
     useState<boolean>(false);
@@ -38,7 +38,7 @@ const Page = () => {
     },
   });
   const createNewCourse = (data: any) => {
-    const newCourse: Material = {
+    const newCourse: Course = {
       ...data,
       type: 'video',
       questions: selectedQuestions.map((question) => question._id),

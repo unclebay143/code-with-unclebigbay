@@ -9,13 +9,14 @@ import { IconButton } from '@/components/atoms/IconButton';
 import { EmptyState } from '@/components/molecules/dashboard/empty-state';
 import { AddQuestionModal } from '@/components/molecules/dashboard/add-question-modal';
 import useQuestion from '@/components/hooks/useQuestion';
+import { showCount } from '@/utils';
 
 const Page = () => {
-  const { questions, mutation } = useQuestion();
+  const { questions, mutation, isFetching } = useQuestion();
   const [openNewQuestionModal, setOpenNewQuestionModal] = useState(false);
-  const noQuestions = questions?.length === 1;
-
-  const showQuestions = questions && questions?.length > 1;
+  const questionCount = questions?.length || 0;
+  const noQuestions = questionCount === 0;
+  const showQuestions = !noQuestions;
 
   return (
     <>
@@ -23,10 +24,9 @@ const Page = () => {
         <div className="flex flex-col gap-5">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2">
-              <DashboardSubheading title="Question management" />
-              <span className="rounded-full px-2 bg-slate-100 font-medium text-slate-600 text-sm">
-                {questions?.length}
-              </span>
+              <DashboardSubheading
+                title={`Question management ${showCount(questionCount)}`}
+              />
             </div>
             <Button size="xs" onClick={() => setOpenNewQuestionModal(true)}>
               New Question
@@ -37,7 +37,7 @@ const Page = () => {
           )}
           {showQuestions && (
             <WhiteArea border>
-              <div className={`${showQuestions ? 'h-auto' : 'min-h-[50vh]'}`}>
+              <div className={`${isFetching && 'min-h-screen'}`}>
                 <ul className="list-decimal list-inside">
                   {questions?.map(({ options, question, tags }) => {
                     const hasTags = tags && tags.length > 0;

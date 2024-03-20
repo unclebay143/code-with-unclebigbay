@@ -1,5 +1,5 @@
 import { Assignment } from '@/models/assignment';
-import { Material } from '@/models/material';
+import { Course } from '@/models/course';
 import { Student } from '@/models/student';
 import { Tag } from '@/models/tag';
 import { getServerSessionWithAuthOptions } from '@/utils/auth-options';
@@ -25,21 +25,21 @@ const GET = async () => {
       const tag = await Tag.findOne({ name: { $in: userStack } });
 
       if (tag) {
-        const materials = await Material.find({
+        const courses = await Course.find({
           isActive: true,
           tags: { $in: tag._id },
         });
 
         return NextResponse.json(
-          { message: 'Materials fetched.', materials },
+          { message: 'Courses fetched.', courses },
           { status: 200 },
         );
       }
     }
 
-    const materials = await Material.find({ isActive: true });
+    const courses = await Course.find({ isActive: true });
     return NextResponse.json(
-      { message: 'Materials fetched.', materials },
+      { message: 'Courses fetched.', courses },
       { status: 200 },
     );
   } catch (e: any) {
@@ -56,26 +56,26 @@ const POST = async (req: Request) => {
 
     if (questions.length > 0) {
       const assignment = await Assignment.create({ questions });
-      const material = await Material.create({
+      const course = await Course.create({
         ...otherPropsWithoutQuestions,
         assignment: assignment._id,
       });
 
       await Assignment.findOneAndUpdate(
         { _id: assignment._id },
-        { material: material._id },
+        { course: course._id },
       );
 
       return NextResponse.json(
-        { message: 'Material with assignment created.', material },
+        { message: 'Course with assignment created.', course },
         { status: 200 },
       );
     }
 
-    const material = await Material.create(body);
+    const course = await Course.create(body);
 
     return NextResponse.json(
-      { message: 'Material created.', material },
+      { message: 'Course created.', course },
       { status: 200 },
     );
   } catch (e: any) {
