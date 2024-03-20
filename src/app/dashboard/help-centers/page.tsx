@@ -16,7 +16,7 @@ const Page = () => {
             </h3>
             <p className="text-slate-600">
               If you&apos;re feeling stuck or have questions about your course
-              material, don&apos;t worry! We have a vibrant community platform
+              course, don&apos;t worry! We have a vibrant community platform
               where you can connect with fellow students and get help from
               instructors.
             </p>
