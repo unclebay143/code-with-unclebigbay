@@ -13,18 +13,18 @@ const Page = () => {
   const { data } = useAssignmentResponseById(assignmentId);
 
   const assignmentResponse = data?.assignmentResponse;
-  const materialId = assignmentResponse?.material?._id;
-  const materialTitle = assignmentResponse?.material?.title;
-  const disableBtn = !materialId || !assignmentId;
-  const assignmentResponseUrl = `/dashboard/courses/${materialId}/assignment/${assignmentId}/responded`;
+  const courseId = assignmentResponse?.course?._id;
+  const courseTitle = assignmentResponse?.course?.title;
+  const disableBtn = !courseId || !assignmentId;
+  const assignmentResponseUrl = `/dashboard/courses/${courseId}/assignment/${assignmentId}/responded`;
 
   return (
     <WhiteArea border>
       <section className="flex flex-col items-center justify-center gap-3 p-4">
         <div className="w-full flex flex-col items-center gap-5">
           <div className="flex flex-col text-center gap-2">
-            {materialTitle ? (
-              <span className="text-slate-500 text-sm">{materialTitle}</span>
+            {courseTitle ? (
+              <span className="text-slate-500 text-sm">{courseTitle}</span>
             ) : (
               <span className="text-sm invisible">Loading</span>
             )}
@@ -44,7 +44,7 @@ const Page = () => {
             </div>
             <span className="my-2 text-slate-600 text-sm">OR</span>
             <p className="text-slate-600">
-              Checkout the recommended learning material below.
+              Checkout the recommended learning course below.
             </p>
           </div>
           {/* Pass recommended courses here */}

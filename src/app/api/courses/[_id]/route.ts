@@ -1,4 +1,4 @@
-import { Material } from '@/models/material';
+import { Course } from '@/models/course';
 import { Student } from '@/models/student';
 import { getServerSessionWithAuthOptions } from '@/utils/auth-options';
 import connectViaMongoose from '@/utils/mongoose';
@@ -8,11 +8,11 @@ const GET = async (_: Request, { params }: { params: { _id: string } }) => {
   try {
     const _id = params._id;
     await connectViaMongoose();
-    let material = await Material.findOne({ _id }).populate('tags');
+    let course = await Course.findOne({ _id }).populate('tags');
 
-    if (!material) {
+    if (!course) {
       return NextResponse.json(
-        { message: 'Material not found.', material },
+        { message: 'Course not found.', course },
         {
           status: 404,
         },
@@ -25,19 +25,19 @@ const GET = async (_: Request, { params }: { params: { _id: string } }) => {
         .select('enrolledCourses')
         .populate('enrolledCourses');
 
-      const materialWithEnrollmentStatus = student.enrolledCourses.map(
+      const courseWithEnrollmentStatus = student.enrolledCourses.map(
         (enrolledCourse: any) => {
           const isEnrolled = enrolledCourse.course.toString() === _id;
           const enrollmentData = isEnrolled
             ? { isEnrolled, enrolledDate: enrolledCourse.enrolledDate }
             : null;
-          return { ...material.toJSON(), ...enrollmentData };
+          return { ...course.toJSON(), ...enrollmentData };
         },
       );
 
-      material = materialWithEnrollmentStatus[0];
+      course = courseWithEnrollmentStatus[0];
       return NextResponse.json(
-        { message: 'Material fetched.', material },
+        { message: 'Course fetched.', course },
         {
           status: 200,
         },
@@ -45,7 +45,7 @@ const GET = async (_: Request, { params }: { params: { _id: string } }) => {
     }
 
     return NextResponse.json(
-      { message: 'Material fetched.', material },
+      { message: 'Course fetched.', course },
       {
         status: 200,
       },
