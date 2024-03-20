@@ -4,9 +4,7 @@ import { Youtube } from 'lucide-react';
 import Link from 'next/link';
 import React from 'react';
 
-type Props = {};
-
-const Page = (props: Props) => {
+const Page = () => {
   return (
     <WhiteArea border>
       <div className="flex flex-col gap-3 text-center py-5">

@@ -5,11 +5,11 @@ import { EmptyState } from '@/components/molecules/dashboard/empty-state';
 import { WhiteArea } from '@/components/molecules/dashboard/white-area';
 import { QuoteOfTheDay } from '@/components/molecules/dashboard/quote-of-the-day';
 import { DashboardSubheading } from '@/components/molecules/dashboard/dashboard-subheading';
-import { overviews } from '@/utils/dummy-data';
 import { OverviewCard } from '@/components/molecules/dashboard/overview-card';
 import { ActivityLogs } from '@/components/molecules/dashboard/activity-logs';
 import { Courses } from '@/components/molecules/dashboard/courses';
 import useMaterial from '@/components/hooks/useMaterial';
+import { overviews } from '@/utils';
 
 const Page = () => {
   const { materials } = useMaterial();
