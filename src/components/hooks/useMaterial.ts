@@ -12,6 +12,9 @@ const useMaterial = () => {
     isPending,
   } = useQuery({
     queryKey: ['materials'],
+    refetchOnWindowFocus: false,
+    refetchOnReconnect: true,
+    refetchOnMount: false,
     queryFn: () =>
       axios
         .get('/api/materials')
@@ -44,6 +47,9 @@ const useMaterialById = (_id: string) => {
     isPending,
   } = useQuery({
     queryKey: ['material', _id],
+    refetchOnWindowFocus: false,
+    refetchOnReconnect: true,
+    refetchOnMount: false,
     queryFn: () =>
       axios
         .get('/api/materials/' + _id)

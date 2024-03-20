@@ -13,6 +13,9 @@ const useTag = () => {
     isPending,
   } = useQuery({
     queryKey: ['tags'],
+    refetchOnWindowFocus: false,
+    refetchOnReconnect: true,
+    refetchOnMount: false,
     queryFn: () => axios.get('/api/tags').then((res) => res.data.tags as Tags),
   });
 

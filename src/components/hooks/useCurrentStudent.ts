@@ -8,6 +8,9 @@ const useCurrentStudent = () => {
 
   const { isPending, error, data, isFetching } = useQuery({
     queryKey: ['currentStudentData'],
+    refetchOnWindowFocus: false,
+    refetchOnReconnect: true,
+    refetchOnMount: false,
     queryFn: () =>
       axios.get('/api/auth/student').then((res) => res.data.student as Student),
   });

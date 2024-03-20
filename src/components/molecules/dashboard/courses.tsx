@@ -68,6 +68,10 @@ export const Courses = ({
       )}
       {showCounter && <p className="text-slate-600">Total: {data?.length}</p>}
       <section className="max-w-full grid sm:grid-cols-2 xl:grid-cols-3 gap-3">
+        {/* <CourseCardSkeleton />
+        {!isFetching && materials?.length > 0 && (
+          <CourseCard material={materials[0]} />
+        )} */}
         {isFetching ? (
           <>
             {Array(3)
@@ -97,7 +101,7 @@ export const Courses = ({
         </div>
       )}
 
-      {(!noData && hideReachedEnd) || (
+      {noData || hideReachedEnd || (
         <div className="text-center py-5 text-slate-600">
           <p>You&apos;ve reached the end 👋🏽</p>
         </div>

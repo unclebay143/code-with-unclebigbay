@@ -20,6 +20,8 @@
     "@tanstack/react-query": "^5.24.1",
     "axios": "^1.6.7",
     "class-variance-authority": "^0.7.0",
+    "clsx": "^2.1.0",
+    "framer-motion": "^11.0.15",
     "joi": "^17.12.2",
     "lucide-react": "^0.338.0",
     "mongodb": "^6.3.0",
@@ -32,6 +34,7 @@
     "react-dom": "^18",
     "react-hook-form": "^7.51.0",
     "sonner": "^1.4.3",
+    "tailwind-merge": "^2.2.2",
     "zod": "^3.22.4"
   },
   "devDependencies": {
