@@ -1,6 +1,4 @@
-'use client';
-
-import React, { useState } from 'react';
+import React from 'react';
 import { EmptyState } from '@/components/molecules/dashboard/empty-state';
 import { WhiteArea } from '@/components/molecules/dashboard/white-area';
 import { QuoteOfTheDay } from '@/components/molecules/dashboard/quote-of-the-day';
@@ -8,38 +6,39 @@ import { DashboardSubheading } from '@/components/molecules/dashboard/dashboard-
 import { OverviewCard } from '@/components/molecules/dashboard/overview-card';
 import { ActivityLogs } from '@/components/molecules/dashboard/activity-logs';
 import { Courses } from '@/components/molecules/dashboard/courses';
-import useMaterial from '@/components/hooks/useMaterial';
-import { overviews } from '@/utils';
-import { useQuery } from '@tanstack/react-query';
-import axios from 'axios';
+import { overviews, showCount } from '@/utils';
+import { baseURL } from '../../../../frontend.config';
+import { headers } from 'next/headers';
 
-const Page = () => {
-  const { materials } = useMaterial();
-  const [showQuoteWidget, setShowQuoteWidget] = useState<boolean>(true);
-  const noRecentMaterials = materials && materials.length === 0;
-  const [courseFilter, setCourseFilter] = useState<
-    'total' | 'pending' | 'completed'
-  >('total');
+async function getEnrolledCourses() {
+  try {
+    const url = `${baseURL}/api/courses/enroll`;
+    const result = await fetch(url, {
+      cache: 'force-cache',
+      headers: headers(),
+    });
 
-  const { data } = useQuery({
-    queryKey: ['enrolled-materials'],
-    queryFn: () =>
-      axios
-        .get('/api/materials/enroll')
-        .then((res) => res.data.materials.enrolledCourses),
-  });
+    if (!result.ok) {
+      console.log(result.statusText);
+    }
 
-  // Todo: See if this data structure can be refactor in the BE
-  const enrolledCourses = data?.map((enrolledCourse: any) => {
-    const { course, ...others } = enrolledCourse;
-    return { ...others, ...course };
-  });
+    return result.json();
+  } catch (error) {
+    console.log({ error });
+  }
+}
+
+const Page = async () => {
+  const { enrolledCourses } = await getEnrolledCourses();
+  const iterableEnrolledCourses = enrolledCourses.map(
+    (enrolledCourse: any) => enrolledCourse.course,
+  );
+  const enrolledCoursesCount = enrolledCourses?.length;
+  const noEnrolledCourses = enrolledCoursesCount === 0;
 
   return (
     <section className="flex flex-col gap-3">
-      {showQuoteWidget && (
-        <QuoteOfTheDay close={() => setShowQuoteWidget(false)} />
-      )}
+      <QuoteOfTheDay />
       <WhiteArea twClass="bg-indigo-50/60 border-indigo-50" border>
         <section className="flex flex-col gap-3">
           <DashboardSubheading title="Your course overview" />
@@ -51,8 +50,6 @@ const Page = () => {
                 Icon={Icon}
                 count={count}
                 label={label}
-                active={courseFilter === id}
-                setCurrentCourse={setCourseFilter}
               />
             ))}
           </section>
@@ -66,19 +63,27 @@ const Page = () => {
           Personalized
         </button>
       </section> */}
-      <WhiteArea border>
-        {noRecentMaterials ? (
-          <EmptyState label="Your recent learning material will appear here" />
-        ) : (
+      {noEnrolledCourses && (
+        <div className="h-[520px]">
+          <EmptyState label="Your recent learning materials will appear here 🙌🏾" />
+        </div>
+      )}
+      {!noEnrolledCourses && (
+        <WhiteArea border>
           <section className="flex flex-col gap-3">
-            {/* <DashboardSubheading title="Recent learning materials" /> */}
-            <DashboardSubheading title="Recent learning materials" />
-            <Courses size={10} hideSearchOptions materials={enrolledCourses} />
+            <DashboardSubheading
+              title={`Recent learning materials ${showCount(enrolledCoursesCount)}`}
+            />
+            <Courses
+              size={10}
+              hideSearchOptions
+              courses={iterableEnrolledCourses}
+            />
           </section>
-        )}
-      </WhiteArea>
+        </WhiteArea>
+      )}
 
-      <ActivityLogs />
+      <ActivityLogs defaultCount={6} loaderCount={6} />
     </section>
   );
 };

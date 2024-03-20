@@ -4,9 +4,9 @@ const Schema = mongoose.Schema;
 
 const assignmentSchema = new Schema(
   {
-    material: {
+    course: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: 'Material',
+      ref: 'Course',
     },
     questions: [
       {
