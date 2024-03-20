@@ -1,5 +1,3 @@
-'use client';
-
 import React, { useState } from 'react';
 import { EmptyState } from '@/components/molecules/dashboard/empty-state';
 import { WhiteArea } from '@/components/molecules/dashboard/white-area';
@@ -11,34 +9,34 @@ import { Courses } from '@/components/molecules/dashboard/courses';
 import { overviews, showCount } from '@/utils';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
+import { baseURL } from '../../../../frontend.config';
+import { headers } from 'next/headers';
 
-const Page = () => {
-  const [showQuoteWidget, setShowQuoteWidget] = useState<boolean>(true);
+async function getEnrolledCourses() {
+  try {
+    const url = `${baseURL}/api/courses/enroll`;
+    const result = await fetch(url, {
+      cache: 'no-store',
+      headers: headers(),
+    });
 
-  const { data: enrolledCourses, isFetching } = useQuery({
-    queryKey: ['enrolled-courses'],
-    queryFn: () =>
-      axios.get('/api/courses/enroll').then((res) => res.data.enrolledCourses),
-  });
+    if (!result.ok) {
+      console.log(result.statusText);
+    }
+    return result.json();
+  } catch (error) {
+    console.log({ error });
+  }
+}
 
-  console.log(enrolledCourses);
-
-  // Todo: See if this data structure can be refactor in the BE
-  // const enrolledCourses = data?.map((enrolledCourse: any) => {
-  //   const { course, ...others } = enrolledCourse;
-  //   return { ...others, ...course };
-  // });
-
-  // const enrolledCoursesCount = enrolledCourses?.length;
+const Page = async () => {
+  const { enrolledCourses } = await getEnrolledCourses();
   const enrolledCoursesCount = enrolledCourses?.length;
-
-  const noEnrolledCourses = !isFetching || enrolledCoursesCount === 0;
+  const noEnrolledCourses = enrolledCoursesCount === 0;
 
   return (
     <section className="flex flex-col gap-3">
-      {showQuoteWidget && (
-        <QuoteOfTheDay close={() => setShowQuoteWidget(false)} />
-      )}
+      <QuoteOfTheDay />
       <WhiteArea twClass="bg-indigo-50/60 border-indigo-50" border>
         <section className="flex flex-col gap-3">
           <DashboardSubheading title="Your course overview" />
@@ -63,18 +61,25 @@ const Page = () => {
           Personalized
         </button>
       </section> */}
-      {/* {noEnrolledCourses && (
+      {noEnrolledCourses && (
         <div className="h-[520px]">
           <EmptyState label="Your recent learning materials will appear here 🙌🏾" />
         </div>
-      )} */}
+      )}
       {/* {!noEnrolledCourses && ( */}
       <WhiteArea border>
         <section className="flex flex-col gap-3">
-          <DashboardSubheading
+          {/* {noEnrolledCourses || ( */}
+          {/* <DashboardSubheading
             title={`Recent learning materials ${showCount(enrolledCoursesCount)}`}
-          />
-          <Courses size={10} hideSearchOptions courses={enrolledCourses} />
+          /> */}
+          {/* )} */}
+          {/* <Courses
+            size={10}
+            hideSearchOptions
+            courses={enrolledCourses}
+            isFetching={isFetching}
+          /> */}
         </section>
       </WhiteArea>
       {/* )} */}

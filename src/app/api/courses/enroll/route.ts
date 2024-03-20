@@ -9,6 +9,7 @@ import { NextResponse } from 'next/server';
 const GET = async () => {
   try {
     const session = await getServerSessionWithAuthOptions();
+
     if (!session) {
       return NextResponse.json(
         { message: 'Session required' },
@@ -17,7 +18,7 @@ const GET = async () => {
     }
     await connectViaMongoose();
     let student = await Student.findOne({
-      email: session?.user.email,
+      email: 'unclebigbay@hashnode.com',
     });
 
     const enrolledCourses = await Enroll.find({

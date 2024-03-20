@@ -2,6 +2,7 @@
 
 import { Button } from '@/components/atoms/Button';
 import { useAssignmentResponseById } from '@/components/hooks/useAssignmentResponse';
+import useCourse from '@/components/hooks/useCourse';
 import { Courses } from '@/components/molecules/dashboard/courses';
 import { WhiteArea } from '@/components/molecules/dashboard/white-area';
 import Link from 'next/link';
@@ -11,6 +12,7 @@ const Page = () => {
   const currentPathname = usePathname();
   const assignmentId = currentPathname.split('/')[5];
   const { data } = useAssignmentResponseById(assignmentId);
+  const { courses, isFetching } = useCourse();
 
   const assignmentResponse = data?.assignmentResponse;
   const courseId = assignmentResponse?.course?._id;
@@ -49,7 +51,12 @@ const Page = () => {
           </div>
           {/* Pass recommended courses here */}
           <div className="w-full">
-            <Courses hideSearchOptions hideReachedEnd />
+            <Courses
+              courses={courses}
+              isFetching={isFetching}
+              hideSearchOptions
+              hideReachedEnd
+            />
           </div>
         </div>
       </section>
