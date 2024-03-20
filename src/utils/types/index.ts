@@ -97,6 +97,16 @@ export type Assignment = {
 };
 export type Assignments = Assignment[];
 
+export type AssignmentResponse = {
+  student: string;
+  material: string;
+  assignment: string;
+  response: {
+    question: string;
+    answer: string;
+  }[];
+};
+
 export type Student = {
   _id: string;
   createdAt: string;
