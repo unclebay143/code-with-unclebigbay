@@ -12,6 +12,9 @@ const useAudit = () => {
     isPending,
   } = useQuery({
     queryKey: ['audits'],
+    refetchOnWindowFocus: false,
+    refetchOnReconnect: true,
+    refetchOnMount: false,
     queryFn: () =>
       axios.get('/api/audits').then((res) => res.data.audit as Audits),
   });
