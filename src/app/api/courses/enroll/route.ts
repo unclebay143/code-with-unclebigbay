@@ -16,14 +16,16 @@ const GET = async () => {
       );
     }
     await connectViaMongoose();
-    let courses = await Student.findOne({
+    let student = await Student.findOne({
       email: session?.user.email,
-    })
-      .select('enrolledCourses')
-      .populate('enrolledCourses.course');
+    });
+
+    const enrolledCourses = await Enroll.find({
+      student: student._id,
+    }).populate('course');
 
     return NextResponse.json(
-      { message: 'Enrolled Courses fetched.', courses },
+      { message: 'Enrolled Courses fetched.', enrolledCourses },
       { status: 200 },
     );
   } catch (e: any) {
