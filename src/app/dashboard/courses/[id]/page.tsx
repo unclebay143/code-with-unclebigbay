@@ -27,6 +27,8 @@ const Page = () => {
   const { course, isFetching, isRefetching, mutation } = useCourseById(
     courseId!,
   );
+  const isCompleted = course?.isCompleted;
+  const completionDate = course?.completionDate;
   const isEnrolled = course?.isEnrolled;
   const enrolledDate = course?.enrolledDate;
   const enrolledStudentsCount = course?.enrolledStudentsCount;
@@ -113,10 +115,26 @@ const Page = () => {
                       <h3 className="font-medium text-lg text-slate-700">
                         Status:
                       </h3>
-                      <p className="text-slate-600">
-                        {isEnrolled ? 'Enrolled' : 'Not Started'}
+                      <p
+                        className={`${isCompleted ? 'text-green-600' : isEnrolled ? 'text-yellow-600' : 'text-slate-600'}`}
+                      >
+                        {isCompleted
+                          ? 'Completed'
+                          : isEnrolled
+                            ? 'Enrolled'
+                            : 'Not Started'}
                       </p>
                     </div>
+                    {isEnrolled && isCompleted && (
+                      <div>
+                        <h3 className="font-medium text-lg text-slate-700">
+                          Date Completed:
+                        </h3>
+                        <p className="text-slate-600">
+                          {formatDate(completionDate!)}
+                        </p>
+                      </div>
+                    )}
                     {isEnrolled && (
                       <div>
                         <h3 className="font-medium text-lg text-slate-700">
