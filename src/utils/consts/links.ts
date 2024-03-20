@@ -35,13 +35,13 @@ export const sidebarLinks: SidebarLinks = [
     Icon: LibraryBig,
     requireAuth: false,
   },
-  {
-    key: 'leaderboard',
-    label: 'leaderboard',
-    slug: 'leaderboard',
-    Icon: Trophy,
-    requireAuth: false,
-  },
+  // {
+  //   key: 'leaderboard',
+  //   label: 'leaderboard',
+  //   slug: 'leaderboard',
+  //   Icon: Trophy,
+  //   requireAuth: false,
+  // },
   {
     key: 'activity',
     label: 'Activity Log',

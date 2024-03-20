@@ -7,7 +7,6 @@ import { IconButton } from '../../atoms/IconButton';
 import { XMark } from '../../icons/XMark';
 import { SidebarLink } from '@/utils/types';
 import { sidebarLinks } from '@/utils/consts/links';
-import { Tooltip } from '@/components/atoms/Tooltip';
 
 const SidebarLink = ({
   label,
@@ -15,7 +14,6 @@ const SidebarLink = ({
   isActive,
   slug,
   onClick,
-  requireAuth,
   disabled,
 }: SidebarLink) => {
   const Component = disabled ? 'button' : Link;
@@ -23,7 +21,7 @@ const SidebarLink = ({
     ? {}
     : { onClick: onClick, href: `/dashboard/${slug}` };
   return (
-    <Tooltip tooltip={requireAuth ? 'Sign in required' : null}>
+    <>
       {/* @ts-ignore */}
       <Component
         {...componentProps}
@@ -34,7 +32,7 @@ const SidebarLink = ({
         </span>
         <span>{label}</span>
       </Component>
-    </Tooltip>
+    </>
   );
 };
 

@@ -5,12 +5,12 @@ const Schema = mongoose.Schema;
 // enums
 const ALLOWED_TYPE = ['video', 'post'];
 
-const materialSchema = new Schema(
+const courseSchema = new Schema(
   {
     type: {
       type: String,
       enum: ALLOWED_TYPE,
-      required: [true, 'Material type is required'],
+      required: [true, 'Course type is required'],
     },
     title: { type: String },
     subTitle: { type: String, default: '' },
@@ -33,22 +33,16 @@ const materialSchema = new Schema(
     author: { type: Schema.Types.ObjectId, ref: 'Student' },
     coAuthors: [{ type: Schema.Types.ObjectId, ref: 'Student' }],
     assignment: { type: Schema.Types.ObjectId, ref: 'Assignment' },
-    recommendedCourses: [{ type: Schema.Types.ObjectId, ref: 'Material' }],
+    recommendedCourses: [{ type: Schema.Types.ObjectId, ref: 'Course' }],
     tags: [{ type: Schema.Types.ObjectId, ref: 'Tag' }],
     isActive: { type: 'Boolean', default: true },
-    enrolledStudents: [
-      {
-        student: { type: mongoose.Schema.Types.ObjectId, ref: 'Student' },
-        enrolledDate: { type: Date, default: Date.now },
-      },
-    ],
   },
   {
     timestamps: true,
-    collection: 'materials',
+    collection: 'courses',
   },
 );
 
-const Material = models.Material || model('Material', materialSchema);
+const Course = models.Course || model('Course', courseSchema);
 
-export { Material };
+export { Course };
