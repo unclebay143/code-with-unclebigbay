@@ -26,7 +26,12 @@ const Page = () => {
               twClass="text-white bg-[#282828] bg-opacity-95 hover:bg-opacity-100"
               border
             >
-              <Link href="" className="flex items-center justify-center p-10">
+              <Link
+                rel="noopener"
+                target="_blank"
+                href="https://www.youtube.com/@unclebigbay"
+                className="flex items-center justify-center p-10"
+              >
                 <Youtube size={32} />
               </Link>
             </WhiteArea>
@@ -34,7 +39,12 @@ const Page = () => {
               twClass="text-white bg-[#128c7e] bg-opacity-95 hover:bg-opacity-100"
               border
             >
-              <Link href="" className="flex items-center justify-center p-10">
+              <Link
+                target="_blank"
+                rel="noopener"
+                href="https://chat.whatsapp.com/INypkcQok4B8bzlI0rQ2oz"
+                className="flex items-center justify-center p-10"
+              >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   viewBox="0 0 448 512"
@@ -48,7 +58,12 @@ const Page = () => {
               twClass="text-white bg-[#7289DA] bg-opacity-95 hover:bg-opacity-100"
               border
             >
-              <Link href="" className="flex items-center justify-center p-10">
+              <Link
+                target="_blank"
+                rel="noopener"
+                href="https://discord.gg/UqEYh7hqtD"
+                className="flex items-center justify-center p-10"
+              >
                 <span>
                   <svg
                     stroke="currentColor"
