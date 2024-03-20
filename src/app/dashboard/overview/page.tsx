@@ -15,22 +15,24 @@ import axios from 'axios';
 const Page = () => {
   const [showQuoteWidget, setShowQuoteWidget] = useState<boolean>(true);
 
-  const { data, isFetching } = useQuery({
+  const { data: enrolledCourses, isFetching } = useQuery({
     queryKey: ['enrolled-courses'],
     queryFn: () =>
-      axios
-        .get('/api/courses/enroll')
-        .then((res) => res.data.courses.enrolledCourses),
+      axios.get('/api/courses/enroll').then((res) => res.data.enrolledCourses),
   });
+
+  console.log(enrolledCourses);
 
   // Todo: See if this data structure can be refactor in the BE
-  const enrolledCourses = data?.map((enrolledCourse: any) => {
-    const { course, ...others } = enrolledCourse;
-    return { ...others, ...course };
-  });
+  // const enrolledCourses = data?.map((enrolledCourse: any) => {
+  //   const { course, ...others } = enrolledCourse;
+  //   return { ...others, ...course };
+  // });
 
+  // const enrolledCoursesCount = enrolledCourses?.length;
   const enrolledCoursesCount = enrolledCourses?.length;
-  const noEnrolledCourses = (!isFetching && enrolledCoursesCount === 0) || '';
+
+  const noEnrolledCourses = !isFetching || enrolledCoursesCount === 0;
 
   return (
     <section className="flex flex-col gap-3">
@@ -61,18 +63,21 @@ const Page = () => {
           Personalized
         </button>
       </section> */}
-      {noEnrolledCourses ? (
-        <EmptyState label="Your recent learning course will appear here 🙌🏾" />
-      ) : (
-        <WhiteArea border>
-          <section className="flex flex-col gap-3">
-            <DashboardSubheading
-              title={`Recent learning courses ${showCount(enrolledCoursesCount)}`}
-            />
-            <Courses size={10} hideSearchOptions courses={enrolledCourses} />
-          </section>
-        </WhiteArea>
-      )}
+      {/* {noEnrolledCourses && (
+        <div className="h-[520px]">
+          <EmptyState label="Your recent learning materials will appear here 🙌🏾" />
+        </div>
+      )} */}
+      {/* {!noEnrolledCourses && ( */}
+      <WhiteArea border>
+        <section className="flex flex-col gap-3">
+          <DashboardSubheading
+            title={`Recent learning materials ${showCount(enrolledCoursesCount)}`}
+          />
+          <Courses size={10} hideSearchOptions courses={enrolledCourses} />
+        </section>
+      </WhiteArea>
+      {/* )} */}
 
       <ActivityLogs defaultCount={6} loaderCount={6} />
     </section>
