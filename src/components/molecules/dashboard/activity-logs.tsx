@@ -78,10 +78,12 @@ const AuditTimeLineLoader = ({ count = 2 }: { count?: number }) => {
 };
 
 export const ActivityLogs = ({
-  defaultCount = 5,
+  defaultCount,
   hideShowMore,
+  loaderCount,
 }: {
   defaultCount?: number;
+  loaderCount?: number;
   hideShowMore?: boolean;
 }) => {
   const { audits, isFetching } = useAudit();
@@ -93,7 +95,7 @@ export const ActivityLogs = ({
 
         {isFetching ? (
           <div className="-my-6">
-            <AuditTimeLineLoader />
+            <AuditTimeLineLoader count={loaderCount} />
           </div>
         ) : (
           <div className="-my-6">
