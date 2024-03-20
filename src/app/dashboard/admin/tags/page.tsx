@@ -5,7 +5,7 @@ import useTag from '@/components/hooks/useTag';
 import { DashboardSubheading } from '@/components/molecules/dashboard/dashboard-subheading';
 import { EmptyState } from '@/components/molecules/dashboard/empty-state';
 import { WhiteArea } from '@/components/molecules/dashboard/white-area';
-import { convertWhiteSpaceToDash } from '@/utils';
+import { convertWhiteSpaceToDash, showCount } from '@/utils';
 import { Tag } from '@/utils/types';
 import { Tag as TagIcon } from 'lucide-react';
 import React from 'react';
@@ -31,6 +31,7 @@ const Page = () => {
   };
 
   const noTags = tags && tags?.length < 1;
+  const tagCount = tags?.length || 0;
   return (
     <div>
       <WhiteArea>
@@ -95,10 +96,7 @@ const Page = () => {
           </div>
           <section className="flex flex-col gap-3 w-full">
             <div className="flex items-center gap-2">
-              <DashboardSubheading title="Tags" />
-              <span className="rounded-full px-2 bg-slate-100 font-medium text-slate-600 text-sm">
-                {tags?.length}
-              </span>
+              <DashboardSubheading title={`Tags ${showCount(tagCount)}`} />
             </div>
             {noTags && (
               <EmptyState label="Tags will appear here when you create them" />
@@ -109,7 +107,7 @@ const Page = () => {
                   <tbody>
                     {tags?.map(({ _id, name }, index) => (
                       <tr key={_id}>
-                        <td className="border-b p-4 capitalize text-slate-600 text-sm">
+                        <td className="border-b p-4 text-slate-600 text-sm">
                           <div>
                             <span className="flex items-center gap-1">
                               <TagIcon size={12} />
