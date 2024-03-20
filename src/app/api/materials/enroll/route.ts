@@ -1,4 +1,4 @@
-import { Assignment } from '@/models/assignment';
+import { AuditTrail } from '@/models/audit-trail';
 import { Material } from '@/models/material';
 import { Student } from '@/models/student';
 import { getServerSessionWithAuthOptions } from '@/utils/auth-options';
@@ -15,15 +15,14 @@ const GET = async () => {
       );
     }
     await connectViaMongoose();
-    const enrolledCourses = await Student.findOne({
+    let materials = await Student.findOne({
       email: session?.user.email,
     })
       .select('enrolledCourses')
-      .populate('enrolledCourses');
+      .populate('enrolledCourses.course');
 
-    const data = { student: enrolledCourses };
     return NextResponse.json(
-      { message: 'Enrolled Courses fetched.', data },
+      { message: 'Enrolled Courses fetched.', materials },
       { status: 200 },
     );
   } catch (e: any) {
@@ -60,6 +59,8 @@ const POST = async (req: Request) => {
 
     student.enrolledCourses.push({ course: courseId });
     await student.save();
+
+    await AuditTrail.create({});
 
     return NextResponse.json({ message: 'Student enrolled.' }, { status: 200 });
   } catch (e: any) {
