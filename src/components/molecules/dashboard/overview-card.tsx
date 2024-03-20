@@ -1,4 +1,4 @@
-import { CheckCircle2, Circle, LucideIcon } from 'lucide-react';
+import { Circle, LucideIcon } from 'lucide-react';
 
 type OverviewCardProp = {
   id: string;
@@ -9,14 +9,7 @@ type OverviewCardProp = {
   setCurrentCourse?: Function;
 };
 
-export const OverviewCard = ({
-  id,
-  label,
-  count,
-  Icon,
-  active,
-  setCurrentCourse,
-}: OverviewCardProp) => {
+export const OverviewCard = ({ id, label, count, Icon }: OverviewCardProp) => {
   const mapIdToColor: { [key: string]: string } = {
     completed: 'text-blue-600',
     pending: 'text-yellow-600',
@@ -30,7 +23,6 @@ export const OverviewCard = ({
   return (
     <div
       className={`${mapIdToBgColor[id]} flex flex-col justify-between border p-5 rounded-lg`}
-      // onClick={() => setCurrentCourse && setCurrentCourse(id)}
     >
       <div className="flex items-center justify-between w-full">
         <div className="flex flex-col items-start w-full">

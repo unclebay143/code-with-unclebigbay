@@ -6,11 +6,11 @@ import { DashboardSubheading } from '@/components/molecules/dashboard/dashboard-
 import { OverviewCard } from '@/components/molecules/dashboard/overview-card';
 import { ActivityLogs } from '@/components/molecules/dashboard/activity-logs';
 import { Courses } from '@/components/molecules/dashboard/courses';
-import { overviews, showCount } from '@/utils';
 import { baseURL } from '../../../../frontend.config';
 import { headers } from 'next/headers';
 import { Overview } from '@/utils/types';
 import { ActivityIcon, CheckCheckIcon, LibraryBig } from 'lucide-react';
+import { showCount } from '@/utils';
 
 async function getEnrolledCourses() {
   try {
