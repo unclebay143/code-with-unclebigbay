@@ -87,7 +87,7 @@ const Profile = async ({ params }: { params: { username: string } }) => {
 
       if (url) {
         return (
-          <a href={url} key={key} target="_blank" rel="noopener noreferrer">
+          <a href={url} key={key} target="_blank">
             <IconButton Icon={Icon} />
           </a>
         );
