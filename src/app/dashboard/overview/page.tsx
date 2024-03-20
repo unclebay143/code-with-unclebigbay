@@ -10,6 +10,8 @@ import { ActivityLogs } from '@/components/molecules/dashboard/activity-logs';
 import { Courses } from '@/components/molecules/dashboard/courses';
 import useMaterial from '@/components/hooks/useMaterial';
 import { overviews } from '@/utils';
+import { useQuery } from '@tanstack/react-query';
+import axios from 'axios';
 
 const Page = () => {
   const { materials } = useMaterial();
@@ -18,6 +20,13 @@ const Page = () => {
   const [courseFilter, setCourseFilter] = useState<
     'total' | 'pending' | 'completed'
   >('total');
+
+  const { data, isFetching, error, isPending } = useQuery({
+    queryKey: ['enrolled-materialsss'],
+    queryFn: () => axios.get('/api/materials/enroll').then((res) => res.data),
+  });
+
+  console.log(data);
 
   return (
     <section className="flex flex-col gap-3">
