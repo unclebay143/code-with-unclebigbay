@@ -9,7 +9,7 @@ import { ChevronDown, ChevronUp, HelpCircle } from 'lucide-react';
 import Link from 'next/link';
 import React, { useEffect, useState } from 'react';
 import { usePathname } from 'next/navigation';
-import { useMaterialById } from '@/components/hooks/useMaterial';
+import { useCourseById } from '@/components/hooks/useCourse';
 import { Tags } from '@/utils/types';
 import useCurrentStudent from '@/components/hooks/useCurrentStudent';
 import axios from 'axios';
@@ -22,23 +22,23 @@ const Page = () => {
   const { data: currentStudent } = useCurrentStudent();
   const currentPathname = usePathname();
   const courseId = currentPathname.split('/').pop();
-  const { material, isFetching } = useMaterialById(courseId!);
-  const isEnrolled = material?.isEnrolled;
-  const enrolledDate = material?.enrolledDate;
-  const enrolledStudentsCount = material?.enrolledStudents?.length || 0;
+  const { course, isFetching } = useCourseById(courseId!);
+  const isEnrolled = course?.isEnrolled;
+  const enrolledDate = course?.enrolledDate;
+  const enrolledStudentsCount = course?.enrolledStudents?.length || 0;
 
-  const assignmentId = material?.assignment;
+  const assignmentId = course?.assignment;
   const hasAssignment = !!assignmentId;
 
   const handleShowMoreVisibility = () => {
     setShowMore((prevVisibility) => !prevVisibility);
   };
-  const showCourse = !isFetching && material;
-  const tags = material?.tags as Tags;
+  const showCourse = !isFetching && course;
+  const tags = course?.tags as Tags;
 
   const handleEnroll = () => {
-    const payload = { studentId: currentStudent?._id, courseId: material?._id };
-    axios.post('/api/materials/enroll', payload).then((res) => {
+    const payload = { studentId: currentStudent?._id, courseId: course?._id };
+    axios.post('/api/courses/enroll', payload).then((res) => {
       setStartedCourse(true);
     });
   };
@@ -53,19 +53,19 @@ const Page = () => {
         {showCourse ? (
           <div className="flex flex-col gap-5">
             <div className="flex items-center justify-between gap-1 text-xl text-slate-600">
-              <DashboardSubheading title={material?.title} />
+              <DashboardSubheading title={course?.title} />
               <Link href="/dashboard/help-centers">
                 <IconButton Icon={HelpCircle} size="lg" />
               </Link>
             </div>
             {startedCourse ? (
               <section className="rounded overflow-hidden">
-                <YTVideo ytVideoId={material?.ytVideoId} />
+                <YTVideo ytVideoId={course?.ytVideoId} />
               </section>
             ) : (
               <section
                 className="relative flex justify-center items-center rounded overflow-hidden aspect-video bg-slate-5 bg-no-repeat bg-center bg-cover"
-                style={{ backgroundImage: `url(${material?.coverImageUrl})` }}
+                style={{ backgroundImage: `url(${course?.coverImageUrl})` }}
               >
                 <div className="absolute bg-black/60 inset-0 w-full" />
                 <div className="z-[1]">
@@ -97,14 +97,14 @@ const Page = () => {
                       <h3 className="font-medium text-lg text-slate-700">
                         Description:
                       </h3>
-                      <p className="text-slate-600">{material?.description}</p>
+                      <p className="text-slate-600">{course?.description}</p>
                     </div>
                     <div>
                       <h3 className="font-medium text-lg text-slate-700">
                         Date Published:
                       </h3>
                       <p className="text-slate-600">
-                        {formatDate(material.createdAt!)}
+                        {formatDate(course.createdAt!)}
                       </p>
                     </div>
                     <div>

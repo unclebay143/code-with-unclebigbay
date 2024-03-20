@@ -1,6 +1,6 @@
 import { AssignmentResponse } from '@/models/assignmentResponse';
 import { AuditTrail } from '@/models/audit-trail';
-import { Material } from '@/models/material';
+import { Course } from '@/models/course';
 import { Question } from '@/models/question';
 import { Student } from '@/models/student';
 import { getServerSessionWithAuthOptions } from '@/utils/auth-options';
@@ -79,13 +79,13 @@ const POST = async (req: Request) => {
     );
     await updateStudentAssignmentsRecord.save();
 
-    const material = await Material.findOne({
-      _id: assignmentResponseBody.material,
+    const course = await Course.findOne({
+      _id: assignmentResponseBody.course,
     });
     await AuditTrail.create({
       student: assignmentResponseBody.student,
       title: 'Assignment Submission',
-      description: `You submitted an assignment for ${material.title}`,
+      description: `You submitted an assignment for "${course.title}"`,
     });
 
     return NextResponse.json(

@@ -9,12 +9,12 @@ import {
   SelectTrigger,
   SelectViewPort,
 } from '../../atoms/Select';
-import { Materials } from '@/utils/types';
+import { Courses as CoursesType } from '@/utils/types';
 import { Button } from '../../atoms/Button';
-import useMaterial from '@/components/hooks/useMaterial';
+import useCourse from '@/components/hooks/useCourse';
 
 type Props = {
-  materials?: Materials;
+  courses?: CoursesType;
   showLoadMoreButton?: boolean;
   showCounter?: boolean;
   hideSearchOptions?: boolean;
@@ -24,7 +24,7 @@ type Props = {
 };
 
 export const Courses = ({
-  materials,
+  courses,
   showLoadMoreButton,
   hideSearchOptions,
   showCounter,
@@ -32,8 +32,8 @@ export const Courses = ({
   size,
   setCount,
 }: Props) => {
-  const { materials: defaultMaterials, isFetching } = useMaterial();
-  const data = materials || defaultMaterials;
+  const { courses: defaultCourses, isFetching } = useCourse();
+  const data = courses || defaultCourses;
   const count = data?.length;
 
   const noData = !isFetching && data && data?.length < 1;
@@ -51,7 +51,7 @@ export const Courses = ({
           <div className="w-full">
             <input
               className="border rounded-xl text-slate-600 w-full py-3 pl-4 pr-2"
-              placeholder="Find learning material"
+              placeholder="Find learning course"
             />
           </div>
           <div className="sm:w-[200px]">
@@ -69,8 +69,8 @@ export const Courses = ({
       {showCounter && <p className="text-slate-600">Total: {data?.length}</p>}
       <section className="max-w-full grid sm:grid-cols-2 xl:grid-cols-3 gap-3">
         {/* <CourseCardSkeleton />
-        {!isFetching && materials?.length > 0 && (
-          <CourseCard material={materials[0]} />
+        {!isFetching && courses?.length > 0 && (
+          <CourseCard course={courses[0]} />
         )} */}
         {isFetching ? (
           <>
@@ -82,8 +82,8 @@ export const Courses = ({
           </>
         ) : (
           <>
-            {data?.slice(0, size).map((material) => {
-              return <CourseCard key={material._id} material={material} />;
+            {data?.slice(0, size).map((course) => {
+              return <CourseCard key={course._id} course={course} />;
             })}
           </>
         )}

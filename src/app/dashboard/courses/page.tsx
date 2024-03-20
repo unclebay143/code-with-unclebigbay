@@ -5,6 +5,7 @@ import useCurrentStudent from '@/components/hooks/useCurrentStudent';
 import { Courses } from '@/components/molecules/dashboard/courses';
 import { DashboardSubheading } from '@/components/molecules/dashboard/dashboard-subheading';
 import { WhiteArea } from '@/components/molecules/dashboard/white-area';
+import { showCount } from '@/utils';
 import Link from 'next/link';
 // import { Sparkles } from 'lucide-react';
 import React, { useState } from 'react';
@@ -12,9 +13,7 @@ import React, { useState } from 'react';
 const Page = () => {
   const { data: currentUser } = useCurrentStudent();
   const isAdmin = currentUser?.isAdmin;
-  const [count, setCount] = useState();
-
-  const showCount = () => `(${count})`;
+  const [count, setCount] = useState<number | string>(0);
 
   return (
     <div className="flex flex-col gap-3">
@@ -23,7 +22,7 @@ const Page = () => {
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2 text-slate-600">
               <h3 className="text-xl font-medium ">
-                Browse learning materials
+                Browse learning courses
               </h3>
               <Sparkles size={16} />
             </div>
@@ -37,7 +36,7 @@ const Page = () => {
         <div className="flex flex-col gap-5">
           <div className="flex items-center justify-between">
             <DashboardSubheading
-              title={`Available Courses ${count ? showCount() : ''}`}
+              title={`Available Courses ${showCount(count)}`}
               copy="These courses are personalized based on your stack."
             />
             {isAdmin && (

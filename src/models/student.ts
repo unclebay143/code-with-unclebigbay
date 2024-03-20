@@ -40,12 +40,12 @@ const studentSchema = new Schema(
     location: { type: String },
     gender: { type: String, enum: ALLOWED_GENDER },
     interests: [{ type: String }],
-    enrolledCourses: [
-      {
-        course: { type: Schema.Types.ObjectId, ref: 'Material' },
-        enrolledDate: { type: Date, default: Date.now },
-      },
-    ],
+    // enrolledCourses: [
+    //   {
+    //     course: { type: Schema.Types.ObjectId, ref: 'Course' },
+    //     enrolledDate: { type: Date, default: Date.now },
+    //   },
+    // ],
     assignments: [{ type: mongoose.SchemaTypes.ObjectId, ref: 'Assignment' }],
   },
   {

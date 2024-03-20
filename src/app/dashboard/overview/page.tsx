@@ -8,25 +8,19 @@ import { DashboardSubheading } from '@/components/molecules/dashboard/dashboard-
 import { OverviewCard } from '@/components/molecules/dashboard/overview-card';
 import { ActivityLogs } from '@/components/molecules/dashboard/activity-logs';
 import { Courses } from '@/components/molecules/dashboard/courses';
-import useMaterial from '@/components/hooks/useMaterial';
-import { overviews } from '@/utils';
+import { overviews, showCount } from '@/utils';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 
 const Page = () => {
-  const { materials } = useMaterial();
   const [showQuoteWidget, setShowQuoteWidget] = useState<boolean>(true);
-  const noRecentMaterials = materials && materials.length === 0;
-  const [courseFilter, setCourseFilter] = useState<
-    'total' | 'pending' | 'completed'
-  >('total');
 
-  const { data } = useQuery({
-    queryKey: ['enrolled-materials'],
+  const { data, isFetching } = useQuery({
+    queryKey: ['enrolled-courses'],
     queryFn: () =>
       axios
-        .get('/api/materials/enroll')
-        .then((res) => res.data.materials.enrolledCourses),
+        .get('/api/courses/enroll')
+        .then((res) => res.data.courses.enrolledCourses),
   });
 
   // Todo: See if this data structure can be refactor in the BE
@@ -34,6 +28,9 @@ const Page = () => {
     const { course, ...others } = enrolledCourse;
     return { ...others, ...course };
   });
+
+  const enrolledCoursesCount = enrolledCourses?.length;
+  const noEnrolledCourses = (!isFetching && enrolledCoursesCount === 0) || '';
 
   return (
     <section className="flex flex-col gap-3">
@@ -51,8 +48,6 @@ const Page = () => {
                 Icon={Icon}
                 count={count}
                 label={label}
-                active={courseFilter === id}
-                setCurrentCourse={setCourseFilter}
               />
             ))}
           </section>
@@ -66,19 +61,20 @@ const Page = () => {
           Personalized
         </button>
       </section> */}
-      <WhiteArea border>
-        {noRecentMaterials ? (
-          <EmptyState label="Your recent learning material will appear here" />
-        ) : (
+      {noEnrolledCourses ? (
+        <EmptyState label="Your recent learning course will appear here 🙌🏾" />
+      ) : (
+        <WhiteArea border>
           <section className="flex flex-col gap-3">
-            {/* <DashboardSubheading title="Recent learning materials" /> */}
-            <DashboardSubheading title="Recent learning materials" />
-            <Courses size={10} hideSearchOptions materials={enrolledCourses} />
+            <DashboardSubheading
+              title={`Recent learning courses ${showCount(enrolledCoursesCount)}`}
+            />
+            <Courses size={10} hideSearchOptions courses={enrolledCourses} />
           </section>
-        )}
-      </WhiteArea>
+        </WhiteArea>
+      )}
 
-      <ActivityLogs />
+      <ActivityLogs defaultCount={6} loaderCount={6} />
     </section>
   );
 };
