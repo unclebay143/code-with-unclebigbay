@@ -72,13 +72,20 @@ const Profile = async ({ params }: { params: { username: string } }) => {
   };
   const linkedin = student.socials.linkedin ? 'linkedin' : '';
   const x = student.socials.x ? 'x' : '';
-  const networkingMedium = mapFollowToSocial[linkedin || x];
+  const github = student.socials.github ? 'github' : '';
+  const youtube = student.socials.youtube ? 'youtube' : '';
+  const facebook = student.socials.facebook ? 'facebook' : '';
+  const instagram = student.socials.instagram ? 'instagram' : '';
+  const networkingMedium =
+    mapFollowToSocial[
+      linkedin || x || github || youtube || facebook || instagram
+    ];
 
   const renderSocialIcons = () => {
     return Object.keys(mapFollowToSocial).map((key) => {
       const { url, Icon } = mapFollowToSocial[key];
 
-      if (student.socials) {
+      if (url) {
         return (
           <a href={url} key={key} target="_blank" rel="noopener noreferrer">
             <IconButton Icon={Icon} />
