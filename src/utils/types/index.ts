@@ -154,6 +154,8 @@ export type Course = {
   viewTime: number;
   tags: Tags;
   assignment: Assignment;
+  isCompleted: boolean;
+  completionDate?: string;
   isEnrolled: boolean;
   enrolledDate?: string;
   enrolledStudentsCount?: number;
