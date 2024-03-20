@@ -1,6 +1,4 @@
-'use client';
-
-import React, { useEffect } from 'react';
+import React from 'react';
 import { CourseCard, CourseCardSkeleton } from './course-card';
 import {
   Select,
@@ -11,7 +9,7 @@ import {
 } from '../../atoms/Select';
 import { Courses as CoursesType } from '@/utils/types';
 import { Button } from '../../atoms/Button';
-import useCourse from '@/components/hooks/useCourse';
+import { EmptyState } from './empty-state';
 
 type Props = {
   courses?: CoursesType;
@@ -19,8 +17,8 @@ type Props = {
   showCounter?: boolean;
   hideSearchOptions?: boolean;
   size?: number;
-  setCount?: Function;
   hideReachedEnd?: boolean;
+  isFetching: boolean;
 };
 
 export const Courses = ({
@@ -30,19 +28,9 @@ export const Courses = ({
   showCounter,
   hideReachedEnd,
   size,
-  setCount,
+  isFetching,
 }: Props) => {
-  const { courses: defaultCourses, isFetching } = useCourse();
-  const data = courses || defaultCourses;
-  const count = data?.length;
-
-  const noData = !isFetching && data && data?.length < 1;
-
-  useEffect(() => {
-    if (setCount) {
-      setCount(count);
-    }
-  }, [count, setCount]);
+  const noData = !isFetching && courses && courses?.length < 1;
 
   return (
     <section className="flex flex-col gap-3">
@@ -66,12 +54,10 @@ export const Courses = ({
           </div>
         </div>
       )}
-      {showCounter && <p className="text-slate-600">Total: {data?.length}</p>}
+      {showCounter && (
+        <p className="text-slate-600">Total: {courses?.length}</p>
+      )}
       <section className="max-w-full grid sm:grid-cols-2 xl:grid-cols-3 gap-3">
-        {/* <CourseCardSkeleton />
-        {!isFetching && courses?.length > 0 && (
-          <CourseCard course={courses[0]} />
-        )} */}
         {isFetching ? (
           <>
             {Array(3)
@@ -82,7 +68,7 @@ export const Courses = ({
           </>
         ) : (
           <>
-            {data?.slice(0, size).map((course) => {
+            {courses?.slice(0, size).map((course) => {
               return <CourseCard key={course._id} course={course} />;
             })}
           </>
@@ -95,13 +81,15 @@ export const Courses = ({
           </Button>
         </section>
       )}
+
       {noData && (
-        <div className="text-center py-5 text-slate-600">
-          <p>No course available at this time.</p>
-        </div>
+        <EmptyState
+          label="Your recent learning materials will appear here 🙌🏾"
+          noBorder
+        />
       )}
 
-      {noData || hideReachedEnd || (
+      {(!isFetching && (noData || hideReachedEnd)) || (
         <div className="text-center py-5 text-slate-600">
           <p>You&apos;ve reached the end 👋🏽</p>
         </div>
