@@ -1,3 +1,4 @@
+import { Assignment } from '@/models/assignment';
 import { Material } from '@/models/material';
 import { Student } from '@/models/student';
 import { Tag } from '@/models/tag';
@@ -9,11 +10,18 @@ const GET = async () => {
   try {
     await connectViaMongoose();
     const session = await getServerSessionWithAuthOptions();
+    if (!session) {
+      return NextResponse.json(
+        { message: 'Session required' },
+        { status: 403 },
+      );
+    }
     const student = await Student.findOne({ email: session?.user.email });
     const userStack = student.stack || 'platform-guide';
     const userHasStack = session && userStack;
+    const isFullStack = student.stack === 'full-stack';
 
-    if (userHasStack) {
+    if (userHasStack && !isFullStack) {
       const tag = await Tag.findOne({ name: { $in: userStack } });
 
       if (tag) {
@@ -43,7 +51,29 @@ const POST = async (req: Request) => {
   try {
     const body = await req.json();
     await connectViaMongoose();
+
+    const { questions, ...otherPropsWithoutQuestions } = body;
+
+    if (questions.length > 0) {
+      const assignment = await Assignment.create({ questions });
+      const material = await Material.create({
+        ...otherPropsWithoutQuestions,
+        assignment: assignment._id,
+      });
+
+      await Assignment.findOneAndUpdate(
+        { _id: assignment._id },
+        { material: material._id },
+      );
+
+      return NextResponse.json(
+        { message: 'Material with assignment created.', material },
+        { status: 200 },
+      );
+    }
+
     const material = await Material.create(body);
+
     return NextResponse.json(
       { message: 'Material created.', material },
       { status: 200 },
