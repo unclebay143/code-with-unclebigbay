@@ -30,7 +30,7 @@ export const OverviewCard = ({
   return (
     <button
       className={`${mapIdToBgColor[id]} flex flex-col justify-between border p-5 rounded-lg`}
-      onClick={() => setCurrentCourse && setCurrentCourse(id)}
+      // onClick={() => setCurrentCourse && setCurrentCourse(id)}
     >
       <div className="flex items-center justify-between w-full">
         <div className="flex flex-col items-start w-full">

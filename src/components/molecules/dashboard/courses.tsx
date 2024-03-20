@@ -18,7 +18,7 @@ type Props = {
   hideSearchOptions?: boolean;
   size?: number;
   hideReachedEnd?: boolean;
-  isFetching: boolean;
+  isFetching?: boolean;
 };
 
 export const Courses = ({
@@ -57,7 +57,9 @@ export const Courses = ({
       {showCounter && (
         <p className="text-slate-600">Total: {courses?.length}</p>
       )}
-      <section className="max-w-full grid sm:grid-cols-2 xl:grid-cols-3 gap-3">
+      <section
+        className={`${isFetching && 'lg:h-[416px]'} max-w-full grid sm:grid-cols-2 xl:grid-cols-3 gap-3`}
+      >
         {isFetching ? (
           <>
             {Array(3)
@@ -74,6 +76,7 @@ export const Courses = ({
           </>
         )}
       </section>
+
       {showLoadMoreButton && (
         <section className="flex justify-center">
           <Button appearance="secondary-slate" size="sm">
@@ -82,16 +85,18 @@ export const Courses = ({
         </section>
       )}
 
-      {noData && (
-        <EmptyState
-          label="Your recent learning materials will appear here 🙌🏾"
-          noBorder
-        />
-      )}
-
       {(!isFetching && (noData || hideReachedEnd)) || (
         <div className="text-center py-5 text-slate-600">
           <p>You&apos;ve reached the end 👋🏽</p>
+        </div>
+      )}
+
+      {noData && (
+        <div className="lg:h-[416px]">
+          <EmptyState
+            label="Your recent learning materials will appear here 🙌🏾"
+            noBorder
+          />
         </div>
       )}
     </section>
