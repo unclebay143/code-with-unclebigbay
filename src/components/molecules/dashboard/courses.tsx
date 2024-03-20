@@ -1,3 +1,4 @@
+'use client';
 import React from 'react';
 import { CourseCard, CourseCardSkeleton } from './course-card';
 import {
