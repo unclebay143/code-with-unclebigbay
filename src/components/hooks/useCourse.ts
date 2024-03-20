@@ -38,9 +38,12 @@ const useCourse = () => {
 };
 
 const useCourseById = (_id: string) => {
+  const queryClient = useQueryClient();
+
   const {
     data: course,
     isFetching,
+    isRefetching,
     error,
     isPending,
   } = useQuery({
@@ -52,7 +55,23 @@ const useCourseById = (_id: string) => {
       axios.get('/api/courses/' + _id).then((res) => res.data.course as Course),
   });
 
-  return { course, isFetching, error, isPending };
+  const mutation = useMutation({
+    mutationFn: (newEnrollment: { studentId: string; courseId: string }) => {
+      return axios.post('/api/courses/enroll', newEnrollment);
+    },
+    onSuccess() {
+      queryClient.invalidateQueries({
+        queryKey: ['course', _id],
+        stale: true,
+      });
+      toast.success('Course enrolled');
+    },
+    onError(error: any) {
+      toast.success(error.response.data.message);
+    },
+  });
+
+  return { course, isFetching, isRefetching, error, isPending, mutation };
 };
 
 export default useCourse;

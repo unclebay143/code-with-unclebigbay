@@ -5,30 +5,31 @@ import { WhiteArea } from '@/components/molecules/dashboard/white-area';
 import { Button } from '@/components/atoms/Button';
 import { IconButton } from '@/components/atoms/IconButton';
 import { YTVideo } from '@/components/atoms/YTVideo';
-import { ChevronDown, ChevronUp, HelpCircle } from 'lucide-react';
+import { ChevronDown, ChevronUp, HelpCircle, UsersRound } from 'lucide-react';
 import Link from 'next/link';
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { usePathname } from 'next/navigation';
 import { useCourseById } from '@/components/hooks/useCourse';
 import { Tags } from '@/utils/types';
 import useCurrentStudent from '@/components/hooks/useCurrentStudent';
-import axios from 'axios';
 import { formatDate } from '@/utils';
 import { Tooltip } from '@/components/atoms/Tooltip';
 
 const Page = () => {
   const [showMore, setShowMore] = useState(false);
-  const [startedCourse, setStartedCourse] = useState<boolean>();
 
   const { data: currentStudent } = useCurrentStudent();
   const studentId = currentStudent?._id;
+
   const currentPathname = usePathname();
   const courseId = currentPathname.split('/').pop();
-  const { course, isFetching } = useCourseById(courseId!);
+
+  const { course, isFetching, isRefetching, mutation } = useCourseById(
+    courseId!,
+  );
   const isEnrolled = course?.isEnrolled;
   const enrolledDate = course?.enrolledDate;
   const enrolledStudentsCount = course?.enrolledStudentsCount;
-  console.log(enrolledStudentsCount);
 
   const assignmentId = course?.assignment;
   const hasAssignment = !!assignmentId;
@@ -36,19 +37,15 @@ const Page = () => {
   const handleShowMoreVisibility = () => {
     setShowMore((prevVisibility) => !prevVisibility);
   };
-  const showCourse = !isFetching && course;
+  const showCourse = (isRefetching && !!course) || (!isFetching && !!course);
   const tags = course?.tags as Tags;
 
   const handleEnroll = () => {
-    const payload = { studentId, courseId };
-    axios.post('/api/courses/enroll', payload).then((res) => {
-      setStartedCourse(true);
-    });
+    if (studentId && courseId) {
+      const payload = { studentId, courseId };
+      mutation.mutate(payload);
+    }
   };
-
-  useEffect(() => {
-    setStartedCourse(isEnrolled);
-  }, [isEnrolled]);
 
   return (
     <>
@@ -56,12 +53,12 @@ const Page = () => {
         {showCourse ? (
           <div className="flex flex-col gap-5">
             <div className="flex items-center justify-between gap-1 text-xl text-slate-600">
-              <DashboardSubheading title={course?.title} />
+              <DashboardSubheading title={course.title} />
               <Link href="/dashboard/help-centers">
                 <IconButton Icon={HelpCircle} size="lg" />
               </Link>
             </div>
-            {startedCourse ? (
+            {isEnrolled ? (
               <section className="rounded overflow-hidden">
                 <YTVideo ytVideoId={course?.ytVideoId} />
               </section>
@@ -96,12 +93,14 @@ const Page = () => {
               {showMore && (
                 <section className="flex flex-col items-start gap-5 py-4 px-1">
                   <div className="w-full flex flex-col  gap-5 flex-wrap">
-                    <div>
-                      <h3 className="font-medium text-lg text-slate-700">
-                        Description:
-                      </h3>
-                      <p className="text-slate-600">{course?.description}</p>
-                    </div>
+                    {course?.description && (
+                      <div>
+                        <h3 className="font-medium text-lg text-slate-700">
+                          Description:
+                        </h3>
+                        <p className="text-slate-600">{course?.description}</p>
+                      </div>
+                    )}
                     <div>
                       <h3 className="font-medium text-lg text-slate-700">
                         Date Published:
@@ -115,11 +114,10 @@ const Page = () => {
                         Status:
                       </h3>
                       <p className="text-slate-600">
-                        {startedCourse ? 'Enrolled' : 'Not Started'}
-                        {/* Completed, Enrolled, In Progress, Not Started */}
+                        {isEnrolled ? 'Enrolled' : 'Not Started'}
                       </p>
                     </div>
-                    {startedCourse && (
+                    {isEnrolled && (
                       <div>
                         <h3 className="font-medium text-lg text-slate-700">
                           Date Enrolled:
@@ -130,7 +128,8 @@ const Page = () => {
                       </div>
                     )}
                     {enrolledStudentsCount !== 0 && (
-                      <div className="flex items-center gap-3">
+                      <div className="flex items-center gap-2">
+                        <UsersRound size={20} />
                         <h3 className="font-medium text-lg text-slate-700">
                           Enrolled:
                         </h3>
@@ -154,11 +153,11 @@ const Page = () => {
                       )}
                       {hasAssignment && (
                         <div>
-                          {startedCourse ? (
+                          {isEnrolled ? (
                             <Button
                               size="sm"
-                              disabled={!startedCourse}
-                              asChild={startedCourse ? true : false}
+                              disabled={!isEnrolled}
+                              asChild={isEnrolled ? true : false}
                             >
                               <Link
                                 href={`${courseId}/assignment/${assignmentId}`}
