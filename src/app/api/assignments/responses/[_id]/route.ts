@@ -1,6 +1,6 @@
 import { Assignment } from '@/models/assignment';
 import { AssignmentResponse } from '@/models/assignmentResponse';
-import { Material } from '@/models/material';
+import { Course } from '@/models/course';
 import { Question } from '@/models/question';
 import { Student } from '@/models/student';
 import { getServerSessionWithAuthOptions } from '@/utils/auth-options';
@@ -31,7 +31,7 @@ const GET = async (_: Request, { params }: { params: { _id: string } }) => {
         'question answerExplanation options.option options._id options.isCorrect status grade score',
         Question,
       )
-      .populate('material', 'title', Material);
+      .populate('course', 'title', Course);
 
     if (!assignmentResponse) {
       return NextResponse.json(
