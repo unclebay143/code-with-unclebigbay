@@ -49,6 +49,7 @@ const useMaterialById = (_id: string) => {
     queryKey: ['material', _id],
     refetchOnWindowFocus: false,
     refetchOnReconnect: true,
+    refetchOnMount: false,
     queryFn: () =>
       axios
         .get('/api/materials/' + _id)

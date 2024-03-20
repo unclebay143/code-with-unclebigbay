@@ -146,6 +146,7 @@ export type Material = {
   assignment: Assignment;
   isEnrolled: boolean;
   enrolledDate?: string;
+  enrolledStudents?: string[];
 };
 
 export type Materials = Material[];
