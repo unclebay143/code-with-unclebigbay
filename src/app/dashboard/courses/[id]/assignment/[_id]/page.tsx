@@ -35,9 +35,9 @@ const Page = () => {
   const assignmentId = currentPathname.split('/').pop();
   const { assignment, isFetching } = useAssignmentById(assignmentId!);
   const { mutation: addNewResponse } = useAssignment();
-  const material = assignment?.material;
-  const materialId = material?._id;
-  const materialTitle = material?.title;
+  const course = assignment?.course;
+  const courseId = course?._id;
+  const courseTitle = course?.title;
 
   const {
     handleSubmit,
@@ -74,7 +74,7 @@ const Page = () => {
 
       const payload = {
         student: student?._id,
-        material: materialId,
+        course: courseId,
         assignment: assignmentId,
         response: assignmentResponse,
       };
@@ -82,7 +82,7 @@ const Page = () => {
       // @ts-ignore
       addNewResponse.mutate(payload);
       // window.onbeforeunload = null;
-      window.location.href = `/dashboard/courses/${materialId}/assignment/${assignmentId}/submitted`;
+      window.location.href = `/dashboard/courses/${courseId}/assignment/${assignmentId}/submitted`;
     } catch (e: any) {
       toast.error(e.message);
     }
@@ -91,7 +91,7 @@ const Page = () => {
   // useWarnBeforePageReload();
 
   if (!isFetching && !assignment) {
-    window.location.href = `/dashboard/courses/${materialId}/assignment/${assignmentId}/responded`;
+    window.location.href = `/dashboard/courses/${courseId}/assignment/${assignmentId}/responded`;
     return null;
   }
 
@@ -112,14 +112,14 @@ const Page = () => {
           <div className="flex flex-col gap-5">
             <div className="flex flex-col gap-2 justify-between">
               <div className="flex items-center justify-between">
-                <DashboardSubheading title={`Assignment: ${materialTitle}`} />
+                <DashboardSubheading title={`Assignment: ${courseTitle}`} />
                 <Button size="xs" appearance="secondary-slate">
                   <a
-                    href={`/dashboard/courses/${materialId}`}
+                    href={`/dashboard/courses/${courseId}`}
                     className="flex gap-1 items-center"
                   >
                     <ArrowLeft size={14} />
-                    <span>Back to material</span>
+                    <span>Back to course</span>
                   </a>
                 </Button>
               </div>

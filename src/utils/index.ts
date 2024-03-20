@@ -27,7 +27,7 @@ export const formatTime = (seconds: number) => {
 };
 
 export const overviews: Overview[] = [
-  { id: 'total', label: 'Total', Icon: LibraryBig, count: 103 },
+  { id: 'total', label: 'Total enrolled', Icon: LibraryBig, count: 103 },
   {
     id: 'pending',
     label: 'Pending',
@@ -50,4 +50,9 @@ export const formatDate = (date: string) => {
     month: 'long',
     day: 'numeric',
   }).format(new Date(date));
+};
+
+export const showCount = (count: number | string) => {
+  if (!count) return '';
+  return `(${count})`;
 };

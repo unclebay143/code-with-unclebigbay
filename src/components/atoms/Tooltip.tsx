@@ -7,7 +7,7 @@ export const Tooltip = ({ tooltip, children }: Props) => {
   return (
     <RadixTooltip.Provider>
       <RadixTooltip.Root>
-        <RadixTooltip.Trigger asChild>{children}</RadixTooltip.Trigger>
+        <RadixTooltip.Trigger>{children}</RadixTooltip.Trigger>
         <RadixTooltip.Portal>
           <RadixTooltip.Content
             className="z-[999999] rounded-md px-3 py-2 text-xs text-white bg-slate-900"

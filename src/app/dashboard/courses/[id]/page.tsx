@@ -5,47 +5,49 @@ import { WhiteArea } from '@/components/molecules/dashboard/white-area';
 import { Button } from '@/components/atoms/Button';
 import { IconButton } from '@/components/atoms/IconButton';
 import { YTVideo } from '@/components/atoms/YTVideo';
-import { ChevronDown, ChevronUp, HelpCircle } from 'lucide-react';
+import { ChevronDown, ChevronUp, HelpCircle, UsersRound } from 'lucide-react';
 import Link from 'next/link';
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { usePathname } from 'next/navigation';
-import { useMaterialById } from '@/components/hooks/useMaterial';
+import { useCourseById } from '@/components/hooks/useCourse';
 import { Tags } from '@/utils/types';
 import useCurrentStudent from '@/components/hooks/useCurrentStudent';
-import axios from 'axios';
 import { formatDate } from '@/utils';
+import { Tooltip } from '@/components/atoms/Tooltip';
 
 const Page = () => {
   const [showMore, setShowMore] = useState(false);
-  const [startedCourse, setStartedCourse] = useState<boolean>();
 
   const { data: currentStudent } = useCurrentStudent();
+  const studentId = currentStudent?._id;
+
   const currentPathname = usePathname();
   const courseId = currentPathname.split('/').pop();
-  const { material, isFetching } = useMaterialById(courseId!);
-  const isEnrolled = material?.isEnrolled;
-  const enrolledDate = material?.enrolledDate;
-  const enrolledStudentsCount = material?.enrolledStudents?.length || 0;
 
-  const assignmentId = material?.assignment;
+  const { course, isFetching, isRefetching, mutation } = useCourseById(
+    courseId!,
+  );
+  const isCompleted = course?.isCompleted;
+  const completionDate = course?.completionDate;
+  const isEnrolled = course?.isEnrolled;
+  const enrolledDate = course?.enrolledDate;
+  const enrolledStudentsCount = course?.enrolledStudentsCount;
+
+  const assignmentId = course?.assignment;
   const hasAssignment = !!assignmentId;
 
   const handleShowMoreVisibility = () => {
     setShowMore((prevVisibility) => !prevVisibility);
   };
-  const showCourse = !isFetching && material;
-  const tags = material?.tags as Tags;
+  const showCourse = (isRefetching && !!course) || (!isFetching && !!course);
+  const tags = course?.tags as Tags;
 
   const handleEnroll = () => {
-    const payload = { studentId: currentStudent?._id, courseId: material?._id };
-    axios.post('/api/materials/enroll', payload).then((res) => {
-      setStartedCourse(true);
-    });
+    if (studentId && courseId) {
+      const payload = { studentId, courseId };
+      mutation.mutate(payload);
+    }
   };
-
-  useEffect(() => {
-    setStartedCourse(isEnrolled);
-  }, [isEnrolled]);
 
   return (
     <>
@@ -53,19 +55,19 @@ const Page = () => {
         {showCourse ? (
           <div className="flex flex-col gap-5">
             <div className="flex items-center justify-between gap-1 text-xl text-slate-600">
-              <DashboardSubheading title={material?.title} />
+              <DashboardSubheading title={course.title} />
               <Link href="/dashboard/help-centers">
                 <IconButton Icon={HelpCircle} size="lg" />
               </Link>
             </div>
-            {startedCourse ? (
+            {isEnrolled ? (
               <section className="rounded overflow-hidden">
-                <YTVideo ytVideoId={material?.ytVideoId} />
+                <YTVideo ytVideoId={course?.ytVideoId} />
               </section>
             ) : (
               <section
                 className="relative flex justify-center items-center rounded overflow-hidden aspect-video bg-slate-5 bg-no-repeat bg-center bg-cover"
-                style={{ backgroundImage: `url(${material?.coverImageUrl})` }}
+                style={{ backgroundImage: `url(${course?.coverImageUrl})` }}
               >
                 <div className="absolute bg-black/60 inset-0 w-full" />
                 <div className="z-[1]">
@@ -93,43 +95,63 @@ const Page = () => {
               {showMore && (
                 <section className="flex flex-col items-start gap-5 py-4 px-1">
                   <div className="w-full flex flex-col  gap-5 flex-wrap">
-                    <div>
-                      <h3 className="font-medium text-lg text-slate-700">
-                        Description:
-                      </h3>
-                      <p className="text-slate-600">{material?.description}</p>
-                    </div>
+                    {course?.description && (
+                      <div>
+                        <h3 className="font-medium text-lg text-slate-700">
+                          Description:
+                        </h3>
+                        <p className="text-slate-600">{course?.description}</p>
+                      </div>
+                    )}
                     <div>
                       <h3 className="font-medium text-lg text-slate-700">
                         Date Published:
                       </h3>
                       <p className="text-slate-600">
-                        {formatDate(material.createdAt!)}
+                        {formatDate(course.createdAt!)}
                       </p>
                     </div>
                     <div>
                       <h3 className="font-medium text-lg text-slate-700">
                         Status:
                       </h3>
-                      <p className="text-slate-600">
-                        {startedCourse ? 'Enrolled' : 'Not Started'}
-                        {/* Completed, Enrolled, In Progress, Not Started */}
+                      <p
+                        className={`${isCompleted ? 'text-green-600' : isEnrolled ? 'text-yellow-600' : 'text-slate-600'}`}
+                      >
+                        {isCompleted
+                          ? 'Completed'
+                          : isEnrolled
+                            ? 'Enrolled'
+                            : 'Not Started'}
                       </p>
                     </div>
-                    <div>
-                      <h3 className="font-medium text-lg text-slate-700">
-                        Date Enrolled:
-                      </h3>
-                      <p className="text-slate-600">
-                        {formatDate(enrolledDate!)}
-                      </p>
-                    </div>
-                    {enrolledStudentsCount > 2 && (
+                    {isEnrolled && isCompleted && (
                       <div>
+                        <h3 className="font-medium text-lg text-slate-700">
+                          Date Completed:
+                        </h3>
+                        <p className="text-slate-600">
+                          {formatDate(completionDate!)}
+                        </p>
+                      </div>
+                    )}
+                    {isEnrolled && (
+                      <div>
+                        <h3 className="font-medium text-lg text-slate-700">
+                          Date Enrolled:
+                        </h3>
+                        <p className="text-slate-600">
+                          {formatDate(enrolledDate!)}
+                        </p>
+                      </div>
+                    )}
+                    {enrolledStudentsCount !== 0 && (
+                      <div className="flex items-center gap-2">
+                        <UsersRound size={20} />
                         <h3 className="font-medium text-lg text-slate-700">
                           Enrolled:
                         </h3>
-                        <p className="text-slate-600">
+                        <p className="text-slate-600 font-semibold text-sm">
                           {enrolledStudentsCount}
                         </p>
                       </div>
@@ -149,13 +171,25 @@ const Page = () => {
                       )}
                       {hasAssignment && (
                         <div>
-                          <Button size="sm" asChild>
-                            <Link
-                              href={`${courseId}/assignment/${assignmentId}`}
+                          {isEnrolled ? (
+                            <Button
+                              size="sm"
+                              disabled={!isEnrolled}
+                              asChild={isEnrolled ? true : false}
                             >
-                              Attempt assignment
-                            </Link>
-                          </Button>
+                              <Link
+                                href={`${courseId}/assignment/${assignmentId}`}
+                              >
+                                Attempt assignment
+                              </Link>
+                            </Button>
+                          ) : (
+                            <Tooltip tooltip="Start course to attempt assignment">
+                              <Button size="sm" disabled>
+                                Attempt assignment
+                              </Button>
+                            </Tooltip>
+                          )}
                         </div>
                       )}
                     </div>

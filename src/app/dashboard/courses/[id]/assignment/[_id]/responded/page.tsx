@@ -19,9 +19,9 @@ const Page = () => {
   const grade = assignmentResponse?.grade;
   const response = assignmentResponse?.response;
   const totalQuestion = response?.length;
-  const materialId = assignmentResponse?.material?._id;
+  const courseId = assignmentResponse?.course?._id;
   const canShowQuestions = !isFetching;
-  const materialTitle = assignmentResponse?.material?.title;
+  const courseTitle = assignmentResponse?.course?.title;
 
   const mapStatusToColor: { [key: string]: string } = {
     passed: 'text-green-500',
@@ -45,14 +45,14 @@ const Page = () => {
           <div className="flex flex-col gap-5">
             <div className="flex flex-col gap-2 justify-between">
               <div className="flex items-center justify-between">
-                <DashboardSubheading title={`Assignment: ${materialTitle}`} />
+                <DashboardSubheading title={`Assignment: ${courseTitle}`} />
                 <Button size="xs" appearance="secondary-slate">
                   <a
-                    href={`/dashboard/courses/${materialId}`}
+                    href={`/dashboard/courses/${courseId}`}
                     className="flex gap-1 items-center"
                   >
                     <ArrowLeft size={14} />
-                    <span>Back to material</span>
+                    <span>Back to course</span>
                   </a>
                 </Button>
               </div>
