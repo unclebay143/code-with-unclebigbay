@@ -13,6 +13,7 @@ import { useMaterialById } from '@/components/hooks/useMaterial';
 import { Tags } from '@/utils/types';
 import useCurrentStudent from '@/components/hooks/useCurrentStudent';
 import axios from 'axios';
+import { formatDate } from '@/utils';
 
 const Page = () => {
   const [showMore, setShowMore] = useState(false);
@@ -91,13 +92,21 @@ const Page = () => {
               {showMore && (
                 <section className="flex flex-col items-start gap-5 py-4 px-1">
                   <div className="w-full flex flex-col  gap-5 flex-wrap">
-                    <div className="">
+                    <div>
                       <h3 className="font-medium text-lg text-slate-700">
                         Description:
                       </h3>
                       <p className="text-slate-600">{material?.description}</p>
                     </div>
-                    <div className="">
+                    <div>
+                      <h3 className="font-medium text-lg text-slate-700">
+                        Date Published:
+                      </h3>
+                      <p className="text-slate-600">
+                        {formatDate(material.createdAt!)}
+                      </p>
+                    </div>
+                    <div>
                       <h3 className="font-medium text-lg text-slate-700">
                         Status:
                       </h3>
@@ -106,36 +115,29 @@ const Page = () => {
                         {/* Completed, Enrolled, In Progress, Not Started */}
                       </p>
                     </div>
-                    {/* Show date when student started course here */}
-                    <div className="">
+                    <div>
                       <h3 className="font-medium text-lg text-slate-700">
                         Date Enrolled:
                       </h3>
                       <p className="text-slate-600">
-                        {new Intl.DateTimeFormat('en-GB', {
-                          weekday: 'long',
-                          year: 'numeric',
-                          month: 'long',
-                          day: 'numeric',
-                        }).format(new Date(enrolledDate))}
+                        {formatDate(enrolledDate!)}
                       </p>
                     </div>
-                    <div className="flex flex-wrap gap-5 w-full justify-between items-start">
-                      <div className="">
-                        <h3 className="font-medium text-lg text-slate-700">
-                          Date Published:
-                        </h3>
-                        <p className="text-slate-600">
-                          {new Intl.DateTimeFormat('en-GB', {
-                            weekday: 'long',
-                            year: 'numeric',
-                            month: 'long',
-                            day: 'numeric',
-                          }).format(new Date(material.createdAt!))}
-                        </p>
-                      </div>
+                    <div className="flex flex-wrap gap-5 w-full justify-between items-end">
+                      {!(tags.length === 0) && (
+                        <div className="flex flex-wrap gap-1">
+                          {tags?.map(({ name, _id }) => (
+                            <span
+                              key={_id}
+                              className="px-2 capitalize rounded-full bg-indigo-100/20 text-slate-600 text-sm border"
+                            >
+                              {name}
+                            </span>
+                          ))}
+                        </div>
+                      )}
                       {hasAssignment && (
-                        <div className="">
+                        <div>
                           <Button size="sm" asChild>
                             <Link
                               href={`${courseId}/assignment/${assignmentId}`}
@@ -147,18 +149,6 @@ const Page = () => {
                       )}
                     </div>
                   </div>
-                  {!(tags.length === 0) && (
-                    <div className="flex flex-wrap gap-1">
-                      {tags?.map(({ name, _id }) => (
-                        <span
-                          key={_id}
-                          className="px-2 capitalize rounded-full bg-indigo-100/20 text-slate-600 text-sm border"
-                        >
-                          {name}
-                        </span>
-                      ))}
-                    </div>
-                  )}
                 </section>
               )}
             </WhiteArea>
