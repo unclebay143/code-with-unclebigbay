@@ -14,6 +14,8 @@ const Page = () => {
   const isAdmin = currentUser?.isAdmin;
   const [count, setCount] = useState();
 
+  const showCount = () => `(${count})`;
+
   return (
     <div className="flex flex-col gap-3">
       {/* <div className="sticky top-[75px] lg:top-[82px] z-10 bg-white rounded-b-lg">
@@ -35,7 +37,7 @@ const Page = () => {
         <div className="flex flex-col gap-5">
           <div className="flex items-center justify-between">
             <DashboardSubheading
-              title={`Available Courses (${count})`}
+              title={`Available Courses ${count ? showCount() : ''}`}
               copy="These courses are personalized based on your stack."
             />
             {isAdmin && (

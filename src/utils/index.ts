@@ -1,3 +1,10 @@
+import {
+  Activity as ActivityIcon,
+  CheckCheckIcon,
+  LibraryBig,
+} from 'lucide-react';
+import { Overview } from '@/utils/types';
+
 export const convertEmptyStringToNull = (str: string) =>
   str === '' ? null : str;
 
@@ -17,4 +24,30 @@ export const formatTime = (seconds: number) => {
   const secondsDisplay = remainingSeconds > 0 ? `${remainingSeconds}s` : '';
 
   return `${hoursDisplay} ${minutesDisplay} ${secondsDisplay}`.trim();
+};
+
+export const overviews: Overview[] = [
+  { id: 'total', label: 'Total', Icon: LibraryBig, count: 103 },
+  {
+    id: 'pending',
+    label: 'Pending',
+    Icon: ActivityIcon,
+    count: 3,
+  },
+  {
+    id: 'completed',
+    label: 'Completed',
+    Icon: CheckCheckIcon,
+    count: 100,
+  },
+];
+
+export const formatDate = (date: string) => {
+  if (!date) return;
+  return new Intl.DateTimeFormat('en-GB', {
+    weekday: 'long',
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+  }).format(new Date(date));
 };
