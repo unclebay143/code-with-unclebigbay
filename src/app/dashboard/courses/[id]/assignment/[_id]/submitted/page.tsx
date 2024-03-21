@@ -20,7 +20,7 @@ const Page = () => {
   const disableBtn = !courseId || !assignmentId;
   const assignmentResponseUrl = `/dashboard/courses/${courseId}/assignment/${assignmentId}/responded`;
 
-  if (!assignmentId || !courseId) return;
+  // if (!assignmentId || !courseId) return;
 
   return (
     <WhiteArea border>
