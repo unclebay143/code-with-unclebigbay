@@ -59,6 +59,7 @@ export type SidebarLink = {
 export type SidebarLinks = SidebarLink[];
 
 export type Option = {
+  _id?: string;
   option: string;
   isCorrect?: boolean;
 };
@@ -92,14 +93,14 @@ export type Questions = Question[];
 
 export type Assignment = {
   _id?: string;
-  material?: Material;
+  course?: Course;
   questions: Questions;
 };
 export type Assignments = Assignment[];
 
 export type AssignmentResponse = {
   student: string;
-  material: string;
+  course: string;
   assignment: string;
   response: {
     question: string;
@@ -143,7 +144,7 @@ export type Student = {
   interests: string;
 };
 
-export type Material = {
+export type Course = {
   _id: string;
   createdAt?: string;
   type?: string;
@@ -154,9 +155,11 @@ export type Material = {
   viewTime: number;
   tags: Tags;
   assignment: Assignment;
+  isCompleted: boolean;
+  completionDate?: string;
   isEnrolled: boolean;
   enrolledDate?: string;
-  enrolledStudents?: string[];
+  enrolledStudentsCount?: number;
 };
 
-export type Materials = Material[];
+export type Courses = Course[];

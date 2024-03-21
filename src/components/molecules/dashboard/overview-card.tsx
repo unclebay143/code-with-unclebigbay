@@ -1,4 +1,4 @@
-import { CheckCircle2, Circle, LucideIcon } from 'lucide-react';
+import { Circle, LucideIcon } from 'lucide-react';
 
 type OverviewCardProp = {
   id: string;
@@ -9,14 +9,7 @@ type OverviewCardProp = {
   setCurrentCourse?: Function;
 };
 
-export const OverviewCard = ({
-  id,
-  label,
-  count,
-  Icon,
-  active,
-  setCurrentCourse,
-}: OverviewCardProp) => {
+export const OverviewCard = ({ id, label, count, Icon }: OverviewCardProp) => {
   const mapIdToColor: { [key: string]: string } = {
     completed: 'text-blue-600',
     pending: 'text-yellow-600',
@@ -28,9 +21,8 @@ export const OverviewCard = ({
     total: 'bg-green-50',
   };
   return (
-    <button
+    <div
       className={`${mapIdToBgColor[id]} flex flex-col justify-between border p-5 rounded-lg`}
-      onClick={() => setCurrentCourse && setCurrentCourse(id)}
     >
       <div className="flex items-center justify-between w-full">
         <div className="flex flex-col items-start w-full">
@@ -40,13 +32,16 @@ export const OverviewCard = ({
             </span>
             <h2 className={`${mapIdToColor[id]} capitalize`}>{label}</h2>
           </div>
-          <h3 className="ml-8 text-sm text-slate-600">{count} courses</h3>
+
+          <h3 className="ml-8 text-sm text-slate-600">
+            {count ? `${count} course${count > 1 ? 's' : ''}` : '-'}
+          </h3>
         </div>
         <span className="text-slate-400">
           {/* {active ? <CheckCircle2 size={20} /> : <Circle size={20} />} */}
           <Circle size={20} />
         </span>
       </div>
-    </button>
+    </div>
   );
 };
