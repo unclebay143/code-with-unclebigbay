@@ -11,6 +11,8 @@ import * as z from 'zod';
 import { useForm, SubmitHandler, Controller } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { personalDetailSchema } from '@/validation/userSocialValidation';
+import { ExternalLink } from 'lucide-react';
+import Link from 'next/link';
 
 personalDetailSchema;
 
@@ -64,10 +66,22 @@ const UserPersonalSettings = () => {
     <div className="flex flex-col gap-4">
       <WhiteArea border>
         <section className="flex flex-col gap-4 justify-stretch">
-          <label htmlFor="photo" className="border-b pb-3">
-            <DashboardSubheading title="Profile Picture" />
-            <p className="text-slate-500 text-sm">Sourced from GitHub</p>
-          </label>
+          <section className="border-b pb-3 flex items-center justify-between">
+            <label htmlFor="photo" className="">
+              <DashboardSubheading title="Profile Picture" />
+              <p className="text-slate-500 text-sm">Sourced from GitHub</p>
+            </label>
+            <Button size="xs" appearance="secondary-slate" asChild>
+              <Link
+                href={`/@${user?.username}`}
+                target="_blank"
+                className="gap-1"
+              >
+                <span className="max-[374px]:hidden">View profile</span>
+                <ExternalLink size={14} />
+              </Link>
+            </Button>
+          </section>
           <div className="flex flex-col items-start">
             <label
               htmlFor="photo"

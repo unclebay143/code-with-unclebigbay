@@ -1,13 +1,13 @@
 'use client';
 
 import React from 'react';
-import { redirect, usePathname } from 'next/navigation';
+import { usePathname } from 'next/navigation';
 import { toast } from 'sonner';
 import { Button } from '@/components/atoms/Button';
 import { DashboardSubheading } from '@/components/molecules/dashboard/dashboard-subheading';
 import { WhiteArea } from '@/components/molecules/dashboard/white-area';
 import { ArrowLeft, Loader, RotateCw } from 'lucide-react';
-import { Controller, useForm } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 import useAssignment, {
   useAssignmentById,
 } from '@/components/hooks/useAssignment';
@@ -41,14 +41,13 @@ const Page = () => {
 
   const {
     handleSubmit,
-    control,
-    // getValues,
+    register,
     formState: { isSubmitting, isDirty, isValid },
   } = useForm({ defaultValues: assignment?.questions });
 
   const questions = assignment?.questions as Questions;
   const canShowQuestions = !isFetching && !isSubmitting;
-  // console.log(getValues());
+
   // Disable button when all questions are not answered - all fields required
   const disableBtn = !isDirty || !isValid || isSubmitting;
 
@@ -128,14 +127,10 @@ const Page = () => {
                   <span className="font-medium"> Status: </span>
                   <span className="text-yellow-500 font-medium">
                     Not attempted
-                    {/* Failed, pass */}
                   </span>
                   <span className="mx-1">&middot;</span>
                   <span className="font-medium">Total: </span>
                   <span>{questions?.length}</span>
-                  {/* <span className="mx-1">&middot;</span>
-                  <span className="font-medium">Score: </span>
-                  <span>{questions?.length}</span> */}
                 </div>
               </div>
             </div>
@@ -151,23 +146,16 @@ const Page = () => {
                         {question}
                       </span>
                       <ol className="pl-2 flex flex-col gap-2 list-inside list-[lower-alpha]">
-                        {options.map(({ option, isCorrect }, index) => {
+                        {options.map(({ _id, option }) => {
                           return (
-                            <li className="text-sm text-slate-800" key={option}>
+                            <li className="text-sm text-slate-800" key={_id}>
                               <span className="inline-flex items-center gap-1">
                                 <label className="flex items-center gap-1">
-                                  <Controller
-                                    name={`${questionIndex}.question`}
-                                    control={control}
-                                    defaultValue={`${questionIndex}.option`}
-                                    render={({ field }) => (
-                                      <input
-                                        {...field}
-                                        value={option}
-                                        type="radio"
-                                        className="mt-0.5"
-                                      />
-                                    )}
+                                  <input
+                                    {...register(`${questionIndex}.question`)}
+                                    value={option}
+                                    type="radio"
+                                    className="mt-0.5"
                                   />
                                   {option}
                                 </label>

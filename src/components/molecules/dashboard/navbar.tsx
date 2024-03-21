@@ -22,7 +22,7 @@ type Props = {
 export const Navbar = ({ session, setSidebarOpen }: Props) => {
   const user = session?.user;
   return (
-    <nav className="sticky top-0 z-10 bg-white py-5 px-5 border-b">
+    <nav className="sticky top-0 z-10 bg-white p-4 lg:py-5 lg:px-5 border-b">
       <section className="max-w-7xl mx-auto flex w-full items-center justify-between">
         <div className="hidden lg:block">
           <CodeWithUnclebigbayLogo />
@@ -46,6 +46,7 @@ export const Navbar = ({ session, setSidebarOpen }: Props) => {
                         alt={user?.name}
                         width={100}
                         height={100}
+                        priority
                       />
                       <div className="absolute z-50 bottom-0 right-0 border ring-1 ring-slate-50 rounded-lg bg-slate-200">
                         <ChevronDown size="12" />
