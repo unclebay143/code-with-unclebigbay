@@ -1,3 +1,4 @@
+import { YTVideo } from '@/components/atoms/YTVideo';
 import { DashboardSubheading } from '@/components/molecules/dashboard/dashboard-subheading';
 import { WhiteArea } from '@/components/molecules/dashboard/white-area';
 import { Youtube } from 'lucide-react';
@@ -16,7 +17,7 @@ const Page = () => {
             </h3>
             <p className="text-slate-600">
               If you&apos;re feeling stuck or have questions about your course
-              material, don&apos;t worry! We have a vibrant community platform
+              course, don&apos;t worry! We have a vibrant community platform
               where you can connect with fellow students and get help from
               instructors.
             </p>
@@ -26,7 +27,12 @@ const Page = () => {
               twClass="text-white bg-[#282828] bg-opacity-95 hover:bg-opacity-100"
               border
             >
-              <Link href="" className="flex items-center justify-center p-10">
+              <Link
+                rel="noopener"
+                target="_blank"
+                href="https://www.youtube.com/@unclebigbay"
+                className="flex items-center justify-center p-10"
+              >
                 <Youtube size={32} />
               </Link>
             </WhiteArea>
@@ -34,7 +40,12 @@ const Page = () => {
               twClass="text-white bg-[#128c7e] bg-opacity-95 hover:bg-opacity-100"
               border
             >
-              <Link href="" className="flex items-center justify-center p-10">
+              <Link
+                target="_blank"
+                rel="noopener"
+                href="https://chat.whatsapp.com/INypkcQok4B8bzlI0rQ2oz"
+                className="flex items-center justify-center p-10"
+              >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   viewBox="0 0 448 512"
@@ -48,7 +59,12 @@ const Page = () => {
               twClass="text-white bg-[#7289DA] bg-opacity-95 hover:bg-opacity-100"
               border
             >
-              <Link href="" className="flex items-center justify-center p-10">
+              <Link
+                target="_blank"
+                rel="noopener"
+                href="https://discord.gg/UqEYh7hqtD"
+                className="flex items-center justify-center p-10"
+              >
                 <span>
                   <svg
                     stroke="currentColor"
@@ -76,6 +92,12 @@ const Page = () => {
           </p>
         </section>
       </div>
+      <section className="flex flex-col gap-5 mt-10">
+        <h3 className="text-center text-2xl font-medium text-slate-600">
+          How to use platform?
+        </h3>
+        <YTVideo ytVideoId="JH77WsDH8yY" />
+      </section>
     </WhiteArea>
   );
 };
