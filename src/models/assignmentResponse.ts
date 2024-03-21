@@ -9,9 +9,9 @@ const assignmentResponseSchema = new Schema({
     ref: 'Student',
     index: true,
   },
-  material: {
+  course: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'Material',
+    ref: 'Course',
     index: true,
   },
   assignment: {

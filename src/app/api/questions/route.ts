@@ -59,11 +59,11 @@ const GET = async () => {
 
     const isAdmin = student?.isAdmin;
     const questions = await Question.find({ isActive: true })
-      .sort({ createdAt: -1 })
       .select(
         `_id question options.option options._id answerExplanation createdAt tags ${isAdmin && 'options.isCorrect'}`,
       )
-      .populate('tags', '_id name slug logo', Tag);
+      .populate('tags', '_id name slug logo', Tag)
+      .sort({ createdAt: -1 });
     return NextResponse.json(
       { message: 'Questions fetched successfully', questions },
       {
