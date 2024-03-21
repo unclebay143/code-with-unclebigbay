@@ -46,6 +46,7 @@ export const Navbar = ({ session, setSidebarOpen }: Props) => {
                         alt={user?.name}
                         width={100}
                         height={100}
+                        priority
                       />
                       <div className="absolute z-50 bottom-0 right-0 border ring-1 ring-slate-50 rounded-lg bg-slate-200">
                         <ChevronDown size="12" />
