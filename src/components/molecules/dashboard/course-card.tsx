@@ -49,6 +49,7 @@ export const CourseCard = ({ layout = 'grid', course }: CourseCardProps) => {
                 src={coverImageUrl}
                 alt=""
                 className="w-full h-full"
+                priority
                 fill
               />
             </div>
