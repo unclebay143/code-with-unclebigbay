@@ -6,9 +6,11 @@ import { DashboardSubheading } from '@/components/molecules/dashboard/dashboard-
 import { OverviewCard } from '@/components/molecules/dashboard/overview-card';
 import { ActivityLogs } from '@/components/molecules/dashboard/activity-logs';
 import { Courses } from '@/components/molecules/dashboard/courses';
-import { overviews, showCount } from '@/utils';
 import { baseURL } from '../../../../frontend.config';
 import { headers } from 'next/headers';
+import { Overview } from '@/utils/types';
+import { ActivityIcon, CheckCheckIcon, LibraryBig } from 'lucide-react';
+import { showCount } from '@/utils';
 
 async function getEnrolledCourses() {
   try {
@@ -35,6 +37,31 @@ const Page = async () => {
   );
   const enrolledCoursesCount = enrolledCourses?.length;
   const noEnrolledCourses = enrolledCoursesCount === 0;
+  const pendingCoursesCount = enrolledCourses.filter(
+    (enrolledCourse: any) => !enrolledCourse.isCompleted,
+  ).length;
+  const completedCoursesCount = enrolledCoursesCount - pendingCoursesCount;
+
+  const overviews: Overview[] = [
+    {
+      id: 'total',
+      label: 'Total enrolled',
+      Icon: LibraryBig,
+      count: enrolledCoursesCount,
+    },
+    {
+      id: 'pending',
+      label: 'Pending',
+      Icon: ActivityIcon,
+      count: pendingCoursesCount,
+    },
+    {
+      id: 'completed',
+      label: 'Completed',
+      Icon: CheckCheckIcon,
+      count: completedCoursesCount,
+    },
+  ];
 
   return (
     <section className="flex flex-col gap-3">

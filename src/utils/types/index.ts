@@ -59,6 +59,7 @@ export type SidebarLink = {
 export type SidebarLinks = SidebarLink[];
 
 export type Option = {
+  _id?: string;
   option: string;
   isCorrect?: boolean;
 };
