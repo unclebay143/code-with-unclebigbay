@@ -23,7 +23,11 @@ const GET = async () => {
 
     const enrolledCourses = await Enroll.find({
       student: student._id,
-    }).populate('course');
+    })
+      .populate('course')
+      .sort({
+        createdAt: -1,
+      });
 
     return NextResponse.json(
       { message: 'Enrolled Courses fetched.', enrolledCourses },

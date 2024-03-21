@@ -110,6 +110,7 @@ const Page = () => {
                                       type="radio"
                                       className="mt-0.5"
                                       checked={isSame}
+                                      disabled={isCorrect ? false : true}
                                     />
                                     {option}
                                   </label>

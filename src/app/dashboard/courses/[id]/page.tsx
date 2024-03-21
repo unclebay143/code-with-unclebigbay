@@ -5,7 +5,13 @@ import { WhiteArea } from '@/components/molecules/dashboard/white-area';
 import { Button } from '@/components/atoms/Button';
 import { IconButton } from '@/components/atoms/IconButton';
 import { YTVideo } from '@/components/atoms/YTVideo';
-import { ChevronDown, ChevronUp, HelpCircle, UsersRound } from 'lucide-react';
+import {
+  ChevronDown,
+  ChevronUp,
+  ExternalLink,
+  HelpCircle,
+  UsersRound,
+} from 'lucide-react';
 import Link from 'next/link';
 import React, { useState } from 'react';
 import { usePathname } from 'next/navigation';
@@ -94,57 +100,77 @@ const Page = () => {
               </button>
               {showMore && (
                 <section className="flex flex-col items-start gap-5 py-4 px-1">
-                  <div className="w-full flex flex-col  gap-5 flex-wrap">
-                    {course?.description && (
+                  <div className="w-full flex flex-col gap-5 flex-wrap">
+                    {/* <div className="w-full flex flex-col justify-between items-start gap-4"> */}
+                    <div className="w-full flex justify-between items-center gap-4">
+                      {course?.description && (
+                        <div>
+                          <h3 className="font-medium text-lg text-slate-700">
+                            Description:
+                          </h3>
+                          <p className="text-slate-600">
+                            {course?.description}
+                          </p>
+                        </div>
+                      )}
+                      <Button size="xs" appearance="secondary-slate" asChild>
+                        <Link
+                          href={`https://www.youtube.com/watch?v=${course?.ytVideoId}`}
+                          target="_blank"
+                          rel="noopener"
+                          className="gap-1"
+                        >
+                          <span>Like and comment on YouTube</span>
+                          <ExternalLink size={14} />
+                        </Link>
+                      </Button>
+                    </div>
+                    <div className="flex flex-col gap-6 md:flex-row md:flex-wrap md:items-center">
                       <div>
                         <h3 className="font-medium text-lg text-slate-700">
-                          Description:
-                        </h3>
-                        <p className="text-slate-600">{course?.description}</p>
-                      </div>
-                    )}
-                    <div>
-                      <h3 className="font-medium text-lg text-slate-700">
-                        Date Published:
-                      </h3>
-                      <p className="text-slate-600">
-                        {formatDate(course.createdAt!)}
-                      </p>
-                    </div>
-                    <div>
-                      <h3 className="font-medium text-lg text-slate-700">
-                        Status:
-                      </h3>
-                      <p
-                        className={`${isCompleted ? 'text-green-600' : isEnrolled ? 'text-yellow-600' : 'text-slate-600'}`}
-                      >
-                        {isCompleted
-                          ? 'Completed'
-                          : isEnrolled
-                            ? 'Enrolled'
-                            : 'Not Started'}
-                      </p>
-                    </div>
-                    {isEnrolled && isCompleted && (
-                      <div>
-                        <h3 className="font-medium text-lg text-slate-700">
-                          Date Completed:
+                          Date Published:
                         </h3>
                         <p className="text-slate-600">
-                          {formatDate(completionDate!)}
+                          {formatDate(course.createdAt!)}
                         </p>
                       </div>
-                    )}
-                    {isEnrolled && (
+                      <hr className="hidden md:block w-0 h-10 border" />
                       <div>
                         <h3 className="font-medium text-lg text-slate-700">
-                          Date Enrolled:
+                          Status:
                         </h3>
-                        <p className="text-slate-600">
-                          {formatDate(enrolledDate!)}
+                        <p
+                          className={`${isCompleted ? 'text-green-600' : isEnrolled ? 'text-yellow-600' : 'text-slate-600'}`}
+                        >
+                          {isCompleted
+                            ? 'Completed'
+                            : isEnrolled
+                              ? 'Enrolled'
+                              : 'Not Started'}
                         </p>
                       </div>
-                    )}
+                      <hr className="hidden md:block w-0 h-10 border" />
+                      {isEnrolled && isCompleted && (
+                        <div>
+                          <h3 className="font-medium text-lg text-slate-700">
+                            Date Completed:
+                          </h3>
+                          <p className="text-slate-600">
+                            {formatDate(completionDate!)}
+                          </p>
+                        </div>
+                      )}
+                      {isEnrolled && (
+                        <div>
+                          <h3 className="font-medium text-lg text-slate-700">
+                            Date Enrolled:
+                          </h3>
+                          <p className="text-slate-600">
+                            {formatDate(enrolledDate!)}
+                          </p>
+                        </div>
+                      )}
+                    </div>
                     {enrolledStudentsCount !== 0 && (
                       <div className="flex items-center gap-2">
                         <UsersRound size={20} />
@@ -156,6 +182,7 @@ const Page = () => {
                         </p>
                       </div>
                     )}
+
                     <div className="flex flex-wrap gap-5 w-full justify-between items-end">
                       {!(tags.length === 0) && (
                         <div className="flex flex-wrap gap-1">
