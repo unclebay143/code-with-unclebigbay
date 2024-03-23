@@ -89,7 +89,7 @@ const Page = () => {
   // useWarnBeforePageReload();
 
   if (!isFetching && alreadyResponded) {
-    window.location.href = `/dashboard/courses/${courseId}/assignment/${assignmentId}/responded`;
+    window.location.href = `/dashboard/courses/${courseId}/assignment/${assignmentId}/result`;
     return null;
   }
 
