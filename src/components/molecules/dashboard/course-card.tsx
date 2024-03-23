@@ -60,9 +60,11 @@ export const CourseCard = ({ layout = 'grid', course }: CourseCardProps) => {
                 <div className="text-gray-700 font-medium hover:text-slate-800 text-lg line-clamp-2">
                   {title}
                 </div>
-                <span className="py-1 px-2 whitespace-nowrap rounded-full bg-slate-100 text-xs font-semibold">
-                  {formatTime(viewTime)}
-                </span>
+                {viewTime ? (
+                  <span className="py-1 px-2 whitespace-nowrap rounded-full bg-slate-100 text-xs font-semibold">
+                    {formatTime(viewTime)}
+                  </span>
+                ) : null}
               </div>
               <p className="text-slate-500 line-clamp-6">{description}</p>
             </div>

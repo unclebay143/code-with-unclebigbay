@@ -8,6 +8,8 @@ export const updateLeaderboard = async ({
   newScore: number;
 }) => {
   try {
+    console.log('run');
+
     await LeaderBoard.findOneAndUpdate(
       {
         student: studentId,
@@ -15,7 +17,7 @@ export const updateLeaderboard = async ({
       {
         $inc: { totalScore: newScore },
       },
-      { new: true },
+      { upsert: true, new: true },
     );
   } catch (e: any) {
     throw new Error(e);

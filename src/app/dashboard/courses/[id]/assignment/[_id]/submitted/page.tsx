@@ -18,9 +18,7 @@ const Page = () => {
   const courseId = assignmentResponse?.course?._id;
   const courseTitle = assignmentResponse?.course?.title;
   const disableBtn = !courseId || !assignmentId;
-  const assignmentResponseUrl = `/dashboard/courses/${courseId}/assignment/${assignmentId}/responded`;
-
-  // if (!assignmentId || !courseId) return;
+  const assignmentResponseUrl = `/dashboard/courses/${courseId}/assignment/${assignmentId}/result`;
 
   return (
     <WhiteArea border>
