@@ -62,9 +62,11 @@ const Page = () => {
           <div className="flex flex-col gap-5">
             <div className="flex items-center justify-between gap-1 text-xl text-slate-600">
               <DashboardSubheading title={course.title} />
-              <Link href="/dashboard/help-centers">
-                <IconButton Icon={HelpCircle} size="lg" />
-              </Link>
+              <Tooltip tooltip="Need help? Click me">
+                <a target="_blank" href="/dashboard/help-centers">
+                  <IconButton Icon={HelpCircle} size="lg" />
+                </a>
+              </Tooltip>
             </div>
             {isEnrolled ? (
               <section className="rounded overflow-hidden">
@@ -100,9 +102,9 @@ const Page = () => {
               </button>
               {showMore && (
                 <section className="flex flex-col items-start gap-5 py-4 px-1">
-                  <div className="w-full flex flex-col gap-5 flex-wrap">
+                  <div className="w-full flex flex-col gap-5 sm:gap-7 flex-wrap">
                     {/* <div className="w-full flex flex-col justify-between items-start gap-4"> */}
-                    <div className="w-full flex justify-between items-center gap-4">
+                    <div className="w-full flex flex-col items-start justify-between lg:flex-row lg:items-end gap-4">
                       {course?.description && (
                         <div>
                           <h3 className="font-medium text-lg text-slate-700">
@@ -113,112 +115,120 @@ const Page = () => {
                           </p>
                         </div>
                       )}
-                      <Button size="xs" appearance="secondary-slate" asChild>
-                        <Link
-                          href={`https://www.youtube.com/watch?v=${course?.ytVideoId}`}
-                          target="_blank"
-                          rel="noopener"
-                          className="gap-1"
-                        >
-                          <span>Like and comment on YouTube</span>
-                          <ExternalLink size={14} />
-                        </Link>
-                      </Button>
+                      <div className="lg:whitespace-nowrap">
+                        <Button size="xs" appearance="secondary-slate" asChild>
+                          <Link
+                            href={`https://www.youtube.com/watch?v=${course?.ytVideoId}`}
+                            target="_blank"
+                            rel="noopener"
+                            className="gap-1"
+                          >
+                            <span>Like and comment on YouTube</span>
+                            <ExternalLink size={14} />
+                          </Link>
+                        </Button>
+                      </div>
                     </div>
-                    <div className="flex flex-col gap-6 md:flex-row md:flex-wrap md:items-center">
-                      <div>
-                        <h3 className="font-medium text-lg text-slate-700">
-                          Date Published:
-                        </h3>
-                        <p className="text-slate-600">
-                          {formatDate(course.createdAt!)}
-                        </p>
-                      </div>
-                      <hr className="hidden md:block w-0 h-10 border" />
-                      <div>
-                        <h3 className="font-medium text-lg text-slate-700">
-                          Status:
-                        </h3>
-                        <p
-                          className={`${isCompleted ? 'text-green-600' : isEnrolled ? 'text-yellow-600' : 'text-slate-600'}`}
-                        >
-                          {isCompleted
-                            ? 'Completed'
-                            : isEnrolled
-                              ? 'Enrolled'
-                              : 'Not Started'}
-                        </p>
-                      </div>
-                      <hr className="hidden md:block w-0 h-10 border" />
-                      {isEnrolled && isCompleted && (
+                    <div className="flex flex-col gap-5 sm:gap-7">
+                      <div className="flex flex-col gap-6 md:flex-row md:flex-wrap md:items-center">
                         <div>
                           <h3 className="font-medium text-lg text-slate-700">
-                            Date Completed:
+                            Date Published:
                           </h3>
                           <p className="text-slate-600">
-                            {formatDate(completionDate!)}
+                            {formatDate(course.createdAt!)}
                           </p>
                         </div>
-                      )}
-                      {isEnrolled && (
+                        <hr className="hidden md:block w-0 h-10 border" />
                         <div>
                           <h3 className="font-medium text-lg text-slate-700">
-                            Date Enrolled:
+                            Status:
                           </h3>
-                          <p className="text-slate-600">
-                            {formatDate(enrolledDate!)}
+                          <p
+                            className={`${isCompleted ? 'text-green-600' : isEnrolled ? 'text-yellow-600' : 'text-slate-600'}`}
+                          >
+                            {isCompleted
+                              ? 'Completed'
+                              : isEnrolled
+                                ? 'Enrolled'
+                                : 'Not Started'}
                           </p>
                         </div>
-                      )}
-                    </div>
-                    {enrolledStudentsCount !== 0 && (
-                      <div className="flex items-center gap-2">
-                        <UsersRound size={20} />
-                        <h3 className="font-medium text-lg text-slate-700">
-                          Enrolled:
-                        </h3>
-                        <p className="text-slate-600 font-semibold text-sm">
-                          {enrolledStudentsCount}
-                        </p>
-                      </div>
-                    )}
-
-                    <div className="flex flex-wrap gap-5 w-full justify-between items-end">
-                      {!(tags.length === 0) && (
-                        <div className="flex flex-wrap gap-1">
-                          {tags?.map(({ name, _id }) => (
-                            <span
-                              key={_id}
-                              className="px-2 capitalize rounded-full bg-indigo-100/20 text-slate-600 text-sm border"
-                            >
-                              {name}
-                            </span>
+                        {(isEnrolled && isCompleted) ||
+                          (isEnrolled && (
+                            <hr className="hidden md:block w-0 h-10 border" />
                           ))}
+                        {isEnrolled && isCompleted && (
+                          <div>
+                            <h3 className="font-medium text-lg text-slate-700">
+                              Date Completed:
+                            </h3>
+                            <p className="text-slate-600">
+                              {formatDate(completionDate!)}
+                            </p>
+                          </div>
+                        )}
+                        {isEnrolled && (
+                          <div>
+                            <h3 className="font-medium text-lg text-slate-700">
+                              Date Enrolled:
+                            </h3>
+                            <p className="text-slate-600">
+                              {formatDate(enrolledDate!)}
+                            </p>
+                          </div>
+                        )}
+                      </div>
+
+                      {enrolledStudentsCount !== 0 && (
+                        <div className="flex items-center gap-2">
+                          <UsersRound size={20} />
+                          <h3 className="font-medium text-lg text-slate-700">
+                            Enrolled:
+                          </h3>
+                          <p className="text-slate-600 font-semibold text-sm">
+                            {enrolledStudentsCount}
+                          </p>
                         </div>
                       )}
-                      {hasAssignment && (
-                        <div>
-                          {isEnrolled ? (
-                            <Button
-                              size="sm"
-                              disabled={!isEnrolled}
-                              asChild={isEnrolled ? true : false}
-                            >
-                              <Link
-                                href={`${courseId}/assignment/${assignmentId}`}
+
+                      <div className="flex flex-wrap gap-5 w-full justify-between items-end">
+                        {!(tags.length === 0) && (
+                          <div className="flex flex-wrap gap-1">
+                            {tags?.map(({ name, _id }) => (
+                              <span
+                                key={_id}
+                                className="px-2 capitalize rounded-full bg-indigo-100/20 text-slate-600 text-sm border"
                               >
-                                Attempt assignment
-                              </Link>
-                            </Button>
-                          ) : (
-                            <Tooltip tooltip="Start course to attempt assignment">
-                              <Button size="sm" disabled>
-                                Attempt assignment
+                                {name}
+                              </span>
+                            ))}
+                          </div>
+                        )}
+                        {hasAssignment && (
+                          <div>
+                            {isEnrolled ? (
+                              <Button
+                                size="sm"
+                                disabled={!isEnrolled}
+                                asChild={isEnrolled ? true : false}
+                              >
+                                <Link
+                                  href={`${courseId}/assignment/${assignmentId}`}
+                                >
+                                  Attempt assignment
+                                </Link>
                               </Button>
-                            </Tooltip>
-                          )}
-                        </div>
-                      )}
+                            ) : (
+                              <Tooltip tooltip="Start course to attempt assignment">
+                                <Button size="sm" disabled>
+                                  Attempt assignment
+                                </Button>
+                              </Tooltip>
+                            )}
+                          </div>
+                        )}
+                      </div>
                     </div>
                   </div>
                 </section>
