@@ -2,8 +2,11 @@ import mongoose, { model, models } from 'mongoose';
 
 const Schema = mongoose.Schema;
 
+const ALLOWED_AUDIT_TYPE = ['onboarding', 'system', 'course', 'assignment'];
+
 const auditTrailSchema = new Schema(
   {
+    type: { type: String, enum: ALLOWED_AUDIT_TYPE, default: 'system' },
     student: { type: Schema.Types.ObjectId, ref: 'Student', required: true },
     title: { type: String, required: true },
     description: { type: String },

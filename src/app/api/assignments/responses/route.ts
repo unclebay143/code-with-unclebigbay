@@ -88,6 +88,7 @@ const POST = async (req: Request) => {
     );
 
     await AuditTrail.create({
+      type: 'assignment',
       student: studentId,
       title: 'Assignment Submission 🙌🏾',
       description: `You submitted an assignment for "${course.title}"`,
