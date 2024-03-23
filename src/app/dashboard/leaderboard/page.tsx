@@ -58,7 +58,7 @@ async function getLeaderBoard() {
   try {
     const url = `${baseURL}/api/students/leaderboard`;
     const result = await fetch(url, {
-      cache: 'force-cache',
+      cache: 'no-cache',
     });
     const leaderboard = await result.json();
 
