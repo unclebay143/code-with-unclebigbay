@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import { Student } from '@/models/student';
 import connectViaMongoose from '@/utils/mongoose';
+import { LeaderBoard } from '@/models/leader-board';
 
 const GET = async (
   _: Request,
@@ -10,7 +11,7 @@ const GET = async (
     const username = params.username;
 
     await connectViaMongoose();
-    const student = await Student.findOne({ username: username });
+    let student = await Student.findOne({ username: username });
     if (!student) {
       return NextResponse.json(
         { message: 'Student record not found', student },
@@ -18,6 +19,17 @@ const GET = async (
           status: 404,
         },
       );
+    }
+
+    const leaderboard = await LeaderBoard.findOne({
+      student: student._id,
+    });
+
+    if (leaderboard) {
+      student = {
+        ...student.toJSON(),
+        totalScore: leaderboard.totalScore,
+      };
     }
 
     return NextResponse.json(
