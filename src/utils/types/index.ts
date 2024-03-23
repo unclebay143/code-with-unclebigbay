@@ -96,6 +96,7 @@ export type Assignment = {
   _id?: string;
   course?: Course;
   questions: Questions;
+  alreadyResponded: boolean;
 };
 export type Assignments = Assignment[];
 

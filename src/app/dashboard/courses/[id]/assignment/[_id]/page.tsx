@@ -38,6 +38,7 @@ const Page = () => {
   const course = assignment?.course;
   const courseId = course?._id;
   const courseTitle = course?.title;
+  const alreadyResponded = assignment?.alreadyResponded;
 
   const {
     handleSubmit,
@@ -69,8 +70,6 @@ const Page = () => {
         };
       });
 
-      if (!assignmentResponse) return null;
-
       const payload = {
         student: student?._id,
         course: courseId,
@@ -89,7 +88,7 @@ const Page = () => {
 
   // useWarnBeforePageReload();
 
-  if (!isFetching && !assignment) {
+  if (!isFetching && alreadyResponded) {
     window.location.href = `/dashboard/courses/${courseId}/assignment/${assignmentId}/responded`;
     return null;
   }
