@@ -21,7 +21,7 @@ async function getStudents() {
   try {
     const url = `${baseURL}/api/students`;
     const result = await fetch(url, {
-      cache: 'force-cache',
+      cache: 'no-cache',
       headers: {
         'Content-Type': 'application/json',
       },

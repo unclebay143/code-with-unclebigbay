@@ -30,7 +30,7 @@ async function getCurrentStudent(username: string) {
     const session = await getServerSessionWithAuthOptions();
     const url = `${baseURL}/api/students/${username}`;
     const result = await fetch(url, {
-      cache: 'no-cache',
+      cache: 'force-cache',
     });
     const studentRes = await result.json();
 
@@ -52,6 +52,7 @@ const Profile = async ({ params }: { params: { username: string } }) => {
   const { studentRes, canUpdateProfile } = data || {};
   const { student } = studentRes as { student: Student };
   const socials = student?.socials || {};
+  const totalPoint = student?.totalScore;
 
   const mapFollowToSocial: {
     [key: string]: { url: string; Icon: LucideIcon; label: string };
@@ -149,12 +150,12 @@ const Profile = async ({ params }: { params: { username: string } }) => {
                     </div>
                   </div>
                   <div className="flex flex-col gap-3 items-end">
-                    {/* {!student.isAnonymous && (
-                      <h3 className="font-medium">
-                        <span className="text-slate-600">Total Points: </span>{' '}
-                        1890
+                    {!student.isAnonymous && totalPoint && (
+                      <h3 className="font-medium text-slate-600">
+                        <span className="font-semibold">Total Points: </span>
+                        <span>{totalPoint}</span>
                       </h3>
-                    )} */}
+                    )}
                     {canUpdateProfile && (
                       <Button size="xs" appearance="secondary-slate" asChild>
                         <Link href="/dashboard/settings">Update</Link>
