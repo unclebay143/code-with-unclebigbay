@@ -165,3 +165,11 @@ export type Course = {
 };
 
 export type Courses = Course[];
+
+export type LeaderBoardData = {
+  _id?: string;
+  student: Student;
+  totalScore: number;
+};
+
+export type LeaderBoard = LeaderBoardData[];
