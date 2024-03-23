@@ -56,7 +56,8 @@ const GET = async () => {
 
     const leaderboard = await LeaderBoard.find()
       .sort({ totalScore: -1 })
-      .limit(10);
+      .limit(10)
+      .populate('student', '_id fullName stack photo username', Student);
 
     if (session) {
       const currentStudent = await Student.findOne({
@@ -74,7 +75,7 @@ const GET = async () => {
       if (!studentInTopList) {
         const studentLeaderBoard = await LeaderBoard.findOne({
           student: studentId,
-        });
+        }).populate('student', '_id fullName stack photo username', Student);
 
         const totalScore = studentLeaderBoard.totalScore;
 

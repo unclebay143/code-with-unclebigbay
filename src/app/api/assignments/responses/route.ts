@@ -6,7 +6,7 @@ import { Question } from '@/models/question';
 import { getServerSessionWithAuthOptions } from '@/utils/auth-options';
 import connectViaMongoose from '@/utils/mongoose';
 import { NextResponse } from 'next/server';
-import { updateLeaderboard } from '../../leaderboard/util';
+import { updateLeaderboard } from '../../students/leaderboard/util';
 
 const POST = async (req: Request) => {
   try {
