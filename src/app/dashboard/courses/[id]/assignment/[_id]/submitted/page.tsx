@@ -3,6 +3,7 @@
 import { Button } from '@/components/atoms/Button';
 import { useAssignmentResponseById } from '@/components/hooks/useAssignmentResponse';
 import useCourse from '@/components/hooks/useCourse';
+import { ShowConfetti } from '@/components/molecules/Confetti';
 import { Courses } from '@/components/molecules/dashboard/courses';
 import { WhiteArea } from '@/components/molecules/dashboard/white-area';
 import Link from 'next/link';
@@ -22,7 +23,10 @@ const Page = () => {
 
   return (
     <WhiteArea border>
-      <section className="flex flex-col items-center justify-center gap-3 p-4">
+      <section className="relative flex flex-col items-center justify-center gap-3 p-4">
+        <section className="absolute inset-0 w-full h-[100px] overflow-hidden">
+          <ShowConfetti />
+        </section>
         <div className="w-full flex flex-col items-center gap-5">
           <div className="flex flex-col text-center gap-2">
             {courseTitle ? (
