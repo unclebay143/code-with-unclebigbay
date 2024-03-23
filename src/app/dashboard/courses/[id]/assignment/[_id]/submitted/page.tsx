@@ -20,6 +20,9 @@ const Page = () => {
   const courseTitle = assignmentResponse?.course?.title;
   const disableBtn = !courseId || !assignmentId;
   const assignmentResponseUrl = `/dashboard/courses/${courseId}/assignment/${assignmentId}/result`;
+  const recommendedCourses = courses
+    ?.filter((course) => !course.isCompleted && course._id !== courseId)
+    .splice(0, 3); // consider adding enroll field in the course object from BE
 
   return (
     <WhiteArea border>
@@ -56,7 +59,7 @@ const Page = () => {
           {/* Pass recommended courses here */}
           <div className="w-full">
             <Courses
-              courses={courses}
+              courses={recommendedCourses}
               isFetching={isFetching}
               hideSearchOptions
               hideReachedEnd

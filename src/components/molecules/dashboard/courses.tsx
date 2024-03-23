@@ -32,7 +32,7 @@ export const Courses = ({
   isFetching,
 }: Props) => {
   const noData = !isFetching && courses && courses?.length < 1;
-  const showReachedEnd = !isFetching && !noData;
+  const showReachedEnd = !isFetching && !hideReachedEnd && !noData;
 
   return (
     <section className="flex flex-col gap-3">
