@@ -38,6 +38,7 @@ export const authOptions = {
         if (student) {
           const studentId = student._id;
           await AuditTrail.create({
+            type: 'onboarding',
             student: studentId,
             title: 'Created an account 🎉',
           });
