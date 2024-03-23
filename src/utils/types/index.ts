@@ -113,6 +113,7 @@ export type AssignmentResponse = {
 export type Student = {
   _id: string;
   createdAt: string;
+  totalScore: number;
   fullName: string;
   email: string;
   username: string;
