@@ -44,6 +44,7 @@ const Page = () => {
         stack: data.stack,
       });
       newAudit.mutate({
+        type: 'onboarding',
         studentId: currentStudent._id,
         title: 'Onboarding completed 🎉',
         description: `Update stack to "${data.stack}"`,

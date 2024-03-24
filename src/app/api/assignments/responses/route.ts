@@ -6,6 +6,7 @@ import { Question } from '@/models/question';
 import { getServerSessionWithAuthOptions } from '@/utils/auth-options';
 import connectViaMongoose from '@/utils/mongoose';
 import { NextResponse } from 'next/server';
+import { updateLeaderboard } from '../../students/leaderboard/util';
 
 const POST = async (req: Request) => {
   try {
@@ -87,7 +88,13 @@ const POST = async (req: Request) => {
       },
     );
 
+    await updateLeaderboard({
+      studentId,
+      newScore: score,
+    });
+
     await AuditTrail.create({
+      type: 'assignment',
       student: studentId,
       title: 'Assignment Submission 🙌🏾',
       description: `You submitted an assignment for "${course.title}"`,

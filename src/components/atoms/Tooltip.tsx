@@ -1,13 +1,19 @@
 import * as RadixTooltip from '@radix-ui/react-tooltip';
 
-type Props = { tooltip: string | null; children: React.ReactNode };
+type Props = {
+  tooltip: string | null;
+  asChild?: boolean;
+  children: React.ReactNode;
+};
 
-export const Tooltip = ({ tooltip, children }: Props) => {
+export const Tooltip = ({ tooltip, asChild, children }: Props) => {
   if (!tooltip) return children;
   return (
     <RadixTooltip.Provider>
       <RadixTooltip.Root>
-        <RadixTooltip.Trigger>{children}</RadixTooltip.Trigger>
+        <RadixTooltip.Trigger asChild={asChild}>
+          {children}
+        </RadixTooltip.Trigger>
         <RadixTooltip.Portal>
           <RadixTooltip.Content
             className="z-[999999] rounded-md px-3 py-2 text-xs text-white bg-slate-900"

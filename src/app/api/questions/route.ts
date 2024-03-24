@@ -6,7 +6,7 @@ import { Student } from '@/models/student';
 import { Student as StudentType } from '@/utils/types';
 import { Tag } from '@/models/tag';
 
-const POST = async (req: Request, res: Response) => {
+const POST = async (req: Request, _res: Response) => {
   const body = await req.json();
 
   try {

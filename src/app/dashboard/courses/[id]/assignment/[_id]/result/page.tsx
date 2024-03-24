@@ -33,7 +33,7 @@ const Page = () => {
       {isFetching && (
         <WhiteArea twClass="!p-0 bg-slate-50 animate-pulse" border>
           <div className="flex items-center justify-center min-h-[80vh] gap-2 text-slate-600">
-            <span>Loading response...</span>
+            <span>Loading assignment response...</span>
             <span className="animate-spin">
               <Loader />
             </span>
