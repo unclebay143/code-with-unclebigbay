@@ -34,6 +34,8 @@ export const Courses = ({
   loaderCounter = 3,
 }: Props) => {
   const noData = !isFetching && courses && courses?.length < 1;
+  console.log(noData);
+
   const showReachedEnd = !isFetching && !hideReachedEnd && !noData;
 
   return (

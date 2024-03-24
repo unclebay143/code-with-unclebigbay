@@ -20,14 +20,16 @@ export const Navbar = () => {
         <section className="flex w-full items-center justify-between">
           <CodeWithUnclebigbayLogo />
           <section className="hidden lg:flex items-center gap-3 text-slate-600">
-            {navLinks.map(({ label, url }, index) => (
+            {navLinks.map(({ label, url, target }, index) => (
               <Button
                 size="sm"
                 asChild
                 appearance="link-secondary"
                 key={`big-screen-nav-links-${index}`}
               >
-                <Link href={url}>{label}</Link>
+                <Link href={url} target={target}>
+                  {label}
+                </Link>
               </Button>
             ))}
           </section>
