@@ -22,14 +22,15 @@ const GET = async (_: Request, { params }: { params: { _id: string } }) => {
     const assignmentId = params._id;
     const studentId = student._id;
 
-    const alreadyResponded = await AssignmentResponse.findOne({
+    const prevResponse = await AssignmentResponse.findOne({
       assignment: assignmentId,
       student: studentId,
-    });
+    }).populate('course', '_id title', Course);
 
-    if (alreadyResponded) {
+    if (prevResponse) {
+      const assignment = { ...prevResponse.toJSON(), alreadyResponded: true };
       return NextResponse.json(
-        { message: 'Assignment response fetched.', alreadyResponded },
+        { message: 'Assignment response fetched.', assignment },
         {
           status: 200,
         },
@@ -38,7 +39,7 @@ const GET = async (_: Request, { params }: { params: { _id: string } }) => {
 
     const assignment = await Assignment.findOne({ _id: assignmentId })
       .select('_id course questions')
-      .populate('_id course', 'title', Course)
+      .populate('course', '_id title', Course)
       .populate(
         'questions',
         '_id question options._id options.option',
