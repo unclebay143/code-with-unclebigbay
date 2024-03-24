@@ -1,10 +1,7 @@
 'use client';
 
 import { Navbar } from '@/components/molecules/dashboard/navbar';
-import {
-  Sidebar,
-  SidebarMobile,
-} from '@/components/molecules/dashboard/sidebar';
+import { Sidebar } from '@/components/molecules/dashboard/sidebar';
 import { handleAuthentication } from '@/utils/auth';
 import { sidebarLinks } from '@/utils/consts/links';
 import { Student } from '@/utils/types';
@@ -51,7 +48,8 @@ export const DashboardIndex = ({
     return null;
   }
 
-  const redirectToOnboard = !currentStudent?.stack && !pathIsOnboarding;
+  const redirectToOnboard =
+    !canAccessWithoutAuth && !currentStudent?.stack && !pathIsOnboarding;
   if (redirectToOnboard) {
     return redirect('/dashboard/onboard');
   }
@@ -73,13 +71,8 @@ export const DashboardIndex = ({
           isLoggedIn={!!session}
           isAdmin={isAdmin}
           isOnboardingCompleted={!!currentStudent?.stack}
-        />
-        <SidebarMobile
           setSidebarOpen={setSidebarOpen}
           sidebarOpen={sidebarOpen}
-          isLoggedIn={!!session}
-          isAdmin={isAdmin}
-          isOnboardingCompleted={!!currentStudent?.stack}
         />
         <div className="flex flex-col gap-4 w-full dark:bg-slate-950 min-h-screen">
           {children}
