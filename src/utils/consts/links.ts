@@ -17,7 +17,7 @@ export const sidebarLinks: SidebarLinks = [
     label: 'onboard',
     slug: 'onboard',
     Icon: DoorOpen,
-    requireAuth: false,
+    requireAuth: true,
     showOnBoard: true,
     hideAfterOnboard: true,
   },

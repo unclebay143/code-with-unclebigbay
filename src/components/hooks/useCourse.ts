@@ -19,6 +19,8 @@ const useCourse = () => {
       axios.get('/api/courses').then((res) => res.data.courses as Courses),
   });
 
+  console.log(courses);
+
   const mutation = useMutation({
     mutationFn: (newCourse: Course) => {
       return axios.post('/api/courses', newCourse);

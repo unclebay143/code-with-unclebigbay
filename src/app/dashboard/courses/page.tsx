@@ -13,11 +13,14 @@ import Link from 'next/link';
 import React from 'react';
 
 const Page = () => {
-  const { data: currentUser } = useCurrentStudent();
+  const { data: currentUser, isFetching: isFetchingCurrentUser } =
+    useCurrentStudent();
   const isAdmin = currentUser?.isAdmin;
   const { courses, isFetching } = useCourse();
   const count = courses?.length || 0;
   const noCourses = courses?.length === 0;
+
+  console.log(isFetchingCurrentUser);
 
   return (
     <div className="flex flex-col gap-3">
@@ -41,7 +44,7 @@ const Page = () => {
           <div className="flex items-center justify-between">
             <DashboardSubheading
               title={`Available Courses ${showCount(count)}`}
-              copy="These courses are personalized based on your stack."
+              copy={`${isFetchingCurrentUser ? '-' : currentUser ? 'These courses are personalized based on your stack.' : 'Login to see only personalized courses based on your stack.'}`}
             />
 
             {isAdmin && (
