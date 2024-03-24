@@ -12,7 +12,7 @@ const GET = async () => {
 
     if (!session) {
       return NextResponse.json(
-        { message: 'Visitor' },
+        { message: 'No session', student: null },
         {
           status: 200,
         },
