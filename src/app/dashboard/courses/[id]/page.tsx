@@ -39,6 +39,12 @@ const Page = () => {
   const enrolledDate = course?.enrolledDate;
   const enrolledStudentsCount = course?.enrolledStudentsCount;
 
+  const isLoggedin = !!currentStudent;
+  const playableMode = !isLoggedin || isEnrolled;
+
+  const renderStartCourseCTA =
+    "It looks like you're not logged in. Sign in to enroll in this course and access the assignment.";
+
   const assignmentId = course?.assignment;
   const hasAssignment = !!assignmentId;
 
@@ -62,15 +68,22 @@ const Page = () => {
           <div className="flex flex-col gap-5">
             <div className="flex items-center justify-between gap-1 text-xl text-slate-600">
               <DashboardSubheading title={course.title} />
-              <Tooltip tooltip="Need help? Click me">
+              <Tooltip tooltip="Need help? Click me" asChild>
                 <a target="_blank" href="/dashboard/help-centers">
                   <IconButton Icon={HelpCircle} size="lg" />
                 </a>
               </Tooltip>
             </div>
-            {isEnrolled ? (
-              <section className="rounded overflow-hidden">
-                <YTVideo ytVideoId={course?.ytVideoId} />
+            {playableMode ? (
+              <section className="flex flex-col gap-2">
+                <section className="rounded overflow-hidden">
+                  <YTVideo ytVideoId={course?.ytVideoId} />
+                </section>
+                {!isLoggedin && (
+                  <span className="text-sm text-orange-500">
+                    {renderStartCourseCTA}
+                  </span>
+                )}
               </section>
             ) : (
               <section
@@ -86,8 +99,8 @@ const Page = () => {
               </section>
             )}
             <WhiteArea border>
-              <button
-                className="group flex w-full items-center justify-between"
+              <div
+                className="group flex w-full items-center justify-between cursor-pointer"
                 onClick={handleShowMoreVisibility}
               >
                 <span className="text-slate-600 font-medium group-hover:text-slate-800">
@@ -99,7 +112,7 @@ const Page = () => {
                     size="xs"
                   />
                 </span>
-              </button>
+              </div>
               {showMore && (
                 <section className="flex flex-col items-start gap-5 py-4 px-1">
                   <div className="w-full flex flex-col gap-5 sm:gap-7 flex-wrap">
