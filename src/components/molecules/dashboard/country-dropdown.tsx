@@ -21,7 +21,9 @@ export const SelectCountry = (props: {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch('https://restcountries.com/v3.1/all');
+        const response = await fetch(
+          'https://restcountries.com/v3.1/all?fields=name',
+        );
         if (!response.ok) {
           throw new Error('Network response was not ok');
         }
