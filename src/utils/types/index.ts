@@ -171,6 +171,7 @@ export type LeaderBoardData = {
   _id?: string;
   student: Student;
   totalScore: number;
+  rank: number;
 };
 
 export type LeaderBoard = LeaderBoardData[];
