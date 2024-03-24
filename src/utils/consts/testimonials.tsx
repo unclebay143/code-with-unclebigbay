@@ -50,6 +50,90 @@ export const testimonials = [
       'https://twitter.com/iamthebuilder__/status/1648968287961722880?s=20',
     src: 'Twitter',
   },
+  {
+    author: {
+      name: 'Perspective',
+      img: 'https://cdn.hashnode.com/res/hashnode/image/upload/v1677222800340/7FWlpF0aT.jpeg',
+      title: 'Software engineer',
+    },
+    quote:
+      "The UI is great and has an enjoyable feel to it. I'd definitely use this.",
+    srcUrl:
+      'https://twitter.com/iamthebuilder__/status/1648968287961722880?s=20',
+    src: 'Twitter',
+  },
+  {
+    author: {
+      name: 'Perspective',
+      img: 'https://cdn.hashnode.com/res/hashnode/image/upload/v1677222800340/7FWlpF0aT.jpeg',
+      title: 'Software engineer',
+    },
+    quote:
+      "The UI is great and has an enjoyable feel to it. I'd definitely use this.",
+    srcUrl:
+      'https://twitter.com/iamthebuilder__/status/1648968287961722880?s=20',
+    src: 'Twitter',
+  },
+  {
+    author: {
+      name: 'Perspective',
+      img: 'https://cdn.hashnode.com/res/hashnode/image/upload/v1677222800340/7FWlpF0aT.jpeg',
+      title: 'Software engineer',
+    },
+    quote:
+      "The UI is great and has an enjoyable feel to it. I'd definitely use this.",
+    srcUrl:
+      'https://twitter.com/iamthebuilder__/status/1648968287961722880?s=20',
+    src: 'Twitter',
+  },
+  {
+    author: {
+      name: 'Perspective',
+      img: 'https://cdn.hashnode.com/res/hashnode/image/upload/v1677222800340/7FWlpF0aT.jpeg',
+      title: 'Software engineer',
+    },
+    quote:
+      "The UI is great and has an enjoyable feel to it. I'd definitely use this.",
+    srcUrl:
+      'https://twitter.com/iamthebuilder__/status/1648968287961722880?s=20',
+    src: 'Twitter',
+  },
+  {
+    author: {
+      name: 'Perspective',
+      img: 'https://cdn.hashnode.com/res/hashnode/image/upload/v1677222800340/7FWlpF0aT.jpeg',
+      title: 'Software engineer',
+    },
+    quote:
+      "The UI is great and has an enjoyable feel to it. I'd definitely use this.",
+    srcUrl:
+      'https://twitter.com/iamthebuilder__/status/1648968287961722880?s=20',
+    src: 'Twitter',
+  },
+  {
+    author: {
+      name: 'Perspective',
+      img: 'https://cdn.hashnode.com/res/hashnode/image/upload/v1677222800340/7FWlpF0aT.jpeg',
+      title: 'Software engineer',
+    },
+    quote:
+      "The UI is great and has an enjoyable feel to it. I'd definitely use this.",
+    srcUrl:
+      'https://twitter.com/iamthebuilder__/status/1648968287961722880?s=20',
+    src: 'Twitter',
+  },
+  {
+    author: {
+      name: 'Perspective',
+      img: 'https://cdn.hashnode.com/res/hashnode/image/upload/v1677222800340/7FWlpF0aT.jpeg',
+      title: 'Software engineer',
+    },
+    quote:
+      "The UI is great and has an enjoyable feel to it. I'd definitely use this.",
+    srcUrl:
+      'https://twitter.com/iamthebuilder__/status/1648968287961722880?s=20',
+    src: 'Twitter',
+  },
 
   {
     author: {
