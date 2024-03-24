@@ -9,27 +9,29 @@ import { NextResponse } from 'next/server';
 
 const GET = async () => {
   try {
+    let courses;
     await connectViaMongoose();
+
+    courses = await Course.find({ isActive: true })
+      .sort({
+        createdAt: -1,
+      })
+      .populate('tags', '', Tag);
+
     const session = await getServerSessionWithAuthOptions();
     if (!session) {
       return NextResponse.json(
-        { message: 'Session required' },
-        { status: 403 },
+        { message: 'Courses fetched.', courses },
+        { status: 200 },
       );
     }
+
     const student = await Student.findOne({ email: session?.user.email });
     const userStack = student.stack || 'platform-guide';
     const userHasStack = session && userStack;
     const isFullStack = student.stack === 'full-stack';
-    console.log('out');
-
-    let courses;
-
-    console.log(userHasStack);
 
     if (userHasStack && !isFullStack) {
-      console.log('hi');
-
       const tag = await Tag.findOne({ name: { $in: userStack } });
 
       if (tag) {
@@ -50,20 +52,22 @@ const GET = async () => {
       student: student._id,
     });
 
-    const courseIdsEnrolled = enrolledCourses.map(
-      (enrolledCourse) => enrolledCourse.course._id,
-    );
-
-    courses = courses?.map((course) => {
-      const isEnrolled = courseIdsEnrolled.some(
-        (courseId) => courseId.toString() === course._id.toString(),
+    if (enrolledCourses) {
+      const courseIdsEnrolled = enrolledCourses.map(
+        (enrolledCourse) => enrolledCourse.course._id,
       );
 
-      return {
-        ...course.toJSON(),
-        isEnrolled,
-      };
-    });
+      courses = courses?.map((course) => {
+        const isEnrolled = courseIdsEnrolled.some(
+          (courseId) => courseId.toString() === course._id.toString(),
+        );
+
+        return {
+          ...course.toJSON(),
+          isEnrolled,
+        };
+      });
+    }
 
     return NextResponse.json(
       { message: 'Courses fetched.', courses },

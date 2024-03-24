@@ -13,14 +13,17 @@ import { handleAuthentication, handleLogout } from '@/utils/auth';
 import { IconButton } from '../../atoms/IconButton';
 import { Bar3CenterLeft } from '../../icons/Bar3CenterLeft';
 import { Button } from '@/components/atoms/Button';
+import { Student } from '@/utils/types';
 
 type Props = {
   session: Session | null;
   setSidebarOpen: Function;
+  currentStudent: Student;
 };
 
-export const Navbar = ({ session, setSidebarOpen }: Props) => {
+export const Navbar = ({ session, setSidebarOpen, currentStudent }: Props) => {
   const user = session?.user;
+  const isOnboardingCompleted = !!currentStudent?.stack;
   return (
     <nav className="sticky top-0 z-10 bg-white p-4 lg:py-5 lg:px-5 border-b">
       <section className="max-w-7xl mx-auto flex w-full items-center justify-between">
@@ -48,38 +51,42 @@ export const Navbar = ({ session, setSidebarOpen }: Props) => {
                         height={100}
                         priority
                       />
-                      <div className="absolute z-50 bottom-0 right-0 border ring-1 ring-slate-50 rounded-lg bg-slate-200">
-                        <ChevronDown size="12" />
-                      </div>
+                      {isOnboardingCompleted && (
+                        <div className="absolute z-50 bottom-0 right-0 border ring-1 ring-slate-50 rounded-lg bg-slate-200">
+                          <ChevronDown size="12" />
+                        </div>
+                      )}
                     </>
                   </button>
                 </DropdownMenuTrigger>
-                <DropdownMenuContent>
-                  <section className="p-2 flex flex-col">
-                    <h3 className="truncate text-sm font-medium text-slate-900">
-                      {user?.name}
-                    </h3>
-                    <span className="truncate text-xs text-slate-500">
-                      {user?.email}
-                    </span>
-                  </section>
+                {isOnboardingCompleted && (
+                  <DropdownMenuContent>
+                    <section className="p-2 flex flex-col">
+                      <h3 className="truncate text-sm font-medium text-slate-900">
+                        {user?.name}
+                      </h3>
+                      <span className="truncate text-xs text-slate-500">
+                        {user?.email}
+                      </span>
+                    </section>
 
-                  <MenuButton
-                    label="Settings"
-                    Icon={Settings}
-                    url="/dashboard/settings"
-                  />
-                  <MenuButton
-                    label="Help Centers"
-                    Icon={HelpCircle}
-                    url="/dashboard/help-centers"
-                  />
-                  <MenuButton
-                    label="Sign out"
-                    Icon={LogOut}
-                    onClick={() => handleLogout()}
-                  />
-                </DropdownMenuContent>
+                    <MenuButton
+                      label="Settings"
+                      Icon={Settings}
+                      url="/dashboard/settings"
+                    />
+                    <MenuButton
+                      label="Help Centers"
+                      Icon={HelpCircle}
+                      url="/dashboard/help-centers"
+                    />
+                    <MenuButton
+                      label="Sign out"
+                      Icon={LogOut}
+                      onClick={() => handleLogout()}
+                    />
+                  </DropdownMenuContent>
+                )}
               </DropdownMenu>
             </section>
           ) : (
