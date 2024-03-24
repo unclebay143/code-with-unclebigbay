@@ -5,6 +5,7 @@ import type { LucideIcon } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { formatTime } from '@/utils';
+import { Tooltip } from '@/components/atoms/Tooltip';
 
 type CourseCardProps = {
   course: Course;
@@ -12,7 +13,8 @@ type CourseCardProps = {
 };
 
 export const CourseCard = ({ layout = 'grid', course }: CourseCardProps) => {
-  const { _id, type, title, description, coverImageUrl, viewTime } = course;
+  const { _id, type, title, description, coverImageUrl, viewTime, isEnrolled } =
+    course;
 
   const mapTypeToIcon: { [key: string]: LucideIcon } = {
     video: PlayCircle,
@@ -54,25 +56,28 @@ export const CourseCard = ({ layout = 'grid', course }: CourseCardProps) => {
               />
             </div>
           </div>
-          <section className="h-full p-6 flex flex-col gap-3">
+          <section className="h-[220px] p-6 flex flex-col gap-3 justify-between">
             <div className="flex flex-col gap-3">
               <div className="flex items-start justify-between">
-                <div className="text-gray-700 font-medium hover:text-slate-800 text-lg line-clamp-2">
-                  {title}
+                <div
+                  title={title}
+                  className="text-gray-700 font-medium hover:text-slate-800 text-lg line-clamp-2"
+                >
+                  {title}{' '}
                 </div>
-                <span className="py-1 px-2 whitespace-nowrap rounded-full bg-slate-100 text-xs font-semibold">
-                  {formatTime(viewTime)}
-                </span>
+                {viewTime ? (
+                  <span className="py-1 px-2 whitespace-nowrap rounded-full bg-slate-100 text-xs font-semibold">
+                    {formatTime(viewTime)}
+                  </span>
+                ) : null}
               </div>
-              <p className="text-slate-500 line-clamp-6">{description}</p>
+              <p className="text-slate-500 line-clamp-3">{description}</p>
             </div>
-            {/* <div>
-              {enrolled && (
-                <span className="w-fit text-xs rounded px-3 py-1 bg-slate-100 text-slate-600 font-medium">
-                  Enrolled
-                </span>
-              )}
-            </div> */}
+            {isEnrolled && (
+              <span className="w-fit text-xs rounded px-3 py-1 bg-slate-100 text-slate-600 font-medium">
+                Enrolled
+              </span>
+            )}
           </section>
         </Link>
       )}

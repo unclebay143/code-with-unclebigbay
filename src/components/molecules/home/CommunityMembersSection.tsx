@@ -5,23 +5,20 @@ import React from 'react';
 // import { Button } from '../ui/Button';
 import { HomeSectionHeading } from '.';
 import { baseURL } from '../../../../frontend.config';
+import { Linkedin, Twitter, X } from 'lucide-react';
+import { IconButton } from '@/components/atoms/IconButton';
+import { Student } from '@/utils/types';
 
 type ResponseData = {
   message: string;
-  students: {
-    _id: string;
-    username: string;
-    photo: string;
-    fullName: string;
-    stack: string;
-  }[];
+  students: Student[];
 };
 
 async function getStudents() {
   try {
     const url = `${baseURL}/api/students`;
     const result = await fetch(url, {
-      cache: 'force-cache',
+      cache: 'no-cache',
       headers: {
         'Content-Type': 'application/json',
       },
@@ -74,30 +71,59 @@ export const CommunityMembersSection = async () => {
           Become a Member
         </Button> */}
       </div>
-      <section className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-y-12 gap-x-8">
-        {students?.map(({ _id, fullName, username, stack, photo }) => (
-          <Link
-            href={`/@${username}`}
-            key={`communityMembers-${_id}`}
-            className="flex flex-col gap-3 border rounded overflow-hidden"
-          >
-            <div className="mx-auto overflow-hidden h-full w-full transition transform duration-500 ease-in-out hover:scale-105 ">
-              <Image
-                src={photo}
-                height={200}
-                width={200}
-                className="w-full"
-                alt=""
-              />
+      <section className="grid grid-cols-2  sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-y-12 gap-x-8">
+        {students?.map(({ _id, fullName, username, stack, photo, socials }) => {
+          const x = socials?.x;
+          const linkedin = socials?.linkedin;
+          const showSocial = x
+            ? { url: x, logo: Twitter }
+            : linkedin
+              ? { url: linkedin, logo: Linkedin }
+              : null;
+
+          return (
+            <div
+              key={`communityMembers-${_id}`}
+              className="flex flex-col border rounded overflow-hidden"
+            >
+              <Link
+                href={`/@${username}`}
+                className="mx-auto overflow-hidden lg:h-[200px] w-full transition transform duration-500 ease-in-out hover:scale-105 "
+              >
+                <Image
+                  src={photo}
+                  height={200}
+                  width={200}
+                  className="w-full"
+                  alt={`${username}'s profile image`}
+                />
+              </Link>
+              <div className="px-4 pb-4 pt-3">
+                <div className="flex items-center justify-between gap-2">
+                  <Link
+                    href={`/@${username}`}
+                    className="font-medium text-slate-950 hover:underline"
+                  >
+                    {fullName}
+                  </Link>
+                  {showSocial && (
+                    <Link href={showSocial.url} target="_blank" rel="noopener">
+                      <IconButton
+                        Icon={showSocial.logo}
+                        appearance="secondary"
+                        size="sm"
+                        iconSolid
+                      />
+                    </Link>
+                  )}
+                </div>
+                <p className="text-slate-600 text-sm capitalize">
+                  {stack} developer
+                </p>
+              </div>
             </div>
-            <div className="px-4 pb-4 pt-2">
-              <h3 className="font-medium text-slate-950 hover:underline">
-                {fullName}
-              </h3>
-              <p className="text-slate-600 text-sm capitalize">{stack}</p>
-            </div>
-          </Link>
-        ))}
+          );
+        })}
       </section>
       {/* <section className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-y-12 gap-x-8">
         {students?.map(({ _id, fullName, username, stack, photo }) => (

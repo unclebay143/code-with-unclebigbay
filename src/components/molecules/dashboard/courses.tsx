@@ -20,6 +20,7 @@ type Props = {
   size?: number;
   hideReachedEnd?: boolean;
   isFetching?: boolean;
+  loaderCounter?: number;
 };
 
 export const Courses = ({
@@ -30,9 +31,10 @@ export const Courses = ({
   hideReachedEnd,
   size,
   isFetching,
+  loaderCounter = 3,
 }: Props) => {
   const noData = !isFetching && courses && courses?.length < 1;
-  const showReachedEnd = !isFetching && !noData;
+  const showReachedEnd = !isFetching && !hideReachedEnd && !noData;
 
   return (
     <section className="flex flex-col gap-3">
@@ -59,12 +61,10 @@ export const Courses = ({
       {showCounter && (
         <p className="text-slate-600">Total: {courses?.length}</p>
       )}
-      <section
-        className={`${isFetching && 'xl:h-[416px]'} max-w-full grid sm:grid-cols-2 xl:grid-cols-3 gap-3`}
-      >
+      <section className="max-w-full grid sm:grid-cols-2 xl:grid-cols-3 gap-3">
         {isFetching && (
           <>
-            {Array(3)
+            {Array(loaderCounter)
               .fill({})
               .map((_, index) => (
                 <CourseCardSkeleton key={`CourseCardSkeleton-${index}`} />

@@ -24,6 +24,12 @@ import { IconButton } from '@/components/atoms/IconButton';
 import { Footer } from '@/components/atoms/Footer';
 import { getServerSessionWithAuthOptions } from '@/utils/auth-options';
 import { Student } from '@/utils/types';
+import { Metadata } from 'next';
+
+type Props = {
+  params: { username: string };
+  searchParams: { [key: string]: string | string[] | undefined };
+};
 
 async function getCurrentStudent(username: string) {
   try {
@@ -44,6 +50,20 @@ async function getCurrentStudent(username: string) {
   }
 }
 
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const username = params.username;
+
+  const data = await getCurrentStudent(username);
+  const student = data?.studentRes.student as Student;
+  const userFullName = student.fullName;
+  const bio = student.bio;
+
+  return {
+    title: `${userFullName} - Code with Unclebigbay`,
+    description: `${userFullName}'s profile on Code with Unclebigbay. ${bio || ''}`,
+  };
+}
+
 const Profile = async ({ params }: { params: { username: string } }) => {
   const data = await getCurrentStudent(params?.username);
 
@@ -52,6 +72,7 @@ const Profile = async ({ params }: { params: { username: string } }) => {
   const { studentRes, canUpdateProfile } = data || {};
   const { student } = studentRes as { student: Student };
   const socials = student?.socials || {};
+  const totalPoint = student?.totalScore;
 
   const mapFollowToSocial: {
     [key: string]: { url: string; Icon: LucideIcon; label: string };
@@ -149,12 +170,12 @@ const Profile = async ({ params }: { params: { username: string } }) => {
                     </div>
                   </div>
                   <div className="flex flex-col gap-3 items-end">
-                    {/* {!student.isAnonymous && (
-                      <h3 className="font-medium">
-                        <span className="text-slate-600">Total Points: </span>{' '}
-                        1890
+                    {!student.isAnonymous && totalPoint && (
+                      <h3 className="font-medium text-slate-600">
+                        <span className="font-semibold">Total Points: </span>
+                        <span>{totalPoint}</span>
                       </h3>
-                    )} */}
+                    )}
                     {canUpdateProfile && (
                       <Button size="xs" appearance="secondary-slate" asChild>
                         <Link href="/dashboard/settings">Update</Link>

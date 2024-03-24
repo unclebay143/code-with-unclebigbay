@@ -54,6 +54,7 @@ const Page = () => {
             courses={courses}
             isFetching={isFetching}
             hideSearchOptions
+            loaderCounter={6}
           />
         </div>
       </WhiteArea>
