@@ -42,23 +42,6 @@ export type CommunityMember = {
 
 export type CommunityMembers = CommunityMember[];
 
-export type SidebarLink = {
-  key: string;
-  label: string;
-  slug: string;
-  Icon: LucideIcon;
-  isActive?: boolean;
-  shadowHide?: boolean;
-  onClick?: () => void;
-  adminAccess?: boolean;
-  requireAuth: boolean;
-  disabled?: boolean;
-  showOnBoard?: boolean;
-  hideAfterOnboard?: boolean;
-};
-
-export type SidebarLinks = SidebarLink[];
-
 export type Option = {
   _id?: string;
   option: string;
