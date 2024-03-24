@@ -20,8 +20,6 @@ const Page = () => {
   const count = courses?.length || 0;
   const noCourses = courses?.length === 0;
 
-  console.log(isFetchingCurrentUser);
-
   return (
     <div className="flex flex-col gap-3">
       {/* <div className="sticky top-[75px] lg:top-[82px] z-10 bg-white rounded-b-lg">
