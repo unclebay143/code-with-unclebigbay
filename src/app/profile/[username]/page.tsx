@@ -24,6 +24,12 @@ import { IconButton } from '@/components/atoms/IconButton';
 import { Footer } from '@/components/atoms/Footer';
 import { getServerSessionWithAuthOptions } from '@/utils/auth-options';
 import { Student } from '@/utils/types';
+import { Metadata } from 'next';
+
+type Props = {
+  params: { username: string };
+  searchParams: { [key: string]: string | string[] | undefined };
+};
 
 async function getCurrentStudent(username: string) {
   try {
@@ -42,6 +48,20 @@ async function getCurrentStudent(username: string) {
   } catch (e: any) {
     console.log({ message: e.message });
   }
+}
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const username = params.username;
+
+  const data = await getCurrentStudent(username);
+  const student = data?.studentRes.student as Student;
+  const userFullName = student.fullName;
+  const bio = student.bio;
+
+  return {
+    title: `${userFullName} - Code with Unclebigbay`,
+    description: `${userFullName}'s profile on Code with Unclebigbay. ${bio || ''}`,
+  };
 }
 
 const Profile = async ({ params }: { params: { username: string } }) => {

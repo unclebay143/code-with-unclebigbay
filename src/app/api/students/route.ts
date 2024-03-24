@@ -6,7 +6,7 @@ const GET = async () => {
   try {
     await connectViaMongoose();
     const students = await Student.find({})
-      .select('username fullName photo stack')
+      .select('username fullName photo stack socials')
       .limit(10);
     return NextResponse.json(
       { message: 'Students fetched successfully', students },

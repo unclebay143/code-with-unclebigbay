@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import React, { useState } from 'react';
 import { usePathname } from 'next/navigation';
 import { toast } from 'sonner';
 import { Button } from '@/components/atoms/Button';
@@ -14,20 +14,6 @@ import useAssignment, {
 import { Questions } from '@/utils/types';
 import { useWarnBeforePageReload } from '@/components/hooks/useWarnBeforePageReload';
 import useCurrentStudent from '@/components/hooks/useCurrentStudent';
-
-const SubmissionIndicator = () => (
-  <div
-    className="flex justify-center items-center gap-1 bg-white p-1"
-    id="submittingIndicator"
-  >
-    <span className="animate-spin">
-      <RotateCw size={20} />
-    </span>
-    <p className="font-bold">
-      Submitting assignment. Don&apos;t navigate from this page...
-    </p>
-  </div>
-);
 
 const Page = () => {
   const { data: student } = useCurrentStudent();
@@ -43,8 +29,9 @@ const Page = () => {
   const {
     handleSubmit,
     register,
-    formState: { isSubmitting, isDirty, isValid },
+    formState: { isDirty, isValid },
   } = useForm({ defaultValues: assignment?.questions });
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const questions = assignment?.questions as Questions;
   const canShowQuestions = !isFetching && !isSubmitting;
@@ -53,6 +40,7 @@ const Page = () => {
   const disableBtn = !isDirty || !isValid || isSubmitting;
 
   const onSubmit = (data: Questions) => {
+    setIsSubmitting(true);
     const isEmptyOptionRegex = /^0\.[a-zA-Z0-9]+$/; // 0.option
 
     try {
@@ -61,6 +49,7 @@ const Page = () => {
         const isEmptyOption = isEmptyOptionRegex.test(answerToQuestion);
 
         if (isEmptyOption) {
+          setIsSubmitting(false);
           throw Error('Some questions are not answered');
         }
 
@@ -83,6 +72,7 @@ const Page = () => {
       window.location.href = `/dashboard/courses/${courseId}/assignment/${assignmentId}/submitted`;
     } catch (e: any) {
       toast.error(e.message);
+      setIsSubmitting(false);
     }
   };
 
@@ -175,25 +165,13 @@ const Page = () => {
         </WhiteArea>
       )}
       {isSubmitting && (
-        <WhiteArea border>
-          <div className="bg-slate-800/20 w-full absolute inset-0 z-5">
-            <div
-              className={`relative flex flex-col ${questions?.length > 8 ? 'justify-between' : 'justify-center'} items-center h-full`}
-            >
-              {questions?.length > 8 && (
-                <div className="rounded-b overflow-hidden">
-                  <SubmissionIndicator />
-                </div>
-              )}
-              <div className="rounded overflow-hidden">
-                <SubmissionIndicator />
-              </div>
-              {questions?.length > 8 && (
-                <div className="rounded-t overflow-hidden">
-                  <SubmissionIndicator />
-                </div>
-              )}
-            </div>
+        <WhiteArea twClass="!p-0 bg-slate-50/20 animate-pulse" border>
+          <div className="flex items-center justify-center min-h-[80vh] gap-2 text-slate-600">
+            <span>Submitting assignment...</span>
+            <span className="animate-spin">
+              <Loader />
+            </span>
+            <span>Don&apos;t close this tab</span>
           </div>
         </WhiteArea>
       )}
