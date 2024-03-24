@@ -3,7 +3,7 @@
 import { Navbar } from '@/components/molecules/dashboard/navbar';
 import { Sidebar } from '@/components/molecules/dashboard/sidebar';
 import { handleAuthentication } from '@/utils/auth';
-import { sidebarLinks } from '@/utils/consts/links';
+import { onboardingLinks, publicLinks } from '@/utils/consts/links';
 import { Student } from '@/utils/types';
 import { useSession } from 'next-auth/react';
 import { redirect, usePathname } from 'next/navigation';
@@ -22,16 +22,10 @@ export const DashboardIndex = ({
   const pathname = usePathname();
   const currentPageName = pathname.split('/')[2] || pathname.split('/')[1];
   const adminRoute = pathname.includes('/admin');
-  const onboardingRoutes = sidebarLinks.map((link) => {
-    if (link.showOnBoard) {
-      return link.slug;
-    }
-  });
+  const onboardingRoutes = onboardingLinks.map((link) => link.slug);
   const pathIsOnboarding = onboardingRoutes.includes(currentPageName);
 
-  const allowedDashboardRoute = sidebarLinks.map((link) => {
-    if (!link.requireAuth) return link.key;
-  });
+  const allowedDashboardRoute = publicLinks.map((link) => link.key);
 
   const requireAdminAccess = !isAdmin && adminRoute;
   const canAccessWithoutAuth = allowedDashboardRoute.includes(currentPageName);
