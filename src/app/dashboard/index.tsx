@@ -59,7 +59,11 @@ export const DashboardIndex = ({
 
   return (
     <div className="flex flex-col gap-4 pb-10">
-      <Navbar session={session} setSidebarOpen={setSidebarOpen} />
+      <Navbar
+        session={session}
+        currentStudent={currentStudent}
+        setSidebarOpen={setSidebarOpen}
+      />
       <main className="relative flex gap-3 w-full max-w-7xl mx-auto px-4 xl:px-0">
         <Sidebar
           isLoggedIn={!!session}
