@@ -16,8 +16,9 @@ import { DashboardSubheading } from '@/components/molecules/dashboard/dashboard-
 import { EmptyState } from '@/components/molecules/dashboard/empty-state';
 import { WhiteArea } from '@/components/molecules/dashboard/white-area';
 import { showCount } from '@/utils';
+import { Courses as CoursesType } from '@/utils/types';
 import Link from 'next/link';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 // import { Sparkles } from 'lucide-react';
 
 const Page = () => {
@@ -28,7 +29,7 @@ const Page = () => {
   const { tags } = useTag();
 
   const { courses, isFetching } = useCourse();
-  const [_courses, set_courses] = useState(courses);
+  const [_courses, set_courses] = useState<CoursesType | undefined>(courses);
   const count = _courses?.length || 0;
   const noCourses = courses?.length === 0;
   const isLoggedIn = currentUser;
@@ -38,12 +39,16 @@ const Page = () => {
     : 'Login to see only personalized courses based on your stack.';
 
   const handleFilterCourseByTagName = (tagName: string) => {
-    if (tagName === 'all') set_courses(courses);
+    if (!tagName || tagName === 'all') return set_courses(courses);
     const filteredCourses = courses?.filter((course) => {
       return course.tags.some((tag) => tag.name === tagName);
     });
     set_courses(filteredCourses);
   };
+
+  useEffect(() => {
+    set_courses(courses);
+  }, [courses]);
 
   return (
     <div className="flex flex-col gap-3">
@@ -96,6 +101,7 @@ const Page = () => {
                   />
                   <SelectContent>
                     <SelectViewPort>
+                      <SelectItem value={'all'} label={'all'} />
                       {tags?.map(({ name, _id }) => (
                         <SelectItem key={_id} value={name} label={name} />
                       ))}
