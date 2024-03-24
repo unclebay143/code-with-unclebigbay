@@ -4,6 +4,7 @@ import { LucideIcon } from 'lucide-react';
 
 export type Audit = {
   _id?: string;
+  type: string;
   studentId: string;
   createdAt?: string;
   title: string;
@@ -95,6 +96,7 @@ export type Assignment = {
   _id?: string;
   course?: Course;
   questions: Questions;
+  alreadyResponded: boolean;
 };
 export type Assignments = Assignment[];
 
@@ -111,6 +113,7 @@ export type AssignmentResponse = {
 export type Student = {
   _id: string;
   createdAt: string;
+  totalScore: number;
   fullName: string;
   email: string;
   username: string;
@@ -163,3 +166,12 @@ export type Course = {
 };
 
 export type Courses = Course[];
+
+export type LeaderBoardData = {
+  _id?: string;
+  student: Student;
+  totalScore: number;
+  rank: number;
+};
+
+export type LeaderBoard = LeaderBoardData[];

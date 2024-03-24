@@ -1,5 +1,6 @@
 import { Assignment } from '@/models/assignment';
 import { Course } from '@/models/course';
+import { Enroll } from '@/models/enroll';
 import { Student } from '@/models/student';
 import { Tag } from '@/models/tag';
 import { getServerSessionWithAuthOptions } from '@/utils/auth-options';
@@ -20,28 +21,50 @@ const GET = async () => {
     const userStack = student.stack || 'platform-guide';
     const userHasStack = session && userStack;
     const isFullStack = student.stack === 'full-stack';
+    console.log('out');
+
+    let courses;
+
+    console.log(userHasStack);
 
     if (userHasStack && !isFullStack) {
+      console.log('hi');
+
       const tag = await Tag.findOne({ name: { $in: userStack } });
 
       if (tag) {
-        const courses = await Course.find({
+        courses = await Course.find({
           isActive: true,
           tags: { $in: tag._id },
         }).sort({
           createdAt: -1,
         });
-
-        return NextResponse.json(
-          { message: 'Courses fetched.', courses },
-          { status: 200 },
-        );
       }
     }
 
-    const courses = await Course.find({ isActive: true }).sort({
+    courses = await Course.find({ isActive: true }).sort({
       createdAt: -1,
     });
+
+    const enrolledCourses = await Enroll.find({
+      student: student._id,
+    });
+
+    const courseIdsEnrolled = enrolledCourses.map(
+      (enrolledCourse) => enrolledCourse.course._id,
+    );
+
+    courses = courses?.map((course) => {
+      const isEnrolled = courseIdsEnrolled.some(
+        (courseId) => courseId.toString() === course._id.toString(),
+      );
+
+      return {
+        ...course.toJSON(),
+        isEnrolled,
+      };
+    });
+
     return NextResponse.json(
       { message: 'Courses fetched.', courses },
       { status: 200 },

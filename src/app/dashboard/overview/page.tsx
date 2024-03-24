@@ -63,6 +63,8 @@ const Page = async () => {
     },
   ];
 
+  // Todo: indicate courses that are completed
+
   return (
     <section className="flex flex-col gap-3">
       <QuoteOfTheDay />
