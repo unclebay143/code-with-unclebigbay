@@ -9,78 +9,112 @@ import {
   TagIcon,
   Trophy,
 } from 'lucide-react';
-import { SidebarLinks } from '@/utils/types';
 
-export const sidebarLinks: SidebarLinks = [
-  {
-    key: 'onboard',
-    label: 'onboard',
-    slug: 'onboard',
-    Icon: DoorOpen,
-    requireAuth: false,
-    showOnBoard: true,
-    hideAfterOnboard: true,
-  },
-  {
-    key: 'overview',
-    label: 'overview',
-    slug: 'overview',
-    Icon: BarChart,
-    requireAuth: true,
-  },
-  {
-    key: 'courses',
-    label: 'courses',
-    slug: 'courses',
-    Icon: LibraryBig,
-    requireAuth: false,
-  },
-  {
-    key: 'leaderboard',
-    label: 'leaderboard',
-    slug: 'leaderboard',
-    Icon: Trophy,
-    requireAuth: false,
-  },
-  {
-    key: 'activity',
-    label: 'Activity Log',
-    slug: 'activity',
-    Icon: ActivityIcon,
-    requireAuth: true,
-    showOnBoard: true,
-  },
-  {
-    key: 'settings',
-    label: 'settings',
-    slug: 'settings',
-    Icon: Settings,
-    shadowHide: true,
-    requireAuth: true,
-  },
-  {
-    key: 'help-centers',
-    label: 'Help Centers',
-    slug: 'help-centers',
-    Icon: HelpCircle,
-    shadowHide: false,
-    requireAuth: false,
-    showOnBoard: true,
-  },
-  {
-    key: 'questions',
-    label: 'Questions',
-    slug: 'admin/questions',
-    Icon: Book,
-    adminAccess: true,
-    requireAuth: true,
-  },
-  {
-    key: 'tags',
-    label: 'Tags',
-    slug: 'admin/tags',
-    Icon: TagIcon,
-    adminAccess: true,
-    requireAuth: true,
-  },
+import type { LucideIcon } from 'lucide-react';
+
+export type SidebarLink = {
+  key: string;
+  label: string;
+  slug: string;
+  Icon: LucideIcon;
+  isActive?: boolean;
+  shadowHide?: boolean;
+  onClick?: () => void;
+  adminAccess?: boolean;
+  disabled?: boolean;
+  showOnBoard?: boolean;
+  hideAfterOnboard?: boolean;
+};
+
+export type SidebarLinks = SidebarLink[];
+
+const onboarding: SidebarLink = {
+  key: 'onboard',
+  label: 'onboard',
+  slug: 'onboard',
+  Icon: DoorOpen,
+};
+
+const helpCenter: SidebarLink = {
+  key: 'help-centers',
+  label: 'Help Centers',
+  slug: 'help-centers',
+  Icon: HelpCircle,
+};
+
+const courses: SidebarLink = {
+  key: 'courses',
+  label: 'courses',
+  slug: 'courses',
+  Icon: LibraryBig,
+};
+
+const overview: SidebarLink = {
+  key: 'overview',
+  label: 'overview',
+  slug: 'overview',
+  Icon: BarChart,
+};
+
+const leaderboard: SidebarLink = {
+  key: 'leaderboard',
+  label: 'leaderboard',
+  slug: 'leaderboard',
+  Icon: Trophy,
+};
+
+const activity: SidebarLink = {
+  key: 'activity',
+  label: 'Activity Log',
+  slug: 'activity',
+  Icon: ActivityIcon,
+};
+
+const settings: SidebarLink = {
+  key: 'settings',
+  label: 'settings',
+  slug: 'settings',
+  Icon: Settings,
+  shadowHide: true,
+};
+
+const questions: SidebarLink = {
+  key: 'questions',
+  label: 'Questions',
+  slug: 'admin/questions',
+  Icon: Book,
+};
+
+const tags: SidebarLink = {
+  key: 'tags',
+  label: 'Tags',
+  slug: 'admin/tags',
+  Icon: TagIcon,
+};
+
+export const onboardingLinks: SidebarLinks = [onboarding, helpCenter];
+export const publicLinks: SidebarLinks = [courses, helpCenter];
+const privateLinks: SidebarLinks = [
+  overview,
+  courses,
+  leaderboard,
+  activity,
+  settings,
+  helpCenter,
 ];
+const adminLinks: SidebarLinks = [questions, tags];
+
+export const getSidebarLinks = ({
+  isAdmin,
+  isLoggedIn,
+  isOnboardingCompleted,
+}: {
+  isAdmin: boolean;
+  isLoggedIn: boolean;
+  isOnboardingCompleted: boolean;
+}): SidebarLinks => {
+  if (isAdmin) return [...privateLinks, ...adminLinks];
+  if (isLoggedIn && !isOnboardingCompleted) return onboardingLinks;
+  if (isLoggedIn && isOnboardingCompleted) return privateLinks;
+  return publicLinks;
+};
