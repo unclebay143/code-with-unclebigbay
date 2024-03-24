@@ -54,10 +54,16 @@ const GET = async () => {
     await connectViaMongoose();
     const session = await getServerSessionWithAuthOptions();
 
-    const leaderboard = await LeaderBoard.find()
+    let leaderboard = await LeaderBoard.find()
       .sort({ totalScore: -1 })
       .limit(10)
       .populate('student', '_id fullName stack photo username', Student);
+
+    // leaderboard with rank
+    leaderboard = leaderboard.map((entry, index) => ({
+      ...entry.toJSON(),
+      rank: index + 1,
+    }));
 
     if (session) {
       const currentStudent = await Student.findOne({
@@ -66,34 +72,27 @@ const GET = async () => {
 
       const studentId = currentStudent._id;
 
-      const studentInTopList = leaderboard.find(
-        (student) => student.id.toString() === studentId.toString(),
+      const studentInTopList = leaderboard.some(
+        (leader) => leader.student._id.toString() === studentId.toString(),
       );
 
-      console.log({ studentInTopList });
-
-      if (!studentInTopList) {
+      if (studentInTopList) {
         const studentLeaderBoard = await LeaderBoard.findOne({
           student: studentId,
         }).populate('student', '_id fullName stack photo username', Student);
 
-        const totalScore = studentLeaderBoard.totalScore;
+        // Get students above student
+        const studentTotalScore = studentLeaderBoard.totalScore;
 
         const position = await LeaderBoard.countDocuments({
-          totalScore: { $gt: totalScore },
+          totalScore: { $gt: studentTotalScore },
         });
-
-        const leaderBoardWithCurrentUserPosition = {
-          leaderboard,
-          position,
-        };
-
-        console.log(leaderBoardWithCurrentUserPosition);
 
         return NextResponse.json(
           {
             message: 'Leaderboard with current user position fetched.',
-            leaderBoardWithCurrentUserPosition,
+            leaderboard,
+            position: position + 1,
           },
           {
             status: 200,
