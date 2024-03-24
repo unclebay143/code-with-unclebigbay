@@ -12,9 +12,9 @@ const GET = async () => {
 
     if (!session) {
       return NextResponse.json(
-        { message: 'No valid session' },
+        { message: 'Visitor' },
         {
-          status: 404,
+          status: 200,
         },
       );
     }

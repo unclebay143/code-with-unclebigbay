@@ -19,6 +19,10 @@ const Page = () => {
   const { courses, isFetching } = useCourse();
   const count = courses?.length || 0;
   const noCourses = courses?.length === 0;
+  const isLoggedIn = currentUser;
+  const copy = isLoggedIn
+    ? 'These courses are personalized based on your stack.'
+    : 'Login to see only personalized courses based on your stack.';
 
   return (
     <div className="flex flex-col gap-3">
@@ -40,10 +44,18 @@ const Page = () => {
       <WhiteArea border>
         <div className="flex flex-col gap-5">
           <div className="flex items-center justify-between">
-            <DashboardSubheading
-              title={`Available Courses ${showCount(count)}`}
-              copy={`${isFetchingCurrentUser ? '-' : currentUser ? 'These courses are personalized based on your stack.' : 'Login to see only personalized courses based on your stack.'}`}
-            />
+            <div className="flex flex-col gap-1">
+              <DashboardSubheading
+                title={`Available Courses ${showCount(count)}`}
+              />
+              <div className="text-sm text-slate-600">
+                {isFetchingCurrentUser ? (
+                  <span className="invisible">|</span>
+                ) : (
+                  copy
+                )}
+              </div>
+            </div>
 
             {isAdmin && (
               <Button size="xs" asChild>
