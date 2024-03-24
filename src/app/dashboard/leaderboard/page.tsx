@@ -12,6 +12,7 @@ import {
 } from '@/utils/types';
 import { baseURL } from '../../../../frontend.config';
 import { Trophy } from 'lucide-react';
+import { headers } from 'next/headers';
 // import { useSession } from 'next-auth/react';
 
 const LeaderboardCard = ({
@@ -59,6 +60,7 @@ async function getLeaderBoard() {
     const url = `${baseURL}/api/students/leaderboard`;
     const result = await fetch(url, {
       cache: 'no-cache',
+      headers: headers(),
     });
     const leaderboard = await result.json();
 
@@ -69,11 +71,10 @@ async function getLeaderBoard() {
 }
 
 const Page = async () => {
-  const { leaderboard } = (await getLeaderBoard()) as {
+  const { leaderboard, position } = (await getLeaderBoard()) as {
     leaderboard: LeaderBoard;
+    position: number;
   };
-
-  // const { data: session } = useSession();
 
   return (
     <WhiteArea border>
@@ -103,46 +104,58 @@ const Page = async () => {
             </div>
           </div> */}
         <div className="grid md:grid-cols-3 gap-3">
-          {leaderboard.slice(0, 3).map(({ _id, student, totalScore }, rank) => {
-            return (
-              <Link
-                key={_id}
-                href={`/@${student.username}`}
-                target="_blank"
-                className="relative flex flex-col items-center justify-center gap-3 border rounded-lg p-5 hover:bg-slate-50"
-              >
-                <div className="absolute left-3 top-3">
-                  {rank + 1 === 1 ? (
-                    <p className="rounded-full border py-3 px-3 text-slate-600">
-                      <Trophy size={24} />
-                    </p>
-                  ) : (
-                    <p className="font-bold text-xl rounded-full border py-1 px-3 text-slate-600">
-                      {rank}
-                    </p>
-                  )}
-                </div>
-                <div className="flex items-center gap-2">
-                  <div className="relative rounded-full h-12 w-12 overflow-hidden">
-                    <Image src={student.photo} alt="" fill />
-                  </div>
-                </div>
-                <div className="flex flex-col gap-2 text-center capitalize text-slate-800">
-                  <div className="flex flex-col">
-                    <p className="font-extrabold">{student.fullName}</p>
-                    <p className="text-sm font-semibold">
-                      {student.stack}
-                      {/* {flag} */}
-                    </p>
-                  </div>
+          {leaderboard
+            ?.slice(0, 3)
+            ?.map(({ _id, student, totalScore, rank }) => {
+              let isCurrentUser;
+              if (position) {
+                isCurrentUser = position === rank;
+              }
 
-                  <p className="text-xs font-medium">Points: {totalScore}</p>
-                </div>
-              </Link>
-            );
-          })}
+              return (
+                <Link
+                  key={_id}
+                  href={`/@${student.username}`}
+                  target="_blank"
+                  className="relative flex flex-col items-center justify-center gap-3 border rounded-lg p-5 hover:bg-slate-50"
+                >
+                  <div className="absolute left-3 top-3">
+                    {rank === 1 ? (
+                      <p className="rounded-full border py-3 px-3 text-slate-600">
+                        <Trophy size={24} />
+                      </p>
+                    ) : (
+                      <p className="font-bold text-xl rounded-full border py-1 px-3 text-slate-600">
+                        {rank}
+                      </p>
+                    )}
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <div className="relative rounded-full h-12 w-12 overflow-hidden">
+                      <Image src={student.photo} alt="" fill />
+                    </div>
+                  </div>
+                  <div className="flex flex-col gap-2 text-center capitalize text-slate-800">
+                    <div className="flex flex-col">
+                      <p className="font-extrabold">
+                        {student.fullName}{' '}
+                        {isCurrentUser && (
+                          <span className="lowercase">(you)</span>
+                        )}
+                      </p>
+                      <p className="text-sm font-semibold">
+                        {student.stack}
+                        {/* {flag} */}
+                      </p>
+                    </div>
+
+                    <p className="text-xs font-medium">Points: {totalScore}</p>
+                  </div>
+                </Link>
+              );
+            })}
         </div>
-        {leaderboard.slice(3, 10).map(({ totalScore, student }, rank) => {
+        {leaderboard?.slice(3, 10).map(({ totalScore, student, rank }) => {
           return (
             <LeaderboardCard
               key={student._id}
