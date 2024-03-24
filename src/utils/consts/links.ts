@@ -63,7 +63,7 @@ export const sidebarLinks: SidebarLinks = [
     label: 'Help Centers',
     slug: 'help-centers',
     Icon: HelpCircle,
-    shadowHide: false,
+    shadowHide: true,
     requireAuth: false,
     showOnBoard: true,
   },

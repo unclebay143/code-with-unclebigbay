@@ -1,3 +1,4 @@
+'use client';
 import {
   mapTestimonialSourceToColor,
   mapTestimonialSourceToIcon,
@@ -5,32 +6,40 @@ import {
 } from '@/utils/consts/testimonials';
 import Image from 'next/image';
 import React from 'react';
+import * as ScrollArea from '@radix-ui/react-scroll-area';
+import CustomScrollArea from './ScrollArea';
 
 type Props = {};
 
 const Testimonials = (props: Props) => {
   return (
-    <section id="testimonials">
-      <div className="mx-auto sm:px-6 lg:px-8 md:px-7">
-        <ul role="list">
-          {testimonials.map(
-            ({ quote, author, src, srcUrl }, testimonialIndex) => (
-              <li
-                key={testimonialIndex}
-                className="transition  mt-6 duration-300 ease-in-out hover:scale-105 last:scale-105 transform"
-              >
-                {srcUrl ? (
-                  <a href={srcUrl} target={'_blank'} rel="noreferrer">
+    <section id="testimonials" className="">
+      <CustomScrollArea>
+        <div className="mx-auto sm:px-6 lg:px-8 md:px-7 h-[550px]">
+          <ul role="list">
+            {testimonials.map(
+              ({ quote, author, src, srcUrl }, testimonialIndex) => (
+                <li
+                  key={testimonialIndex}
+                  className="transition  mt-6 duration-300 ease-in-out hover:scale-105 last:scale-105 transform"
+                >
+                  {srcUrl ? (
+                    <a href={srcUrl} target={'_blank'} rel="noreferrer">
+                      <TestimonialCard
+                        quote={quote}
+                        author={author}
+                        src={src}
+                      />
+                    </a>
+                  ) : (
                     <TestimonialCard quote={quote} author={author} src={src} />
-                  </a>
-                ) : (
-                  <TestimonialCard quote={quote} author={author} src={src} />
-                )}
-              </li>
-            ),
-          )}
-        </ul>
-      </div>
+                  )}
+                </li>
+              ),
+            )}
+          </ul>
+        </div>
+      </CustomScrollArea>
     </section>
   );
 };
