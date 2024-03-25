@@ -38,6 +38,7 @@ const Page = () => {
     ? 'These courses are personalized based on your stack.'
     : 'Login to see only personalized courses based on your stack.';
 
+  const userStackMatch = tags?.filter((tag) => tag.name !== currentUser?.stack);
   const handleFilterCourseByTagName = (tagName: string) => {
     if (!tagName || tagName === 'all') return set_courses(courses);
     const filteredCourses = courses?.filter((course) => {
@@ -102,7 +103,7 @@ const Page = () => {
                   <SelectContent>
                     <SelectViewPort>
                       <SelectItem value={'all'} label={'all'} />
-                      {tags?.map(({ name, _id }) => (
+                      {userStackMatch?.map(({ name, _id }) => (
                         <SelectItem key={_id} value={name} label={name} />
                       ))}
                     </SelectViewPort>
