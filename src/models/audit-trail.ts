@@ -2,7 +2,13 @@ import mongoose, { model, models } from 'mongoose';
 
 const Schema = mongoose.Schema;
 
-const ALLOWED_AUDIT_TYPE = ['onboarding', 'system', 'course', 'assignment'];
+const ALLOWED_AUDIT_TYPE = [
+  'onboarding',
+  'system',
+  'course',
+  'assignment',
+  'badge',
+];
 
 const auditTrailSchema = new Schema(
   {
