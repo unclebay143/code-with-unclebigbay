@@ -85,7 +85,10 @@ export const IconButton = React.forwardRef<HTMLButtonElement, IconButtonProps>(
         className={iconButton({ appearance, size, shape, className })}
         {...props}
       >
-        <Icon size={mappedIconSize[size || 'md']} solid={iconSolid} />
+        <Icon
+          size={mappedIconSize[size || 'md']}
+          solid={iconSolid?.toString()}
+        />
       </button>
     );
   },
