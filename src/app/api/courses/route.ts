@@ -38,15 +38,19 @@ const GET = async () => {
         courses = await Course.find({
           isActive: true,
           tags: { $in: tag._id },
-        }).sort({
-          createdAt: -1,
-        });
+        })
+          .sort({
+            createdAt: -1,
+          })
+          .populate('tags', '', Tag);
       }
     }
 
-    courses = await Course.find({ isActive: true }).sort({
-      createdAt: -1,
-    });
+    courses = await Course.find({ isActive: true })
+      .sort({
+        createdAt: -1,
+      })
+      .populate('tags', '', Tag);
 
     const enrolledCourses = await Enroll.find({
       student: student._id,
