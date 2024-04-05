@@ -3,6 +3,7 @@
 import { Button } from '@/components/atoms/Button';
 import { WhiteArea } from '@/components/molecules/dashboard/white-area';
 import * as Tabs from '@radix-ui/react-tabs';
+import { Calendar, Hourglass, Users } from 'lucide-react';
 import Image from 'next/image';
 
 const Page = () => {
@@ -17,7 +18,7 @@ const Page = () => {
     },
     {
       coverImage:
-        'https://cdn.hashnode.com/res/hashnode/image/upload/v1712351487326/a6ce0665-0238-4e75-a060-e30d8961d0a7.png',
+        'https://cdn.hashnode.com/res/hashnode/image/upload/v1712355851743/9b73ccc7-d52e-4001-9416-beb97b73e79c.png',
       title: 'January 2024 Hackathon',
       description:
         ' Participant in the 2024 January hackathon and stand a chance to win upto #500, 000.00',
@@ -94,28 +95,29 @@ const Page = () => {
                         <Image src={coverImage} alt="" fill />
                       </section>
                       <section className="flex flex-col justify-between gap-4">
-                        <section className="flex flex-col gap-1.5 max-w-[450px]">
+                        <section className="flex flex-col gap-1.5">
                           <div className="flex flex-col md:flex-row gap-1">
                             <span className="font-semibold text-slate-700">
                               {title}
                             </span>
-                            <div className="flex flex-col sm:flex-row gap-1">
+                            <div className="flex flex-col sm:flex-row gap-1 items-center">
                               <span className="mx-1 hidden md:inline">
                                 &middot;
                               </span>
-                              <span className="text-sm text-slate-600">
+                              <span className="text-sm text-slate-600 flex items-center gap-1">
+                                <Users size={14} />
                                 Participants: 30
                               </span>
                               <span className="mx-1 hidden sm:inline">
                                 &middot;
                               </span>
-                              <span className="text-blue-500 text-sm font-medium">
-                                May 1st - 31st
+                              <span className="text-blue-500 text-sm font-medium flex items-center gap-1">
+                                <Calendar size={14} /> May 1st - 31st
                               </span>
                             </div>
                           </div>
 
-                          <p className="text-sm font-medium text-slate-500">
+                          <p className="text-sm font-medium text-slate-500 max-w-[450px]">
                             {description}
                           </p>
                         </section>
