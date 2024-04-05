@@ -29,8 +29,6 @@ export const CourseCard = ({ layout = 'grid', course }: CourseCardProps) => {
   const Icon = mapTypeToIcon[type!];
   const courseLink = `/dashboard/courses/${_id}`;
 
-  console.log(tags);
-
   return (
     <>
       {layout === 'card' && (
@@ -88,8 +86,6 @@ export const CourseCard = ({ layout = 'grid', course }: CourseCardProps) => {
                 Enrolled
               </span>
             )}
-
-            {tags.map((tag) => tag.name)}
           </section>
         </Link>
       )}
