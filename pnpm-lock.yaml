@@ -9,6 +9,7 @@ specifiers:
   '@radix-ui/react-select': ^2.0.0
   '@radix-ui/react-slot': ^1.0.2
   '@radix-ui/react-switch': ^1.0.3
+  '@radix-ui/react-tabs': ^1.0.4
   '@radix-ui/react-tooltip': ^1.0.7
   '@tanstack/eslint-plugin-query': ^5.20.1
   '@tanstack/react-query': ^5.24.1
@@ -53,6 +54,7 @@ dependencies:
   '@radix-ui/react-select': 2.0.0_gwzpedo46diqntqtlo7532evpm
   '@radix-ui/react-slot': 1.0.2_wx27iibiwvar32bjr4b4ke4wna
   '@radix-ui/react-switch': 1.0.3_gwzpedo46diqntqtlo7532evpm
+  '@radix-ui/react-tabs': 1.0.4_gwzpedo46diqntqtlo7532evpm
   '@radix-ui/react-tooltip': 1.0.7_gwzpedo46diqntqtlo7532evpm
   '@tanstack/react-query': 5.24.1_react@18.2.0
   axios: 1.6.7
@@ -629,7 +631,7 @@ packages:
       '@types/react':
         optional: true
     dependencies:
-      '@babel/runtime': 7.23.9
+      '@babel/runtime': 7.24.1
       '@radix-ui/react-use-layout-effect': 1.0.1_wx27iibiwvar32bjr4b4ke4wna
       '@types/react': 18.2.57
       react: 18.2.0
@@ -908,6 +910,34 @@ packages:
       react-dom: 18.2.0_react@18.2.0
     dev: false
 
+  /@radix-ui/react-tabs/1.0.4_gwzpedo46diqntqtlo7532evpm:
+    resolution: {integrity: sha512-egZfYY/+wRNCflXNHx+dePvnz9FbmssDTJBtgRfDY7e8SE5oIo3Py2eCB1ckAbh1Q7cQ/6yJZThJ++sgbxibog==}
+    peerDependencies:
+      '@types/react': '*'
+      '@types/react-dom': '*'
+      react: ^16.8 || ^17.0 || ^18.0
+      react-dom: ^16.8 || ^17.0 || ^18.0
+    peerDependenciesMeta:
+      '@types/react':
+        optional: true
+      '@types/react-dom':
+        optional: true
+    dependencies:
+      '@babel/runtime': 7.24.1
+      '@radix-ui/primitive': 1.0.1
+      '@radix-ui/react-context': 1.0.1_wx27iibiwvar32bjr4b4ke4wna
+      '@radix-ui/react-direction': 1.0.1_wx27iibiwvar32bjr4b4ke4wna
+      '@radix-ui/react-id': 1.0.1_wx27iibiwvar32bjr4b4ke4wna
+      '@radix-ui/react-presence': 1.0.1_gwzpedo46diqntqtlo7532evpm
+      '@radix-ui/react-primitive': 1.0.3_gwzpedo46diqntqtlo7532evpm
+      '@radix-ui/react-roving-focus': 1.0.4_gwzpedo46diqntqtlo7532evpm
+      '@radix-ui/react-use-controllable-state': 1.0.1_wx27iibiwvar32bjr4b4ke4wna
+      '@types/react': 18.2.57
+      '@types/react-dom': 18.2.19
+      react: 18.2.0
+      react-dom: 18.2.0_react@18.2.0
+    dev: false
+
   /@radix-ui/react-tooltip/1.0.7_gwzpedo46diqntqtlo7532evpm:
     resolution: {integrity: sha512-lPh5iKNFVQ/jav/j6ZrWq3blfDJ0OH9R6FlNUHPMqdLuQ9vwDgFsRxvl8b7Asuy5c8xmoojHUxKHQSOAvMHxyw==}
     peerDependencies:
@@ -963,7 +993,7 @@ packages:
       '@types/react':
         optional: true
     dependencies:
-      '@babel/runtime': 7.23.9
+      '@babel/runtime': 7.24.1
       '@radix-ui/react-use-callback-ref': 1.0.1_wx27iibiwvar32bjr4b4ke4wna
       '@types/react': 18.2.57
       react: 18.2.0
