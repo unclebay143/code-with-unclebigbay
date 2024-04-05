@@ -96,19 +96,19 @@ const Page = () => {
                       </section>
                       <section className="flex flex-col justify-between gap-4">
                         <section className="flex flex-col gap-1.5">
-                          <div className="flex flex-col md:flex-row gap-1">
+                          <div className="flex flex-col lg:flex-row flex-wrap gap-1">
                             <span className="font-semibold text-slate-700">
                               {title}
                             </span>
-                            <div className="flex flex-col sm:flex-row gap-1 items-center">
-                              <span className="mx-1 hidden md:inline">
+                            <div className="flex flex-col lg:flex-row gap-1 lg:items-center">
+                              <span className="mx-1 hidden lg:inline">
                                 &middot;
                               </span>
                               <span className="text-sm text-slate-600 flex items-center gap-1">
                                 <Users size={14} />
                                 Participants: 30
                               </span>
-                              <span className="mx-1 hidden sm:inline">
+                              <span className="mx-1 hidden lg:inline">
                                 &middot;
                               </span>
                               <span className="text-blue-500 text-sm font-medium flex items-center gap-1">
