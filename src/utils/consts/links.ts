@@ -2,6 +2,7 @@ import {
   ActivityIcon,
   BarChart,
   Book,
+  Box,
   DoorOpen,
   HelpCircle,
   LibraryBig,
@@ -85,6 +86,13 @@ const questions: SidebarLink = {
   Icon: Book,
 };
 
+const hackathons: SidebarLink = {
+  key: 'hackathons',
+  label: 'Hackathons',
+  slug: 'hackathons',
+  Icon: Box,
+};
+
 const tags: SidebarLink = {
   key: 'tags',
   label: 'Tags',
@@ -98,6 +106,7 @@ const privateLinks: SidebarLinks = [
   overview,
   courses,
   leaderboard,
+  hackathons,
   activity,
   settings,
   helpCenter,
