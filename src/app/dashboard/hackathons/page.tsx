@@ -19,32 +19,9 @@ const Page = () => {
     },
     {
       coverImage:
-        'https://cdn.hashnode.com/res/hashnode/image/upload/v1712355851743/9b73ccc7-d52e-4001-9416-beb97b73e79c.png',
-      title: 'January 2024 Hackathon',
-      description:
-        ' Participant in the 2024 January hackathon and stand a chance to win upto #500, 000.00',
-      duration: 'May 1 - 20',
-      registered: true,
-    },
-    {
-      coverImage:
-        'https://cdn.hashnode.com/res/hashnode/image/upload/v1712351487326/a6ce0665-0238-4e75-a060-e30d8961d0a7.png',
-      title: 'January 2024 Hackathon',
-      description:
-        ' Participant in the 2024 January hackathon and stand a chance to win upto #500, 000.00',
-      duration: 'May 1 - 20',
-    },
-    {
-      coverImage:
-        'https://cdn.hashnode.com/res/hashnode/image/upload/v1712351487326/a6ce0665-0238-4e75-a060-e30d8961d0a7.png',
-      title: 'January 2024 Hackathon',
-      description:
-        ' Participant in the 2024 January hackathon and stand a chance to win upto #500, 000.00',
-      duration: 'May 1 - 20',
-    },
-    {
-      coverImage:
+        // 'https://cdn.hashnode.com/res/hashnode/image/upload/v1712355851743/9b73ccc7-d52e-4001-9416-beb97b73e79c.png',
         'https://cdn.hashnode.com/res/hashnode/image/upload/v1712354603785/86531201-b9b4-466f-a7ca-ec9520a004a3.png',
+
       title: 'January 2024 Hackathon',
       description:
         ' Participant in the 2024 January hackathon and stand a chance to win upto #500, 000.00',
@@ -53,7 +30,39 @@ const Page = () => {
     },
     {
       coverImage:
-        'https://cdn.hashnode.com/res/hashnode/image/upload/v1712351487326/a6ce0665-0238-4e75-a060-e30d8961d0a7.png',
+        // 'https://cdn.hashnode.com/res/hashnode/image/upload/v1712351487326/a6ce0665-0238-4e75-a060-e30d8961d0a7.png',
+        'https://cdn.hashnode.com/res/hashnode/image/upload/v1712354603785/86531201-b9b4-466f-a7ca-ec9520a004a3.png',
+
+      title: 'January 2024 Hackathon',
+      description:
+        ' Participant in the 2024 January hackathon and stand a chance to win upto #500, 000.00',
+      duration: 'May 1 - 20',
+    },
+    {
+      coverImage:
+        // 'https://cdn.hashnode.com/res/hashnode/image/upload/v1712351487326/a6ce0665-0238-4e75-a060-e30d8961d0a7.png',
+        'https://cdn.hashnode.com/res/hashnode/image/upload/v1712354603785/86531201-b9b4-466f-a7ca-ec9520a004a3.png',
+
+      title: 'January 2024 Hackathon',
+      description:
+        ' Participant in the 2024 January hackathon and stand a chance to win upto #500, 000.00',
+      duration: 'May 1 - 20',
+    },
+    {
+      coverImage:
+        // 'https://cdn.hashnode.com/res/hashnode/image/upload/v1712354603785/86531201-b9b4-466f-a7ca-ec9520a004a3.png',
+        'https://cdn.hashnode.com/res/hashnode/image/upload/v1712354603785/86531201-b9b4-466f-a7ca-ec9520a004a3.png',
+
+      title: 'January 2024 Hackathon',
+      description:
+        ' Participant in the 2024 January hackathon and stand a chance to win upto #500, 000.00',
+      duration: 'May 1 - 20',
+      registered: true,
+    },
+    {
+      coverImage:
+        // 'https://cdn.hashnode.com/res/hashnode/image/upload/v1712351487326/a6ce0665-0238-4e75-a060-e30d8961d0a7.png',
+        'https://cdn.hashnode.com/res/hashnode/image/upload/v1712354603785/86531201-b9b4-466f-a7ca-ec9520a004a3.png',
       title: 'January 2024 Hackathon',
       description:
         ' Participant in the 2024 January hackathon and stand a chance to win upto #500, 000.00',
@@ -89,22 +98,23 @@ const Page = () => {
                       className="flex flex-col sm:flex-row pb-5 sm:pb-0 border rounded-lg overflow-hidden"
                       key={`hackathon-card-${title}`}
                     >
-                      <section className="p-4 grow flex flex-col sm:flex-row gap-5">
+                      <section className="grow flex flex-col sm:flex-row gap-1">
                         <section
                           // className="relative h-[200px] w-[200px] rounded-md overflow-hidden"
                           // className={`relative min-h-[88px] max-h-[164px] w-full min-w-32 sm:h-[164px] sm:min-h-[164px] sm:max-h-[164px] sm:w-[164px] sm:min-w-[164px] sm:max-w-[164px] rounded overflow-hidden`}
-                          className={`relative min-h-[88px] max-h-[120px] w-full min-w-32 sm:h-[120px] sm:min-h-[120px] sm:max-h-[120px] sm:w-[200px] sm:min-w-[120px] sm:max-w-[160px] rounded overflow-hidden`}
+                          //   className={`relative min-h-[88px] max-h-[full] w-full min-w-32 sm:h-[full] sm:min-h-[full] sm:max-h-[full] sm:w-[200px] sm:min-w-[120px] sm:max-w-[160px] rounded overflow-hidden`}
+                          className="relative min-h-[150px]  sm:min-h-[100px] sm:w-[300px] md:w-[270px] xl:w-[190px] h-full border-r"
                         >
                           <Image src={coverImage} alt="" fill />
                         </section>
-                        <section className="flex flex-col justify-between gap-4">
+                        <section className="p-4 flex flex-col justify-between gap-4">
                           <section className="flex flex-col gap-1.5">
                             <div className="flex flex-col lg:flex-row flex-wrap gap-1">
                               <span className="font-semibold text-slate-700">
                                 {title}
                               </span>
                               <div className="flex flex-col lg:flex-row gap-1 lg:items-center">
-                                <span className="mx-1 hidden lg:inline">
+                                <span className="mx-1 hidden xl:inline">
                                   &middot;
                                 </span>
                                 <span className="text-sm text-slate-600 flex items-center gap-1">
@@ -124,7 +134,7 @@ const Page = () => {
                               {description}
                             </p>
                           </section>
-                          <div className="flex flex-col sm:flex-row gap-2 sm:items-center max-w-[250px]">
+                          <div className="flex flex-col min-[340px]:flex-row gap-2 sm:items-center max-w-[250px]">
                             <Button
                               size="xs"
                               disabled={registered}
@@ -142,7 +152,7 @@ const Page = () => {
                           </div>
                         </section>
                       </section>
-                      <section className="px-3 flex flex-col justify-center items-center text-center border-l">
+                      <section className="px-3 hidden md:flex flex-col justify-center items-center text-center border-l -50 whitespace-nowrap">
                         <h3 className="font-bold text-2xl text-slate-600">5</h3>
                         <h3 className="font-medium text-slate-500 text-sm">
                           Days to go
@@ -167,7 +177,8 @@ const Page = () => {
                         <section
                           // className="relative h-[200px] w-[200px] rounded-md overflow-hidden"
                           // className={`relative min-h-[88px] max-h-[164px] w-full min-w-32 sm:h-[164px] sm:min-h-[164px] sm:max-h-[164px] sm:w-[164px] sm:min-w-[164px] sm:max-w-[164px] rounded overflow-hidden`}
-                          className={`relative min-h-[88px] max-h-[120px] w-full min-w-32 sm:h-[120px] sm:min-h-[120px] sm:max-h-[120px] sm:w-[200px] sm:min-w-[120px] sm:max-w-[160px] rounded overflow-hidden`}
+                          // // // //   className={`relative min-h-[88px] max-h-[full] w-full min-w-32 sm:h-[full] sm:min-h-[full] sm:max-h-[full] sm:w-[200px] sm:min-w-[120px] sm:max-w-[160px] rounded overflow-hidden`}
+                          className="relative w-[180px] min-h-[100px] h-full border-r"
                         >
                           <Image src={coverImage} alt="" fill />
                         </section>
