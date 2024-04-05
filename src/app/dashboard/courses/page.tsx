@@ -89,7 +89,7 @@ const Page = () => {
                   )}
                 </div>
               </div>
-              <div className="w-[150px]">
+              {/* <div className="w-[150px]">
                 <Select
                   onValueChange={(tagName) =>
                     handleFilterCourseByTagName(tagName)
@@ -109,7 +109,7 @@ const Page = () => {
                     </SelectViewPort>
                   </SelectContent>
                 </Select>
-              </div>
+              </div> */}
             </div>
           </div>
 
