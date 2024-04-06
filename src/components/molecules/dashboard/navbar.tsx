@@ -25,7 +25,7 @@ export const Navbar = ({ session, setSidebarOpen, currentStudent }: Props) => {
   const user = session?.user;
   const isOnboardingCompleted = !!currentStudent?.stack;
   return (
-    <nav className="sticky top-0 z-10 bg-white p-4 lg:py-5 lg:px-5 border-b">
+    <nav className="sticky top-0 z-30 bg-white p-4 lg:py-5 lg:px-5 border-b">
       <section className="max-w-7xl mx-auto flex w-full items-center justify-between">
         <div className="hidden lg:block">
           <CodeWithUnclebigbayLogo />
