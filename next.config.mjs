@@ -17,6 +17,11 @@ const nextConfig = {
         hostname: 'www.hostinger.com',
         port: '',
       },
+      {
+        protocol: 'https',
+        hostname: 'images.unsplash.com',
+        port: '',
+      },
     ],
   },
   compiler: {
