@@ -22,6 +22,11 @@ const nextConfig = {
         hostname: 'images.unsplash.com',
         port: '',
       },
+      {
+        protocol: 'https',
+        hostname: 'cdn.rareblocks.xyz',
+        port: '',
+      },
     ],
   },
   compiler: {
