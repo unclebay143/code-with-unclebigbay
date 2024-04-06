@@ -12,6 +12,7 @@ import {
   Calendar,
   Hourglass,
   Linkedin,
+  Medal,
   Share,
   Share2,
   Twitter,
@@ -112,8 +113,8 @@ const Page = () => {
         </div>
 
         <section className="flex flex-col gap-8 mt-5">
-          <section>
-            <h3 className="font-semibold mb-2 text-slate-700 text-xl">
+          <section className="flex flex-col gap-2">
+            <h3 className="font-semibold text-slate-700 text-xl">
               About Codathon
             </h3>
             <p className="text-slate-500">
@@ -131,8 +132,8 @@ const Page = () => {
               change!
             </p>
           </section>
-          <section>
-            <h3 className="font-semibold mb-2 text-slate-700 text-xl">
+          <section className="flex flex-col gap-2">
+            <h3 className="font-semibold text-slate-700 text-xl">
               What to build
             </h3>
             <p className="text-slate-500">
@@ -142,8 +143,73 @@ const Page = () => {
               principles. Bonus: Use Visual Studio Code Extensions
             </p>
           </section>
-          <section>
-            <h3 className="font-semibold mb-2 text-slate-700 text-xl">
+          <section className="flex flex-col gap-4">
+            <h3 className="font-semibold text-slate-700 text-xl">Judges</h3>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-y-8">
+              <div className="flex gap-3 items-center">
+                <div className="relative w-24 h-24 rounded-full overflow-hidden">
+                  <Image
+                    src="https://cdn.hashnode.com/res/hashnode/image/upload/v1677222800340/7FWlpF0aT.jpeg"
+                    alt=""
+                    fill
+                  />
+                </div>
+                <section className="">
+                  <p className="text-lg font-semibold text-black">
+                    Ayodele Samuel Adebayo
+                  </p>
+                  <p className="text-slate-500">Founder @CWUBB</p>
+                </section>
+              </div>
+              <div className="flex gap-3 items-center">
+                <div className="relative w-24 h-24 rounded-full overflow-hidden">
+                  <Image
+                    src="https://cdn.rareblocks.xyz/collection/celebration/images/team/3/team-avatar-1.jpg"
+                    alt=""
+                    fill
+                  />
+                </div>
+                <section className="">
+                  <p className="text-lg font-semibold text-black">
+                    Jenny Wilson
+                  </p>
+                  <p className="text-slate-500">Software engineer @twitter</p>
+                </section>
+              </div>
+              <div className="flex gap-3 items-center">
+                <div className="relative w-24 h-24 rounded-full overflow-hidden">
+                  <Image
+                    src="https://cdn.rareblocks.xyz/collection/celebration/images/team/3/team-avatar-2.jpg"
+                    alt=""
+                    fill
+                  />
+                </div>
+                <section className="">
+                  <p className="text-lg font-semibold text-black">
+                    Shaydee Coder
+                  </p>
+                  <p className="text-slate-500">Freelance software engineer</p>
+                </section>
+              </div>
+              <div className="flex gap-3 items-center">
+                <div className="relative w-24 h-24 rounded-full overflow-hidden">
+                  <Image
+                    src="https://cdn.rareblocks.xyz/collection/celebration/images/team/3/team-avatar-3.jpg"
+                    alt=""
+                    fill
+                  />
+                </div>
+                <section className="">
+                  <p className="text-lg font-semibold text-black">
+                    Idris Olubisi
+                  </p>
+                  <p className="text-slate-500">Software engineer @axelar</p>
+                </section>
+              </div>
+            </div>
+          </section>
+          <section className="flex flex-col gap-4">
+            <h3 className="font-semibold text-slate-700 text-xl">
               Judging criteria
             </h3>
             <ul className="list-decimal list-inside ml-2 text-slate-600">
@@ -209,10 +275,11 @@ const Page = () => {
               </li>
             </ul>
           </section>
-          <section>
-            <h3 className="font-semibold mb-2 text-slate-700 text-xl">
-              Prizes
-            </h3>
+          <section className="flex flex-col gap-2">
+            <div className="flex items-center text-slate-700 gap-1">
+              <Medal size={22} />
+              <h3 className="font-semibold  text-xl">Prizes</h3>
+            </div>
             <div className="flex flex-wrap gap-10 ml-2">
               <div className="flex flex-col gap-2">
                 <p className="font-semibold text-yellow-600">1st Place</p>
@@ -245,15 +312,13 @@ const Page = () => {
               </div>
             </div>
           </section>
-          <section>
-            <h3 className="font-semibold mb-3 text-slate-700 text-xl">
+          <section className="flex flex-col gap-4">
+            <h3 className="font-semibold text-slate-700 text-xl">
               Participants
             </h3>
-            <div className="flex gap-5 items-center">
-              <section className="flex flex-row flex-wrap gap-y-3">
-                <AnimatedTooltip items={people} />
-              </section>
-            </div>
+            <section className="flex flex-row flex-wrap gap-y-3">
+              <AnimatedTooltip items={people} />
+            </section>
           </section>
           {/* <section className="py-10 bg-gradient-to-r from-fuchsia-600 to-blue-600 sm:py-16"> */}
           <section className="py-10 bg-gradient-to-r from-slate-600 to-slate-900 sm:py-16 rounded-xl">
