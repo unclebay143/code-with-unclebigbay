@@ -1,6 +1,6 @@
 import React from 'react';
 
-type Props = { title: string; color?: string; copy?: string };
+type Props = { title: React.ReactNode; color?: string; copy?: string };
 
 export const DashboardSubheading = ({
   title,
