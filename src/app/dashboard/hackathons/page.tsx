@@ -4,7 +4,7 @@ import { Button } from '@/components/atoms/Button';
 import { DashboardSubheading } from '@/components/molecules/dashboard/dashboard-subheading';
 import { WhiteArea } from '@/components/molecules/dashboard/white-area';
 import * as Tabs from '@radix-ui/react-tabs';
-import { Calendar, Hourglass, Users } from 'lucide-react';
+import { Calendar, Users } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
 
@@ -28,6 +28,7 @@ const Page = () => {
         ' Participant in the 2024 January hackathon and stand a chance to win upto #500, 000.00',
       duration: 'May 1 - 20',
       registered: true,
+      isClosed: true,
     },
     {
       coverImage:
@@ -99,7 +100,14 @@ const Page = () => {
           <Tabs.Content className="TabsContent" value="tab1">
             <section className="flex flex-col gap-3 mt-8">
               {hackathons.map(
-                ({ coverImage, description, duration, title, registered }) => {
+                ({
+                  coverImage,
+                  description,
+                  duration,
+                  title,
+                  registered,
+                  isClosed,
+                }) => {
                   return (
                     <section
                       className="hover:bg-slate-50 flex flex-col sm:flex-row pb-5 sm:pb-0 border rounded-lg overflow-hidden"
@@ -164,11 +172,19 @@ const Page = () => {
                           </div>
                         </section>
                       </section>
-                      <section className="px-5 hidden md:flex flex-col justify-center items-center text-center border-l whitespace-nowrap">
-                        <h3 className="font-bold text-2xl text-slate-600">5</h3>
-                        <h3 className="font-medium text-slate-500 text-sm">
-                          Days to go
-                        </h3>
+                      <section className="px-5 hidden md:flex flex-col justify-center items-center text-center border-l whitespace-nowrap min-w-[112px]">
+                        {isClosed ? (
+                          <h3 className="text-red-600">Closed</h3>
+                        ) : (
+                          <>
+                            <h3 className="font-bold text-2xl text-slate-600">
+                              5
+                            </h3>
+                            <h3 className="font-medium text-slate-500 text-sm">
+                              Days to go
+                            </h3>
+                          </>
+                        )}
                       </section>
                     </section>
                   );
