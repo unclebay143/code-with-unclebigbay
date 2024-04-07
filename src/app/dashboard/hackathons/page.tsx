@@ -8,6 +8,14 @@ import { Calendar, Users } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
 
+/* 
+Badges name ideas
+- First online hackathon
+- Hackathon Winner
+- Hackathon Participant
+
+*/
+
 const Page = () => {
   const hackathons = [
     {
@@ -17,6 +25,7 @@ const Page = () => {
       description:
         ' Participant in the 2024 January hackathon and stand a chance to win upto #500, 000.00',
       duration: 'May 1 - 20',
+      tags: ['beginner friendly'],
     },
     {
       coverImage:
@@ -29,6 +38,7 @@ const Page = () => {
       duration: 'May 1 - 20',
       registered: true,
       isClosed: true,
+      tags: ['Low/No Code'],
     },
     {
       coverImage:
@@ -75,7 +85,13 @@ const Page = () => {
   return (
     <WhiteArea border>
       <section className="flex flex-col gap-3">
-        <DashboardSubheading title="Hackathons" />
+        <div className="w-full flex flex-col gap-1">
+          <DashboardSubheading title="Hackathons" />
+          <div className="text-sm text-slate-600">
+            Find and participate in hackathons to improve your skills and win
+            prizes.
+          </div>
+        </div>
         <Tabs.Root className="TabsRoot" defaultValue="tab1">
           <Tabs.List
             className="flex gap-3 border-b"
@@ -107,6 +123,7 @@ const Page = () => {
                   title,
                   registered,
                   isClosed,
+                  tags,
                 }) => {
                   return (
                     <section
@@ -144,7 +161,7 @@ const Page = () => {
                                   &middot;
                                 </span>
                                 <span className="text-blue-500 text-sm font-medium flex items-center gap-1">
-                                  <Calendar size={14} /> May 1st - 31st
+                                  <Calendar size={14} /> {duration}
                                 </span>
                               </div>
                             </div>
@@ -159,7 +176,7 @@ const Page = () => {
                               disabled={registered}
                               width="full"
                             >
-                              {registered ? 'Registered!' : 'Register'}
+                              {registered ? 'Joined!' : 'Join hackathon'}
                             </Button>
                             <Button
                               size="xs"
@@ -170,6 +187,13 @@ const Page = () => {
                               <Link href="hackathons/slug">View details</Link>
                             </Button>
                           </div>
+                          {tags?.map((tag, index) => (
+                            <section key={index}>
+                              <span className="px-2 py-0.5 capitalize rounded-full bg-indigo-100/20 text-slate-600 text-xs border">
+                                {tag}
+                              </span>
+                            </section>
+                          ))}
                         </section>
                       </section>
                       <section className="px-5 hidden md:flex flex-col justify-center items-center text-center border-l whitespace-nowrap min-w-[112px]">
