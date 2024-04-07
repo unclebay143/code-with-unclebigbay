@@ -67,6 +67,9 @@ const people = [
 ];
 
 const registered = true;
+const isClosed = false;
+const disableSubmitEntryBtn = isClosed;
+const disableRegisterBtn = registered || isClosed;
 
 const Page = () => {
   return (
@@ -91,19 +94,26 @@ const Page = () => {
             {/* <p className="text-center mt-2 text-neutral-300">
               Framer motion is the best animation library ngl
             </p> */}
-            <span className="text-blue-500 text-sm font-bold flex items-center gap-1">
-              <Calendar size={14} /> May 1st - 31st
+            <span
+              className={`${isClosed ? 'text-red-500' : 'text-blue-500'} text-sm font-bold flex items-center gap-1`}
+            >
+              <Calendar size={14} /> May 1st - 31st{' '}
+              {isClosed ? '(closed)' : null}
             </span>
             <div>
               {registered ? (
-                <Button size="xs" appearance="secondary-slate">
+                <Button
+                  size="xs"
+                  appearance="secondary-slate"
+                  disabled={disableSubmitEntryBtn}
+                >
                   Submit entry
                 </Button>
               ) : (
                 <Button
                   size="xs"
-                  disabled={registered}
                   appearance="secondary-slate"
+                  disabled={disableRegisterBtn}
                 >
                   Register now
                 </Button>
