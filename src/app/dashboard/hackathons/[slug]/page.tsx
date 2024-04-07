@@ -20,6 +20,8 @@ import {
 } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
+import { SubmitEntryModal } from './SubmitEntryModal';
+import { useState } from 'react';
 
 const people = [
   {
@@ -72,6 +74,7 @@ const disableSubmitEntryBtn = isClosed;
 const disableRegisterBtn = registered || isClosed;
 
 const Page = () => {
+  const [openSubmitEntryModal, setOpenSubmitEntryModal] = useState(false);
   return (
     <WhiteArea border>
       <div className="flex items-center justify-between mb-5">
@@ -106,6 +109,7 @@ const Page = () => {
                   size="xs"
                   appearance="secondary-slate"
                   disabled={disableSubmitEntryBtn}
+                  onClick={() => setOpenSubmitEntryModal(true)}
                 >
                   Submit entry
                 </Button>
@@ -115,7 +119,7 @@ const Page = () => {
                   appearance="secondary-slate"
                   disabled={disableRegisterBtn}
                 >
-                  Register now
+                  Join hackathon
                 </Button>
               )}
             </div>
@@ -152,6 +156,42 @@ const Page = () => {
               using Azure AI. Leverage Microsoft’s Responsible AI tools and/or
               principles. Bonus: Use Visual Studio Code Extensions
             </p>
+          </section>
+          <section className="flex flex-col gap-2">
+            <h3 className="font-semibold text-slate-700 text-lg">
+              How to Participate
+            </h3>
+            <ul className="list-decimal list-inside ml-2 text-slate-600">
+              <li className="mb-3">
+                <span className="text-slate-500">
+                  Build an interesting app using the guide above
+                </span>
+              </li>
+              <li className="mb-3">
+                <span className="text-slate-500">
+                  Launch your app by publishing an article on your Hashnode blog
+                  - no blog yet? Set it up here.
+                </span>
+              </li>
+              <li className="mb-3">
+                <span className="text-slate-500">
+                  Mention the domains of Codathon and Hashnode in your project
+                  article.
+                </span>
+              </li>
+              <li className="mb-3">
+                <span className="text-slate-500">
+                  Tag the article with #Codathon and #CodathonHackathon
+                  hashtags! This is how we track who&apos;s in.
+                </span>
+              </li>
+              <li className="mb-3">
+                <span className="text-slate-500">
+                  Share your article on social media and tag
+                  @codewithunclebigbay and @Codathon so we can spread the love!
+                </span>
+              </li>
+            </ul>
           </section>
           <section className="flex flex-col gap-4">
             <h3 className="font-semibold text-slate-700 text-xl">Judges</h3>
@@ -338,7 +378,7 @@ const Page = () => {
                   Participate in the Codathon Hackathon!
                 </h2>
                 <div className="whitespace-nowrap">
-                  <Button appearance="secondary-slate">Register now</Button>
+                  <Button appearance="secondary-slate">Join hackathon</Button>
                 </div>
               </div>
             </div>
@@ -352,6 +392,11 @@ const Page = () => {
       >
         Share on Twitter <Twitter size={14} />
       </a>
+
+      <SubmitEntryModal
+        isOpen={openSubmitEntryModal}
+        close={() => setOpenSubmitEntryModal(false)}
+      />
     </WhiteArea>
   );
 };
