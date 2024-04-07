@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 'use client';
 
 import { Button } from '@/components/atoms/Button';
@@ -68,13 +69,13 @@ const people = [
   },
 ];
 
-const registered = true;
-const isClosed = false;
-const disableSubmitEntryBtn = isClosed;
-const disableRegisterBtn = registered || isClosed;
-
 const Page = () => {
+  const [registered, setRegistered] = useState(false);
   const [openSubmitEntryModal, setOpenSubmitEntryModal] = useState(false);
+
+  const isClosed = false;
+  const disableSubmitEntryBtn = isClosed;
+  const disableRegisterBtn = registered || isClosed;
   return (
     <WhiteArea border>
       <div className="flex items-center justify-between mb-5">
@@ -118,11 +119,20 @@ const Page = () => {
                   size="xs"
                   appearance="secondary-slate"
                   disabled={disableRegisterBtn}
+                  onClick={() => setRegistered(true)}
                 >
                   Join hackathon
                 </Button>
               )}
             </div>
+            {!registered && (
+              <section className="max-w-sm text-center">
+                <p className="text-[12px] text-slate-400">
+                  By registering for this hackathon, you grant us permission to
+                  contact you regarding the hackathon.
+                </p>
+              </section>
+            )}
           </section>
         </div>
 
@@ -325,7 +335,7 @@ const Page = () => {
               </li>
             </ul>
           </section>
-          <section className="flex flex-col gap-2">
+          <section className="flex flex-col gap-4">
             <div className="flex items-center text-slate-700 gap-1">
               <Medal size={22} />
               <h3 className="font-semibold  text-xl">Prizes</h3>
@@ -362,6 +372,54 @@ const Page = () => {
               </div>
             </div>
           </section>
+
+          <section className="flex flex-col gap-4 items-start">
+            <h3 className="font-semibold text-slate-700 text-xl">Sponsors</h3>
+            {/* <div className="grid items-center max-w-4xl grid-cols-2 md:grid-cols-4 gap-x-10 gap-y-16"> */}
+            <div className="flex flex-wrap gap-5">
+              <div className="relative rounded-full overflow-hidden h-24 w-24">
+                <Image
+                  className="object-contain"
+                  src="https://cdn.hashnode.com/res/hashnode/image/upload/v1677222800340/7FWlpF0aT.jpeg"
+                  alt=""
+                  fill
+                />
+              </div>
+              <div className="relative rounded-full overflow-hidden h-24 w-24">
+                <Image
+                  className="object-contain"
+                  src="https://cdn.rareblocks.xyz/collection/celebration/images/logos/3/logo-2.png"
+                  alt=""
+                  fill
+                />
+              </div>
+              <div className="relative rounded-full overflow-hidden h-24 w-24">
+                <Image
+                  className="object-contain"
+                  src="https://cdn.rareblocks.xyz/collection/celebration/images/logos/3/logo-3.png"
+                  alt=""
+                  fill
+                />
+              </div>
+              <div className="relative rounded-full overflow-hidden h-24 w-24">
+                <Image
+                  className="object-contain"
+                  src="https://cdn.hashnode.com/res/hashnode/image/upload/v1712518251752/1d26d424-91bd-4ac0-bb3d-0fcf7f044330.jpeg"
+                  alt=""
+                  fill
+                />
+              </div>
+            </div>
+            <a
+              href=""
+              target="_blank"
+              rel="noopener"
+              className="inline text-sm text-slate-500 hover:underline"
+            >
+              Be a sponsor for the next hackathon.
+            </a>
+          </section>
+
           <section className="flex flex-col gap-4">
             <h3 className="font-semibold text-slate-700 text-xl">
               Participants
@@ -370,8 +428,9 @@ const Page = () => {
               <AnimatedTooltip items={people} />
             </section>
           </section>
+
           {/* <section className="py-10 bg-gradient-to-r from-fuchsia-600 to-blue-600 sm:py-16"> */}
-          <section className="py-10 bg-gradient-to-r from-slate-600 to-slate-900 sm:py-16 rounded-xl">
+          <section className="mt-10 py-10 bg-gradient-to-r from-slate-600 to-slate-900 sm:py-16 rounded-xl">
             <div className="px-4 mx-auto sm:px-6 lg:px-8 max-w-7xl">
               <div className="text-center flex flex-col gap-4 items-center sm:flex-row sm:items-center sm:justify-between sm:text-left">
                 <h2 className="text-3xl font-bold text-white">
