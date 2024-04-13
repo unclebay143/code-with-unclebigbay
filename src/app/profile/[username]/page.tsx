@@ -257,6 +257,48 @@ const Profile = async ({ params }: { params: { username: string } }) => {
                   </div>
                 </WhiteArea>
               )}
+
+              <WhiteArea border>
+                <h1 className="font-semibold text-slate-700">Barges</h1>
+                <div className="flex flex-col gap-8 text-slate-700 items-start mt-3">
+                  <div className="flex items-center gap-2">
+                    <Image
+                      src="https://res.cloudinary.com/dcgghkk7q/image/upload/v1713013723/pexels-photo-3785929_tcmwqi.jpg"
+                      alt="badge"
+                      width={10}
+                      height={10}
+                      className="rounded-full w-20 h-20 "
+                    />
+                    <div>
+                      <h3 className="text-md font-medium">CWUBB dashboard</h3>
+                      <p className="opacity-80">
+                        An intermediate hackathon project for frontend developer{' '}
+                      </p>
+                      <p className="text-sm opacity-50">
+                        Achieved on April 13, 2024.
+                      </p>
+                    </div>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <Image
+                      src="https://res.cloudinary.com/dcgghkk7q/image/upload/v1713013723/pexels-photo-3785929_tcmwqi.jpg"
+                      alt="badge"
+                      width={10}
+                      height={10}
+                      className="rounded-full w-20 h-20 "
+                    />
+                    <div>
+                      <h3 className="text-md font-medium">CWUBB home page</h3>
+                      <p className="opacity-80">
+                        A beginner hackathon landing page project{' '}
+                      </p>
+                      <p className="text-sm opacity-50">
+                        Achieved on April 13, 2024.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </WhiteArea>
               {/* Enable when feature is available */}
               {/* <WhiteArea border>
               <h2 className="font-semibold text-slate-700 mb-3">Projects</h2>
