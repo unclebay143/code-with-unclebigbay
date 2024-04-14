@@ -68,7 +68,7 @@ const Page = async () => {
   return (
     <section className="flex flex-col gap-3">
       <QuoteOfTheDay />
-      <WhiteArea twClass="bg-indigo-50/60 border-indigo-50" border>
+      <WhiteArea twClass="bg-blue-50 border-blue-200" border>
         <section className="flex flex-col gap-3">
           <DashboardSubheading title="Your course overview" />
           <section className="w-full grid sm:grid-cols-2 md:grid-cols-3 gap-5">
