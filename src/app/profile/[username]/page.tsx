@@ -258,7 +258,7 @@ const Profile = async ({ params }: { params: { username: string } }) => {
                 </WhiteArea>
               )}
               <WhiteArea border>
-                <h1 className="font-semibold text-slate-700">Barges</h1>
+                <h1 className="font-semibold text-slate-700">Badges</h1>
                 <div className="flex flex-col gap-8 text-slate-700 items-start mt-3">
                   <div className="flex items-center gap-2">
                     <div className="rounded-full w-20 h-20 relative overflow-hidden">
