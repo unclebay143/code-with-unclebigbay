@@ -2,12 +2,12 @@ import { Hackathon } from '@/models/hackathon';
 import connectViaMongoose from '@/utils/mongoose';
 import { NextResponse } from 'next/server';
 
-const GET = async (_: Request, { params }: { params: { _id: string } }) => {
+const GET = async (_: Request, { params }: { params: { slug: string } }) => {
   try {
-    const hackathonId = params._id;
+    const hackathonSlug = params.slug;
 
     await connectViaMongoose();
-    const hackathon = await Hackathon.findOne({ _id: hackathonId });
+    const hackathon = await Hackathon.findOne({ slug: hackathonSlug });
 
     if (!hackathon) {
       return NextResponse.json(

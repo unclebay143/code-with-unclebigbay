@@ -52,6 +52,7 @@ const GET = async () => {
           coverImage: 1,
           tags: 1,
           brief: 1,
+          slug: 1,
           participantCount: 1,
         },
       },

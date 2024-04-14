@@ -13,6 +13,7 @@ import {
   Calendar,
   Hourglass,
   Linkedin,
+  Loader,
   Medal,
   Share,
   Share2,
@@ -24,6 +25,11 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { SubmitEntryModal } from './SubmitEntryModal';
 import { useState } from 'react';
+import { useHackathonById } from '@/components/hooks/useHackathon';
+import { useQuery } from '@tanstack/react-query';
+import { Hackathon } from '@/utils/types';
+import axios from 'axios';
+import { notFound } from 'next/navigation';
 
 const people = [
   {
@@ -70,9 +76,74 @@ const people = [
   },
 ];
 
-const Page = () => {
+const Page = ({ params }: { params: { slug: string } }) => {
   const [registered, setRegistered] = useState(false);
   const [openSubmitEntryModal, setOpenSubmitEntryModal] = useState(false);
+  const hackathonSlug = params.slug;
+
+  const { data: hackathon, isLoading } = useQuery({
+    queryKey: ['hackathon', hackathonSlug],
+    queryFn: () =>
+      axios
+        .get('/api/hackathons/' + hackathonSlug)
+        .then((res) => res.data.hackathon as Hackathon),
+  });
+
+  if (isLoading)
+    return (
+      <WhiteArea border>
+        <section className="flex min-h-[80vh] items-center justify-center">
+          <div>
+            <div className="animate-spin text-slate-600">
+              <Loader />
+            </div>
+          </div>
+        </section>
+      </WhiteArea>
+    );
+
+  if (!hackathon) {
+    return (
+      <WhiteArea border>
+        <section className="flex min-h-[80vh] items-center justify-center">
+          <div className="flex flex-col gap-2 justify-center items-center">
+            <div className="text-center">
+              <p className="text-2xl font-semibold text-slate-700">
+                The Hackathon Escaped Us!
+              </p>
+              <span className="text-slate-500">
+                This hackathon isn&apos;t listed, check the link again or
+                discover recent hackathons.
+              </span>
+            </div>
+            <div className="flex items-center justify-between mb-5">
+              <Button size="xs" appearance="secondary-slate">
+                <Link
+                  href="/dashboard/hackathons"
+                  className="flex gap-1 items-center"
+                >
+                  <ArrowLeft size={14} />
+                  <span>Discover recent hackathons</span>
+                </Link>
+              </Button>
+            </div>
+          </div>
+        </section>
+      </WhiteArea>
+    );
+  }
+
+  const {
+    title,
+    brief,
+    about,
+    howToParticipate,
+    endDate,
+    judges,
+    judgingCriteria,
+    whatToBuild,
+    prizes,
+  } = hackathon;
 
   const isClosed = false;
   const disableSubmitEntryBtn = isClosed;
@@ -95,7 +166,9 @@ const Page = () => {
           <div className="absolute inset-0 w-full h-full bg-slate-900 z-20 [mask-image:radial-gradient(transparent,white)] pointer-events-none" />
           <Boxes />
           <section className="flex flex-col items-center gap-3 relative z-20 p-4">
-            <h2 className="md:text-4xl text-xl text-white">May Codathon</h2>
+            <h2 className="md:text-4xl text-xl text-white px-4 text-center">
+              {title}
+            </h2>
             {/* <p className="text-center mt-2 text-neutral-300">
               Framer motion is the best animation library ngl
             </p> */}
@@ -142,38 +215,25 @@ const Page = () => {
             <h3 className="font-semibold text-slate-700 text-xl">
               About Codathon
             </h3>
-            <p className="text-slate-500">
-              Welcome aspiring developers! Are you ready to embark on a
-              transformative journey that merges your coding skills with global
-              impact? Here&apos;s an incredible opportunity for you: join us in
-              crafting innovative solutions to tackle one of the United
-              Nations&pos; 17 Sustainable Development Goals (SDGs) using the
-              power of Artificial Intelligence (AI). This is more than just a
-              project; it&apos;s a chance to make a tangible difference while
-              honing your skills in AI development. Let&apos;s collaborate to
-              create meaningful solutions that contribute to a brighter, more
-              sustainable future for all. Embrace this opportunity to unleash
-              your creativity, technical expertise, and passion for positive
-              change!
-            </p>
+            <p className="text-slate-500">{about}</p>
           </section>
           <section className="flex flex-col gap-2">
             <h3 className="font-semibold text-slate-700 text-xl">
               What to build
             </h3>
-            <p className="text-slate-500">
-              Build your multimodal app that features at least 2 or more modes
-              from the categories of image, video/motion, voice/audio, or text
-              using Azure AI. Leverage Microsoft’s Responsible AI tools and/or
-              principles. Bonus: Use Visual Studio Code Extensions
-            </p>
+            <p className="text-slate-500">{whatToBuild}</p>
           </section>
           <section className="flex flex-col gap-2">
             <h3 className="font-semibold text-slate-700 text-lg">
               How to Participate
             </h3>
             <ul className="list-decimal list-outside ml-5 text-slate-600">
-              <li className="mb-3">
+              {howToParticipate.map((how) => (
+                <li className="mb-3" key={`howToParticipate-${how}`}>
+                  <span className="text-slate-500">{how}</span>
+                </li>
+              ))}
+              {/* <li className="mb-3">
                 <span className="text-slate-500">
                   Build an interesting app using the guide above
                 </span>
@@ -207,13 +267,24 @@ const Page = () => {
                   Share your article on social media and tag
                   @codewithunclebigbay and @Codathon so we can spread the love!
                 </span>
-              </li>
+              </li> */}
             </ul>
           </section>
           <section className="flex flex-col gap-4">
             <h3 className="font-semibold text-slate-700 text-xl">Judges</h3>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-y-8">
-              <div className="flex gap-3 items-center">
+              {judges.map(({ name, photo, socialLink, title }) => (
+                <div className="flex gap-3 items-center" key={`judges-${name}`}>
+                  <div className="relative w-14 h-14 sm:w-16 sm:h-16 md:w-24 md:h-24 rounded-full overflow-hidden">
+                    <Image src={photo} alt="" fill />
+                  </div>
+                  <a href={socialLink} target="_blank" className="">
+                    <p className="text-lg font-semibold text-black">{name}</p>
+                    <p className="text-slate-500">{title}</p>
+                  </a>
+                </div>
+              ))}
+              {/* <div className="flex gap-3 items-center">
                 <div className="relative w-14 h-14 sm:w-16 sm:h-16 md:w-24 md:h-24 rounded-full overflow-hidden">
                   <Image
                     src="https://cdn.hashnode.com/res/hashnode/image/upload/v1677222800340/7FWlpF0aT.jpeg"
@@ -272,7 +343,7 @@ const Page = () => {
                   </p>
                   <p className="text-slate-500">Software engineer @axelar</p>
                 </section>
-              </div>
+              </div> */}
             </div>
           </section>
           <section className="flex flex-col gap-4">
@@ -280,7 +351,17 @@ const Page = () => {
               Judging criteria
             </h3>
             <ul className="list-decimal list-outside ml-5 text-slate-600">
-              <li className="mb-3">
+              {judgingCriteria.map(({ heading, copy }) => (
+                <li className="mb-3" key={`judgingCriteria-${heading}`}>
+                  <div className="inline">
+                    <span className="text-slate-600 font-semibold">
+                      {heading}
+                    </span>
+                    <p className="mt-2 text-slate-500">{copy}</p>
+                  </div>
+                </li>
+              ))}
+              {/* <li className="mb-3">
                 <div className="inline">
                   <span className="text-slate-600 font-semibold">
                     Technological Implementation
@@ -339,7 +420,7 @@ const Page = () => {
                     add value to the overall project?
                   </p>
                 </div>
-              </li>
+              </li> */}
             </ul>
           </section>
           <section className="flex flex-col gap-4">
@@ -348,7 +429,21 @@ const Page = () => {
               <h3 className="font-semibold  text-xl">Prizes</h3>
             </div>
             <div className="flex flex-wrap gap-10 ml-2">
-              <div className="flex flex-col gap-2">
+              {prizes.map(({ position, prizes }) => (
+                <div className="flex flex-col gap-2" key={`prizes-${position}`}>
+                  <p className="font-semibold text-yellow-600">
+                    {position} Place
+                  </p>
+                  <ul className="list-disc ml-5 gap-1 text-sm text-slate-500 font-medium">
+                    {prizes.map((prize) => (
+                      <li key={`prizeLi-${prize}`} className="mb-1">
+                        {prize}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              ))}
+              {/* <div className="flex flex-col gap-2">
                 <p className="font-semibold text-yellow-600">1st Place</p>
                 <ul className="list-disc list-inside ml-1 flex flex-col gap-1 text-sm text-slate-500 font-medium">
                   <li>#50, 000</li>
@@ -368,8 +463,8 @@ const Page = () => {
                   <li>#10, 000</li>
                   <li>Bronze badge</li>
                 </ul>
-              </div>
-              <div className="flex flex-col gap-2">
+              </div> */}
+              <div className="w-full flex flex-col gap-2">
                 <p className="font-semibold text-slate-600">
                   Valid Participants
                 </p>
