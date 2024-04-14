@@ -4,8 +4,10 @@ const Schema = mongoose.Schema;
 
 const hackathonSchema = new Schema(
   {
+    coverImage: { type: String },
     hackathon: { type: String, required: true, unique: true, index: true },
     title: { type: String, required: true, unique: true },
+    brief: { type: String },
     slug: { type: String, required: true, unique: true },
     startDate: { type: String, required: true },
     endDate: { type: String, required: true },
@@ -18,8 +20,9 @@ const hackathonSchema = new Schema(
     judgingCriteria: [{ heading: String, copy: String }],
     prizes: [{ position: Number, prizes: [{ type: String }] }],
     sponsors: [{ name: String, photo: String, link: String }],
-    status: { type: String, reason: String },
+    status: { label: String, reason: String },
     isActive: { type: Boolean, default: true },
+    tags: [{ type: String }],
   },
   {
     timestamps: true,

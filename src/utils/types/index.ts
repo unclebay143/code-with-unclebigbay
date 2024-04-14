@@ -158,3 +158,27 @@ export type LeaderBoardData = {
 };
 
 export type LeaderBoard = LeaderBoardData[];
+
+export type Hackathon = {
+  _id: string;
+  participantCount: number;
+  coverImage: string;
+  hackathon: { type: string };
+  title: string;
+  brief: string;
+  slug: string;
+  startDate: string;
+  endDate: string;
+  about: string;
+  whatToBuild: string;
+  howToParticipate: string[];
+  judges: { name: string; title: string; photo: string; socialLink: string }[];
+  judgingCriteria: { heading: string; copy: string }[];
+  prizes: { position: number; prizes: string[] }[];
+  sponsors: { name: string; photo: string; link: string }[];
+  status: { label: string; reason: string };
+  isActive: boolean;
+  tags: string[];
+};
+
+export type Hackathons = Hackathon[];

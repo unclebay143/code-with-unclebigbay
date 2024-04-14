@@ -18,6 +18,7 @@ import {
   Share2,
   Twitter,
   Users,
+  Youtube,
 } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -450,14 +451,23 @@ const Page = () => {
           </section>
         </section>
       </section>
-      <a
-        href=""
-        target="_blank"
-        className="hover:text-slate-600 text-sm text-center text-slate-500 flex items-center gap-1 justify-center"
-      >
-        Share on Twitter <Twitter size={14} />
-      </a>
-
+      <section className="flex items-center justify-center gap-2">
+        <a
+          href=""
+          target="_blank"
+          className="hover:text-slate-600 text-sm text-center text-slate-500 flex items-center gap-1 justify-center"
+        >
+          Share on Twitter <Twitter size={14} />
+        </a>
+        <span className="text-slate-500">&middot;</span>
+        <a
+          href="https://www.youtube.com/@unclebigbay"
+          target="_blank"
+          className="hover:text-slate-600 text-sm text-center text-slate-500 flex items-center gap-1 justify-center"
+        >
+          Subscribe to channel <Youtube size={14} />
+        </a>
+      </section>
       <SubmitEntryModal
         isOpen={openSubmitEntryModal}
         close={() => setOpenSubmitEntryModal(false)}
