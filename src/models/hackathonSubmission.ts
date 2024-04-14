@@ -13,7 +13,6 @@ const hackathonSubmissionSchema = new Schema(
       articleUrl: { type: String },
       repositoryUrl: { type: String },
       socialUrl: { type: String },
-      feedback: { type: String },
     },
     isBanned: { type: Boolean },
   },
