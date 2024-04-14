@@ -19,6 +19,7 @@ const hackathonSchema = new Schema(
     judgingCriteria: [{ heading: String, copy: String }],
     prizes: [{ position: Number, prizes: [{ type: String }] }],
     sponsors: [{ name: String, photo: String, link: String }],
+    feedback: { type: String },
   },
   {
     timestamps: true,
