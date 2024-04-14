@@ -29,9 +29,34 @@ const POST = async (req: Request, _res: Response) => {
 const GET = async () => {
   try {
     await connectViaMongoose();
-    const hackathons = await Hackathon.find({ isActive: true }).sort({
-      createdAt: -1,
-    });
+    const hackathons = await Hackathon.aggregate([
+      {
+        $lookup: {
+          from: 'hackathonRegistrations',
+          localField: '_id',
+          foreignField: 'hackathonId',
+          as: 'registrations',
+        },
+      },
+      {
+        $addFields: {
+          participantCount: { $size: '$registrations' },
+        },
+      },
+      {
+        $project: {
+          _id: 1,
+          title: 1,
+          startDate: 1,
+          endDate: 1,
+          coverImage: 1,
+          tags: 1,
+          brief: 1,
+          participantCount: 1,
+        },
+      },
+    ]);
+
     return NextResponse.json(
       { message: 'Hackathons fetched successfully', hackathons },
       {

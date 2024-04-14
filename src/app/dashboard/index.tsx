@@ -64,7 +64,7 @@ export const DashboardIndex = ({
         currentStudent={currentStudent}
         setSidebarOpen={setSidebarOpen}
       />
-      <main className="relative flex gap-3 w-full max-w-7xl mx-auto px-4 xl:px-0">
+      <main className="relative flex gap-4 w-full max-w-7xl mx-auto px-4 xl:px-0">
         <Sidebar
           isLoggedIn={!!session}
           isAdmin={isAdmin}
