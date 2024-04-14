@@ -1,7 +1,8 @@
 'use client';
 import dayjs from 'dayjs';
 import { Button } from '@/components/atoms/Button';
-import useHackathon, {
+import {
+  useHackathons,
   useHackathonById,
 } from '@/components/hooks/useHackathon';
 import { DashboardSubheading } from '@/components/molecules/dashboard/dashboard-subheading';
@@ -37,6 +38,7 @@ const HackathonCard = ({ hackathon }: { hackathon: Hackathon }) => {
     startDate,
     endDate,
     participantCount,
+    slug,
   } = hackathon;
   const { isRegistered } = useHackathonById(_id);
   const [hackathonHasEnded, setHackathonHasEnded] = useState(false);
@@ -129,7 +131,7 @@ const HackathonCard = ({ hackathon }: { hackathon: Hackathon }) => {
               {isRegistered ? 'Joined!' : 'Join hackathon'}
             </Button>
             <Button size="xs" appearance="secondary-slate" width="full" asChild>
-              <Link href="hackathons/slug">View details</Link>
+              <Link href={`hackathons/${slug}`}>View details</Link>
             </Button>
           </div>
           {tags?.map((tag, index) => (
@@ -156,7 +158,7 @@ const HackathonCard = ({ hackathon }: { hackathon: Hackathon }) => {
 };
 
 const Page = () => {
-  const { hackathons, isLoading } = useHackathon();
+  const { hackathons, isLoading } = useHackathons();
   const showHackathons = !isLoading && hackathons && hackathons.length;
 
   return (
