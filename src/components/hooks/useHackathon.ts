@@ -2,7 +2,7 @@ import axios from 'axios';
 import { useQuery } from '@tanstack/react-query';
 import { Hackathon, Hackathons } from '@/utils/types';
 
-const useHackathon = () => {
+const useHackathons = () => {
   const {
     data: hackathons,
     error,
@@ -51,5 +51,4 @@ const useHackathonById = (_id: string) => {
   };
 };
 
-export default useHackathon;
-export { useHackathonById };
+export { useHackathonById, useHackathons };
