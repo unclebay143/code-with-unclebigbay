@@ -15,6 +15,7 @@ const hackathonSubmissionSchema = new Schema(
       socialUrl: { type: String },
     },
     isBanned: { type: Boolean },
+    feedback: { type: String },
   },
   {
     timestamps: true,
