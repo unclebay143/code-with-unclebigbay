@@ -93,7 +93,7 @@ const Page = () => {
         <div className="h-96 relative w-full overflow-hidden bg-slate-900 flex flex-col items-center justify-center rounded-lg">
           <div className="absolute inset-0 w-full h-full bg-slate-900 z-20 [mask-image:radial-gradient(transparent,white)] pointer-events-none" />
           <Boxes />
-          <section className="flex flex-col items-center gap-3 relative z-20">
+          <section className="flex flex-col items-center gap-3 relative z-20 p-4">
             <h2 className="md:text-4xl text-xl text-white">May Codathon</h2>
             {/* <p className="text-center mt-2 text-neutral-300">
               Framer motion is the best animation library ngl
@@ -171,10 +171,16 @@ const Page = () => {
             <h3 className="font-semibold text-slate-700 text-lg">
               How to Participate
             </h3>
-            <ul className="list-decimal list-inside ml-2 text-slate-600">
+            <ul className="list-decimal list-outside ml-5 text-slate-600">
               <li className="mb-3">
                 <span className="text-slate-500">
                   Build an interesting app using the guide above
+                </span>
+              </li>
+              <li className="mb-3">
+                <span className="text-slate-500">
+                  Record a 1-2 minutes video that demonstrates your project.
+                  Video must be uploaded to YouTube and made public.
                 </span>
               </li>
               <li className="mb-3">
@@ -207,7 +213,7 @@ const Page = () => {
             <h3 className="font-semibold text-slate-700 text-xl">Judges</h3>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-y-8">
               <div className="flex gap-3 items-center">
-                <div className="relative w-24 h-24 rounded-full overflow-hidden">
+                <div className="relative w-14 h-14 sm:w-16 sm:h-16 md:w-24 md:h-24 rounded-full overflow-hidden">
                   <Image
                     src="https://cdn.hashnode.com/res/hashnode/image/upload/v1677222800340/7FWlpF0aT.jpeg"
                     alt=""
@@ -222,7 +228,7 @@ const Page = () => {
                 </section>
               </div>
               <div className="flex gap-3 items-center">
-                <div className="relative w-24 h-24 rounded-full overflow-hidden">
+                <div className="relative w-14 h-14 sm:w-16 sm:h-16 md:w-24 md:h-24 rounded-full overflow-hidden">
                   <Image
                     src="https://cdn.rareblocks.xyz/collection/celebration/images/team/3/team-avatar-1.jpg"
                     alt=""
@@ -237,7 +243,7 @@ const Page = () => {
                 </section>
               </div>
               <div className="flex gap-3 items-center">
-                <div className="relative w-24 h-24 rounded-full overflow-hidden">
+                <div className="relative w-14 h-14 sm:w-16 sm:h-16 md:w-24 md:h-24 rounded-full overflow-hidden">
                   <Image
                     src="https://cdn.rareblocks.xyz/collection/celebration/images/team/3/team-avatar-2.jpg"
                     alt=""
@@ -252,7 +258,7 @@ const Page = () => {
                 </section>
               </div>
               <div className="flex gap-3 items-center">
-                <div className="relative w-24 h-24 rounded-full overflow-hidden">
+                <div className="relative w-14 h-14 sm:w-16 sm:h-16 md:w-24 md:h-24 rounded-full overflow-hidden">
                   <Image
                     src="https://cdn.rareblocks.xyz/collection/celebration/images/team/3/team-avatar-3.jpg"
                     alt=""
@@ -272,13 +278,13 @@ const Page = () => {
             <h3 className="font-semibold text-slate-700 text-xl">
               Judging criteria
             </h3>
-            <ul className="list-decimal list-inside ml-2 text-slate-600">
+            <ul className="list-decimal list-outside ml-5 text-slate-600">
               <li className="mb-3">
                 <div className="inline">
                   <span className="text-slate-600 font-semibold">
                     Technological Implementation
                   </span>
-                  <p className="ml-5 mt-2 text-slate-500">
+                  <p className="mt-2 text-slate-500">
                     Does the project demonstrate quality software development?
                     Did the developers go above and beyond by using Azure AI
                     features?
@@ -290,7 +296,7 @@ const Page = () => {
                   <span className="text-slate-600 font-semibold">
                     Potential Impact
                   </span>
-                  <p className="ml-5 mt-2 text-slate-500">
+                  <p className="mt-2 text-slate-500">
                     How big of an impact could the project have on the AI
                     community? How big of an impact could it have beyond the
                     target community?
@@ -302,7 +308,7 @@ const Page = () => {
                   <span className="text-slate-600 font-semibold">
                     Quality of the Idea
                   </span>
-                  <p className="ml-5 mt-2 text-slate-500">
+                  <p className="mt-2 text-slate-500">
                     How creative and unique is the project? Does the concept
                     exist already? If so, how much does the project improve on
                     it?
@@ -314,7 +320,7 @@ const Page = () => {
                   <span className="text-slate-600 font-semibold">
                     Multimodal Functionality
                   </span>
-                  <p className="ml-5 mt-2 text-slate-500">
+                  <p className="mt-2 text-slate-500">
                     Does the project make interesting use of the required
                     multimodal functionality? How well do 2 or more multimodal
                     features (image, video/motion, voice/audio, text) add value
@@ -327,7 +333,7 @@ const Page = () => {
                   <span className="text-slate-600 font-semibold">
                     Bonus VS Code Extensions
                   </span>
-                  <p className="ml-5 mt-2 text-slate-500">
+                  <p className="mt-2 text-slate-500">
                     Does the project use VS Code Extensions? How well do they
                     add value to the overall project?
                   </p>
@@ -414,7 +420,7 @@ const Page = () => {
               href=""
               target="_blank"
               rel="noopener"
-              className="inline text-sm text-slate-500 hover:underline"
+              className="inline text-sm text-slate-500 underline hover:text-slate-600"
             >
               Be a sponsor for the next hackathon.
             </a>

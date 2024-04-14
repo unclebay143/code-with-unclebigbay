@@ -257,6 +257,91 @@ const Profile = async ({ params }: { params: { username: string } }) => {
                   </div>
                 </WhiteArea>
               )}
+              <WhiteArea border>
+                <h1 className="font-semibold text-slate-700">Barges</h1>
+                <div className="flex flex-col gap-8 text-slate-700 items-start mt-3">
+                  <div className="flex items-center gap-2">
+                    <div className="rounded-full w-20 h-20 relative overflow-hidden">
+                      <Image
+                        src="https://cdn.hashnode.com/res/hashnode/image/upload/v1713077307741/da39704c-1c4d-43de-b38f-b3c114f7b327.png"
+                        alt="badge"
+                        fill
+                      />
+                    </div>
+                    <div>
+                      <h3 className="text-md font-medium">
+                        Gold hackathon badge
+                      </h3>
+                      <p className="opacity-80">
+                        Earn from participating in the January hackathon
+                      </p>
+                      <p className="text-sm opacity-50">
+                        Achieved on Jan 30, 2024.
+                      </p>
+                    </div>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <div className="rounded-full w-20 h-20 relative overflow-hidden">
+                      <Image
+                        src="https://cdn.hashnode.com/res/hashnode/image/upload/v1713080566478/33158274-ce0d-4981-94f1-0011828515d9.png"
+                        alt="badge"
+                        fill
+                      />
+                    </div>
+                    <div>
+                      <h3 className="text-md font-medium">
+                        Silver hackathon badge
+                      </h3>
+                      <p className="opacity-80">
+                        Earn from participating in the January hackathon
+                      </p>
+                      <p className="text-sm opacity-50">
+                        Achieved on Jan 30, 2024.
+                      </p>
+                    </div>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <div className="rounded-full w-20 h-20 relative overflow-hidden">
+                      <Image
+                        src="https://cdn.hashnode.com/res/hashnode/image/upload/v1713077307741/da39704c-1c4d-43de-b38f-b3c114f7b327.png"
+                        alt="badge"
+                        fill
+                      />
+                    </div>
+                    <div>
+                      <h3 className="text-md font-medium">
+                        Bronze hackathon badge
+                      </h3>
+                      <p className="opacity-80">
+                        Earn from participating in the January hackathon
+                      </p>
+                      <p className="text-sm opacity-50">
+                        Achieved on Jan 30, 2024.
+                      </p>
+                    </div>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <div className="rounded-full w-20 h-20 relative overflow-hidden">
+                      <Image
+                        src="https://cdn.hashnode.com/res/hashnode/image/upload/v1713077307741/da39704c-1c4d-43de-b38f-b3c114f7b327.png"
+                        alt="badge"
+                        fill
+                      />
+                    </div>
+                    <div>
+                      <h3 className="text-md font-medium">
+                        Hackathon Participation badge
+                      </h3>
+                      <p className="opacity-80">
+                        Earn from participating in the January hackathon
+                      </p>
+                      <p className="text-sm opacity-50">
+                        Achieved on Jan 30, 2024.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </WhiteArea>
               {/* Enable when feature is available */}
               {/* <WhiteArea border>
               <h2 className="font-semibold text-slate-700 mb-3">Projects</h2>
