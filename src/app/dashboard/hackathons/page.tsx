@@ -29,7 +29,6 @@ const Page = () => {
     },
     {
       coverImage:
-        // 'https://cdn.hashnode.com/res/hashnode/image/upload/v1712355851743/9b73ccc7-d52e-4001-9416-beb97b73e79c.png',
         'https://cdn.hashnode.com/res/hashnode/image/upload/v1712354603785/86531201-b9b4-466f-a7ca-ec9520a004a3.png',
 
       title: 'January 2024 Hackathon',
@@ -42,7 +41,6 @@ const Page = () => {
     },
     {
       coverImage:
-        // 'https://cdn.hashnode.com/res/hashnode/image/upload/v1712351487326/a6ce0665-0238-4e75-a060-e30d8961d0a7.png',
         'https://cdn.hashnode.com/res/hashnode/image/upload/v1712354603785/86531201-b9b4-466f-a7ca-ec9520a004a3.png',
 
       title: 'January 2024 Hackathon',
@@ -52,7 +50,6 @@ const Page = () => {
     },
     {
       coverImage:
-        // 'https://cdn.hashnode.com/res/hashnode/image/upload/v1712351487326/a6ce0665-0238-4e75-a060-e30d8961d0a7.png',
         'https://cdn.hashnode.com/res/hashnode/image/upload/v1712354603785/86531201-b9b4-466f-a7ca-ec9520a004a3.png',
 
       title: 'January 2024 Hackathon',
@@ -62,7 +59,6 @@ const Page = () => {
     },
     {
       coverImage:
-        // 'https://cdn.hashnode.com/res/hashnode/image/upload/v1712354603785/86531201-b9b4-466f-a7ca-ec9520a004a3.png',
         'https://cdn.hashnode.com/res/hashnode/image/upload/v1712354603785/86531201-b9b4-466f-a7ca-ec9520a004a3.png',
 
       title: 'January 2024 Hackathon',
@@ -73,7 +69,6 @@ const Page = () => {
     },
     {
       coverImage:
-        // 'https://cdn.hashnode.com/res/hashnode/image/upload/v1712351487326/a6ce0665-0238-4e75-a060-e30d8961d0a7.png',
         'https://cdn.hashnode.com/res/hashnode/image/upload/v1712354603785/86531201-b9b4-466f-a7ca-ec9520a004a3.png',
       title: 'January 2024 Hackathon',
       description:
@@ -97,19 +92,19 @@ const Page = () => {
             className="flex gap-3 border-b"
             aria-label="Manage your account"
           >
-            <Tabs.Trigger className="border-b border-slate-400" value="tab1">
-              <button className="text-slate-700 p-2 hover:text-slate-900 rounded-xl text-sm font-medium">
-                All
-              </button>
-            </Tabs.Trigger>
             <Tabs.Trigger value="tab2">
               <button className="text-slate-700 p-2 hover:text-slate-900 rounded-xl text-sm font-medium">
-                Upcoming
+                Active
               </button>
             </Tabs.Trigger>
             <Tabs.Trigger value="tab3">
               <button className="text-slate-700 p-2 hover:text-slate-900 rounded-xl text-sm font-medium">
-                Past
+                Ended
+              </button>
+            </Tabs.Trigger>
+            <Tabs.Trigger className="border-b border-slate-400" value="tab1">
+              <button className="text-slate-700 p-2 hover:text-slate-900 rounded-xl text-sm font-medium">
+                All
               </button>
             </Tabs.Trigger>
           </Tabs.List>
@@ -198,7 +193,7 @@ const Page = () => {
                       </section>
                       <section className="px-5 hidden md:flex flex-col justify-center items-center text-center border-l whitespace-nowrap min-w-[112px]">
                         {isClosed ? (
-                          <h3 className="text-red-600">Closed</h3>
+                          <h3 className="text-red-600">Ended</h3>
                         ) : (
                           <>
                             <h3 className="font-bold text-2xl text-slate-600">
