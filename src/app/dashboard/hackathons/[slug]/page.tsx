@@ -148,6 +148,8 @@ const Page = ({ params }: { params: { slug: string } }) => {
   const isClosed = false;
   const disableSubmitEntryBtn = isClosed;
   const disableRegisterBtn = registered || isClosed;
+
+  return <p>hi</p>;
   return (
     <WhiteArea border>
       <div className="flex items-center justify-between mb-5">
