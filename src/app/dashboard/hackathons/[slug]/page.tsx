@@ -2,79 +2,24 @@
 'use client';
 
 import { Button } from '@/components/atoms/Button';
-import { IconButton } from '@/components/atoms/IconButton';
-import { DashboardSubheading } from '@/components/molecules/dashboard/dashboard-subheading';
 import { WhiteArea } from '@/components/molecules/dashboard/white-area';
 import { AnimatedTooltip } from '@/components/ui/animated-tooltip';
 import { Boxes } from '@/components/ui/background-boxes';
-import * as Tabs from '@radix-ui/react-tabs';
 import {
   ArrowLeft,
   Calendar,
-  Hourglass,
-  Linkedin,
   Loader,
   Medal,
-  Share,
-  Share2,
   Twitter,
-  Users,
   Youtube,
 } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { SubmitEntryModal } from './SubmitEntryModal';
 import { useState } from 'react';
-import { useHackathonById } from '@/components/hooks/useHackathon';
 import { useQuery } from '@tanstack/react-query';
 import { Hackathon } from '@/utils/types';
 import axios from 'axios';
-import { notFound } from 'next/navigation';
-
-const people = [
-  {
-    id: 1,
-    name: 'John Doe',
-    designation: 'Software Engineer',
-    image:
-      'https://images.unsplash.com/photo-1599566150163-29194dcaad36?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=3387&q=80',
-  },
-  {
-    id: 2,
-    name: 'Robert Johnson',
-    designation: 'Product Manager',
-    image:
-      'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8YXZhdGFyfGVufDB8fDB8fHww&auto=format&fit=crop&w=800&q=60',
-  },
-  {
-    id: 3,
-    name: 'Jane Smith',
-    designation: 'Data Scientist',
-    image:
-      'https://images.unsplash.com/photo-1580489944761-15a19d654956?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8YXZhdGFyfGVufDB8fDB8fHww&auto=format&fit=crop&w=800&q=60',
-  },
-  {
-    id: 4,
-    name: 'Emily Davis',
-    designation: 'UX Designer',
-    image:
-      'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTB8fGF2YXRhcnxlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&w=800&q=60',
-  },
-  {
-    id: 5,
-    name: 'Tyler Durden',
-    designation: 'Soap Developer',
-    image:
-      'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=3540&q=80',
-  },
-  {
-    id: 6,
-    name: 'Dora',
-    designation: 'The Explorer',
-    image:
-      'https://images.unsplash.com/photo-1544725176-7c40e5a71c5e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=3534&q=80',
-  },
-];
 
 const Page = ({ params }: { params: { slug: string } }) => {
   const [registered, setRegistered] = useState(false);
@@ -143,13 +88,23 @@ const Page = ({ params }: { params: { slug: string } }) => {
     judgingCriteria,
     whatToBuild,
     prizes,
+    participants,
   } = hackathon;
 
   const isClosed = false;
   const disableSubmitEntryBtn = isClosed;
   const disableRegisterBtn = registered || isClosed;
 
-  return <p>hi</p>;
+  const _participants = participants.map((participant) => {
+    return {
+      id: participant._id,
+      name: participant.fullName,
+      designation: participant.stack,
+      image: participant.photo,
+    };
+  });
+  console.log(_participants);
+
   return (
     <WhiteArea border>
       <div className="flex items-center justify-between mb-5">
@@ -529,7 +484,7 @@ const Page = ({ params }: { params: { slug: string } }) => {
               Participants
             </h3>
             <section className="flex flex-row flex-wrap gap-y-3">
-              <AnimatedTooltip items={people} />
+              <AnimatedTooltip items={_participants} />
             </section>
           </section>
 
@@ -554,7 +509,8 @@ const Page = ({ params }: { params: { slug: string } }) => {
           target="_blank"
           className="hover:text-slate-600 text-sm text-center text-slate-500 flex items-center gap-1 justify-center"
         >
-          Share on Twitter <Twitter size={14} />
+          <Twitter size={14} />
+          Share on Twitter
         </a>
         <span className="text-slate-500">&middot;</span>
         <a
@@ -562,7 +518,8 @@ const Page = ({ params }: { params: { slug: string } }) => {
           target="_blank"
           className="hover:text-slate-600 text-sm text-center text-slate-500 flex items-center gap-1 justify-center"
         >
-          Subscribe to channel <Youtube size={14} />
+          <Youtube size={14} />
+          Subscribe to channel
         </a>
       </section>
       <SubmitEntryModal

@@ -40,8 +40,9 @@ const HackathonCard = ({ hackathon }: { hackathon: Hackathon }) => {
     endDate,
     participantCount,
     slug,
+    isRegistered,
   } = hackathon;
-  const { isRegistered, joinHackathon } = useHackathonById(_id);
+  const { joinHackathon } = useHackathonById(_id);
   const [hackathonHasEnded, setHackathonHasEnded] = useState(false);
   const { data: currentStudent } = useCurrentStudent();
 
