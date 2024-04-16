@@ -1,4 +1,6 @@
 import { Hackathon } from '@/models/hackathon';
+import { Student } from '@/models/student';
+import { getServerSessionWithAuthOptions } from '@/utils/auth-options';
 import connectViaMongoose from '@/utils/mongoose';
 import { NextResponse } from 'next/server';
 
@@ -29,6 +31,15 @@ const POST = async (req: Request, _res: Response) => {
 const GET = async () => {
   try {
     await connectViaMongoose();
+    const session = await getServerSessionWithAuthOptions();
+    if (!session) {
+      return NextResponse.json(
+        { message: 'Session required' },
+        { status: 403 },
+      );
+    }
+    const student = await Student.findOne({ email: session.user.email });
+
     const hackathons = await Hackathon.aggregate([
       {
         $lookup: {
@@ -36,6 +47,9 @@ const GET = async () => {
           localField: '_id',
           foreignField: 'hackathon',
           as: 'participants',
+          pipeline: [
+            { $match: { student: student._id } }, // Filter registrations by student ID
+          ],
         },
       },
       {
@@ -54,6 +68,7 @@ const GET = async () => {
           brief: 1,
           slug: 1,
           participantCount: 1,
+          isRegistered: { $gt: [{ $size: '$participants' }, 0] }, // Check if participants exist
         },
       },
     ]);

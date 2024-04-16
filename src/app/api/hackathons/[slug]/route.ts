@@ -20,11 +20,19 @@ const GET = async (_: Request, { params }: { params: { slug: string } }) => {
       );
     }
 
-    const participants = await HackathonRegistration.find({
+    const registrations = await HackathonRegistration.find({
       hackathon: hackathon._id,
-    }).populate('student', '_id name photo username', Student);
+    }).select('student');
 
-    hackathon = { ...hackathon.toJSON(), participants };
+    const studentIds = registrations.map(
+      (registration) => registration.student,
+    );
+
+    const students = await Student.find({ _id: { $in: studentIds } }).select(
+      '_id fullName photo stack username',
+    );
+
+    hackathon = { ...hackathon._doc, participants: students };
 
     return NextResponse.json(
       { message: 'Hackathon fetched successfully', hackathon },

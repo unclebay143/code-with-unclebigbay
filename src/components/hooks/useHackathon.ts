@@ -19,27 +19,14 @@ const useHackathons = () => {
 };
 
 const useHackathonById = (_id: string) => {
-  const { data: isRegistered, isLoading: isCheckingRegistrationStatus } =
-    useQuery({
-      queryKey: ['isRegisteredForHackathon'],
-      queryFn: () =>
-        axios
-          .get(`/api/hackathons/is-registered/${_id}`)
-          .then((res) => res.data.isRegistered as boolean),
-    });
-
-  const {
-    data: hackathon,
-    isFetching,
-    error,
-    isPending,
-  } = useQuery({
-    queryKey: ['hackathon', _id],
-    queryFn: () =>
-      axios
-        .get('/api/hackathons/' + _id)
-        .then((res) => res.data.hackathon as Hackathon),
-  });
+  // const { data: isRegistered, isLoading: isCheckingRegistrationStatus } =
+  //   useQuery({
+  //     queryKey: ['isRegisteredForHackathon'],
+  //     queryFn: () =>
+  //       axios
+  //         .get(`/api/hackathons/is-registered/${_id}`)
+  //         .then((res) => res.data.isRegistered as boolean),
+  //   });
 
   const { mutateAsync: joinHackathon } = useMutation({
     mutationFn: ({
@@ -52,12 +39,8 @@ const useHackathonById = (_id: string) => {
   });
 
   return {
-    hackathon,
-    isFetching,
-    error,
-    isPending,
-    isRegistered,
-    isCheckingRegistrationStatus,
+    // isRegistered,
+    // isCheckingRegistrationStatus,
     joinHackathon,
   };
 };

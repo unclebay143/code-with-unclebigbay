@@ -164,6 +164,7 @@ export type Hackathon = {
   participantCount: number;
   coverImage: string;
   hackathon: { type: string };
+  isRegistered: boolean;
   title: string;
   brief: string;
   slug: string;
@@ -179,6 +180,13 @@ export type Hackathon = {
   status: { label: string; reason: string };
   isActive: boolean;
   tags: string[];
+  participants: {
+    _id: number;
+    fullName: string;
+    stack: string;
+    username: string;
+    photo: string;
+  }[];
 };
 
 export type Hackathons = Hackathon[];
