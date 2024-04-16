@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { useQuery } from '@tanstack/react-query';
+import { useMutation, useQuery } from '@tanstack/react-query';
 import { Hackathon, Hackathons } from '@/utils/types';
 
 const useHackathons = () => {
@@ -41,6 +41,16 @@ const useHackathonById = (_id: string) => {
         .then((res) => res.data.hackathon as Hackathon),
   });
 
+  const { mutateAsync: joinHackathon } = useMutation({
+    mutationFn: ({
+      hackathonId,
+      studentId,
+    }: {
+      hackathonId: string;
+      studentId: string;
+    }) => axios.post('/api/hackathons/register', { hackathonId, studentId }),
+  });
+
   return {
     hackathon,
     isFetching,
@@ -48,6 +58,7 @@ const useHackathonById = (_id: string) => {
     isPending,
     isRegistered,
     isCheckingRegistrationStatus,
+    joinHackathon,
   };
 };
 

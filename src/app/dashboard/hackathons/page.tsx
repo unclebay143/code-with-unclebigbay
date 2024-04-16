@@ -16,6 +16,7 @@ import advancedFormat from 'dayjs/plugin/advancedFormat.js';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import Countdown from 'react-countdown';
 import { useState } from 'react';
+import useCurrentStudent from '@/components/hooks/useCurrentStudent';
 
 dayjs.extend(advancedFormat);
 dayjs.extend(relativeTime);
@@ -40,8 +41,9 @@ const HackathonCard = ({ hackathon }: { hackathon: Hackathon }) => {
     participantCount,
     slug,
   } = hackathon;
-  const { isRegistered } = useHackathonById(_id);
+  const { isRegistered, joinHackathon } = useHackathonById(_id);
   const [hackathonHasEnded, setHackathonHasEnded] = useState(false);
+  const { data: currentStudent } = useCurrentStudent();
 
   // @ts-ignore
   const renderer = ({ days, hours, minutes, seconds }) => {
@@ -127,7 +129,19 @@ const HackathonCard = ({ hackathon }: { hackathon: Hackathon }) => {
             </p>
           </section>
           <div className="flex flex-col min-[340px]:flex-row gap-2 sm:items-center max-w-[250px]">
-            <Button size="xs" disabled={isRegistered} width="full">
+            <Button
+              size="xs"
+              disabled={isRegistered}
+              width="full"
+              onClick={() => {
+                if (currentStudent?._id) {
+                  joinHackathon({
+                    hackathonId: _id,
+                    studentId: currentStudent._id,
+                  });
+                }
+              }}
+            >
               {isRegistered ? 'Joined!' : 'Join hackathon'}
             </Button>
             <Button size="xs" appearance="secondary-slate" width="full" asChild>
