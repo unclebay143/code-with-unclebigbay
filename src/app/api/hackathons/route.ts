@@ -34,13 +34,13 @@ const GET = async () => {
         $lookup: {
           from: 'hackathonRegistrations',
           localField: '_id',
-          foreignField: 'hackathonId',
-          as: 'registrations',
+          foreignField: 'hackathon',
+          as: 'participants',
         },
       },
       {
         $addFields: {
-          participantCount: { $size: '$registrations' },
+          participantCount: { $size: '$participants' },
         },
       },
       {
