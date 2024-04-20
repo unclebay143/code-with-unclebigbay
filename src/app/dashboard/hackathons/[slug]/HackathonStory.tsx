@@ -1,7 +1,7 @@
 'use client';
 
-import React, { useEffect } from 'react';
-import { Button, ArrowLeft } from '@hashnode/matrix-ui';
+import React from 'react';
+import { Button, ArrowLeft, BrandXTwitter } from '@hashnode/matrix-ui';
 import { WhiteArea } from '@/components/molecules/dashboard/white-area';
 import { AnimatedTooltip } from '@/components/ui/animated-tooltip';
 import { Boxes } from '@/components/ui/background-boxes';
@@ -31,6 +31,7 @@ export const HackathonStory = ({
     whatToBuild,
     prizes,
     participants,
+    sponsors,
   } = hackathon;
 
   const { data: currentStudent } = useCurrentStudent();
@@ -175,41 +176,6 @@ export const HackathonStory = ({
                   <span className="text-slate-500">{how}</span>
                 </li>
               ))}
-              {/* <li className="mb-3">
-                <span className="text-slate-500">
-                  Build an interesting app using the guide above
-                </span>
-              </li>
-              <li className="mb-3">
-                <span className="text-slate-500">
-                  Record a 1-2 minutes video that demonstrates your project.
-                  Video must be uploaded to YouTube and made public.
-                </span>
-              </li>
-              <li className="mb-3">
-                <span className="text-slate-500">
-                  Launch your app by publishing an article on your Hashnode blog
-                  - no blog yet? Set it up here.
-                </span>
-              </li>
-              <li className="mb-3">
-                <span className="text-slate-500">
-                  Mention the domains of Codathon and Hashnode in your project
-                  article.
-                </span>
-              </li>
-              <li className="mb-3">
-                <span className="text-slate-500">
-                  Tag the article with #Codathon and #CodathonHackathon
-                  hashtags! This is how we track who&apos;s in.
-                </span>
-              </li>
-              <li className="mb-3">
-                <span className="text-slate-500">
-                  Share your article on social media and tag
-                  @codewithunclebigbay and @Codathon so we can spread the love!
-                </span>
-              </li> */}
             </ul>
           </section>
           <section className="flex flex-col gap-4">
@@ -243,66 +209,6 @@ export const HackathonStory = ({
                   </div>
                 </li>
               ))}
-              {/* <li className="mb-3">
-                <div className="inline">
-                  <span className="text-slate-600 font-semibold">
-                    Technological Implementation
-                  </span>
-                  <p className="mt-2 text-slate-500">
-                    Does the project demonstrate quality software development?
-                    Did the developers go above and beyond by using Azure AI
-                    features?
-                  </p>
-                </div>
-              </li>
-              <li className="mb-3">
-                <div className="inline">
-                  <span className="text-slate-600 font-semibold">
-                    Potential Impact
-                  </span>
-                  <p className="mt-2 text-slate-500">
-                    How big of an impact could the project have on the AI
-                    community? How big of an impact could it have beyond the
-                    target community?
-                  </p>
-                </div>
-              </li>
-              <li className="mb-3">
-                <div className="inline">
-                  <span className="text-slate-600 font-semibold">
-                    Quality of the Idea
-                  </span>
-                  <p className="mt-2 text-slate-500">
-                    How creative and unique is the project? Does the concept
-                    exist already? If so, how much does the project improve on
-                    it?
-                  </p>
-                </div>
-              </li>
-              <li className="mb-3">
-                <div className="inline">
-                  <span className="text-slate-600 font-semibold">
-                    Multimodal Functionality
-                  </span>
-                  <p className="mt-2 text-slate-500">
-                    Does the project make interesting use of the required
-                    multimodal functionality? How well do 2 or more multimodal
-                    features (image, video/motion, voice/audio, text) add value
-                    to the overall project?q
-                  </p>
-                </div>
-              </li>
-              <li className="mb-3">
-                <div className="inline">
-                  <span className="text-slate-600 font-semibold">
-                    Bonus VS Code Extensions
-                  </span>
-                  <p className="mt-2 text-slate-500">
-                    Does the project use VS Code Extensions? How well do they
-                    add value to the overall project?
-                  </p>
-                </div>
-              </li> */}
             </ul>
           </section>
           <section className="flex flex-col gap-4">
@@ -311,88 +217,67 @@ export const HackathonStory = ({
               <h3 className="font-semibold  text-xl">Prizes</h3>
             </div>
             <div className="flex flex-wrap gap-10 ml-2">
-              {prizes.map(({ position, prizes }) => (
-                <div className="flex flex-col gap-2" key={`prizes-${position}`}>
-                  <p className="font-semibold text-yellow-600">
-                    {position} Place
-                  </p>
-                  <ul className="list-disc ml-5 gap-1 text-sm text-slate-500 font-medium">
-                    {prizes.map((prize) => (
-                      <li key={`prizeLi-${prize}`} className="mb-1">
-                        {prize}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              ))}
-              {/* <div className="flex flex-col gap-2">
-                <p className="font-semibold text-yellow-600">1st Place</p>
-                <ul className="list-disc list-inside ml-1 flex flex-col gap-1 text-sm text-slate-500 font-medium">
-                  <li>#50, 000</li>
-                  <li>Gold badge</li>
-                </ul>
-              </div>
-              <div className="flex flex-col gap-2">
-                <p className="font-semibold text-amber-600">2nd Place</p>
-                <ul className="list-disc list-inside ml-1 flex flex-col gap-1 text-sm text-slate-500 font-medium">
-                  <li>#25, 000</li>
-                  <li>Silver badge</li>
-                </ul>
-              </div>
-              <div className="flex flex-col gap-2">
-                <p className="font-semibold text-orange-500/80">3rd Place</p>
-                <ul className="list-disc list-inside ml-1 flex flex-col gap-1 text-sm text-slate-500 font-medium">
-                  <li>#10, 000</li>
-                  <li>Bronze badge</li>
-                </ul>
-              </div> */}
-              <div className="w-full flex flex-col gap-2">
-                <p className="font-semibold text-slate-600">
-                  Valid Participants
-                </p>
-                <ul className="list-disc list-inside ml-1 flex flex-col gap-1 text-sm text-slate-500 font-medium">
-                  <li>Participant badge</li>
-                </ul>
-              </div>
+              {prizes
+                .filter((prize) => prize.position !== 0)
+                .map(({ _id, position, prizes }) => (
+                  <div
+                    className="flex flex-col gap-2"
+                    key={`prizes-${position}-${_id}`}
+                  >
+                    <p className="font-semibold text-yellow-600">
+                      {position} Place
+                    </p>
+                    <ul className="list-disc ml-5 gap-1 text-sm text-slate-500 font-medium">
+                      {prizes.map((prize) => (
+                        <li key={`prizeLi-${prize}`} className="mb-1">
+                          {prize}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                ))}
+
+              {prizes
+                .filter((prize) => prize.position === 0)
+                .map(({ _id, position, prizes }) => (
+                  <div
+                    className="w-full flex flex-col gap-2"
+                    key={`prizes-${position}-${_id}`}
+                  >
+                    <p className="font-semibold text-slate-600">
+                      Valid Participants
+                    </p>
+                    <ul className="list-disc list-inside ml-1 flex flex-col gap-1 text-sm text-slate-500 font-medium">
+                      {prizes.map((prize) => (
+                        <li key={`prizeLi-${prize}`} className="mb-1">
+                          {prize}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                ))}
             </div>
           </section>
 
           <section className="flex flex-col gap-4 items-start">
             <h3 className="font-semibold text-slate-700 text-xl">Sponsors</h3>
-            {/* <div className="grid items-center max-w-4xl grid-cols-2 md:grid-cols-4 gap-x-10 gap-y-16"> */}
             <div className="flex flex-wrap gap-5">
-              <div className="relative rounded-full overflow-hidden h-24 w-24">
-                <Image
-                  className="object-contain"
-                  src="https://cdn.hashnode.com/res/hashnode/image/upload/v1677222800340/7FWlpF0aT.jpeg"
-                  alt=""
-                  fill
-                />
-              </div>
-              <div className="relative rounded-full overflow-hidden h-24 w-24">
-                <Image
-                  className="object-contain"
-                  src="https://cdn.rareblocks.xyz/collection/celebration/images/logos/3/logo-2.png"
-                  alt=""
-                  fill
-                />
-              </div>
-              <div className="relative rounded-full overflow-hidden h-24 w-24">
-                <Image
-                  className="object-contain"
-                  src="https://cdn.rareblocks.xyz/collection/celebration/images/logos/3/logo-3.png"
-                  alt=""
-                  fill
-                />
-              </div>
-              <div className="relative rounded-full overflow-hidden h-24 w-24">
-                <Image
-                  className="object-contain"
-                  src="https://cdn.hashnode.com/res/hashnode/image/upload/v1712518251752/1d26d424-91bd-4ac0-bb3d-0fcf7f044330.jpeg"
-                  alt=""
-                  fill
-                />
-              </div>
+              {sponsors.map(({ _id, name, photo, link }) => (
+                <a
+                  className="relative rounded-full overflow-hidden h-24 w-24"
+                  key={_id}
+                  href={link}
+                  target="_blank"
+                  rel="noopener"
+                >
+                  <Image
+                    className="object-contain"
+                    src={photo}
+                    alt={name}
+                    fill
+                  />
+                </a>
+              ))}
             </div>
             <a
               href=""
@@ -418,19 +303,37 @@ export const HackathonStory = ({
           {/* <section className="py-10 bg-gradient-to-r from-fuchsia-600 to-blue-600 sm:py-16"> */}
           <section className="mt-10 py-10 bg-gradient-to-r from-slate-600 to-slate-900 sm:py-16 rounded-xl">
             <div className="px-4 mx-auto sm:px-6 lg:px-8 max-w-7xl">
-              <div className="text-center flex flex-col gap-4 items-center sm:flex-row sm:items-center sm:justify-between sm:text-left">
+              <div className="dark text-center flex flex-col gap-4 items-center sm:flex-row sm:items-center sm:justify-between sm:text-left">
                 <h2 className="text-3xl font-bold text-white">
-                  Participate in the Codathon Hackathon!
+                  {isRegistered ? "You're participating" : 'Participate'} in the
+                  Codathon Hackathon!
                 </h2>
-                <div className="whitespace-nowrap dark">
+                {registered ? (
                   <Button
                     appearance="primary-slate"
-                    onClick={handleJoinHackathon}
-                    disabled={registered}
+                    endIcon={BrandXTwitter}
+                    asChild
                   >
-                    {registered ? 'Joined' : 'Join hackathon'}
+                    <a
+                      href=""
+                      target="_blank"
+                      rel="noopener"
+                      className="whitespace-nowrap"
+                    >
+                      Share on
+                    </a>
                   </Button>
-                </div>
+                ) : (
+                  <div className="whitespace-nowrap">
+                    <Button
+                      appearance="primary-slate"
+                      onClick={handleJoinHackathon}
+                      disabled={registered}
+                    >
+                      {registered ? 'Joined' : 'Join hackathon'}
+                    </Button>
+                  </div>
+                )}
               </div>
             </div>
           </section>
