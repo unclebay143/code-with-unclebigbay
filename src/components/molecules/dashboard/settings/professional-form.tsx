@@ -1,5 +1,5 @@
 'use client';
-import { Button } from '@/components/atoms/Button';
+import { Button } from '@hashnode/matrix-ui';
 import React, { useEffect } from 'react';
 import { WhiteArea } from '../white-area';
 import { DashboardSubheading } from '../dashboard-subheading';
@@ -143,7 +143,9 @@ const UserProfessionalSettings = () => {
           </div>
 
           <div className="flex">
-            <Button size="sm">Update</Button>
+            <Button size="sm" appearance="primary-slate">
+              Update
+            </Button>
           </div>
         </div>
       </form>

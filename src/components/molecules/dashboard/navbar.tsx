@@ -12,7 +12,6 @@ import {
 import { handleAuthentication, handleLogout } from '@/utils/auth';
 import { IconButton } from '../../atoms/IconButton';
 import { Bar3CenterLeft } from '../../icons/Bar3CenterLeft';
-import { Button } from '@/components/atoms/Button';
 import { Student } from '@/utils/types';
 
 type Props = {

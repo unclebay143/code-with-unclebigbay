@@ -7,8 +7,8 @@ import { Navbar } from '@/components/atoms/Navbar';
 import { Footer } from '@/components/atoms/Footer';
 import { HeroSection } from '@/components/molecules/home/HeroSection';
 import { SectionWrapper } from '@/components/molecules/home';
-import { Button } from '@/components/atoms/Button';
 import { Meteors } from '@/components/atoms/meteors';
+import { CommunityCTA } from '@/components/atoms/CommunityCTA';
 
 export const metadata: Metadata = {
   title: 'Code with Unclebigbay',
@@ -36,15 +36,7 @@ export default function Home() {
           <CommunityMembersSection />
         </SectionWrapper>
         <SectionWrapper>
-          <section className="rounded-lg mt-40 bg-slate-950 py-20 px-5 sm:p-20 flex gap-8 flex-col items-center justify-center">
-            <h3 className="text-center text-white text-4xl">
-              We can&apos;t wait to see what you&apos;ll build 👋🏽
-            </h3>
-            <div className="flex flex-col sm:flex-row items-center gap-4">
-              <Button appearance="secondary-slate">Get started</Button>
-              <Button appearance="secondary-slate">Join the Community</Button>
-            </div>
-          </section>
+          <CommunityCTA />
         </SectionWrapper>
         <SectionWrapper>
           <Meteors />

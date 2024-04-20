@@ -1,4 +1,4 @@
-import { Button } from '@/components/atoms/Button';
+import { Button } from '@hashnode/matrix-ui';
 import { IconButton } from '@/components/atoms/IconButton';
 import { ShowConfetti } from '@/components/molecules/Confetti';
 import { DashboardSubheading } from '@/components/molecules/dashboard/dashboard-subheading';
@@ -208,7 +208,12 @@ export const SubmitEntryModal = ({ isOpen, close }: Props) => {
                   <ScrollArea.Corner className="ScrollAreaCorner" />
                 </ScrollArea.Root>
                 <div className="flex flex-col gap-2 justify-between items-start">
-                  <Button size="xs" type="submit" disabled={isSubmitting}>
+                  <Button
+                    size="xs"
+                    appearance="primary-slate"
+                    type="submit"
+                    disabled={isSubmitting}
+                  >
                     {isSubmitting ? 'Submitting...' : 'Submit'}
                   </Button>
                   <p className="text-[12px] text-slate-700">
@@ -231,7 +236,7 @@ export const SubmitEntryModal = ({ isOpen, close }: Props) => {
             </p>
             <Button
               size="xs"
-              appearance="secondary-slate"
+              appearance="primary-slate"
               onClick={() => {
                 close();
                 setSubmitted(false);

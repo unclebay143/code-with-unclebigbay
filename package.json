@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@hashnode/matrix-ui": "^0.2.2",
     "@hookform/resolvers": "^3.3.4",
     "@next-auth/mongodb-adapter": "^1.1.3",
     "@radix-ui/react-dialog": "^1.0.5",

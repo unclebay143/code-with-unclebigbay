@@ -1,18 +1,11 @@
 /* eslint-disable @next/next/no-img-element */
 'use client';
 
-import { Button } from '@/components/atoms/Button';
+import { Button, ArrowLeft } from '@hashnode/matrix-ui';
 import { WhiteArea } from '@/components/molecules/dashboard/white-area';
 import { AnimatedTooltip } from '@/components/ui/animated-tooltip';
 import { Boxes } from '@/components/ui/background-boxes';
-import {
-  ArrowLeft,
-  Calendar,
-  Loader,
-  Medal,
-  Twitter,
-  Youtube,
-} from 'lucide-react';
+import { Calendar, Loader, Medal, Twitter, Youtube } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { SubmitEntryModal } from './SubmitEntryModal';
@@ -103,19 +96,17 @@ const Page = ({ params }: { params: { slug: string } }) => {
       image: participant.photo,
     };
   });
-  console.log(_participants);
 
   return (
     <WhiteArea border>
       <div className="flex items-center justify-between mb-5">
-        <Button size="xs" appearance="secondary-slate">
-          <Link
-            href="/dashboard/hackathons"
-            className="flex gap-1 items-center"
-          >
-            <ArrowLeft size={14} />
-            <span>Explore more hackathons</span>
-          </Link>
+        <Button
+          size="xs"
+          appearance="secondary-slate"
+          startIcon={ArrowLeft}
+          asChild
+        >
+          <Link href="/dashboard/hackathons">Explore more hackathons</Link>
         </Button>
       </div>
       <section className="flex flex-col gap-3 pb-5">
@@ -135,24 +126,24 @@ const Page = ({ params }: { params: { slug: string } }) => {
               <Calendar size={14} /> May 1st - 31st{' '}
               {isClosed ? '(closed)' : null}
             </span>
-            <div>
-              {registered ? (
+            <div className="dark">
+              {!registered ? (
                 <Button
                   size="xs"
-                  appearance="secondary-slate"
+                  appearance="primary-slate"
                   disabled={disableSubmitEntryBtn}
                   onClick={() => setOpenSubmitEntryModal(true)}
                 >
-                  Submit entry
+                  <span className="font-normal text-xs">Submit entry</span>
                 </Button>
               ) : (
                 <Button
                   size="xs"
-                  appearance="secondary-slate"
+                  appearance="primary-slate"
                   disabled={disableRegisterBtn}
                   onClick={() => setRegistered(true)}
                 >
-                  Join hackathon
+                  <span className="font-normal text-xs">Join hackathon</span>
                 </Button>
               )}
             </div>
@@ -495,8 +486,8 @@ const Page = ({ params }: { params: { slug: string } }) => {
                 <h2 className="text-3xl font-bold text-white">
                   Participate in the Codathon Hackathon!
                 </h2>
-                <div className="whitespace-nowrap">
-                  <Button appearance="secondary-slate">Join hackathon</Button>
+                <div className="whitespace-nowrap dark">
+                  <Button appearance="primary-slate">Join hackathon</Button>
                 </div>
               </div>
             </div>

@@ -5,6 +5,7 @@ import connectViaMongoose from '@/utils/mongoose';
 const GET = async () => {
   try {
     await connectViaMongoose();
+
     const students = await Student.find({})
       .select('username fullName photo stack socials')
       .limit(10);

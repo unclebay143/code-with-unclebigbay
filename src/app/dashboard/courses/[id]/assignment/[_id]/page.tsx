@@ -3,7 +3,7 @@
 import React, { useState } from 'react';
 import { usePathname } from 'next/navigation';
 import { toast } from 'sonner';
-import { Button } from '@/components/atoms/Button';
+import { Button } from '@hashnode/matrix-ui';
 import { DashboardSubheading } from '@/components/molecules/dashboard/dashboard-subheading';
 import { WhiteArea } from '@/components/molecules/dashboard/white-area';
 import { ArrowLeft, Loader, RotateCw } from 'lucide-react';
@@ -12,7 +12,7 @@ import useAssignment, {
   useAssignmentById,
 } from '@/components/hooks/useAssignment';
 import { Questions } from '@/utils/types';
-import { useWarnBeforePageReload } from '@/components/hooks/useWarnBeforePageReload';
+// import { useWarnBeforePageReload } from '@/components/hooks/useWarnBeforePageReload';
 import useCurrentStudent from '@/components/hooks/useCurrentStudent';
 
 const Page = () => {
@@ -101,7 +101,7 @@ const Page = () => {
             <div className="flex flex-col gap-2 justify-between">
               <div className="flex items-center justify-between">
                 <DashboardSubheading title={`Assignment: ${courseTitle}`} />
-                <Button size="xs" appearance="secondary-slate">
+                <Button size="xs" appearance="secondary-slate" asChild>
                   <a
                     href={`/dashboard/courses/${courseId}`}
                     className="flex gap-1 items-center"
@@ -156,7 +156,12 @@ const Page = () => {
                     </li>
                   ))}
                 </ul>
-                <Button size="xs" disabled={disableBtn} type="submit">
+                <Button
+                  size="xs"
+                  disabled={disableBtn}
+                  type="submit"
+                  appearance="primary-slate"
+                >
                   {isSubmitting ? 'Submitting' : 'Submit'}
                 </Button>
               </form>
