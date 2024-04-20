@@ -25,8 +25,6 @@ export const HackathonCard = ({ hackathon }: { hackathon: Hackathon }) => {
     isRegistered,
   } = hackathon;
 
-  console.log(hackathon);
-
   const { data: currentStudent } = useCurrentStudent();
   const { joinHackathon } = useHackathonById(_id);
   const [hackathonHasEnded, setHackathonHasEnded] = useState(false);
