@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Button, ArrowLeft } from '@hashnode/matrix-ui';
 import { WhiteArea } from '@/components/molecules/dashboard/white-area';
 import { AnimatedTooltip } from '@/components/ui/animated-tooltip';
@@ -11,12 +11,56 @@ import Link from 'next/link';
 import { SubmitEntryModal } from './SubmitEntryModal';
 import { useState } from 'react';
 import { Hackathon } from '@/utils/types';
+import { useHackathonById } from '@/components/hooks/useHackathon';
+import useCurrentStudent from '@/components/hooks/useCurrentStudent';
 
-type HackathonStoryProps = { hackathon: Hackathon };
+type HackathonStoryProps = { hackathon: Hackathon; isRegistered: boolean };
 
-export const HackathonStory = ({ hackathon }: HackathonStoryProps) => {
-  const [registered, setRegistered] = useState(false);
+export const HackathonStory = ({
+  hackathon,
+  isRegistered,
+}: HackathonStoryProps) => {
+  const {
+    title,
+    brief,
+    about,
+    howToParticipate,
+    endDate,
+    judges,
+    judgingCriteria,
+    whatToBuild,
+    prizes,
+    participants,
+  } = hackathon;
+
+  const { data: currentStudent } = useCurrentStudent();
   const [openSubmitEntryModal, setOpenSubmitEntryModal] = useState(false);
+  const { joinHackathon } = useHackathonById(hackathon._id);
+  const [registered, setRegistered] = useState(isRegistered);
+
+  const isClosed = false;
+  const disableSubmitEntryBtn = isClosed;
+  const disableRegisterBtn = registered || isClosed;
+
+  const _participants = participants.map((participant) => {
+    return {
+      id: participant._id,
+      name: participant.fullName,
+      designation: participant.stack,
+      image: participant.photo,
+    };
+  });
+
+  const handleJoinHackathon = () => {
+    if (currentStudent) {
+      joinHackathon({
+        hackathonId: hackathon._id,
+        studentId: currentStudent._id,
+      }).then(() => {
+        setRegistered(true);
+      });
+    }
+  };
 
   if (!hackathon) {
     return (
@@ -50,32 +94,6 @@ export const HackathonStory = ({ hackathon }: HackathonStoryProps) => {
     );
   }
 
-  const {
-    title,
-    brief,
-    about,
-    howToParticipate,
-    endDate,
-    judges,
-    judgingCriteria,
-    whatToBuild,
-    prizes,
-    participants,
-  } = hackathon;
-
-  const isClosed = false;
-  const disableSubmitEntryBtn = isClosed;
-  const disableRegisterBtn = registered || isClosed;
-
-  const _participants = participants.map((participant) => {
-    return {
-      id: participant._id,
-      name: participant.fullName,
-      designation: participant.stack,
-      image: participant.photo,
-    };
-  });
-
   return (
     <WhiteArea border>
       <div className="flex items-center justify-between mb-5">
@@ -103,7 +121,7 @@ export const HackathonStory = ({ hackathon }: HackathonStoryProps) => {
               {isClosed ? '(closed)' : null}
             </span>
             <div className="dark">
-              {!registered ? (
+              {registered ? (
                 <Button
                   size="xs"
                   appearance="primary-slate"
@@ -117,7 +135,7 @@ export const HackathonStory = ({ hackathon }: HackathonStoryProps) => {
                   size="xs"
                   appearance="primary-slate"
                   disabled={disableRegisterBtn}
-                  onClick={() => setRegistered(true)}
+                  onClick={handleJoinHackathon}
                 >
                   <span className="font-normal text-xs">Join hackathon</span>
                 </Button>
@@ -395,6 +413,8 @@ export const HackathonStory = ({ hackathon }: HackathonStoryProps) => {
             </section>
           </section>
 
+          {/* Todo: you can turn this section into social media sharing CTA after isRegistered is true */}
+
           {/* <section className="py-10 bg-gradient-to-r from-fuchsia-600 to-blue-600 sm:py-16"> */}
           <section className="mt-10 py-10 bg-gradient-to-r from-slate-600 to-slate-900 sm:py-16 rounded-xl">
             <div className="px-4 mx-auto sm:px-6 lg:px-8 max-w-7xl">
@@ -403,7 +423,13 @@ export const HackathonStory = ({ hackathon }: HackathonStoryProps) => {
                   Participate in the Codathon Hackathon!
                 </h2>
                 <div className="whitespace-nowrap dark">
-                  <Button appearance="primary-slate">Join hackathon</Button>
+                  <Button
+                    appearance="primary-slate"
+                    onClick={handleJoinHackathon}
+                    disabled={registered}
+                  >
+                    {registered ? 'Joined' : 'Join hackathon'}
+                  </Button>
                 </div>
               </div>
             </div>
