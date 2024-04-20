@@ -174,8 +174,8 @@ export type Hackathon = {
   howToParticipate: string[];
   judges: { name: string; title: string; photo: string; socialLink: string }[];
   judgingCriteria: { heading: string; copy: string }[];
-  prizes: { position: number; prizes: string[] }[];
-  sponsors: { name: string; photo: string; link: string }[];
+  prizes: { _id: string; position: number; prizes: string[] }[];
+  sponsors: { _id: string; name: string; photo: string; link: string }[];
   status: { label: string; reason: string };
   isActive: boolean;
   tags: string[];
