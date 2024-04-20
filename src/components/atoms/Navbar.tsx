@@ -1,7 +1,6 @@
 'use client';
 import Link from 'next/link';
 import React, { useState } from 'react';
-import { Button } from './Button';
 import { Bar3CenterLeft } from '../icons/Bar3CenterLeft';
 import { IconButton } from './IconButton';
 import { CodeWithUnclebigbayLogo } from './CodeWithUnclebigbayLogo';
@@ -9,6 +8,7 @@ import { navLinks } from '@/utils/links';
 import { SidebarSlideOver } from './SidebarSlideOver';
 import { SectionWrapper } from '../molecules/home';
 import { handleAuthentication } from '@/utils/auth';
+import { Button } from '@hashnode/matrix-ui';
 import { useSession } from 'next-auth/react';
 
 export const Navbar = () => {
@@ -41,7 +41,7 @@ export const Navbar = () => {
               <section className="hidden sm:block w-[163px]">
                 {session ? (
                   <div className="flex justify-end">
-                    <Button size="xs" asChild>
+                    <Button size="xs" appearance="primary-slate" asChild>
                       <Link href="/dashboard/overview">Dashboard</Link>
                     </Button>
                   </div>
@@ -54,7 +54,11 @@ export const Navbar = () => {
                     >
                       Sign in
                     </Button>
-                    <Button size="xs" onClick={handleAuthentication}>
+                    <Button
+                      size="xs"
+                      appearance="primary-slate"
+                      onClick={handleAuthentication}
+                    >
                       Sign up
                     </Button>
                   </section>

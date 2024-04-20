@@ -4,7 +4,7 @@ import React from 'react';
 import Link from 'next/link';
 import { WhiteArea } from './white-area';
 import { DashboardSubheading } from './dashboard-subheading';
-import { Button } from '../../atoms/Button';
+import { Button } from '@hashnode/matrix-ui';
 import useAudit from '@/components/hooks/useAudit';
 
 const renderTitle = (title: string) => (
