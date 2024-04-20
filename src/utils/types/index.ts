@@ -164,7 +164,6 @@ export type Hackathon = {
   participantCount: number;
   coverImage: string;
   hackathon: { type: string };
-  isRegistered: boolean;
   title: string;
   brief: string;
   slug: string;

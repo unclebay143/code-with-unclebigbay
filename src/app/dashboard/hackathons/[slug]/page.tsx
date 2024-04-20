@@ -11,9 +11,16 @@ async function getAllHackathonBySlug(hackathonSlug: string) {
     const result = await fetch(url, {
       headers: headers(),
     });
-    const hackathons = await result.json();
 
-    return hackathons;
+    const { hackathon } = await result.json();
+    const hackathonId = hackathon._id;
+    const isRegisteredUrl = `${baseURL}/api/hackathons/is-registered/${hackathonId}`;
+    const isRegisteredResult = await fetch(isRegisteredUrl, {
+      headers: headers(),
+    });
+
+    const { isRegistered } = await isRegisteredResult.json();
+    return { hackathon, isRegistered };
   } catch (e: any) {
     console.log({ message: e.message });
   }
@@ -21,11 +28,14 @@ async function getAllHackathonBySlug(hackathonSlug: string) {
 
 const Page = async ({ params }: { params: { slug: string } }) => {
   const hackathonSlug = params.slug;
-  const { hackathon } = (await getAllHackathonBySlug(hackathonSlug)) as {
+  const { hackathon, isRegistered } = (await getAllHackathonBySlug(
+    hackathonSlug,
+  )) as {
     hackathon: Hackathon;
+    isRegistered: boolean;
   };
 
-  return <HackathonStory hackathon={hackathon} />;
+  return <HackathonStory hackathon={hackathon} isRegistered={isRegistered} />;
 };
 
 export default Page;
