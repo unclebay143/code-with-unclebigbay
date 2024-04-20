@@ -66,6 +66,8 @@ const GET = async () => {
           coverImage: 1,
           tags: 1,
           brief: 1,
+          isActive: 1,
+          status: 1,
           slug: 1,
           participantCount: 1,
           isRegistered: { $gt: [{ $size: '$participants' }, 0] }, // Check if participants exist

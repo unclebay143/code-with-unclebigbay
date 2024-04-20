@@ -13,7 +13,6 @@ import {
   Youtube,
 } from 'lucide-react';
 import type { LucideIcon } from 'lucide-react';
-
 import { Button } from '@/components/atoms/Button';
 import { WhiteArea } from '@/components/molecules/dashboard/white-area';
 import { baseURL } from '../../../../frontend.config';

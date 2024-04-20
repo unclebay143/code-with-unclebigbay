@@ -1,11 +1,11 @@
 'use client';
 
-import { Button } from '@/components/atoms/Button';
 import React, { useEffect } from 'react';
 import Image from 'next/image';
 import { WhiteArea } from '../white-area';
 import { DashboardSubheading } from '../dashboard-subheading';
 import { SelectCountry } from '../country-dropdown';
+import { Button } from '@hashnode/matrix-ui';
 import useCurrentStudent from '@/components/hooks/useCurrentStudent';
 import * as z from 'zod';
 import { useForm, SubmitHandler, Controller } from 'react-hook-form';
@@ -171,7 +171,9 @@ const UserPersonalSettings = () => {
               />
             </div>
             <div className="flex">
-              <Button size="sm">Update</Button>
+              <Button size="sm" appearance="primary-slate">
+                Update
+              </Button>
             </div>
           </div>
         </form>

@@ -3,7 +3,6 @@ import React, { ChangeEvent, useEffect, useState } from 'react';
 import { WhiteArea } from '../white-area';
 import { DashboardSubheading } from '../dashboard-subheading';
 import useCurrentStudent from '@/components/hooks/useCurrentStudent';
-import { toast } from 'sonner';
 
 const AnonymityForm = () => {
   const { data: currentStudent, update } = useCurrentStudent();
