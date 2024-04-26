@@ -3,7 +3,7 @@
 import React, { useState } from 'react';
 import { SectionWrapper } from '.';
 import { Hackathon } from '@/utils/types';
-import { formatDate } from '@/utils/date';
+import { formatStartAndEndDate, renderer } from '@/utils/date';
 import { Button } from '@hashnode/matrix-ui';
 import { Calendar } from 'lucide-react';
 import Link from 'next/link';
@@ -11,6 +11,7 @@ import { useHackathonById } from '@/components/hooks/useHackathon';
 import useCurrentStudent from '@/components/hooks/useCurrentStudent';
 import { handleAuthentication } from '@/utils/auth';
 import dayjs from 'dayjs';
+import Countdown from 'react-countdown';
 
 type Props = { hackathon: Hackathon; isRegistered: boolean };
 
@@ -52,17 +53,21 @@ export const HackathonWidget = ({ hackathon, isRegistered }: Props) => {
                 {title}
               </h3>
             </div>
-            <span className="group-hover:text-blue-500 text-blue-600 text-sm font-bold flex items-center gap-1">
-              <Calendar size={14} /> {formatDate(startDate, endDate)}
+            <span className="text-blue-500 text-sm font-bold flex items-center gap-1">
+              <Calendar size={14} /> {formatStartAndEndDate(startDate, endDate)}
+              <span className="font-medium flex gap-1 group-hover:text-slate-300 text-slate-200">
+                <span>(ends in</span>
+                <span className="flex items-center [&>*]:group-hover:text-slate-300 [&>*]:text-slate-200 [&>*]:text-sm [&>*]:font-medium">
+                  <Countdown date={new Date(endDate)} renderer={renderer} />)
+                </span>
+              </span>
             </span>
           </Link>
 
           <div className="dark">
             {registered ? (
               <Button size="sm" appearance="primary-slate" asChild>
-                <Link href={hackathonUrl} className="font-normal text-xs">
-                  Submit entry
-                </Link>
+                <Link href={hackathonUrl}>Submit entry</Link>
               </Button>
             ) : (
               <Button
@@ -83,7 +88,7 @@ export const HackathonWidget = ({ hackathon, isRegistered }: Props) => {
                   }
                 }}
               >
-                <span className="font-normal text-xs">Join hackathon</span>
+                Join hackathon
               </Button>
             )}
           </div>

@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import { Button, ArrowLeft, BrandXTwitter } from '@hashnode/matrix-ui';
+import { Button, ArrowLeft, BrandXTwitter, Avatar } from '@hashnode/matrix-ui';
 import { WhiteArea } from '@/components/molecules/dashboard/white-area';
 import { AnimatedTooltip } from '@/components/ui/animated-tooltip';
 import { Boxes } from '@/components/ui/background-boxes';
@@ -13,7 +13,7 @@ import { useState } from 'react';
 import { Hackathon } from '@/utils/types';
 import { useHackathonById } from '@/components/hooks/useHackathon';
 import useCurrentStudent from '@/components/hooks/useCurrentStudent';
-import { formatDate } from '@/utils/date';
+import { formatStartAndEndDate } from '@/utils/date';
 
 type HackathonStoryProps = { hackathon: Hackathon; isRegistered: boolean };
 
@@ -126,7 +126,7 @@ export const HackathonStory = ({
             <span
               className={`${isClosed ? 'text-red-500' : 'text-blue-500'} text-sm font-bold flex items-center gap-1`}
             >
-              <Calendar size={14} /> {formatDate(startDate, endDate)}
+              <Calendar size={14} /> {formatStartAndEndDate(startDate, endDate)}
               {isClosed ? '(closed)' : null}
             </span>
             <div className="dark">
@@ -263,19 +263,10 @@ export const HackathonStory = ({
             <h3 className={sectionHeadingStyle}>Sponsors</h3>
             <div className="flex flex-wrap gap-5">
               {sponsors.map(({ _id, name, photo, link }) => (
-                <a
-                  className="relative rounded-full overflow-hidden h-24 w-24"
-                  key={_id}
-                  href={link}
-                  target="_blank"
-                  rel="noopener"
-                >
-                  <Image
-                    className="object-contain"
-                    src={photo}
-                    alt={name}
-                    fill
-                  />
+                <a key={_id} href={link} target="_blank" rel="noopener">
+                  <Avatar size="3xl">
+                    <Image src={photo} alt={name} fill />
+                  </Avatar>
                 </a>
               ))}
             </div>
