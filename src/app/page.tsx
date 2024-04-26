@@ -13,6 +13,8 @@ import { baseURL } from '../../frontend.config';
 import { headers } from 'next/headers';
 import { Hackathon } from '@/utils/types';
 import { HackathonWidget } from '@/components/molecules/home/HackathonWidget';
+import { getServerSessionWithAuthOptions } from '@/utils/auth-options';
+import { Session } from 'next-auth';
 
 export const metadata: Metadata = {
   title: 'Code with Unclebigbay',
@@ -21,6 +23,8 @@ export const metadata: Metadata = {
 
 export async function getCurrentHackathon() {
   try {
+    const session = await getServerSessionWithAuthOptions();
+
     const url = `${baseURL}/api/hackathons/current-hackathon`;
     const result = await fetch(url, {
       headers: headers(),
@@ -34,24 +38,26 @@ export async function getCurrentHackathon() {
     });
 
     const { isRegistered } = await isRegisteredResult.json();
-    return { hackathon, isRegistered };
+    return { hackathon, isRegistered, session };
   } catch (e: any) {
     console.log({ message: e.message });
   }
 }
 
 const Home = async () => {
-  const { hackathon, isRegistered } = (await getCurrentHackathon()) as {
-    hackathon: Hackathon;
-    isRegistered: boolean;
-  };
+  const { hackathon, isRegistered, session } =
+    (await getCurrentHackathon()) as {
+      hackathon: Hackathon;
+      isRegistered: boolean;
+      session: Session | null;
+    };
 
   return (
     <main>
       {/* Todo: figure out why ResponsiveWrapper isn't working intermittently */}
       <section className="flex flex-col gap-10 overflow-hidden">
         <div>
-          <Navbar />
+          <Navbar session={session} />
           <HackathonWidget hackathon={hackathon} isRegistered={isRegistered} />
         </div>
         <SectionWrapper>

@@ -43,7 +43,7 @@ async function getCurrentStudent(username: string) {
 
     if (!result.ok) return undefined;
 
-    return { studentRes, canUpdateProfile };
+    return { studentRes, canUpdateProfile, session };
   } catch (e: any) {
     console.log({ message: e.message });
   }
@@ -68,7 +68,7 @@ const Profile = async ({ params }: { params: { username: string } }) => {
 
   if (!data) notFound();
 
-  const { studentRes, canUpdateProfile } = data || {};
+  const { studentRes, canUpdateProfile, session } = data || {};
   const { student } = studentRes as { student: Student };
   const socials = student?.socials || {};
   const totalPoint = student?.totalScore;
@@ -124,7 +124,7 @@ const Profile = async ({ params }: { params: { username: string } }) => {
 
   return (
     <div className="flex flex-col gap-5">
-      <Navbar />
+      <Navbar session={session} />
       <SectionWrapper>
         <WhiteArea border>
           <div className="max-w-4xl mx-auto pt-5 pb-10">

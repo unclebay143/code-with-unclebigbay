@@ -9,11 +9,10 @@ import { SidebarSlideOver } from './SidebarSlideOver';
 import { SectionWrapper } from '../molecules/home';
 import { handleAuthentication } from '@/utils/auth';
 import { Button } from '@hashnode/matrix-ui';
-import { useSession } from 'next-auth/react';
+import { Session } from 'next-auth';
 
-export const Navbar = () => {
+export const Navbar = ({ session }: { session: Session | null }) => {
   const [sidebarVisibility, setSidebarVisibility] = useState(false);
-  const { data: session, status } = useSession();
   return (
     <nav className="sticky top-0 bg-white z-50 py-5">
       <SectionWrapper>
@@ -49,7 +48,7 @@ export const Navbar = () => {
                   <section className="flex gap-1 items-center">
                     <Button
                       size="sm"
-                      onClick={handleAuthentication}
+                      onClick={() => handleAuthentication()}
                       appearance="link-secondary"
                     >
                       Sign in
@@ -57,7 +56,7 @@ export const Navbar = () => {
                     <Button
                       size="xs"
                       appearance="primary-slate"
-                      onClick={handleAuthentication}
+                      onClick={() => handleAuthentication()}
                     >
                       Sign up
                     </Button>
