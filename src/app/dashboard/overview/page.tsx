@@ -11,6 +11,7 @@ import { headers } from 'next/headers';
 import { Overview } from '@/utils/types';
 import { ActivityIcon, CheckCheckIcon, LibraryBig } from 'lucide-react';
 import { showCount } from '@/utils';
+import { getAllActivityAudits } from '../activity/page';
 
 async function getEnrolledCourses() {
   try {
@@ -31,6 +32,8 @@ async function getEnrolledCourses() {
 }
 
 const Page = async () => {
+  const { audits } = await getAllActivityAudits();
+
   const { enrolledCourses } = await getEnrolledCourses();
   const iterableEnrolledCourses = enrolledCourses.map(
     (enrolledCourse: any) => enrolledCourse.course,
@@ -112,7 +115,7 @@ const Page = async () => {
         </WhiteArea>
       )}
 
-      <ActivityLogs defaultCount={6} loaderCount={6} />
+      <ActivityLogs audits={audits} defaultCount={6} loaderCount={6} />
     </section>
   );
 };
