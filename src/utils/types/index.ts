@@ -161,6 +161,8 @@ export type LeaderBoard = LeaderBoardData[];
 
 export type Hackathon = {
   _id: string;
+  name: string;
+  hashTag: string;
   participantCount: number;
   coverImage: string;
   hackathon: { type: string };

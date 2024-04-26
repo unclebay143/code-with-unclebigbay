@@ -8,6 +8,7 @@ const ALLOWED_AUDIT_TYPE = [
   'course',
   'assignment',
   'badge',
+  'hackathon',
 ];
 
 const auditTrailSchema = new Schema(

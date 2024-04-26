@@ -11,7 +11,11 @@ import Link from 'next/link';
 import { useState } from 'react';
 import Countdown from 'react-countdown';
 
-export const HackathonCard = ({ hackathon }: { hackathon: Hackathon }) => {
+export const HackathonCard = ({
+  hackathon,
+}: {
+  hackathon: Hackathon & { isRegistered: boolean };
+}) => {
   const {
     _id,
     coverImage,
@@ -26,8 +30,11 @@ export const HackathonCard = ({ hackathon }: { hackathon: Hackathon }) => {
   } = hackathon;
 
   const { data: currentStudent } = useCurrentStudent();
-  const { joinHackathon } = useHackathonById(_id);
+  const { joinHackathon, isJoinHackathonPending } = useHackathonById(_id);
   const [hackathonHasEnded, setHackathonHasEnded] = useState(false);
+  const [registered, setRegistered] = useState(isRegistered);
+
+  const disableJoinBtn = registered || isJoinHackathonPending;
 
   // @ts-ignore
   const renderer = ({ days, hours, minutes, seconds }) => {
@@ -98,24 +105,27 @@ export const HackathonCard = ({ hackathon }: { hackathon: Hackathon }) => {
               {brief}
             </p>
           </section>
-          <div className="flex flex-col min-[340px]:flex-row gap-2 sm:items-center max-w-[250px]">
+          <div className="flex flex-col min-[340px]:flex-row gap-2 sm:items-center">
             <Button
               size="xs"
-              disabled={isRegistered}
-              width="full"
+              disabled={disableJoinBtn}
               onClick={() => {
                 if (currentStudent?._id) {
                   joinHackathon({
                     hackathonId: _id,
                     studentId: currentStudent._id,
+                  }).then(() => {
+                    setRegistered(true);
+
+                    console.log('run');
                   });
                 }
               }}
               appearance="primary-slate"
             >
-              {isRegistered ? 'Joined!' : 'Join hackathon'}
+              {registered ? 'Joined!' : 'Join hackathon'}
             </Button>
-            <Button size="xs" appearance="secondary-slate" width="full" asChild>
+            <Button size="xs" appearance="secondary-slate" asChild>
               <Link href={`hackathons/${slug}`}>View details</Link>
             </Button>
           </div>

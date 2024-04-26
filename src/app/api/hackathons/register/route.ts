@@ -1,3 +1,4 @@
+import { AuditTrail } from '@/models/audit-trail';
 import { Hackathon } from '@/models/hackathon';
 import { HackathonRegistration } from '@/models/hackathonRegistration';
 import { getServerSessionWithAuthOptions } from '@/utils/auth-options';
@@ -29,6 +30,13 @@ const POST = async (req: Request, _res: Response) => {
     const newParticipant = await HackathonRegistration.create({
       hackathon: hackathonId,
       student: studentId,
+    });
+
+    await AuditTrail.create({
+      student: studentId,
+      type: 'hackathon',
+      title: `Hackathon registration`,
+      description: `Register for the ${hackathon.name}`,
     });
 
     return NextResponse.json(
