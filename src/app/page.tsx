@@ -31,9 +31,6 @@ export async function getCurrentHackathon() {
     });
     const hackathonRes = await result.json();
 
-    console.log('run');
-    console.log(hackathonRes);
-
     const hackathonId = hackathonRes.hackathon._id;
     const isRegisteredUrl = `${baseURL}/api/hackathons/is-registered/${hackathonId}`;
     const isRegisteredResult = await fetch(isRegisteredUrl, {
@@ -48,7 +45,30 @@ export async function getCurrentHackathon() {
   }
 }
 
+async function getStudents() {
+  try {
+    const url = `${baseURL}/api/students`;
+    const result = await fetch(url, {
+      cache: 'no-cache',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+
+    if (!result.ok) {
+      console.log(result.statusText);
+      return [];
+    }
+
+    return result.json();
+  } catch (error) {
+    console.log({ error });
+  }
+}
+
 const Home = async () => {
+  const { students } = await getStudents();
+
   const { hackathon, isRegistered, session } =
     (await getCurrentHackathon()) as {
       hackathon: Hackathon;
@@ -76,7 +96,7 @@ const Home = async () => {
           <TestimonialSection />
         </SectionWrapper>
         <SectionWrapper>
-          <CommunityMembersSection />
+          <CommunityMembersSection students={students} />
         </SectionWrapper>
         <SectionWrapper>
           <CommunityCTA />
