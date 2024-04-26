@@ -13,6 +13,7 @@ import { useState } from 'react';
 import { Hackathon } from '@/utils/types';
 import { useHackathonById } from '@/components/hooks/useHackathon';
 import useCurrentStudent from '@/components/hooks/useCurrentStudent';
+import { formatDate } from '@/utils/date';
 
 type HackathonStoryProps = { hackathon: Hackathon; isRegistered: boolean };
 
@@ -21,8 +22,10 @@ export const HackathonStory = ({
   isRegistered,
 }: HackathonStoryProps) => {
   const {
+    name,
+    hashTag,
     title,
-    brief,
+    startDate,
     about,
     howToParticipate,
     endDate,
@@ -36,12 +39,14 @@ export const HackathonStory = ({
 
   const { data: currentStudent } = useCurrentStudent();
   const [openSubmitEntryModal, setOpenSubmitEntryModal] = useState(false);
-  const { joinHackathon } = useHackathonById(hackathon._id);
+  const { joinHackathon, isJoinHackathonPending } = useHackathonById(
+    hackathon._id,
+  );
   const [registered, setRegistered] = useState(isRegistered);
 
   const isClosed = false;
   const disableSubmitEntryBtn = isClosed;
-  const disableRegisterBtn = registered || isClosed;
+  const disableRegisterBtn = registered || isClosed || isJoinHackathonPending;
 
   const _participants = participants.map((participant) => {
     return {
@@ -95,6 +100,9 @@ export const HackathonStory = ({
     );
   }
 
+  const sectionHeadingStyle = 'font-semibold text-slate-700 text-xl';
+  const uLStyle = 'list-decimal list-outside ml-5 text-slate-600';
+
   return (
     <WhiteArea border>
       <div className="flex items-center justify-between mb-5">
@@ -118,7 +126,7 @@ export const HackathonStory = ({
             <span
               className={`${isClosed ? 'text-red-500' : 'text-blue-500'} text-sm font-bold flex items-center gap-1`}
             >
-              <Calendar size={14} /> May 1st - 31st{' '}
+              <Calendar size={14} /> {formatDate(startDate, endDate)}
               {isClosed ? '(closed)' : null}
             </span>
             <div className="dark">
@@ -155,22 +163,16 @@ export const HackathonStory = ({
 
         <section className="flex flex-col gap-8 mt-5">
           <section className="flex flex-col gap-2">
-            <h3 className="font-semibold text-slate-700 text-xl">
-              About Codathon
-            </h3>
+            <h3 className={sectionHeadingStyle}>About {name}</h3>
             <p className="text-slate-500">{about}</p>
           </section>
           <section className="flex flex-col gap-2">
-            <h3 className="font-semibold text-slate-700 text-xl">
-              What to build
-            </h3>
+            <h3 className={sectionHeadingStyle}>What to build</h3>
             <p className="text-slate-500">{whatToBuild}</p>
           </section>
           <section className="flex flex-col gap-2">
-            <h3 className="font-semibold text-slate-700 text-lg">
-              How to Participate
-            </h3>
-            <ul className="list-decimal list-outside ml-5 text-slate-600">
+            <h3 className={sectionHeadingStyle}>How to Participate</h3>
+            <ul className={uLStyle}>
               {howToParticipate.map((how) => (
                 <li className="mb-3" key={`howToParticipate-${how}`}>
                   <span className="text-slate-500">{how}</span>
@@ -179,7 +181,7 @@ export const HackathonStory = ({
             </ul>
           </section>
           <section className="flex flex-col gap-4">
-            <h3 className="font-semibold text-slate-700 text-xl">Judges</h3>
+            <h3 className={sectionHeadingStyle}>Judges</h3>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-y-8">
               {judges.map(({ name, photo, socialLink, title }) => (
                 <div className="flex gap-3 items-center" key={`judges-${name}`}>
@@ -195,10 +197,8 @@ export const HackathonStory = ({
             </div>
           </section>
           <section className="flex flex-col gap-4">
-            <h3 className="font-semibold text-slate-700 text-xl">
-              Judging criteria
-            </h3>
-            <ul className="list-decimal list-outside ml-5 text-slate-600">
+            <h3 className={sectionHeadingStyle}>Judging criteria</h3>
+            <ul className={uLStyle}>
               {judgingCriteria.map(({ heading, copy }) => (
                 <li className="mb-3" key={`judgingCriteria-${heading}`}>
                   <div className="inline">
@@ -260,7 +260,7 @@ export const HackathonStory = ({
           </section>
 
           <section className="flex flex-col gap-4 items-start">
-            <h3 className="font-semibold text-slate-700 text-xl">Sponsors</h3>
+            <h3 className={sectionHeadingStyle}>Sponsors</h3>
             <div className="flex flex-wrap gap-5">
               {sponsors.map(({ _id, name, photo, link }) => (
                 <a
@@ -290,9 +290,7 @@ export const HackathonStory = ({
           </section>
 
           <section className="flex flex-col gap-4">
-            <h3 className="font-semibold text-slate-700 text-xl">
-              Participants
-            </h3>
+            <h3 className={sectionHeadingStyle}>Participants</h3>
             <section className="flex flex-row flex-wrap gap-y-3">
               <AnimatedTooltip items={_participants} />
             </section>
