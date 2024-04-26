@@ -116,7 +116,6 @@ export const HackathonCard = ({
                     studentId: currentStudent._id,
                   }).then(() => {
                     setRegistered(true);
-
                     console.log('run');
                   });
                 }
