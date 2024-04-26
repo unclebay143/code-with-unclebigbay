@@ -5,18 +5,18 @@ import { Sidebar } from '@/components/molecules/dashboard/sidebar';
 import { handleAuthentication } from '@/utils/auth';
 import { onboardingLinks, publicLinks } from '@/utils/consts/links';
 import { Student } from '@/utils/types';
-import { useSession } from 'next-auth/react';
 import { redirect, usePathname } from 'next/navigation';
 import { useState } from 'react';
 
 export const DashboardIndex = ({
   children,
   currentStudent,
+  session,
 }: {
   children: React.ReactNode;
   currentStudent: Student;
+  session: any;
 }) => {
-  const { data: session, status } = useSession();
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const isAdmin = currentStudent?.isAdmin;
   const pathname = usePathname();
@@ -29,13 +29,7 @@ export const DashboardIndex = ({
 
   const requireAdminAccess = !isAdmin && adminRoute;
   const canAccessWithoutAuth = allowedDashboardRoute.includes(currentPageName);
-  const isCheckingAuthStatus = !session && status === 'loading';
-  const requireAuth =
-    !session && status === 'unauthenticated' && !canAccessWithoutAuth;
-
-  if (isCheckingAuthStatus) {
-    return null;
-  }
+  const requireAuth = !session && !canAccessWithoutAuth;
 
   if (requireAuth) {
     handleAuthentication({ nextUrl: window.location.href });

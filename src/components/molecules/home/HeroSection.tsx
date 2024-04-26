@@ -34,7 +34,7 @@ export const HeroSection = () => {
       </h1>
       <Button
         size="sm"
-        onClick={handleAuthentication}
+        onClick={() => handleAuthentication()}
         appearance="primary-slate"
       >
         Get started
