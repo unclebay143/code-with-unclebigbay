@@ -1,43 +1,18 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import React from 'react';
-// import { handleAuthentication } from '@/utils/auth';
-// import { Button } from '../ui/Button';
 import { HomeSectionHeading } from '.';
-import { baseURL } from '../../../../frontend.config';
 import { Linkedin, Twitter, X } from 'lucide-react';
 import { IconButton } from '@/components/atoms/IconButton';
 import { Student } from '@/utils/types';
 
-type ResponseData = {
-  message: string;
+type CommunityMembersSectionProps = {
   students: Student[];
 };
 
-async function getStudents() {
-  try {
-    const url = `${baseURL}/api/students`;
-    const result = await fetch(url, {
-      cache: 'no-cache',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    });
-
-    if (!result.ok) {
-      console.log(result.statusText);
-      return [];
-    }
-
-    return result.json();
-  } catch (error) {
-    console.log({ error });
-  }
-}
-
-export const CommunityMembersSection = async () => {
-  const data: ResponseData = await getStudents();
-  const { students } = data;
+export const CommunityMembersSection = ({
+  students,
+}: CommunityMembersSectionProps) => {
   return (
     <section className="flex flex-col gap-14">
       <div className="text-center max-w-4xl mx-auto flex flex-col items-center gap-4">
@@ -61,15 +36,6 @@ export const CommunityMembersSection = async () => {
           copy="Join happy aspiring developers on a journey to mastering
                 web development."
         />
-        {/* Todo: This won't work bcos this component is ss - Convert to link to redirect to login page (if login page is created) */}
-        {/* 
-        
-        <Button
-          appearance="secondary-slate"
-          onClick={() => handleAuthentication()}
-        >
-          Become a Member
-        </Button> */}
       </div>
       <section className="grid grid-cols-2  sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-y-12 gap-x-8">
         {students?.map(({ _id, fullName, username, stack, photo, socials }) => {
@@ -125,30 +91,6 @@ export const CommunityMembersSection = async () => {
           );
         })}
       </section>
-      {/* <section className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-y-12 gap-x-8">
-        {students?.map(({ _id, fullName, username, stack, photo }) => (
-          <article
-            key={`communityMembers-${_id}`}
-            className="flex flex-col gap-3"
-          >
-            <div className="mx-auto rounded-full overflow-hidden h-20 w-20 transition transform duration-500 ease-in-out hover:scale-125 hover:-rotate-3">
-              <Image
-                src={photo}
-                height={80}
-                width={80}
-                className="w-full h-full"
-                alt=""
-              />
-            </div>
-            <Link href={`/@${username}`} className="text-center text-sm">
-              <h3 className="font-medium text-slate-950 hover:(text-white bg-black)">
-                {fullName}
-              </h3>
-              <p className="font-semibold text-slate-800">{stack}</p>
-            </Link>
-          </article>
-        ))}
-      </section> */}
     </section>
   );
 };
