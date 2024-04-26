@@ -115,7 +115,7 @@ const Page = async () => {
         </WhiteArea>
       )}
 
-      <ActivityLogs audits={audits} defaultCount={6} loaderCount={6} />
+      <ActivityLogs audits={audits} />
     </section>
   );
 };

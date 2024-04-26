@@ -3,7 +3,7 @@
 import { Button } from '@hashnode/matrix-ui';
 import useCurrentStudent from '@/components/hooks/useCurrentStudent';
 import { useHackathonById } from '@/components/hooks/useHackathon';
-import { formatDate } from '@/utils/date';
+import { formatStartAndEndDate, renderer } from '@/utils/date';
 import { Hackathon } from '@/utils/types';
 import { Calendar, Clock, Users } from 'lucide-react';
 import Image from 'next/image';
@@ -36,34 +36,6 @@ export const HackathonCard = ({
 
   const disableJoinBtn = registered || isJoinHackathonPending;
 
-  // @ts-ignore
-  const renderer = ({ days, hours, minutes, seconds }) => {
-    const parts = [];
-
-    // Handle negative values (optional)
-    if (days < 0 || hours < 0 || minutes < 0 || seconds < 0) {
-      throw new Error('Time components cannot be negative.');
-    }
-
-    // Add non-zero units with proper pluralization
-    if (days) {
-      parts.push(`${days} ${days > 1 ? 'days' : 'day'}`);
-    } else if (hours) {
-      parts.push(`${hours} ${hours > 1 ? 'hours' : 'hour'}`);
-    } else if (minutes) {
-      parts.push(`${minutes} ${minutes > 1 ? 'mins' : 'min'}`);
-    } else if (seconds) {
-      parts.push(`${seconds} ${seconds > 1 ? 'secs' : 'sec'}`);
-    } else {
-      parts.push('Ended');
-      setHackathonHasEnded(true);
-    }
-
-    return (
-      <div className="font-bold text-xl text-slate-600">{parts.join(' ')}</div>
-    );
-  };
-
   return (
     <section
       className="hover:bg-slate-50 flex flex-col sm:flex-row pb-5 sm:pb-0 border rounded-lg overflow-hidden"
@@ -90,7 +62,8 @@ export const HackathonCard = ({
                   </>
                 ) : null}
                 <span className="text-blue-500 text-sm font-medium flex items-center gap-1">
-                  <Calendar size={14} /> {formatDate(startDate, endDate)}
+                  <Calendar size={14} />{' '}
+                  {formatStartAndEndDate(startDate, endDate)}
                 </span>
               </div>
               <Link
