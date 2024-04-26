@@ -28,20 +28,22 @@ const useHackathonById = (_id: string) => {
           .then((res) => res.data.isRegistered as boolean),
     });
 
-  const { mutateAsync: joinHackathon } = useMutation({
-    mutationFn: ({
-      hackathonId,
-      studentId,
-    }: {
-      hackathonId: string;
-      studentId: string;
-    }) => axios.post('/api/hackathons/register', { hackathonId, studentId }),
-  });
+  const { mutateAsync: joinHackathon, isPending: isJoinHackathonPending } =
+    useMutation({
+      mutationFn: ({
+        hackathonId,
+        studentId,
+      }: {
+        hackathonId: string;
+        studentId: string;
+      }) => axios.post('/api/hackathons/register', { hackathonId, studentId }),
+    });
 
   return {
     isRegistered,
     isCheckingRegistrationStatus,
     joinHackathon,
+    isJoinHackathonPending,
   };
 };
 
