@@ -29,16 +29,20 @@ export async function getCurrentHackathon() {
     const result = await fetch(url, {
       headers: headers(),
     });
-    const { hackathon } = await result.json();
+    const hackathonRes = await result.json();
 
-    const hackathonId = hackathon._id;
+    console.log('run');
+    console.log(hackathonRes);
+
+    const hackathonId = hackathonRes.hackathon._id;
     const isRegisteredUrl = `${baseURL}/api/hackathons/is-registered/${hackathonId}`;
     const isRegisteredResult = await fetch(isRegisteredUrl, {
       headers: headers(),
     });
 
     const { isRegistered } = await isRegisteredResult.json();
-    return { hackathon, isRegistered, session };
+
+    return { hackathon: hackathonRes.hackathon, isRegistered, session };
   } catch (e: any) {
     console.log({ message: e.message });
   }
