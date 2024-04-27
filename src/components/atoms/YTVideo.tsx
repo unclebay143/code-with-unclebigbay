@@ -1,11 +1,13 @@
-import { Loader } from 'lucide-react';
+'use client';
+
+import { Spinner } from '@hashnode/matrix-ui';
 
 export function YTVideo({ ytVideoId }: { ytVideoId: string }) {
   return (
     <div className="relative border-transparent bg-slate-50 aspect-video overflow-hidden rounded-lg">
       <div className="absolute inset-0 flex justify-center items-center">
         <span className="animate-spin">
-          <Loader />
+          <Spinner />
         </span>
       </div>
       <div className="relative z-[1]">

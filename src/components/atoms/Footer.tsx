@@ -1,8 +1,13 @@
+'use client';
+
 import Link from 'next/link';
 import React from 'react';
-import { YouTubeBlackAndWhite } from '../icons/YouTubeBlackAndWhite';
-import { X } from '../icons/X';
-import { LinkedIn } from '../icons/LinkedIn';
+import {
+  BrandXTwitter,
+  BrandYoutube,
+  IconButton,
+  Linkedin,
+} from '@hashnode/matrix-ui';
 
 export const Footer = () => {
   return (
@@ -22,27 +27,23 @@ export const Footer = () => {
         </p>
         <div className="flex items-center gap-1 text-slate-600">
           {/* <h3 className="text-slate-600 text-sm">Let&apos;s connect:</h3> */}
-          <div className="flex gap-1">
-            <Link
-              target="_blank"
-              href="https://dub.sh/6kwtDXT"
-              className="border rounded-full p-2 hover:bg-slate-100"
-            >
-              <YouTubeBlackAndWhite className="h-4 w-4" />
+          <div className="flex gap-2">
+            <Link target="_blank" href="https://dub.sh/8gSe15J">
+              <IconButton
+                Icon={BrandXTwitter}
+                appearance="secondary"
+                size="sm"
+              />
             </Link>
-            <Link
-              target="_blank"
-              href="https://dub.sh/8gSe15J"
-              className="border rounded-full p-2 hover:bg-slate-100"
-            >
-              <X className="h-4 w-4" />
+            <Link target="_blank" href="https://dub.sh/6kwtDXT">
+              <IconButton
+                Icon={BrandYoutube}
+                appearance="secondary"
+                size="sm"
+              />
             </Link>
-            <Link
-              target="_blank"
-              href="https://dub.sh/LJOPAON"
-              className="border rounded-full p-2 hover:bg-slate-100"
-            >
-              <LinkedIn className="h-4 w-4" />
+            <Link target="_blank" href="https://dub.sh/LJOPAON">
+              <IconButton Icon={Linkedin} appearance="secondary" size="sm" />
             </Link>
           </div>
         </div>

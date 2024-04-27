@@ -1,13 +1,6 @@
 'use client';
 
 import { Button } from '@/components/atoms/Button';
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectViewPort,
-} from '@/components/atoms/Select';
 import useCourse from '@/components/hooks/useCourse';
 import useCurrentStudent from '@/components/hooks/useCurrentStudent';
 import useTag from '@/components/hooks/useTag';
@@ -19,7 +12,6 @@ import { showCount } from '@/utils';
 import { Courses as CoursesType } from '@/utils/types';
 import Link from 'next/link';
 import React, { useEffect, useState } from 'react';
-// import { Sparkles } from 'lucide-react';
 
 const Page = () => {
   const { data: currentUser, isFetching: isFetchingCurrentUser } =
