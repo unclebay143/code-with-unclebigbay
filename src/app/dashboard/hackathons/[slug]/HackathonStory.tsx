@@ -15,11 +15,16 @@ import { useHackathonById } from '@/components/hooks/useHackathon';
 import useCurrentStudent from '@/components/hooks/useCurrentStudent';
 import { formatStartAndEndDate } from '@/utils/date';
 
-type HackathonStoryProps = { hackathon: Hackathon; isRegistered: boolean };
+type HackathonStoryProps = {
+  hackathon: Hackathon;
+  isRegistered: boolean;
+  hasSubmitted: boolean;
+};
 
 export const HackathonStory = ({
   hackathon,
   isRegistered,
+  hasSubmitted,
 }: HackathonStoryProps) => {
   const {
     name,
@@ -35,13 +40,18 @@ export const HackathonStory = ({
     prizes,
     participants,
     sponsors,
+    _id: hackathonId,
   } = hackathon;
 
   const { data: currentStudent } = useCurrentStudent();
+  const studentId = currentStudent?._id!;
   const [openSubmitEntryModal, setOpenSubmitEntryModal] = useState(false);
-  const { joinHackathon, isJoinHackathonPending } = useHackathonById(
-    hackathon._id,
-  );
+  const {
+    joinHackathon,
+    isJoinHackathonPending,
+    submitEntry,
+    isSubmitEntryPending,
+  } = useHackathonById(hackathonId);
   const [registered, setRegistered] = useState(isRegistered);
 
   const isClosed = false;
@@ -58,10 +68,10 @@ export const HackathonStory = ({
   });
 
   const handleJoinHackathon = () => {
-    if (currentStudent) {
+    if (studentId) {
       joinHackathon({
-        hackathonId: hackathon._id,
-        studentId: currentStudent._id,
+        hackathonId,
+        studentId,
       }).then(() => {
         setRegistered(true);
       });
@@ -131,14 +141,28 @@ export const HackathonStory = ({
             </span>
             <div className="dark">
               {registered ? (
-                <Button
-                  size="xs"
-                  appearance="primary-slate"
-                  disabled={disableSubmitEntryBtn}
-                  onClick={() => setOpenSubmitEntryModal(true)}
-                >
-                  <span className="font-normal text-xs">Submit entry</span>
-                </Button>
+                <>
+                  {hasSubmitted ? (
+                    <Button
+                      size="xs"
+                      appearance="primary-slate"
+                      disabled={hasSubmitted}
+                    >
+                      <span className="font-normal text-xs">
+                        Entry submitted
+                      </span>
+                    </Button>
+                  ) : (
+                    <Button
+                      size="xs"
+                      appearance="primary-slate"
+                      disabled={disableSubmitEntryBtn}
+                      onClick={() => setOpenSubmitEntryModal(true)}
+                    >
+                      <span className="font-normal text-xs">Submit entry</span>
+                    </Button>
+                  )}
+                </>
               ) : (
                 <Button
                   size="xs"
@@ -348,8 +372,12 @@ export const HackathonStory = ({
         </a>
       </section>
       <SubmitEntryModal
+        studentId={studentId}
+        hackathonId={hackathonId}
         isOpen={openSubmitEntryModal}
         close={() => setOpenSubmitEntryModal(false)}
+        submitEntry={submitEntry}
+        isSubmitEntryPending={isSubmitEntryPending}
       />
     </WhiteArea>
   );

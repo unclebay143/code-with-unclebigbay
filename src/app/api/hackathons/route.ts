@@ -8,10 +8,9 @@ const POST = async (req: Request, _res: Response) => {
   const body = await req.json();
 
   try {
-    const { feedback, ...otherPayload } = body;
     await connectViaMongoose();
 
-    const newHackathon = await Hackathon.create(otherPayload);
+    const newHackathon = await Hackathon.create(body);
     return NextResponse.json(
       { message: 'New hackathon created.', newHackathon },
       {

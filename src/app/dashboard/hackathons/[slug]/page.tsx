@@ -15,12 +15,17 @@ async function getAllHackathonBySlug(hackathonSlug: string) {
     const { hackathon } = await result.json();
     const hackathonId = hackathon._id;
     const isRegisteredUrl = `${baseURL}/api/hackathons/is-registered/${hackathonId}`;
+    const hasSubmittedUrl = `${baseURL}/api/hackathons/has-submitted/${hackathonId}`;
     const isRegisteredResult = await fetch(isRegisteredUrl, {
+      headers: headers(),
+    });
+    const hasSubmittedResult = await fetch(hasSubmittedUrl, {
       headers: headers(),
     });
 
     const { isRegistered } = await isRegisteredResult.json();
-    return { hackathon, isRegistered };
+    const { hasSubmitted } = await hasSubmittedResult.json();
+    return { hackathon, isRegistered, hasSubmitted };
   } catch (e: any) {
     console.log({ message: e.message });
   }
@@ -28,14 +33,20 @@ async function getAllHackathonBySlug(hackathonSlug: string) {
 
 const Page = async ({ params }: { params: { slug: string } }) => {
   const hackathonSlug = params.slug;
-  const { hackathon, isRegistered } = (await getAllHackathonBySlug(
-    hackathonSlug,
-  )) as {
-    hackathon: Hackathon;
-    isRegistered: boolean;
-  };
+  const { hackathon, isRegistered, hasSubmitted } =
+    (await getAllHackathonBySlug(hackathonSlug)) as {
+      hackathon: Hackathon;
+      isRegistered: boolean;
+      hasSubmitted: boolean;
+    };
 
-  return <HackathonStory hackathon={hackathon} isRegistered={isRegistered} />;
+  return (
+    <HackathonStory
+      hackathon={hackathon}
+      isRegistered={isRegistered}
+      hasSubmitted={hasSubmitted}
+    />
+  );
 };
 
 export default Page;

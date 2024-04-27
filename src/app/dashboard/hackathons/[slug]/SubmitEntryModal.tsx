@@ -7,32 +7,98 @@ import * as ScrollArea from '@radix-ui/react-scroll-area';
 import { X } from 'lucide-react';
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
+import { z } from 'zod';
+import { HackathonSubmission } from '@/utils/types';
+import { UseMutateAsyncFunction } from '@tanstack/react-query';
+import { AxiosResponse } from 'axios';
 
-type Props = { isOpen: boolean; close: () => void };
+type SubmitEntryModalProps = {
+  isOpen: boolean;
+  close: () => void;
+  hackathonId: string;
+  studentId: string;
+  isSubmitEntryPending: boolean;
+  submitEntry: UseMutateAsyncFunction<
+    AxiosResponse<any, any>,
+    Error,
+    HackathonSubmission,
+    unknown
+  >;
+};
 
-export const SubmitEntryModal = ({ isOpen, close }: Props) => {
+const hackathonProjectSubmissionSchema = z.object({
+  name: z.string(),
+  url: z.string(),
+  demoUrl: z.string(),
+  socialUrl: z.string(),
+  articleUrl: z.string(),
+  repositoryUrl: z.string(),
+  feedback: z.string(),
+});
+
+type HackathonProjectSubmissionSchema = z.infer<
+  typeof hackathonProjectSubmissionSchema
+>;
+
+export const SubmitEntryModal = ({
+  isOpen,
+  close,
+  hackathonId,
+  studentId,
+  submitEntry,
+  isSubmitEntryPending,
+}: SubmitEntryModalProps) => {
   const [submitted, setSubmitted] = useState(false);
   const {
-    getValues,
     register,
     handleSubmit,
-    watch,
-    control,
-    formState: { isSubmitting, errors },
-    resetField,
-  } = useForm({
+    formState: { errors },
+  } = useForm<HackathonProjectSubmissionSchema>({
     defaultValues: {
-      projectName: '',
-      projectURL: '',
-      projectDemoYTEmbedId: '',
-      socialPostURL: '',
-      articleURL: '',
-      repositoryURL: '',
+      name: '',
+      url: '',
+      demoUrl: '',
+      socialUrl: '',
+      articleUrl: '',
+      repositoryUrl: '',
       feedback: '',
     },
   });
 
-  const projectURLErrorMessage = errors.projectURL?.message;
+  const disableSubmitBtn = isSubmitEntryPending;
+
+  const urlErrorMessage = errors.url?.message;
+
+  const onSubmit = (formData: HackathonProjectSubmissionSchema) => {
+    const {
+      name,
+      url,
+      demoUrl,
+      repositoryUrl,
+      socialUrl,
+      articleUrl,
+      feedback,
+    } = formData;
+
+    const payload: HackathonSubmission = {
+      hackathon: hackathonId,
+      student: studentId,
+      project: {
+        name,
+        url,
+        demoUrl,
+        articleUrl,
+        repositoryUrl,
+        socialUrl,
+      },
+      feedback,
+    };
+    submitEntry(payload, {
+      onSuccess() {
+        setSubmitted(true);
+      },
+    });
+  };
 
   return (
     <div>
@@ -48,7 +114,11 @@ export const SubmitEntryModal = ({ isOpen, close }: Props) => {
               <h3 className="text-slate-700 font-semibold">
                 Entry Submission for Codathon
               </h3>
-              <IconButton Icon={X} disabled={isSubmitting} onClick={close} />
+              <IconButton
+                Icon={X}
+                disabled={isSubmitEntryPending}
+                onClick={close}
+              />
             </section>
             <section className="flex flex-col gap-0.5 border border-blue-200 bg-blue-50 p-4 rounded-xl">
               <h3 className="text-sm font-semibold text-slate-700">
@@ -89,79 +159,76 @@ export const SubmitEntryModal = ({ isOpen, close }: Props) => {
             <section className="flex flex-col gap-3">
               <form
                 className="flex flex-col gap-3 pt-1"
-                onSubmit={() => setSubmitted(true)}
+                onSubmit={handleSubmit(onSubmit)}
               >
                 <ScrollArea.Root className="overflow-hidden">
                   <ScrollArea.Viewport>
                     <section className="flex flex-col gap-3 px-1 max-h-[50vh]">
                       <div className="flex flex-col gap-2">
-                        <label htmlFor="projectName" className="text-sm">
+                        <label htmlFor="name" className="text-sm">
                           <DashboardSubheading title="Project Name" />
                         </label>
                         <input
-                          id="projectName"
+                          id="name"
                           type="text"
                           placeholder="LearnEase - an AI Learning Platform for Everyone"
-                          className={`text-sm text-slate-600 p-2 outline-none focus:ring-2 focus:ring-slate-500 focus:border-slate-300 border rounded-md ${projectURLErrorMessage && 'ring-2 ring-red-500'}`}
-                          {...register('projectName', { required: true })}
+                          className={`text-sm text-slate-600 p-2 outline-none focus:ring-2 focus:ring-slate-500 focus:border-slate-300 border rounded-md ${urlErrorMessage && 'ring-2 ring-red-500'}`}
+                          {...register('name', { required: true })}
                         />
                       </div>
                       <div className="flex flex-col gap-2">
-                        <label
-                          htmlFor="projectDemoYTEmbedId"
-                          className="text-sm"
-                        >
+                        <label htmlFor="demoUrl" className="text-sm">
                           <DashboardSubheading title="Project 60s Demo Embed ID" />
                         </label>
                         <input
-                          id="projectDemoYTEmbedId"
+                          id="demoUrl"
                           type="text"
                           placeholder="JH77WsDH8yY"
-                          className={`text-sm text-slate-600 p-2 outline-none focus:ring-2 focus:ring-slate-500 focus:border-slate-300 border rounded-md ${projectURLErrorMessage && 'ring-2 ring-red-500'}`}
-                          {...register('projectDemoYTEmbedId', {
+                          className={`text-sm text-slate-600 p-2 outline-none focus:ring-2 focus:ring-slate-500 focus:border-slate-300 border rounded-md ${urlErrorMessage && 'ring-2 ring-red-500'}`}
+                          {...register('demoUrl', {
                             required: true,
                           })}
                         />
                       </div>
                       <div className="flex flex-col gap-2">
-                        <label htmlFor="projectURL" className="text-sm">
+                        <label htmlFor="url" className="text-sm">
                           <DashboardSubheading title="Hosted Project URL" />
                         </label>
                         <input
-                          id="projectURL"
+                          id="url"
                           type="text"
                           placeholder="https://learnease.vercel.app"
-                          className={`text-sm text-slate-600 p-2 outline-none focus:ring-2 focus:ring-slate-500 focus:border-slate-300 border rounded-md ${projectURLErrorMessage && 'ring-2 ring-red-500'}`}
-                          {...register('projectURL', { required: true })}
+                          className={`text-sm text-slate-600 p-2 outline-none focus:ring-2 focus:ring-slate-500 focus:border-slate-300 border rounded-md ${urlErrorMessage && 'ring-2 ring-red-500'}`}
+                          {...register('url', { required: true })}
                         />
                       </div>
                       <div className="flex flex-col gap-2">
-                        <label htmlFor="articleURL" className="text-sm">
+                        <label htmlFor="articleUrl" className="text-sm">
                           <DashboardSubheading title="Published Article URL" />
                         </label>
                         <input
-                          id="articleURL"
+                          id="articleUrl"
                           type="text"
                           placeholder="https://unclebigbay.com/introducing-learnease"
-                          className={`text-sm text-slate-600 p-2 outline-none focus:ring-2 focus:ring-slate-500 focus:border-slate-300 border rounded-md ${projectURLErrorMessage && 'ring-2 ring-red-500'}`}
-                          {...register('articleURL', { required: true })}
+                          className={`text-sm text-slate-600 p-2 outline-none focus:ring-2 focus:ring-slate-500 focus:border-slate-300 border rounded-md ${urlErrorMessage && 'ring-2 ring-red-500'}`}
+                          {...register('articleUrl', { required: true })}
                         />
                       </div>
                       <div className="flex flex-col gap-2">
-                        <label htmlFor="repositoryURL" className="text-sm">
+                        <label htmlFor="repositoryUrl" className="text-sm">
                           <DashboardSubheading title="Repository URL (GitHub or GitLab)" />
                         </label>
                         <input
-                          id="repositoryURL"
+                          id="repositoryUrl"
                           type="text"
                           placeholder="https://github.com/unclebay143/learnease"
-                          className={`text-sm text-slate-600 p-2 outline-none focus:ring-2 focus:ring-slate-500 focus:border-slate-300 border rounded-md ${projectURLErrorMessage && 'ring-2 ring-red-500'}`}
-                          {...register('repositoryURL', { required: true })}
+                          className={`text-sm text-slate-600 p-2 outline-none focus:ring-2 focus:ring-slate-500 focus:border-slate-300 border rounded-md ${urlErrorMessage && 'ring-2 ring-red-500'}`}
+                          {...register('repositoryUrl', { required: true })}
                         />
                       </div>
                       <div className="flex flex-col gap-2">
                         <label
-                          htmlFor="socialPostURL"
+                          htmlFor="socialUrl"
                           className="text-sm flex justify-between items-end"
                         >
                           <DashboardSubheading title="Social Media Post (LinkedIn or Twitter)" />
@@ -171,10 +238,10 @@ export const SubmitEntryModal = ({ isOpen, close }: Props) => {
                         </label>
                         <input
                           type="text"
-                          id="socialPostURL"
+                          id="socialUrl"
                           placeholder="https://twitter.com/unclebigbay143/status/1650807730267889664"
-                          className={`text-sm text-slate-600 p-2 outline-none focus:ring-2 focus:ring-slate-500 focus:border-slate-300 border rounded-md ${projectURLErrorMessage && 'ring-2 ring-red-500'}`}
-                          {...register('socialPostURL', { required: true })}
+                          className={`text-sm text-slate-600 p-2 outline-none focus:ring-2 focus:ring-slate-500 focus:border-slate-300 border rounded-md ${urlErrorMessage && 'ring-2 ring-red-500'}`}
+                          {...register('socialUrl', { required: true })}
                         />
                       </div>
                       <div className="flex flex-col gap-2">
@@ -190,7 +257,7 @@ export const SubmitEntryModal = ({ isOpen, close }: Props) => {
                         <textarea
                           id="feedback"
                           placeholder="Share your feedback on this hackathon with us..."
-                          className={`min-h-[100px] text-sm text-slate-600 p-2 outline-none focus:ring-2 focus:ring-slate-500 focus:border-slate-300 border rounded-md ${projectURLErrorMessage && 'ring-2 ring-red-500'}`}
+                          className={`min-h-[100px] text-sm text-slate-600 p-2 outline-none focus:ring-2 focus:ring-slate-500 focus:border-slate-300 border rounded-md ${urlErrorMessage && 'ring-2 ring-red-500'}`}
                           {...register('feedback', { required: true })}
                         />
                       </div>
@@ -212,9 +279,9 @@ export const SubmitEntryModal = ({ isOpen, close }: Props) => {
                     size="xs"
                     appearance="primary-slate"
                     type="submit"
-                    disabled={isSubmitting}
+                    disabled={disableSubmitBtn}
                   >
-                    {isSubmitting ? 'Submitting...' : 'Submit'}
+                    {isSubmitEntryPending ? 'Submitting...' : 'Submit'}
                   </Button>
                   <p className="text-[12px] text-slate-700">
                     By submitting your entry to this hackathon, you affirm that

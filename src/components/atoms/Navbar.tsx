@@ -34,36 +34,32 @@ export const Navbar = ({ session }: { session: Session | null }) => {
           </section>
 
           <div className="flex gap-4 items-center">
-            {status === 'loading' ? (
-              <div className="w-[163px] bg-red-200" />
-            ) : (
-              <section className="hidden sm:block w-[163px]">
-                {session ? (
-                  <div className="flex justify-end">
-                    <Button size="xs" appearance="primary-slate" asChild>
-                      <Link href="/dashboard/overview">Dashboard</Link>
-                    </Button>
-                  </div>
-                ) : (
-                  <section className="flex gap-1 items-center">
-                    <Button
-                      size="sm"
-                      onClick={() => handleAuthentication()}
-                      appearance="link-secondary"
-                    >
-                      Sign in
-                    </Button>
-                    <Button
-                      size="xs"
-                      appearance="primary-slate"
-                      onClick={() => handleAuthentication()}
-                    >
-                      Sign up
-                    </Button>
-                  </section>
-                )}
-              </section>
-            )}
+            <section className="hidden sm:block w-[163px]">
+              {session ? (
+                <div className="flex justify-end">
+                  <Button size="xs" appearance="primary-slate" asChild>
+                    <Link href="/dashboard/overview">Dashboard</Link>
+                  </Button>
+                </div>
+              ) : (
+                <section className="flex gap-1 items-center">
+                  <Button
+                    size="sm"
+                    onClick={() => handleAuthentication()}
+                    appearance="link-secondary"
+                  >
+                    Sign in
+                  </Button>
+                  <Button
+                    size="xs"
+                    appearance="primary-slate"
+                    onClick={() => handleAuthentication()}
+                  >
+                    Sign up
+                  </Button>
+                </section>
+              )}
+            </section>
             <section className="lg:hidden">
               <IconButton
                 size="xs"

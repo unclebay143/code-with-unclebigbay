@@ -5,7 +5,12 @@ const Schema = mongoose.Schema;
 const hackathonSubmissionSchema = new Schema(
   {
     hackathon: { type: Schema.ObjectId, ref: 'Hackathon', required: true },
-    student: { type: Schema.ObjectId, ref: 'Student', required: true },
+    student: {
+      type: Schema.ObjectId,
+      ref: 'Student',
+      required: true,
+      unique: true,
+    },
     project: {
       name: { type: String },
       url: { type: String },

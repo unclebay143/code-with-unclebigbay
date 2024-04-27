@@ -13,8 +13,10 @@ import Countdown from 'react-countdown';
 
 export const HackathonCard = ({
   hackathon,
+  isRegistered,
 }: {
-  hackathon: Hackathon & { isRegistered: boolean };
+  hackathon: Hackathon;
+  isRegistered: boolean;
 }) => {
   const {
     _id,
@@ -26,7 +28,6 @@ export const HackathonCard = ({
     endDate,
     participantCount,
     slug,
-    isRegistered,
   } = hackathon;
 
   const { data: currentStudent } = useCurrentStudent();
