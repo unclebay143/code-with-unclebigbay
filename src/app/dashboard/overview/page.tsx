@@ -18,7 +18,9 @@ const Page = async () => {
   const auditsRes = await getAllActivityAudits();
   const audits = auditsRes?.audits!;
 
-  const { enrolledCourses } = await getEnrolledCourses();
+  const enrolledCoursesRes = await getEnrolledCourses();
+  const enrolledCourses = enrolledCoursesRes?.enrolledCourses;
+
   const iterableEnrolledCourses = enrolledCourses.map(
     (enrolledCourse: any) => enrolledCourse.course,
   );
