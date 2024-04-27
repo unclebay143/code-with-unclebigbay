@@ -4,11 +4,11 @@ import Image from 'next/image';
 import Link from 'next/link';
 import React from 'react';
 import { HomeSectionHeading } from '.';
-import { Student } from '@/utils/types';
+import { Students } from '@/utils/types';
 import { BrandXTwitter, IconButton, Linkedin } from '@hashnode/matrix-ui';
 
 type CommunityMembersSectionProps = {
-  students: Student[];
+  students: Students;
 };
 
 export const CommunityMembersSection = ({

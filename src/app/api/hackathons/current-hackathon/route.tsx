@@ -9,7 +9,9 @@ const GET = async () => {
       .sort({
         createdAt: -1,
       })
-      .limit(1);
+      .limit(1)
+      .lean()
+      .exec();
 
     return NextResponse.json(
       {

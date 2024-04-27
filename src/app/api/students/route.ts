@@ -8,7 +8,10 @@ const GET = async () => {
 
     const students = await Student.find({})
       .select('username fullName photo stack socials')
-      .limit(10);
+      .limit(10)
+      .lean()
+      .exec();
+
     return NextResponse.json(
       { message: 'Students fetched successfully', students },
       {
