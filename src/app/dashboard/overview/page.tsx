@@ -33,6 +33,7 @@ const Page = async () => {
   const auditsRes = await getAllActivityAudits();
   const audits = auditsRes?.audits!;
 
+  console.log('audits next');
   console.log(audits);
 
   // const enrolledCoursesRes = await getEnrolledCourses();
