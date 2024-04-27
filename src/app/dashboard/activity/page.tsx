@@ -1,4 +1,3 @@
-import React from 'react';
 import { ActivityLogs } from '@/components/molecules/dashboard/activity-logs';
 import { getAllActivityAudits } from '@/utils/server.service';
 
