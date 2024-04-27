@@ -18,37 +18,40 @@ const Page = async () => {
   const auditsRes = await getAllActivityAudits();
   const audits = auditsRes?.audits!;
 
-  const enrolledCoursesRes = await getEnrolledCourses();
-  const enrolledCourses = enrolledCoursesRes?.enrolledCourses;
+  // const enrolledCoursesRes = await getEnrolledCourses();
+  // const enrolledCourses = enrolledCoursesRes?.enrolledCourses;
 
   // const iterableEnrolledCourses = enrolledCourses.map(
   //   (enrolledCourse: any) => enrolledCourse.course,
   // );
-  const enrolledCoursesCount = enrolledCourses?.length;
-  const noEnrolledCourses = enrolledCoursesCount === 0;
-  const pendingCoursesCount = enrolledCourses.filter(
-    (enrolledCourse: any) => !enrolledCourse.isCompleted,
-  ).length;
-  const completedCoursesCount = enrolledCoursesCount - pendingCoursesCount;
+  // const enrolledCoursesCount = enrolledCourses?.length;
+  // const noEnrolledCourses = enrolledCoursesCount === 0;
+  // const pendingCoursesCount = enrolledCourses.filter(
+  //   (enrolledCourse: any) => !enrolledCourse.isCompleted,
+  // ).length;
+  // const completedCoursesCount = enrolledCoursesCount - pendingCoursesCount;
 
   const overviews: Overview[] = [
     {
       id: 'total',
       label: 'Total enrolled',
       Icon: LibraryBig,
-      count: enrolledCoursesCount,
+      // count: enrolledCoursesCount,
+      count: 1,
     },
     {
       id: 'pending',
       label: 'Pending',
       Icon: ActivityIcon,
-      count: pendingCoursesCount,
+      // count: pendingCoursesCount,
+      count: 2,
     },
     {
       id: 'completed',
       label: 'Completed',
       Icon: CheckCheckIcon,
-      count: completedCoursesCount,
+      // count: completedCoursesCount,
+      count: 3,
     },
   ];
 
@@ -81,25 +84,25 @@ const Page = async () => {
           Personalized
         </button>
       </section> */}
-      {noEnrolledCourses && (
+      {/* {noEnrolledCourses && (
         <div className="h-[520px]">
           <EmptyState label="Your recent learning materials will appear here 🙌🏾" />
         </div>
-      )}
-      {!noEnrolledCourses && (
+      )} */}
+      {/* {!noEnrolledCourses && (
         <WhiteArea border>
           <section className="flex flex-col gap-3">
             <DashboardSubheading
               title={`Recent learning materials ${showCount(enrolledCoursesCount)}`}
             />
-            {/* <Courses
+            <Courses
               size={10}
               hideSearchOptions
               courses={iterableEnrolledCourses}
-            /> */}
+            />
           </section>
         </WhiteArea>
-      )}
+      )} */}
 
       <ActivityLogs audits={audits} show={5} />
     </section>
