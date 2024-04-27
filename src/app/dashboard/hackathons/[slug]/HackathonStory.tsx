@@ -34,6 +34,7 @@ export const HackathonStory = ({
   hasSubmitted,
 }: HackathonStoryProps) => {
   const {
+    slug,
     name,
     hashTag,
     title,
@@ -51,6 +52,8 @@ export const HackathonStory = ({
     schedules,
     resources,
   } = hackathon;
+
+  const hackathonUrl = window.location.href;
 
   const { data: currentStudent } = useCurrentStudent();
   const studentId = currentStudent?._id!;
@@ -129,6 +132,9 @@ export const HackathonStory = ({
   const showJudgesSection = judges && judges.length > 0;
   const showParticipantSection =
     animatedTooltipParticipants && animatedTooltipParticipants.length > 0;
+
+  const socialShare = `https://twitter.com/intent/tweet?url=
+            ${hackathonUrl}&text=I'm excited to publicly announce that I'm participating in the ${name}! %0A%0AJoin in this creative problem-solving. This is going to be epic!`;
   return (
     <WhiteArea border>
       <div className="flex items-center justify-between mb-5">
@@ -367,7 +373,7 @@ export const HackathonStory = ({
                     asChild
                   >
                     <a
-                      href=""
+                      href={socialShare}
                       target="_blank"
                       rel="noopener"
                       className="whitespace-nowrap"
@@ -393,7 +399,7 @@ export const HackathonStory = ({
       </section>
       <section className="flex items-center justify-center gap-2">
         <a
-          href=""
+          href={socialShare}
           target="_blank"
           className="hover:text-slate-600 text-sm text-center text-slate-500 flex items-center gap-1 justify-center"
         >
