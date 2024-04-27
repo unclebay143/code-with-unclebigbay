@@ -6,17 +6,34 @@ import { DashboardSubheading } from '@/components/molecules/dashboard/dashboard-
 import { OverviewCard } from '@/components/molecules/dashboard/overview-card';
 import { ActivityLogs } from '@/components/molecules/dashboard/activity-logs';
 import { Courses } from '@/components/molecules/dashboard/courses';
-import { Overview } from '@/utils/types';
+import { Audits, Overview } from '@/utils/types';
 import { ActivityIcon, CheckCheckIcon, LibraryBig } from 'lucide-react';
 import { showCount } from '@/utils';
-import {
-  getAllActivityAudits,
-  getEnrolledCourses,
-} from '@/utils/server.service';
+import { getEnrolledCourses } from '@/utils/server.service';
+import { baseURL } from '../../../../frontend.config';
+import { headers } from 'next/headers';
+
+async function getAllActivityAudits(): Promise<{ audits: Audits } | undefined> {
+  try {
+    const url = `${baseURL}/api/audits`;
+    const result = await fetch(url, {
+      headers: headers(),
+      cache: 'force-cache',
+    });
+
+    if (!result.ok) return undefined;
+    const audits = await result.json();
+    return audits;
+  } catch (e: any) {
+    console.log({ message: e.message });
+  }
+}
 
 const Page = async () => {
   const auditsRes = await getAllActivityAudits();
   const audits = auditsRes?.audits!;
+
+  console.log(audits);
 
   // const enrolledCoursesRes = await getEnrolledCourses();
   // const enrolledCourses = enrolledCoursesRes?.enrolledCourses;
