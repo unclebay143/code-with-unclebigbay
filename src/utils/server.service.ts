@@ -141,7 +141,7 @@ export async function getEnrolledCourses(): Promise<
       console.log(result.statusText);
     }
 
-    const enrolledCourses = await result.json();
+    const { enrolledCourses } = await result.json();
     return { enrolledCourses };
   } catch (error) {
     console.log({ error });
