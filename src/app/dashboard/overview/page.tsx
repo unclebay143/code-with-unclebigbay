@@ -16,8 +16,10 @@ import { headers } from 'next/headers';
 async function getAllActivityAudits(): Promise<{ audits: Audits } | undefined> {
   try {
     const url = `${baseURL}/api/audits`;
+    const defaultHeaders = headers();
+    const customHeaders = new Headers(defaultHeaders);
     const result = await fetch(url, {
-      headers: headers(),
+      headers: customHeaders,
       cache: 'force-cache',
     });
 
