@@ -6,31 +6,17 @@ import { DashboardSubheading } from '@/components/molecules/dashboard/dashboard-
 import { OverviewCard } from '@/components/molecules/dashboard/overview-card';
 import { ActivityLogs } from '@/components/molecules/dashboard/activity-logs';
 import { Courses } from '@/components/molecules/dashboard/courses';
-import { baseURL } from '../../../../frontend.config';
-import { headers } from 'next/headers';
 import { Overview } from '@/utils/types';
 import { ActivityIcon, CheckCheckIcon, LibraryBig } from 'lucide-react';
 import { showCount } from '@/utils';
-
-async function getEnrolledCourses() {
-  try {
-    const url = `${baseURL}/api/courses/enroll`;
-    const result = await fetch(url, {
-      cache: 'force-cache',
-      headers: headers(),
-    });
-
-    if (!result.ok) {
-      console.log(result.statusText);
-    }
-
-    return result.json();
-  } catch (error) {
-    console.log({ error });
-  }
-}
+import {
+  getAllActivityAudits,
+  getEnrolledCourses,
+} from '@/utils/server.service';
 
 const Page = async () => {
+  const { audits } = await getAllActivityAudits();
+
   const { enrolledCourses } = await getEnrolledCourses();
   const iterableEnrolledCourses = enrolledCourses.map(
     (enrolledCourse: any) => enrolledCourse.course,
@@ -68,7 +54,7 @@ const Page = async () => {
   return (
     <section className="flex flex-col gap-3">
       <QuoteOfTheDay />
-      <WhiteArea twClass="bg-indigo-50/60 border-indigo-50" border>
+      <WhiteArea twClass="bg-blue-50 border-blue-200" border>
         <section className="flex flex-col gap-3">
           <DashboardSubheading title="Your course overview" />
           <section className="w-full grid sm:grid-cols-2 md:grid-cols-3 gap-5">
@@ -112,7 +98,7 @@ const Page = async () => {
         </WhiteArea>
       )}
 
-      <ActivityLogs defaultCount={6} loaderCount={6} />
+      <ActivityLogs audits={audits} show={5} />
     </section>
   );
 };

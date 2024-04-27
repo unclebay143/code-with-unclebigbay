@@ -1,6 +1,6 @@
 'use client';
 
-import { Button } from '@/components/atoms/Button';
+import { Button } from '@hashnode/matrix-ui';
 import { useAssignmentResponseById } from '@/components/hooks/useAssignmentResponse';
 import useCourse from '@/components/hooks/useCourse';
 import { ShowConfetti } from '@/components/molecules/Confetti';

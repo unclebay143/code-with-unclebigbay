@@ -1,15 +1,15 @@
-import { Button } from '@/components/atoms/Button';
+'use client';
+
 import React from 'react';
+import { Button } from '@hashnode/matrix-ui';
 
-type Props = {};
-
-const Page = (props: Props) => {
+const Page = () => {
   return (
     <div className="bg-gray-50 flex justify-center items-center min-h-screen bg-[url('https://cdn.hashnode.com/res/hashnode/image/upload/v1708547741538/347517c5-de7a-4d40-88ff-e6b7b7c0a852.png?auto=compress')] bg-cover">
       <div className="max-w-sm w-full">
         <section className="bg-white flex justify-center rounded-md py-8 px-10">
-          <Button asChild>
-            <button className="rounded-md flex items-center gap-2">
+          <Button appearance="primary-slate" asChild>
+            <div className="rounded-md flex items-center gap-2">
               <svg
                 className="h-5 w-5"
                 aria-hidden="true"
@@ -24,7 +24,7 @@ const Page = (props: Props) => {
               </svg>
 
               <span>Sign in with GitHub</span>
-            </button>
+            </div>
           </Button>
         </section>
       </div>

@@ -3,9 +3,8 @@ import { usePathname } from 'next/navigation';
 import Link from 'next/link';
 import { SlideOver } from '../../atoms/SlideOver';
 import { CodeWithUnclebigbayLogo } from '../../atoms/CodeWithUnclebigbayLogo';
-import { IconButton } from '../../atoms/IconButton';
-import { XMark } from '../../icons/XMark';
 import { SidebarLinks, getSidebarLinks } from '@/utils/consts/links';
+import { IconButton, X } from '@hashnode/matrix-ui';
 
 const SidebarLink = ({
   label,
@@ -103,7 +102,7 @@ export const Sidebar = ({
           </div>
           <div className="flex justify-center mt-10">
             <IconButton
-              Icon={XMark}
+              Icon={X}
               size="xs"
               appearance="secondary"
               onClick={() => setSidebarOpen(false)}

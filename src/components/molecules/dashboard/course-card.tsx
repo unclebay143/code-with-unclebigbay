@@ -5,7 +5,6 @@ import type { LucideIcon } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { formatTime } from '@/utils';
-import { Tooltip } from '@/components/atoms/Tooltip';
 
 type CourseCardProps = {
   course: Course;
@@ -13,14 +12,23 @@ type CourseCardProps = {
 };
 
 export const CourseCard = ({ layout = 'grid', course }: CourseCardProps) => {
-  const { _id, type, title, description, coverImageUrl, viewTime, isEnrolled } =
-    course;
+  const {
+    _id,
+    type,
+    title,
+    description,
+    coverImageUrl,
+    viewTime,
+    isEnrolled,
+    tags,
+  } = course;
 
   const mapTypeToIcon: { [key: string]: LucideIcon } = {
     video: PlayCircle,
   };
   const Icon = mapTypeToIcon[type!];
   const courseLink = `/dashboard/courses/${_id}`;
+
   return (
     <>
       {layout === 'card' && (
