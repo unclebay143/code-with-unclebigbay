@@ -1,3 +1,5 @@
+import { AuditTrail } from '@/models/audit-trail';
+import { Hackathon } from '@/models/hackathon';
 import { HackathonSubmission } from '@/models/hackathonSubmission';
 import { getServerSessionWithAuthOptions } from '@/utils/auth-options';
 import connectViaMongoose from '@/utils/mongoose';
@@ -17,6 +19,19 @@ const POST = async (req: Request, _res: Response) => {
 
     await connectViaMongoose();
     const submission = await HackathonSubmission.create(body);
+
+    const hackathonId = body.hackathon;
+    const studentId = body.student;
+
+    const hackathon = await Hackathon.findOne({ _id: hackathonId });
+
+    await AuditTrail.create({
+      student: studentId,
+      type: 'hackathon',
+      title: `Hackathon submission`,
+      description: `Submitted project for ${hackathon.name}`,
+    });
+
     return NextResponse.json(
       { message: 'Hackathon project submitted.', submission },
       {

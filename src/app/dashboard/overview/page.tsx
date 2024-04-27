@@ -98,7 +98,7 @@ const Page = async () => {
         </WhiteArea>
       )}
 
-      <ActivityLogs audits={audits} />
+      <ActivityLogs audits={audits} show={5} />
     </section>
   );
 };
