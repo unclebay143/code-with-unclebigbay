@@ -16,7 +16,7 @@ import {
 
 const Page = async () => {
   const auditsRes = await getAllActivityAudits();
-  const audits = auditsRes?.audits!;
+  const audits = auditsRes!.audits;
 
   const enrolledCoursesRes = await getEnrolledCourses();
   const enrolledCourses = enrolledCoursesRes?.enrolledCourses;
