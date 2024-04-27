@@ -1,8 +1,25 @@
 import { headers } from 'next/headers';
 import { baseURL } from '../../frontend.config';
 import { getServerSessionWithAuthOptions } from './auth-options';
-import { Hackathon, Student, Students } from './types';
+import { Countries, Country, Hackathon, Student, Students } from './types';
 import { Session } from 'next-auth';
+
+export async function getCurrentStudent(): Promise<
+  { student: Student } | undefined
+> {
+  try {
+    const url = `${baseURL}/api/auth/student`;
+    const result = await fetch(url, {
+      headers: headers(),
+      cache: 'force-cache',
+    });
+    const resultJson = await result.json();
+
+    return { student: resultJson.student };
+  } catch (e: any) {
+    console.log({ message: e.message });
+  }
+}
 
 type GetCurrentStudentByUsernameResponse = {
   student: Student;
@@ -160,6 +177,34 @@ export async function getHackathonBySlug(hackathonSlug: string) {
     const { isRegistered } = await isRegisteredResult.json();
     const { hasSubmitted } = await hasSubmittedResult.json();
     return { hackathon, isRegistered, hasSubmitted };
+  } catch (e: any) {
+    console.log({ message: e.message });
+  }
+}
+
+type GetCountriesResponse = {
+  countries: Countries;
+  sortedCountries: Countries;
+};
+
+export async function getCountries(): Promise<
+  GetCountriesResponse | undefined
+> {
+  try {
+    const url = 'https://restcountries.com/v3.1/all?fields=name';
+
+    const result = await fetch(url, {
+      cache: 'force-cache',
+    });
+
+    if (!result.ok) return undefined;
+
+    const countries = await result.json();
+    const sortedCountries = countries.sort((a: Country, b: Country) =>
+      a.name.common.localeCompare(b.name.common),
+    );
+
+    return { countries, sortedCountries };
   } catch (e: any) {
     console.log({ message: e.message });
   }
