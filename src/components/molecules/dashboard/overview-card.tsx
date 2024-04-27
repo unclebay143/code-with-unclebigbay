@@ -11,14 +11,14 @@ type OverviewCardProp = {
 
 export const OverviewCard = ({ id, label, count, Icon }: OverviewCardProp) => {
   const mapIdToColor: { [key: string]: string } = {
-    completed: 'text-blue-600',
-    pending: 'text-yellow-600',
     total: 'text-green-600',
+    pending: 'text-yellow-600',
+    completed: 'text-blue-600',
   };
   const mapIdToBgColor: { [key: string]: string } = {
-    completed: 'bg-blue-50',
-    pending: 'bg-yellow-50',
-    total: 'bg-green-50',
+    total: 'bg-green-50 border-green-200',
+    pending: 'bg-yellow-50 border-yellow-200',
+    completed: 'bg-blue-50 border-blue-200',
   };
   return (
     <div

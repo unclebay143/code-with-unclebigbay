@@ -1,5 +1,5 @@
 'use client';
-import { Button } from '@/components/atoms/Button';
+import { Button } from '@hashnode/matrix-ui';
 import React, { useEffect } from 'react';
 import { WhiteArea } from '../white-area';
 import { DashboardSubheading } from '../dashboard-subheading';
@@ -39,6 +39,8 @@ const UserProfessionalSettings = () => {
       blog: user?.socials?.blog,
     },
   });
+
+  const isUpdating = update.isPending;
 
   const onSubmit: SubmitHandler<professionalDetailSchemaType> = (data) => {
     try {
@@ -142,8 +144,10 @@ const UserProfessionalSettings = () => {
             )}
           </div>
 
-          <div className="flex">
-            <Button size="sm">Update</Button>
+          <div>
+            <Button size="sm" appearance="primary-slate" disabled={isUpdating}>
+              Update
+            </Button>
           </div>
         </div>
       </form>

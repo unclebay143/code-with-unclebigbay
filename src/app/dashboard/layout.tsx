@@ -27,7 +27,10 @@ async function getCurrentStudent() {
       console.log(result.statusText);
       return [];
     }
-    return result.json();
+
+    const { student } = await result.json();
+
+    return { student, session };
   } catch (error) {
     console.log({ error });
   }
@@ -38,11 +41,14 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const { student } = (await getCurrentStudent()) || {};
+  const { student, session } = (await getCurrentStudent()) as {
+    student: Student;
+    session: any;
+  };
 
   return (
     <section className={inter.className}>
-      <DashboardIndex currentStudent={student as Student}>
+      <DashboardIndex currentStudent={student} session={session}>
         {children}
       </DashboardIndex>
     </section>

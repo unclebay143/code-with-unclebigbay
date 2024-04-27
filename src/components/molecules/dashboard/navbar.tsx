@@ -2,18 +2,24 @@ import React from 'react';
 import type { Session } from 'next-auth';
 import Image from 'next/image';
 import { CodeWithUnclebigbayLogo } from '../../atoms/CodeWithUnclebigbayLogo';
-import { ChevronDown, HelpCircle, LogOut, Menu, Settings } from 'lucide-react';
-import { MenuButton } from './menu-button';
+import { ChevronDown } from 'lucide-react';
+
+import { handleAuthentication, handleLogout } from '@/utils/auth';
+import { Bar3CenterLeft } from '../../icons/Bar3CenterLeft';
+import { Student } from '@/utils/types';
 import {
+  ArrowLogout,
+  BarsHamburger,
+  Button,
   DropdownMenu,
   DropdownMenuContent,
+  DropdownMenuItemButton,
+  DropdownMenuItemLink,
   DropdownMenuTrigger,
-} from '../../atoms/DropdownMenu';
-import { handleAuthentication, handleLogout } from '@/utils/auth';
-import { IconButton } from '../../atoms/IconButton';
-import { Bar3CenterLeft } from '../../icons/Bar3CenterLeft';
-import { Button } from '@/components/atoms/Button';
-import { Student } from '@/utils/types';
+  HelpCircle,
+  IconButton,
+  SettingsGear,
+} from '@hashnode/matrix-ui';
 
 type Props = {
   session: Session | null;
@@ -25,7 +31,7 @@ export const Navbar = ({ session, setSidebarOpen, currentStudent }: Props) => {
   const user = session?.user;
   const isOnboardingCompleted = !!currentStudent?.stack;
   return (
-    <nav className="sticky top-0 z-10 bg-white p-4 lg:py-5 lg:px-5 border-b">
+    <nav className="sticky top-0 z-30 bg-white p-4 lg:py-5 lg:px-5 border-b">
       <section className="max-w-7xl mx-auto flex w-full items-center justify-between">
         <div className="hidden lg:block">
           <CodeWithUnclebigbayLogo />
@@ -34,7 +40,7 @@ export const Navbar = ({ session, setSidebarOpen, currentStudent }: Props) => {
           <IconButton
             size="xs"
             onClick={() => setSidebarOpen(true)}
-            Icon={Bar3CenterLeft}
+            Icon={BarsHamburger}
           />
         </div>
         <section>
@@ -60,8 +66,12 @@ export const Navbar = ({ session, setSidebarOpen, currentStudent }: Props) => {
                   </button>
                 </DropdownMenuTrigger>
                 {isOnboardingCompleted && (
-                  <DropdownMenuContent>
-                    <section className="p-2 flex flex-col">
+                  <DropdownMenuContent
+                    hideWhenDetached
+                    sideOffset={8}
+                    align="end"
+                  >
+                    <section className="px-4 pb-1 pt-2 flex flex-col">
                       <h3 className="truncate text-sm font-medium text-slate-900">
                         {user?.name}
                       </h3>
@@ -69,20 +79,19 @@ export const Navbar = ({ session, setSidebarOpen, currentStudent }: Props) => {
                         {user?.email}
                       </span>
                     </section>
-
-                    <MenuButton
-                      label="Settings"
-                      Icon={Settings}
-                      url="/dashboard/settings"
+                    <DropdownMenuItemLink
+                      text="Settings"
+                      startIcon={SettingsGear}
+                      href="/dashboard/settings"
                     />
-                    <MenuButton
-                      label="Help Centers"
-                      Icon={HelpCircle}
-                      url="/dashboard/help-centers"
+                    <DropdownMenuItemLink
+                      text="Help Centers"
+                      startIcon={HelpCircle}
+                      href="/dashboard/help-centers"
                     />
-                    <MenuButton
-                      label="Sign out"
-                      Icon={LogOut}
+                    <DropdownMenuItemButton
+                      text="Sign out"
+                      startIcon={ArrowLogout}
                       onClick={() => handleLogout()}
                     />
                   </DropdownMenuContent>
@@ -91,6 +100,7 @@ export const Navbar = ({ session, setSidebarOpen, currentStudent }: Props) => {
             </section>
           ) : (
             <Button
+              appearance="primary-slate"
               size="xs"
               onClick={() =>
                 handleAuthentication({ nextUrl: window.location.href })

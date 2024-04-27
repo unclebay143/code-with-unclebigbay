@@ -2,16 +2,17 @@
 
 import { DashboardSubheading } from '@/components/molecules/dashboard/dashboard-subheading';
 import { WhiteArea } from '@/components/molecules/dashboard/white-area';
-import { Button } from '@/components/atoms/Button';
-import { IconButton } from '@/components/atoms/IconButton';
-import { YTVideo } from '@/components/atoms/YTVideo';
 import {
+  Button,
+  ArrowExternalLink01,
+  Badge,
+  Users,
+  IconButton,
+  HelpCircle,
   ChevronDown,
   ChevronUp,
-  ExternalLink,
-  HelpCircle,
-  UsersRound,
-} from 'lucide-react';
+} from '@hashnode/matrix-ui';
+import { YTVideo } from '@/components/atoms/YTVideo';
 import Link from 'next/link';
 import React, { useState } from 'react';
 import { usePathname } from 'next/navigation';
@@ -91,8 +92,8 @@ const Page = () => {
                 style={{ backgroundImage: `url(${course?.coverImageUrl})` }}
               >
                 <div className="absolute bg-black/60 inset-0 w-full" />
-                <div className="z-[1]">
-                  <Button onClick={handleEnroll} appearance="secondary-slate">
+                <div className="z-[1] dark">
+                  <Button onClick={handleEnroll} appearance="primary-slate">
                     Start Learning
                   </Button>
                 </div>
@@ -107,10 +108,7 @@ const Page = () => {
                   Course Details
                 </span>
                 <span className="group-hover:animate-pulse">
-                  <IconButton
-                    Icon={showMore ? ChevronUp : ChevronDown}
-                    size="xs"
-                  />
+                  <IconButton Icon={showMore ? ChevronUp : ChevronDown} />
                 </span>
               </div>
               {showMore && (
@@ -129,15 +127,19 @@ const Page = () => {
                         </div>
                       )}
                       <div className="lg:whitespace-nowrap">
-                        <Button size="xs" appearance="secondary-slate" asChild>
+                        <Button
+                          size="xs"
+                          appearance="secondary-slate"
+                          endIcon={ArrowExternalLink01}
+                          asChild
+                        >
                           <Link
                             href={`https://www.youtube.com/watch?v=${course?.ytVideoId}`}
                             target="_blank"
                             rel="noopener"
-                            className="gap-1"
+                            className="gap-1 font-normal"
                           >
-                            <span>Like and comment on YouTube</span>
-                            <ExternalLink size={14} />
+                            Like and comment on YouTube
                           </Link>
                         </Button>
                       </div>
@@ -195,7 +197,7 @@ const Page = () => {
 
                       {enrolledStudentsCount !== 0 && (
                         <div className="flex items-center gap-2">
-                          <UsersRound size={20} />
+                          <Users size="md" solid />
                           <h3 className="font-medium text-lg text-slate-700">
                             Enrolled:
                           </h3>
@@ -209,12 +211,9 @@ const Page = () => {
                         {!(tags.length === 0) && (
                           <div className="flex flex-wrap gap-1">
                             {tags?.map(({ name, _id }) => (
-                              <span
-                                key={_id}
-                                className="px-2 capitalize rounded-full bg-indigo-100/20 text-slate-600 text-sm border"
-                              >
-                                {name}
-                              </span>
+                              <Badge key={_id} size="md">
+                                <span className="capitalize">{name}</span>
+                              </Badge>
                             ))}
                           </div>
                         )}
@@ -223,8 +222,8 @@ const Page = () => {
                             {isEnrolled ? (
                               <Button
                                 size="sm"
-                                disabled={!isEnrolled}
-                                asChild={isEnrolled ? true : false}
+                                appearance="primary-slate"
+                                asChild
                               >
                                 <Link
                                   href={`${courseId}/assignment/${assignmentId}`}
@@ -234,7 +233,11 @@ const Page = () => {
                               </Button>
                             ) : (
                               <Tooltip tooltip="Start course to attempt assignment">
-                                <Button size="sm" disabled>
+                                <Button
+                                  size="sm"
+                                  appearance="primary-slate"
+                                  disabled
+                                >
                                   Attempt assignment
                                 </Button>
                               </Tooltip>

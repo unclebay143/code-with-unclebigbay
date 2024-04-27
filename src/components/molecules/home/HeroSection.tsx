@@ -4,7 +4,7 @@ import Link from 'next/link';
 import React from 'react';
 import { ChevronRight } from '../../icons/ChevronRight';
 import { ArrowRight } from '../../icons/ArrowRight';
-import { Button } from '@/components/atoms/Button';
+import { Button } from '@hashnode/matrix-ui';
 import { handleAuthentication } from '@/utils/auth';
 
 export const HeroSection = () => {
@@ -32,7 +32,11 @@ export const HeroSection = () => {
       <h1 className="text-center text-4xl leading-[48px] max-w-[379px] md:text-5xl md:leading-[60px] font-medium text-slate-800 mx-auto md:max-w-lg">
         Learn to Code and Build Your Career
       </h1>
-      <Button size="sm" onClick={handleAuthentication}>
+      <Button
+        size="sm"
+        onClick={() => handleAuthentication()}
+        appearance="primary-slate"
+      >
         Get started
       </Button>
     </section>
