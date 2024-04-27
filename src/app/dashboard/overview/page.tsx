@@ -15,7 +15,8 @@ import {
 } from '@/utils/server.service';
 
 const Page = async () => {
-  const { audits } = await getAllActivityAudits();
+  const auditsRes = await getAllActivityAudits();
+  const audits = auditsRes?.audits!;
 
   const { enrolledCourses } = await getEnrolledCourses();
   const iterableEnrolledCourses = enrolledCourses.map(
