@@ -11,7 +11,7 @@ import {
 import { useRouter, useSearchParams } from 'next/navigation';
 import { WhiteArea } from '@/components/molecules/dashboard/white-area';
 import { HackathonCard } from '@/components/molecules/dashboard/hackathon/HackathonCard';
-import { Hackathons } from '@/utils/types';
+import { Hackathon, Hackathons } from '@/utils/types';
 
 const VIEW = {
   ALL: 'all',
@@ -27,7 +27,9 @@ const viewMap: Record<string, ViewType> = {
   closed: VIEW.CLOSED,
 };
 
-type HackathonTabViewProps = { hackathons: Hackathons };
+type HackathonTabViewProps = {
+  hackathons: (Hackathon & { isRegistered: boolean })[];
+};
 export const HackathonTabView = ({ hackathons }: HackathonTabViewProps) => {
   const searchParams = useSearchParams();
   const router = useRouter();
@@ -66,7 +68,11 @@ export const HackathonTabView = ({ hackathons }: HackathonTabViewProps) => {
           <section className="flex flex-col gap-3">
             {activeHackathons?.map((hackathon) => {
               return (
-                <HackathonCard key={hackathon._id} hackathon={hackathon} />
+                <HackathonCard
+                  key={hackathon._id}
+                  hackathon={hackathon}
+                  isRegistered={hackathon.isRegistered}
+                />
               );
             })}
           </section>
@@ -75,7 +81,11 @@ export const HackathonTabView = ({ hackathons }: HackathonTabViewProps) => {
           <section className="flex flex-col gap-3">
             {closedHackathons?.map((hackathon) => {
               return (
-                <HackathonCard key={hackathon._id} hackathon={hackathon} />
+                <HackathonCard
+                  key={hackathon._id}
+                  hackathon={hackathon}
+                  isRegistered={hackathon.isRegistered}
+                />
               );
             })}
             <WhiteArea

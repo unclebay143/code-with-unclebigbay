@@ -1,29 +1,24 @@
 'use client';
 
-import React, { useState } from 'react';
+import React from 'react';
 import { SectionWrapper } from '.';
 import { Hackathon } from '@/utils/types';
 import { formatStartAndEndDate, renderer } from '@/utils/date';
 import { Button } from '@hashnode/matrix-ui';
 import { Calendar } from 'lucide-react';
 import Link from 'next/link';
-import { useHackathonById } from '@/components/hooks/useHackathon';
 import useCurrentStudent from '@/components/hooks/useCurrentStudent';
 import { handleAuthentication } from '@/utils/auth';
 import dayjs from 'dayjs';
 import Countdown from 'react-countdown';
 
-type Props = { hackathon: Hackathon; isRegistered: boolean };
+type Props = { hackathon: Hackathon };
 
-export const HackathonWidget = ({ hackathon, isRegistered }: Props) => {
-  const [registered, setRegistered] = useState(isRegistered);
+export const HackathonWidget = ({ hackathon }: Props) => {
   const { data: currentStudent } = useCurrentStudent();
+  const studentId = currentStudent?._id;
 
-  const { _id: hackathonId, title, startDate, endDate, slug } = hackathon;
-  const { joinHackathon, isJoinHackathonPending } =
-    useHackathonById(hackathonId);
-
-  const disableJoinBtn = registered || isJoinHackathonPending;
+  const { title, startDate, endDate, slug } = hackathon;
 
   const hackathonUrl = `/dashboard/hackathons/${slug}`;
 
@@ -65,30 +60,17 @@ export const HackathonWidget = ({ hackathon, isRegistered }: Props) => {
           </Link>
 
           <div className="dark">
-            {registered ? (
+            {studentId ? (
               <Button size="sm" appearance="primary-slate" asChild>
-                <Link href={hackathonUrl}>Submit entry</Link>
+                <Link href={hackathonUrl}>View hackathon</Link>
               </Button>
             ) : (
               <Button
                 size="sm"
                 appearance="primary-slate"
-                disabled={disableJoinBtn}
-                onClick={() => {
-                  if (currentStudent?._id) {
-                    joinHackathon({
-                      hackathonId,
-                      studentId: currentStudent._id,
-                    }).then(() => {
-                      setRegistered(true);
-                      console.log('run');
-                    });
-                  } else {
-                    handleAuthentication({ nextUrl: hackathonUrl });
-                  }
-                }}
+                onClick={() => handleAuthentication({ nextUrl: hackathonUrl })}
               >
-                Join hackathon
+                View hackathon
               </Button>
             )}
           </div>
