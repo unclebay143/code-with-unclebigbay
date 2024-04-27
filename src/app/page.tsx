@@ -7,20 +7,33 @@ import { Navbar } from '@/components/atoms/Navbar';
 import { Footer } from '@/components/atoms/Footer';
 import { HeroSection } from '@/components/molecules/home/HeroSection';
 import { SectionWrapper } from '@/components/molecules/home';
-import { Button } from '@/components/atoms/Button';
 import { Meteors } from '@/components/atoms/meteors';
+import { CommunityCTA } from '@/components/atoms/CommunityCTA';
+import { HackathonWidget } from '@/components/molecules/home/HackathonWidget';
+import { getCurrentHackathon, getStudents } from '@/utils/server.service';
+
+export const dynamic = 'force-dynamic';
 
 export const metadata: Metadata = {
   title: 'Code with Unclebigbay',
   description: 'Learn to Code and Build Your Career',
 };
 
-export default function Home() {
+const Page = async () => {
+  const studentsRes = await getStudents();
+  const students = studentsRes?.students;
+  const currentHackathonRes = await getCurrentHackathon();
+  const hackathon = currentHackathonRes?.hackathon;
+  const session = currentHackathonRes?.session;
+
   return (
     <main>
       {/* Todo: figure out why ResponsiveWrapper isn't working intermittently */}
       <section className="flex flex-col gap-10 overflow-hidden">
-        <Navbar />
+        <div>
+          <Navbar session={session!} />
+          <HackathonWidget hackathon={hackathon!} />
+        </div>
         <SectionWrapper>
           <Meteors />
           <HeroSection />
@@ -33,18 +46,10 @@ export default function Home() {
           <TestimonialSection />
         </SectionWrapper>
         <SectionWrapper>
-          <CommunityMembersSection />
+          <CommunityMembersSection students={students!} />
         </SectionWrapper>
         <SectionWrapper>
-          <section className="rounded-lg mt-40 bg-slate-950 py-20 px-5 sm:p-20 flex gap-8 flex-col items-center justify-center">
-            <h3 className="text-center text-white text-4xl">
-              We can&apos;t wait to see what you&apos;ll build 👋🏽
-            </h3>
-            <div className="flex flex-col sm:flex-row items-center gap-4">
-              <Button appearance="secondary-slate">Get started</Button>
-              <Button appearance="secondary-slate">Join the Community</Button>
-            </div>
-          </section>
+          <CommunityCTA />
         </SectionWrapper>
         <SectionWrapper>
           <Meteors />
@@ -53,4 +58,5 @@ export default function Home() {
       </section>
     </main>
   );
-}
+};
+export default Page;

@@ -42,6 +42,8 @@ const useAssignmentById = (_id: string) => {
     isPending,
   } = useQuery({
     queryKey: ['assignment', _id],
+    refetchOnMount: false,
+    refetchOnWindowFocus: false,
     queryFn: () =>
       axios
         .get('/api/assignments/' + _id)

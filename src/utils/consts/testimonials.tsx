@@ -1,4 +1,4 @@
-import { X } from '@/components/icons/X';
+import { BrandXTwitter } from '@hashnode/matrix-ui';
 import { ReactElement } from 'react';
 
 export const mapTestimonialSourceToIcon: { [key: string]: ReactElement } = {
@@ -15,7 +15,7 @@ export const mapTestimonialSourceToIcon: { [key: string]: ReactElement } = {
     </svg>
   ),
 
-  Twitter: <X />,
+  Twitter: <BrandXTwitter size="md" />,
 
   Whatsapp: (
     <svg

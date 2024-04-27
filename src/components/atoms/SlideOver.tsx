@@ -1,8 +1,7 @@
 import React, { createContext } from 'react';
 import * as SheetPrimitive from '@radix-ui/react-dialog';
 import { cva } from 'class-variance-authority';
-import { XMark } from '../icons/XMark';
-import { IconButton } from './IconButton';
+import { IconButton, X } from '@hashnode/matrix-ui';
 
 const slideOverContent = cva(
   'z-[9999] flex flex-col w-[270px] sm:w-[460px] fixed inset-y-0 bg-white dark:bg-slate-950',
@@ -89,7 +88,7 @@ export const SlideOverHeader = ({
           size="xs"
           onClick={closeSlideOver}
           aria-label="Close"
-          Icon={XMark}
+          Icon={X}
         />
       </SheetPrimitive.Close>
     </div>

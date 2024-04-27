@@ -1,6 +1,5 @@
 'use client';
 
-import { IconButton } from '@/components/atoms/IconButton';
 import { YTVideo } from '@/components/atoms/YTVideo';
 import { WhiteArea } from '@/components/molecules/dashboard/white-area';
 import { ChevronDown, ChevronUp } from 'lucide-react';
@@ -16,6 +15,7 @@ import {
 import useCurrentStudent from '@/components/hooks/useCurrentStudent';
 import { Button } from '@/components/atoms/Button';
 import useAudit from '@/components/hooks/useAudit';
+import { IconButton } from '@hashnode/matrix-ui';
 
 const Page = () => {
   const { data: currentStudent, update } = useCurrentStudent();

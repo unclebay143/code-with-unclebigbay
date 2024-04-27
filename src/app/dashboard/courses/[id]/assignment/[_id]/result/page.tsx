@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { usePathname } from 'next/navigation';
-import { Button } from '@/components/atoms/Button';
+import { Button } from '@hashnode/matrix-ui';
 import { DashboardSubheading } from '@/components/molecules/dashboard/dashboard-subheading';
 import { WhiteArea } from '@/components/molecules/dashboard/white-area';
 import { ArrowLeft, Loader } from 'lucide-react';
@@ -46,7 +46,7 @@ const Page = () => {
             <div className="flex flex-col gap-2 justify-between">
               <div className="flex items-center justify-between">
                 <DashboardSubheading title={`Assignment: ${courseTitle}`} />
-                <Button size="xs" appearance="secondary-slate">
+                <Button size="xs" appearance="secondary-slate" asChild>
                   <a
                     href={`/dashboard/courses/${courseId}`}
                     className="flex gap-1 items-center"
