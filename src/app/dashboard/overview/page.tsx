@@ -1,4 +1,3 @@
-import React from 'react';
 import { EmptyState } from '@/components/molecules/dashboard/empty-state';
 import { WhiteArea } from '@/components/molecules/dashboard/white-area';
 import { QuoteOfTheDay } from '@/components/molecules/dashboard/quote-of-the-day';
