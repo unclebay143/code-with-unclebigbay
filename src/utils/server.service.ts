@@ -5,10 +5,10 @@ import { getServerSessionWithAuthOptions } from './auth-options';
 import { Countries, Country, Hackathon, Student, Students } from './types';
 import { Session } from 'next-auth';
 
+// https://www.reddit.com/r/nextjs/comments/16hzdsr/i_have_a_question_using_headers/
 export const getCustomHeaders = () => {
   const defaultHeaders = headers();
   const customHeaders = new Headers(defaultHeaders);
-
   return customHeaders;
 };
 
