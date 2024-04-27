@@ -41,10 +41,13 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const { student, session } = (await getCurrentStudent()) as {
+  const currentStudentRes = (await getCurrentStudent()) as {
     student: Student;
     session: any;
   };
+
+  const student = currentStudentRes?.student;
+  const session = currentStudentRes?.session;
 
   return (
     <section className={inter.className}>
