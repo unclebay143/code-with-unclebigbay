@@ -77,11 +77,11 @@ const AuditTimeLine = ({
 
 export const ActivityLogs = ({
   audits,
-  defaultCount,
+  show,
   hideShowMore,
 }: {
   audits: Audits;
-  defaultCount?: number;
+  show?: number;
   loaderCount?: number;
   hideShowMore?: boolean;
 }) => {
@@ -92,7 +92,7 @@ export const ActivityLogs = ({
 
         <div className="-my-6">
           {audits
-            ?.slice(0, defaultCount)
+            ?.slice(0, show)
             .map(({ _id, createdAt, title, description, url }) => {
               return (
                 <AuditTimeLine
