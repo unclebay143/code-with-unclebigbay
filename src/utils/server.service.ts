@@ -127,7 +127,9 @@ export async function getLeaderBoard() {
   }
 }
 
-export async function getEnrolledCourses() {
+export async function getEnrolledCourses(): Promise<
+  { enrolledCourses: any } | undefined
+> {
   try {
     const url = `${baseURL}/api/courses/enroll`;
     const result = await fetch(url, {
@@ -139,7 +141,8 @@ export async function getEnrolledCourses() {
       console.log(result.statusText);
     }
 
-    return result.json();
+    const enrolledCourses = await result.json();
+    return { enrolledCourses };
   } catch (error) {
     console.log({ error });
   }
