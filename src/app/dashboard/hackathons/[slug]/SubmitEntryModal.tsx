@@ -1,10 +1,8 @@
-import { Button } from '@hashnode/matrix-ui';
-import { IconButton } from '@/components/atoms/IconButton';
+import { Button, IconButton, X } from '@hashnode/matrix-ui';
 import { ShowConfetti } from '@/components/molecules/Confetti';
 import { DashboardSubheading } from '@/components/molecules/dashboard/dashboard-subheading';
 import { ModalWrapper } from '@/components/molecules/dashboard/modal-wrapper';
 import * as ScrollArea from '@radix-ui/react-scroll-area';
-import { X } from 'lucide-react';
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';

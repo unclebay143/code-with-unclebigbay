@@ -1,14 +1,13 @@
 'use client';
+
 import Link from 'next/link';
 import React, { useState } from 'react';
-import { Bar3CenterLeft } from '../icons/Bar3CenterLeft';
-import { IconButton } from './IconButton';
 import { CodeWithUnclebigbayLogo } from './CodeWithUnclebigbayLogo';
 import { navLinks } from '@/utils/links';
 import { SidebarSlideOver } from './SidebarSlideOver';
 import { SectionWrapper } from '../molecules/home';
 import { handleAuthentication } from '@/utils/auth';
-import { Button } from '@hashnode/matrix-ui';
+import { BarsHamburger, Button, IconButton } from '@hashnode/matrix-ui';
 import { Session } from 'next-auth';
 
 export const Navbar = ({ session }: { session: Session | null }) => {
@@ -64,7 +63,7 @@ export const Navbar = ({ session }: { session: Session | null }) => {
               <IconButton
                 size="xs"
                 onClick={() => setSidebarVisibility(true)}
-                Icon={Bar3CenterLeft}
+                Icon={BarsHamburger}
               />
             </section>
           </div>

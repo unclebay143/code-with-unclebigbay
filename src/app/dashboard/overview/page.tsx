@@ -11,7 +11,7 @@ import { headers } from 'next/headers';
 import { Overview } from '@/utils/types';
 import { ActivityIcon, CheckCheckIcon, LibraryBig } from 'lucide-react';
 import { showCount } from '@/utils';
-import { getAllActivityAudits } from '../activity/page';
+import { getAllActivityAudits } from '@/utils/server.service';
 
 async function getEnrolledCourses() {
   try {

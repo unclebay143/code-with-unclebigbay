@@ -1,10 +1,11 @@
+'use client';
+
 import Image from 'next/image';
 import Link from 'next/link';
 import React from 'react';
 import { HomeSectionHeading } from '.';
-import { Linkedin, Twitter, X } from 'lucide-react';
-import { IconButton } from '@/components/atoms/IconButton';
 import { Student } from '@/utils/types';
+import { BrandXTwitter, IconButton, Linkedin } from '@hashnode/matrix-ui';
 
 type CommunityMembersSectionProps = {
   students: Student[];
@@ -42,7 +43,7 @@ export const CommunityMembersSection = ({
           const x = socials?.x;
           const linkedin = socials?.linkedin;
           const showSocial = x
-            ? { url: x, logo: Twitter }
+            ? { url: x, logo: BrandXTwitter }
             : linkedin
               ? { url: linkedin, logo: Linkedin }
               : null;

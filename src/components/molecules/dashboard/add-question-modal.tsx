@@ -1,11 +1,9 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { useForm, useFieldArray } from 'react-hook-form';
-import { MinusCircle, Plus, X } from 'lucide-react';
 import { toast } from 'sonner';
 import { Button } from '@/components/atoms/Button';
 import { DashboardSubheading } from '@/components/molecules/dashboard/dashboard-subheading';
 import * as Dialog from '@radix-ui/react-dialog';
-import { IconButton } from '@/components/atoms/IconButton';
 import {
   NewQuestion,
   Option,
@@ -19,6 +17,7 @@ import useTag from '@/components/hooks/useTag';
 import { convertWhiteSpaceToDash } from '@/utils';
 import { UseMutationResult } from '@tanstack/react-query';
 import { AxiosResponse } from 'axios';
+import { IconButton, MinusCircle, Plus, X } from '@hashnode/matrix-ui';
 
 const emptyOption: Option = {
   option: '',
@@ -266,7 +265,7 @@ export const AddQuestionModal = ({
               disabled={disableAddOptionBtn}
               type="button"
             >
-              <Plus size={16} />
+              <Plus size="sm" />
               <span className="text-sm">Add option</span>
             </Button>
           </div>
@@ -313,7 +312,7 @@ export const AddQuestionModal = ({
                       }}
                       className="text-red-500"
                     >
-                      <X className="h-3 w-3" />
+                      <X size="sm" />
                     </button>
                   </div>
                 );

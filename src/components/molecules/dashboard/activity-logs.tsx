@@ -19,11 +19,11 @@ const AuditTimeLine = ({
   url,
 }: {
   url?: string;
-  time: string;
+  time?: string;
   title: string;
   description?: string;
 }) => {
-  const timeStamp = formatDate(time);
+  const timeStamp = formatDate(time || Date());
   return (
     <div
       className="relative pl-8 sm:pl-32 py-6 group"

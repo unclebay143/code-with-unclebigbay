@@ -40,6 +40,8 @@ const UserProfessionalSettings = () => {
     },
   });
 
+  const isUpdating = update.isPending;
+
   const onSubmit: SubmitHandler<professionalDetailSchemaType> = (data) => {
     try {
       update.mutate({
@@ -142,8 +144,8 @@ const UserProfessionalSettings = () => {
             )}
           </div>
 
-          <div className="flex">
-            <Button size="sm" appearance="primary-slate">
+          <div>
+            <Button size="sm" appearance="primary-slate" disabled={isUpdating}>
               Update
             </Button>
           </div>

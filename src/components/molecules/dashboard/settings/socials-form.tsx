@@ -14,6 +14,7 @@ type profileUpdateSchemaType = z.infer<typeof ProfileUpdateSchema>;
 
 const UserSocialSettings = () => {
   const { data: currentStudent, update } = useCurrentStudent();
+  const isUpdating = update.isPending;
 
   const defaultValues = {
     github: currentStudent?.socials?.github,
@@ -193,8 +194,13 @@ const UserSocialSettings = () => {
                 </span>
               )}
             </div>
-            <div className="flex">
-              <Button size="sm" type="submit" appearance="primary-slate">
+            <div>
+              <Button
+                size="sm"
+                type="submit"
+                appearance="primary-slate"
+                disabled={isUpdating}
+              >
                 Update
               </Button>
             </div>
