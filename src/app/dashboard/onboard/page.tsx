@@ -2,7 +2,7 @@
 
 import { YTVideo } from '@/components/atoms/YTVideo';
 import { WhiteArea } from '@/components/molecules/dashboard/white-area';
-import { ChevronDown, ChevronUp } from 'lucide-react';
+
 import React, { useEffect, useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import {
@@ -15,7 +15,7 @@ import {
 import useCurrentStudent from '@/components/hooks/useCurrentStudent';
 import { Button } from '@/components/atoms/Button';
 import useAudit from '@/components/hooks/useAudit';
-import { IconButton } from '@hashnode/matrix-ui';
+import { IconButton, ChevronDown, ChevronUp } from '@hashnode/matrix-ui';
 
 const Page = () => {
   const { data: currentStudent, update } = useCurrentStudent();
@@ -88,9 +88,9 @@ const Page = () => {
             <span className="text-slate-600 font-medium group-hover:text-slate-800">
               Exercise
             </span>
-            <span className="group-hover:animate-pulse">
-              <IconButton Icon={showMore ? ChevronUp : ChevronDown} size="xs" />
-            </span>
+            <div className="group-hover:animate-pulse">
+              <IconButton Icon={showMore ? ChevronUp : ChevronDown} size="sm" />
+            </div>
           </div>
           {showMore && (
             <section className="px-5 flex flex-col items-start gap-5 py-4">
