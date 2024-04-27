@@ -14,6 +14,7 @@ type SubmitEntryModalProps = {
   isOpen: boolean;
   close: () => void;
   hackathonId: string;
+  hackathonName: string;
   studentId: string;
   isSubmitEntryPending: boolean;
   submitEntry: UseMutateAsyncFunction<
@@ -42,6 +43,7 @@ export const SubmitEntryModal = ({
   isOpen,
   close,
   hackathonId,
+  hackathonName,
   studentId,
   submitEntry,
   isSubmitEntryPending,
@@ -296,7 +298,8 @@ export const SubmitEntryModal = ({
               Hackathon Entry Submitted 🎉
             </h3>
             <p className="text-sm text-slate-500">
-              Thank you for participating in the Codakthon hackathon!
+              Thank you for participating in the{' '}
+              <span className="font-semibold">{hackathonName}</span>!
               <br /> The winners will be evaluated and announced soon.
             </p>
             <Button

@@ -167,7 +167,6 @@ export type Hackathon = {
   hashTag: string;
   participantCount: number;
   coverImage: string;
-  hackathon: { type: string };
   title: string;
   brief: string;
   slug: string;
@@ -178,11 +177,13 @@ export type Hackathon = {
   howToParticipate: string[];
   judges: { name: string; title: string; photo: string; socialLink: string }[];
   judgingCriteria: { heading: string; copy: string }[];
-  prizes: { _id: string; position: number; prizes: string[] }[];
+  prizes: { _id: string; label: string; prizes: string[] }[];
   sponsors: { _id: string; name: string; photo: string; link: string }[];
   status: { label: string; reason: string };
   isActive: boolean;
   tags: string[];
+  resources: [{ label: string; url: string }];
+  schedules: [{ heading: string; date: string }];
   participants: {
     _id: number;
     fullName: string;
@@ -207,3 +208,9 @@ export type HackathonSubmission = {
   };
   feedback: string;
 };
+
+export type Country = {
+  name: { common: string };
+};
+
+export type Countries = Country[];

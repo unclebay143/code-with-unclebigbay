@@ -18,9 +18,12 @@ import {
   ArrowExternalLink01,
 } from '@hashnode/matrix-ui';
 import { formatDate } from '@/utils/date';
-import { Student } from '@/utils/types';
+import { Countries, Student } from '@/utils/types';
 
-type ProfileProps = { student: Student; canUpdateProfile: boolean };
+type ProfileProps = {
+  student: Student;
+  canUpdateProfile: boolean;
+};
 
 export const Profile = ({ student, canUpdateProfile }: ProfileProps) => {
   const socials = student?.socials || {};

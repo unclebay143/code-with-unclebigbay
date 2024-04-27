@@ -7,11 +7,13 @@ import {
   TabsList,
   TabsTrigger,
   ScrollArea,
+  Button,
 } from '@hashnode/matrix-ui';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { WhiteArea } from '@/components/molecules/dashboard/white-area';
 import { HackathonCard } from '@/components/molecules/dashboard/hackathon/HackathonCard';
 import { Hackathon, Hackathons } from '@/utils/types';
+import Link from 'next/link';
 
 const VIEW = {
   ALL: 'all',
@@ -90,9 +92,16 @@ export const HackathonTabView = ({ hackathons }: HackathonTabViewProps) => {
             })}
             <WhiteArea
               border
-              twClass="border-dashed h-[200px] flex justify-center items-center"
+              twClass="border-dashed h-[200px] flex flex-col gap-2 justify-center items-center"
             >
-              <h3 className="text-slate-600">No closed hackathon.</h3>
+              <h3 className="text-slate-600">
+                We&apos;re currently running our first hackathon 🎉
+              </h3>
+              <Button size="xs" appearance="primary-slate" asChild>
+                <Link href="/dashboard/hackathons/ai-for-good-hackathon-2024">
+                  View hackathon
+                </Link>
+              </Button>
             </WhiteArea>
           </section>
         </TabsContent>

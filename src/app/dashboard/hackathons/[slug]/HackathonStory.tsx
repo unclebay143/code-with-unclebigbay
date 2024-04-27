@@ -48,6 +48,8 @@ export const HackathonStory = ({
     participants,
     sponsors,
     _id: hackathonId,
+    schedules,
+    resources,
   } = hackathon;
 
   const { data: currentStudent } = useCurrentStudent();
@@ -59,13 +61,14 @@ export const HackathonStory = ({
     submitEntry,
     isSubmitEntryPending,
   } = useHackathonById(hackathonId);
+
   const [registered, setRegistered] = useState(isRegistered);
 
   const isClosed = false;
   const disableSubmitEntryBtn = isClosed;
   const disableRegisterBtn = registered || isClosed || isJoinHackathonPending;
 
-  const _participants = participants.map((participant) => {
+  const animatedTooltipParticipants = participants.map((participant) => {
     return {
       id: participant._id,
       name: participant.fullName,
@@ -119,7 +122,13 @@ export const HackathonStory = ({
 
   const sectionHeadingStyle = 'font-semibold text-slate-700 text-xl';
   const uLStyle = 'list-decimal list-outside ml-5 text-slate-600';
+  const oLStyle = 'list-disc list-outside ml-5 text-slate-600';
 
+  const showScheduleSection = schedules && schedules.length > 0;
+  const showResourceSection = resources && resources.length > 0;
+  const showJudgesSection = judges && judges.length > 0;
+  const showParticipantSection =
+    animatedTooltipParticipants && animatedTooltipParticipants.length > 0;
   return (
     <WhiteArea border>
       <div className="flex items-center justify-between mb-5">
@@ -212,22 +221,48 @@ export const HackathonStory = ({
               ))}
             </ul>
           </section>
-          <section className="flex flex-col gap-4">
-            <h3 className={sectionHeadingStyle}>Judges</h3>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-y-8">
-              {judges.map(({ name, photo, socialLink, title }) => (
-                <div className="flex gap-3 items-center" key={`judges-${name}`}>
-                  <div className="relative w-14 h-14 sm:w-16 sm:h-16 md:w-24 md:h-24 rounded-full overflow-hidden">
-                    <Image src={photo} alt="" fill />
+
+          {/* Resource Section */}
+          {showResourceSection && (
+            <section className="flex flex-col gap-2">
+              <h3 className={sectionHeadingStyle}>Resources</h3>
+              <ul className={oLStyle}>
+                {resources.map(({ label, url }) => (
+                  <li className="mb-3" key={`howToParticipate-${label}`}>
+                    <div className="flex">
+                      <Button appearance="link" asChild>
+                        <Link href={url}>{label}</Link>
+                      </Button>
+                    </div>
+                  </li>
+                ))}
+              </ul>
+            </section>
+          )}
+
+          {/* Judges Section */}
+          {showJudgesSection && (
+            <section className="flex flex-col gap-4">
+              <h3 className={sectionHeadingStyle}>Judges</h3>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-y-8">
+                {judges.map(({ name, photo, socialLink, title }) => (
+                  <div
+                    className="flex gap-3 items-center"
+                    key={`judges-${name}`}
+                  >
+                    <div className="relative w-14 h-14 sm:w-16 sm:h-16 md:w-24 md:h-24 rounded-full overflow-hidden">
+                      <Image src={photo} alt="" fill />
+                    </div>
+                    <a href={socialLink} target="_blank" className="">
+                      <p className="text-lg font-semibold text-black">{name}</p>
+                      <p className="text-slate-500">{title}</p>
+                    </a>
                   </div>
-                  <a href={socialLink} target="_blank" className="">
-                    <p className="text-lg font-semibold text-black">{name}</p>
-                    <p className="text-slate-500">{title}</p>
-                  </a>
-                </div>
-              ))}
-            </div>
-          </section>
+                ))}
+              </div>
+            </section>
+          )}
+
           <section className="flex flex-col gap-4">
             <h3 className={sectionHeadingStyle}>Judging criteria</h3>
             <ul className={uLStyle}>
@@ -243,51 +278,46 @@ export const HackathonStory = ({
               ))}
             </ul>
           </section>
+
+          {showScheduleSection && (
+            <section className="flex flex-col gap-4">
+              <h3 className={sectionHeadingStyle}>Schedules</h3>
+              <ul className={uLStyle}>
+                {schedules.map(({ heading, date }) => (
+                  <li className="mb-3" key={`judgingCriteria-${heading}`}>
+                    <div className="flex items-center gap-1">
+                      <span className="text-slate-600 font-semibold">
+                        {heading}:
+                      </span>
+                      <p className="text-slate-500">{date}</p>
+                    </div>
+                  </li>
+                ))}
+              </ul>
+            </section>
+          )}
+
           <section className="flex flex-col gap-4">
             <div className="flex items-center text-slate-700 gap-1">
               <Award02 size="md" />
               <h3 className="font-semibold  text-xl">Prizes</h3>
             </div>
             <div className="flex flex-wrap gap-10 ml-2">
-              {prizes
-                .filter((prize) => prize.position !== 0)
-                .map(({ _id, position, prizes }) => (
-                  <div
-                    className="flex flex-col gap-2"
-                    key={`prizes-${position}-${_id}`}
-                  >
-                    <p className="font-semibold text-yellow-600">
-                      {position} Place
-                    </p>
-                    <ul className="list-disc ml-5 gap-1 text-sm text-slate-500 font-medium">
-                      {prizes.map((prize) => (
-                        <li key={`prizeLi-${prize}`} className="mb-1">
-                          {prize}
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                ))}
-
-              {prizes
-                .filter((prize) => prize.position === 0)
-                .map(({ _id, position, prizes }) => (
-                  <div
-                    className="w-full flex flex-col gap-2"
-                    key={`prizes-${position}-${_id}`}
-                  >
-                    <p className="font-semibold text-slate-600">
-                      Valid Participants
-                    </p>
-                    <ul className="list-disc list-inside ml-1 flex flex-col gap-1 text-sm text-slate-500 font-medium">
-                      {prizes.map((prize) => (
-                        <li key={`prizeLi-${prize}`} className="mb-1">
-                          {prize}
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                ))}
+              {prizes.map(({ _id, label, prizes }) => (
+                <div
+                  className="flex flex-col gap-2"
+                  key={`prizes-${label}-${_id}`}
+                >
+                  <p className="font-semibold text-yellow-600">{label}</p>
+                  <ul className="list-disc ml-5 gap-1 text-sm text-slate-500 font-medium">
+                    {prizes.map((prize) => (
+                      <li key={`prizeLi-${prize}`} className="mb-1">
+                        {prize}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              ))}
             </div>
           </section>
 
@@ -311,13 +341,14 @@ export const HackathonStory = ({
               Be a sponsor for the next hackathon.
             </a>
           </section>
-
-          <section className="flex flex-col gap-4">
-            <h3 className={sectionHeadingStyle}>Participants</h3>
-            <section className="flex flex-row flex-wrap gap-y-3">
-              <AnimatedTooltip items={_participants} />
+          {showParticipantSection && (
+            <section className="flex flex-col gap-4">
+              <h3 className={sectionHeadingStyle}>Participants</h3>
+              <section className="flex flex-row flex-wrap gap-y-3">
+                <AnimatedTooltip items={animatedTooltipParticipants} />
+              </section>
             </section>
-          </section>
+          )}
 
           {/* Todo: you can turn this section into social media sharing CTA after isRegistered is true */}
 
@@ -382,6 +413,7 @@ export const HackathonStory = ({
       <SubmitEntryModal
         studentId={studentId}
         hackathonId={hackathonId}
+        hackathonName={name}
         isOpen={openSubmitEntryModal}
         close={() => setOpenSubmitEntryModal(false)}
         submitEntry={submitEntry}
