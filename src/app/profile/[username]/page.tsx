@@ -4,10 +4,9 @@ import { notFound } from 'next/navigation';
 import { Navbar } from '@/components/atoms/Navbar';
 import { SectionWrapper } from '@/components/molecules/home';
 import { Footer } from '@/components/atoms/Footer';
-import { Student } from '@/utils/types';
 import { Metadata } from 'next';
 
-import { getCurrentStudent } from '@/utils/server.service';
+import { getCurrentStudentByUsername } from '@/utils/server.service';
 import { Profile } from './profile';
 
 type Props = {
@@ -18,10 +17,10 @@ type Props = {
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const username = params.username;
 
-  const data = await getCurrentStudent(username);
-  const student = data?.studentRes.student as Student;
-  const userFullName = student.fullName;
-  const bio = student.bio;
+  const data = await getCurrentStudentByUsername(username);
+  const student = data?.student;
+  const userFullName = student?.fullName;
+  const bio = student?.bio;
 
   return {
     title: `${userFullName} - Code with Unclebigbay`,
@@ -30,12 +29,11 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 }
 
 const Page = async ({ params }: { params: { username: string } }) => {
-  const data = await getCurrentStudent(params?.username);
+  const data = await getCurrentStudentByUsername(params?.username);
 
   if (!data) notFound();
 
-  const { studentRes, canUpdateProfile, session } = data || {};
-  const { student } = studentRes as { student: Student };
+  const { student, canUpdateProfile, session } = data;
 
   const profileProps = { canUpdateProfile, student };
 
