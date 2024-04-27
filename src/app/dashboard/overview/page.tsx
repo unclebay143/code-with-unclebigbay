@@ -21,9 +21,9 @@ const Page = async () => {
   const enrolledCoursesRes = await getEnrolledCourses();
   const enrolledCourses = enrolledCoursesRes?.enrolledCourses;
 
-  const iterableEnrolledCourses = enrolledCourses.map(
-    (enrolledCourse: any) => enrolledCourse.course,
-  );
+  // const iterableEnrolledCourses = enrolledCourses.map(
+  //   (enrolledCourse: any) => enrolledCourse.course,
+  // );
   const enrolledCoursesCount = enrolledCourses?.length;
   const noEnrolledCourses = enrolledCoursesCount === 0;
   const pendingCoursesCount = enrolledCourses.filter(
@@ -92,11 +92,11 @@ const Page = async () => {
             <DashboardSubheading
               title={`Recent learning materials ${showCount(enrolledCoursesCount)}`}
             />
-            <Courses
+            {/* <Courses
               size={10}
               hideSearchOptions
               courses={iterableEnrolledCourses}
-            />
+            /> */}
           </section>
         </WhiteArea>
       )}
