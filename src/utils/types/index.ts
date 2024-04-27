@@ -130,6 +130,8 @@ export type Student = {
   interests: string;
 };
 
+export type Students = Student[];
+
 export type Course = {
   _id: string;
   createdAt?: string;
@@ -158,3 +160,57 @@ export type LeaderBoardData = {
 };
 
 export type LeaderBoard = LeaderBoardData[];
+
+export type Hackathon = {
+  _id: string;
+  name: string;
+  hashTag: string;
+  participantCount: number;
+  coverImage: string;
+  title: string;
+  brief: string;
+  slug: string;
+  startDate: string;
+  endDate: string;
+  about: string;
+  whatToBuild: string;
+  howToParticipate: string[];
+  judges: { name: string; title: string; photo: string; socialLink: string }[];
+  judgingCriteria: { heading: string; copy: string }[];
+  prizes: { _id: string; label: string; prizes: string[] }[];
+  sponsors: { _id: string; name: string; photo: string; link: string }[];
+  status: { label: string; reason: string };
+  isActive: boolean;
+  tags: string[];
+  resources: [{ label: string; url: string }];
+  schedules: [{ heading: string; date: string }];
+  participants: {
+    _id: number;
+    fullName: string;
+    stack: string;
+    username: string;
+    photo: string;
+  }[];
+};
+
+export type Hackathons = Hackathon[];
+
+export type HackathonSubmission = {
+  hackathon: string;
+  student: string;
+  project: {
+    name: string;
+    url: string;
+    demoUrl: string;
+    articleUrl: string;
+    repositoryUrl: string;
+    socialUrl: string;
+  };
+  feedback: string;
+};
+
+export type Country = {
+  name: { common: string };
+};
+
+export type Countries = Country[];

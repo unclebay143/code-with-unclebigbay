@@ -15,12 +15,12 @@ const GET = async () => {
     }
 
     const student = await Student.findOne({ email: session.user.email });
-    const audit = await AuditTrail.find({ student: student.id }).sort({
+    const audits = await AuditTrail.find({ student: student.id }).sort({
       createdAt: -1,
     });
 
     return NextResponse.json(
-      { message: 'Student audits fetched', audit },
+      { message: 'Student audits fetched', audits },
       { status: 200 },
     );
   } catch (e: any) {

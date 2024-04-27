@@ -55,7 +55,7 @@ export const SidebarSlideOver = ({ isOpen, close, session }: Props) => {
           <section className="">
             <Button
               size="md"
-              onClick={handleAuthentication}
+              onClick={() => handleAuthentication()}
               appearance="link-secondary"
               width="full"
               padding="none"
