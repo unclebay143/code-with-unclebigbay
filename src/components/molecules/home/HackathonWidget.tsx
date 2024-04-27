@@ -18,7 +18,7 @@ export const HackathonWidget = ({ hackathon }: Props) => {
   const { data: currentStudent } = useCurrentStudent();
   const studentId = currentStudent?._id;
 
-  const { title, startDate, endDate, slug } = hackathon;
+  const { title, startDate, endDate, slug } = hackathon || {};
 
   const hackathonUrl = `/dashboard/hackathons/${slug}`;
 
