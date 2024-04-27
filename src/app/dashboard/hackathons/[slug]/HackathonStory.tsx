@@ -1,11 +1,18 @@
 'use client';
 
 import React from 'react';
-import { Button, ArrowLeft, BrandXTwitter, Avatar } from '@hashnode/matrix-ui';
+import {
+  Button,
+  ArrowLeft,
+  BrandXTwitter,
+  Avatar,
+  CalendarBlank,
+  Award02,
+  BrandYoutube,
+} from '@hashnode/matrix-ui';
 import { WhiteArea } from '@/components/molecules/dashboard/white-area';
 import { AnimatedTooltip } from '@/components/ui/animated-tooltip';
 import { Boxes } from '@/components/ui/background-boxes';
-import { Calendar, Medal, Twitter, Youtube } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { SubmitEntryModal } from './SubmitEntryModal';
@@ -136,7 +143,8 @@ export const HackathonStory = ({
             <span
               className={`${isClosed ? 'text-red-500' : 'text-blue-500'} text-sm font-bold flex items-center gap-1`}
             >
-              <Calendar size={14} /> {formatStartAndEndDate(startDate, endDate)}
+              <CalendarBlank size="sm" />{' '}
+              {formatStartAndEndDate(startDate, endDate)}
               {isClosed ? '(closed)' : null}
             </span>
             <div className="dark">
@@ -237,7 +245,7 @@ export const HackathonStory = ({
           </section>
           <section className="flex flex-col gap-4">
             <div className="flex items-center text-slate-700 gap-1">
-              <Medal size={22} />
+              <Award02 size="md" />
               <h3 className="font-semibold  text-xl">Prizes</h3>
             </div>
             <div className="flex flex-wrap gap-10 ml-2">
@@ -358,7 +366,7 @@ export const HackathonStory = ({
           target="_blank"
           className="hover:text-slate-600 text-sm text-center text-slate-500 flex items-center gap-1 justify-center"
         >
-          <Twitter size={14} />
+          <BrandXTwitter size="sm" />
           Share on Twitter
         </a>
         <span className="text-slate-500">&middot;</span>
@@ -367,7 +375,7 @@ export const HackathonStory = ({
           target="_blank"
           className="hover:text-slate-600 text-sm text-center text-slate-500 flex items-center gap-1 justify-center"
         >
-          <Youtube size={14} />
+          <BrandYoutube size="sm" />
           Subscribe to channel
         </a>
       </section>
