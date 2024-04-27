@@ -6,30 +6,13 @@ import { DashboardSubheading } from '@/components/molecules/dashboard/dashboard-
 import { OverviewCard } from '@/components/molecules/dashboard/overview-card';
 import { ActivityLogs } from '@/components/molecules/dashboard/activity-logs';
 import { Courses } from '@/components/molecules/dashboard/courses';
-import { baseURL } from '../../../../frontend.config';
-import { headers } from 'next/headers';
 import { Overview } from '@/utils/types';
 import { ActivityIcon, CheckCheckIcon, LibraryBig } from 'lucide-react';
 import { showCount } from '@/utils';
-import { getAllActivityAudits } from '@/utils/server.service';
-
-async function getEnrolledCourses() {
-  try {
-    const url = `${baseURL}/api/courses/enroll`;
-    const result = await fetch(url, {
-      cache: 'force-cache',
-      headers: headers(),
-    });
-
-    if (!result.ok) {
-      console.log(result.statusText);
-    }
-
-    return result.json();
-  } catch (error) {
-    console.log({ error });
-  }
-}
+import {
+  getAllActivityAudits,
+  getEnrolledCourses,
+} from '@/utils/server.service';
 
 const Page = async () => {
   const { audits } = await getAllActivityAudits();
