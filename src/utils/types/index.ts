@@ -130,6 +130,8 @@ export type Student = {
   interests: string;
 };
 
+export type Students = Student[];
+
 export type Course = {
   _id: string;
   createdAt?: string;

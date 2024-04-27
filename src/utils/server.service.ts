@@ -1,27 +1,38 @@
 import { headers } from 'next/headers';
 import { baseURL } from '../../frontend.config';
 import { getServerSessionWithAuthOptions } from './auth-options';
+import { Hackathon, Student, Students } from './types';
+import { Session } from 'next-auth';
 
-export async function getCurrentStudent(username: string) {
+type GetCurrentStudentByUsernameResponse = {
+  student: Student;
+  canUpdateProfile: boolean;
+  session: Session | null;
+};
+
+export async function getCurrentStudentByUsername(
+  username: string,
+): Promise<GetCurrentStudentByUsernameResponse | undefined> {
   try {
     const session = await getServerSessionWithAuthOptions();
     const url = `${baseURL}/api/students/${username}`;
     const result = await fetch(url, {
       cache: 'no-cache',
     });
-    const studentRes = await result.json();
+    const { student } = await result.json();
 
-    const canUpdateProfile = session?.user.email === studentRes.student.email;
+    const canUpdateProfile = session?.user.email === student.email;
 
     if (!result.ok) return undefined;
 
-    return { studentRes, canUpdateProfile, session };
+    return { student, canUpdateProfile, session };
   } catch (e: any) {
     console.log({ message: e.message });
   }
 }
 
-export async function getStudents() {
+type GetStudentsResponse = { students: Students };
+export async function getStudents(): Promise<GetStudentsResponse | undefined> {
   try {
     const url = `${baseURL}/api/students`;
     const result = await fetch(url, {
@@ -31,12 +42,10 @@ export async function getStudents() {
       },
     });
 
-    if (!result.ok) {
-      console.log(result.statusText);
-      return [];
-    }
+    if (!result.ok) return undefined;
 
-    return result.json();
+    const students = await result.json();
+    return students;
   } catch (error) {
     console.log({ error });
   }
@@ -56,18 +65,26 @@ export async function getAllActivityAudits() {
   }
 }
 
-export async function getCurrentHackathon() {
+type GetCurrentHackathonResponse = {
+  hackathon: Hackathon;
+  session: Session | null;
+};
+
+export async function getCurrentHackathon(): Promise<
+  GetCurrentHackathonResponse | undefined
+> {
   try {
     const session = await getServerSessionWithAuthOptions();
-
     const url = `${baseURL}/api/hackathons/current-hackathon`;
     const result = await fetch(url, {
       headers: headers(),
       cache: 'force-cache',
     });
-    const hackathonRes = await result.json();
+    const { hackathon } = await result.json();
 
-    return { hackathon: hackathonRes.hackathon, session };
+    if (!hackathon) return undefined;
+
+    return { hackathon, session };
   } catch (e: any) {
     console.log({ message: e.message });
   }
