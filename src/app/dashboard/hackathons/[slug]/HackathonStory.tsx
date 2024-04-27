@@ -53,7 +53,7 @@ export const HackathonStory = ({
     resources,
   } = hackathon;
 
-  const hackathonUrl = window.location.href;
+  const hackathonUrl = typeof window !== 'undefined' && window.location.href;
 
   const { data: currentStudent } = useCurrentStudent();
   const studentId = currentStudent?._id!;
