@@ -4,6 +4,7 @@ import { baseURL } from '../../../../frontend.config';
 import { headers } from 'next/headers';
 import { Hackathon } from '@/utils/types';
 import { HackathonTabView } from './HackathonTabView';
+import { getAllHackathons } from '@/utils/server.service';
 
 /* 
 Badges name ideas
@@ -12,20 +13,6 @@ Badges name ideas
 - Hackathon Participant
 
 */
-
-async function getAllHackathons() {
-  try {
-    const url = `${baseURL}/api/hackathons`; // isRegistered is derived from server
-    const result = await fetch(url, {
-      headers: headers(),
-    });
-    const hackathons = await result.json();
-
-    return hackathons;
-  } catch (e: any) {
-    console.log({ message: e.message });
-  }
-}
 
 const Page = async () => {
   const { hackathons } = (await getAllHackathons()) as {

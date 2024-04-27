@@ -1,19 +1,11 @@
 import { DashboardSubheading } from '@/components/molecules/dashboard/dashboard-subheading';
-// import { EmptyState } from '@/components/dashboard/empty-state';
 import { WhiteArea } from '@/components/molecules/dashboard/white-area';
 import Image from 'next/image';
 import Link from 'next/link';
 import React from 'react';
-import {
-  CommunityMember,
-  LeaderBoard,
-  LeaderBoardData,
-  Student,
-} from '@/utils/types';
-import { baseURL } from '../../../../frontend.config';
+import { LeaderBoard, LeaderBoardData } from '@/utils/types';
 import { Trophy } from 'lucide-react';
-import { headers } from 'next/headers';
-// import { useSession } from 'next-auth/react';
+import { getLeaderBoard } from '@/utils/server.service';
 
 const LeaderboardCard = ({
   rank,
@@ -54,21 +46,6 @@ const LeaderboardCard = ({
     </div>
   );
 };
-
-async function getLeaderBoard() {
-  try {
-    const url = `${baseURL}/api/students/leaderboard`;
-    const result = await fetch(url, {
-      cache: 'no-cache',
-      headers: headers(),
-    });
-    const leaderboard = await result.json();
-
-    return leaderboard;
-  } catch (e: any) {
-    console.log({ message: e.message });
-  }
-}
 
 const Page = async () => {
   const { leaderboard, position } = (await getLeaderBoard()) as {
