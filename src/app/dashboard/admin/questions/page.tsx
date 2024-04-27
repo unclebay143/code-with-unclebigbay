@@ -4,12 +4,11 @@ import { Button } from '@/components/atoms/Button';
 import { DashboardSubheading } from '@/components/molecules/dashboard/dashboard-subheading';
 import { WhiteArea } from '@/components/molecules/dashboard/white-area';
 import React, { useState } from 'react';
-import { Edit, Trash } from 'lucide-react';
-import { IconButton } from '@/components/atoms/IconButton';
 import { EmptyState } from '@/components/molecules/dashboard/empty-state';
 import { AddQuestionModal } from '@/components/molecules/dashboard/add-question-modal';
 import useQuestion from '@/components/hooks/useQuestion';
 import { showCount } from '@/utils';
+import { Delete, Edit, IconButton } from '@hashnode/matrix-ui';
 
 const Page = () => {
   const { questions, mutation, isFetching } = useQuestion();
@@ -70,7 +69,7 @@ const Page = () => {
                         </ol>
                         <div className="absolute top-0 right-0 flex flex-col gap-1">
                           <IconButton Icon={Edit} size="sm" />
-                          <IconButton Icon={Trash} size="sm" />
+                          <IconButton Icon={Delete} size="sm" />
                         </div>
                         {hasTags && (
                           <div className="flex items-center gap-1 pt-4 first:pt-0">

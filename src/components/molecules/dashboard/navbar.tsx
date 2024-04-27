@@ -5,11 +5,11 @@ import { CodeWithUnclebigbayLogo } from '../../atoms/CodeWithUnclebigbayLogo';
 import { ChevronDown } from 'lucide-react';
 
 import { handleAuthentication, handleLogout } from '@/utils/auth';
-import { IconButton } from '../../atoms/IconButton';
 import { Bar3CenterLeft } from '../../icons/Bar3CenterLeft';
 import { Student } from '@/utils/types';
 import {
   ArrowLogout,
+  BarsHamburger,
   Button,
   DropdownMenu,
   DropdownMenuContent,
@@ -17,6 +17,7 @@ import {
   DropdownMenuItemLink,
   DropdownMenuTrigger,
   HelpCircle,
+  IconButton,
   SettingsGear,
 } from '@hashnode/matrix-ui';
 
@@ -39,7 +40,7 @@ export const Navbar = ({ session, setSidebarOpen, currentStudent }: Props) => {
           <IconButton
             size="xs"
             onClick={() => setSidebarOpen(true)}
-            Icon={Bar3CenterLeft}
+            Icon={BarsHamburger}
           />
         </div>
         <section>

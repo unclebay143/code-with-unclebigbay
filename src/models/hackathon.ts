@@ -9,7 +9,7 @@ const hackathonSchema = new Schema(
     title: { type: String, required: true, unique: true },
     name: { type: String, required: true, unique: true },
     brief: { type: String },
-    slug: { type: String, required: true, unique: true },
+    slug: { type: String, required: true, unique: true, index: true },
     startDate: { type: String, required: true },
     endDate: { type: String, required: true },
     about: { type: String, required: true },
