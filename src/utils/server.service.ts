@@ -1,3 +1,4 @@
+import { Audits } from '@/utils/types';
 import { headers } from 'next/headers';
 import { baseURL } from '../../frontend.config';
 import { getServerSessionWithAuthOptions } from './auth-options';
@@ -68,13 +69,17 @@ export async function getStudents(): Promise<GetStudentsResponse | undefined> {
   }
 }
 
-export async function getAllActivityAudits() {
+export async function getAllActivityAudits(): Promise<
+  { audits: Audits } | undefined
+> {
   try {
     const url = `${baseURL}/api/audits`;
     const result = await fetch(url, {
       headers: headers(),
       cache: 'force-cache',
     });
+
+    if (!result.ok) return undefined;
     const audits = await result.json();
     return audits;
   } catch (e: any) {
