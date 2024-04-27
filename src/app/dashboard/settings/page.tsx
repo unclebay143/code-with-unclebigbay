@@ -2,12 +2,20 @@ import UserPersonalInfoForm from '@/components/molecules/dashboard/settings/pers
 import UserProfessionalsForm from '@/components/molecules/dashboard/settings/professional-form';
 import UserSocialsForm from '@/components/molecules/dashboard/settings/socials-form';
 import AnonymityForm from '@/components/molecules/dashboard/settings/anonimity-form';
+import { getCountries, getCurrentStudent } from '@/utils/server.service';
 
-const Page = () => {
+const Page = async () => {
+  const studentRes = await getCurrentStudent();
+  const countriesRes = await getCountries();
+  const sortedCountries = countriesRes ? countriesRes?.sortedCountries : [];
+
   return (
     <div className="lg:(w-[80%] px-3)">
       <div className="flex flex-col gap-4">
-        <UserPersonalInfoForm />
+        <UserPersonalInfoForm
+          countries={sortedCountries}
+          currentStudent={studentRes?.student!}
+        />
         <UserProfessionalsForm />
         <UserSocialsForm />
         <AnonymityForm />

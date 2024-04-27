@@ -1,11 +1,11 @@
 'use client';
 
-import { Button } from '@/components/atoms/Button';
-import React, { useEffect } from 'react';
+import React from 'react';
 import Image from 'next/image';
 import { WhiteArea } from '../white-area';
 import { DashboardSubheading } from '../dashboard-subheading';
 import { SelectCountry } from '../country-dropdown';
+import { Button } from '@hashnode/matrix-ui';
 import useCurrentStudent from '@/components/hooks/useCurrentStudent';
 import * as z from 'zod';
 import { useForm, SubmitHandler, Controller } from 'react-hook-form';
@@ -13,29 +13,36 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { personalDetailSchema } from '@/validation/userSocialValidation';
 import { ExternalLink } from 'lucide-react';
 import Link from 'next/link';
+import { Countries, Student } from '@/utils/types';
 
 personalDetailSchema;
 
 type personalDetailSchemaType = z.infer<typeof personalDetailSchema>;
 
-const UserPersonalSettings = () => {
-  const { data: currentStudent, update } = useCurrentStudent();
-  const { data: user } = useCurrentStudent();
-  const fullName = user?.fullName;
-  const email = user?.email;
-  const photo = user?.photo;
+const UserPersonalSettings = ({
+  countries,
+  currentStudent,
+}: {
+  countries: Countries;
+  currentStudent: Student;
+}) => {
+  const { update } = useCurrentStudent();
+  const fullName = currentStudent?.fullName;
+  const email = currentStudent?.email;
+  const photo = currentStudent?.photo;
+
+  const isUpdating = update.isPending;
 
   const {
     control,
-    reset,
     register,
     handleSubmit,
     formState: { errors },
   } = useForm<personalDetailSchemaType>({
     resolver: zodResolver(personalDetailSchema),
     defaultValues: {
-      bio: user?.bio,
-      location: user?.location,
+      bio: currentStudent?.bio,
+      location: currentStudent?.location,
     },
   });
 
@@ -51,15 +58,6 @@ const UserPersonalSettings = () => {
     }
   };
 
-  useEffect(() => {
-    if (user) {
-      reset({
-        bio: user?.bio,
-        location: user?.location,
-      });
-    }
-  }, [user, reset]);
-
   const bioErrorMessage = errors.bio?.message;
 
   return (
@@ -73,7 +71,7 @@ const UserPersonalSettings = () => {
             </label>
             <Button size="xs" appearance="secondary-slate" asChild>
               <Link
-                href={`/@${user?.username}`}
+                href={`/@${currentStudent?.username}`}
                 target="_blank"
                 className="gap-1"
               >
@@ -166,12 +164,19 @@ const UserPersonalSettings = () => {
                   <SelectCountry
                     onValueChange={field.onChange}
                     defaultValue={field.value}
+                    countries={countries}
                   />
                 )}
               />
             </div>
-            <div className="flex">
-              <Button size="sm">Update</Button>
+            <div>
+              <Button
+                size="sm"
+                appearance="primary-slate"
+                disabled={isUpdating}
+              >
+                Update
+              </Button>
             </div>
           </div>
         </form>
