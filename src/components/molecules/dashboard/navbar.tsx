@@ -2,17 +2,23 @@ import React from 'react';
 import type { Session } from 'next-auth';
 import Image from 'next/image';
 import { CodeWithUnclebigbayLogo } from '../../atoms/CodeWithUnclebigbayLogo';
-import { ChevronDown, HelpCircle, LogOut, Menu, Settings } from 'lucide-react';
-import { MenuButton } from './menu-button';
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuTrigger,
-} from '../../atoms/DropdownMenu';
+import { ChevronDown } from 'lucide-react';
+
 import { handleAuthentication, handleLogout } from '@/utils/auth';
 import { IconButton } from '../../atoms/IconButton';
 import { Bar3CenterLeft } from '../../icons/Bar3CenterLeft';
 import { Student } from '@/utils/types';
+import {
+  ArrowLogout,
+  Button,
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItemButton,
+  DropdownMenuItemLink,
+  DropdownMenuTrigger,
+  HelpCircle,
+  SettingsGear,
+} from '@hashnode/matrix-ui';
 
 type Props = {
   session: Session | null;
@@ -59,8 +65,12 @@ export const Navbar = ({ session, setSidebarOpen, currentStudent }: Props) => {
                   </button>
                 </DropdownMenuTrigger>
                 {isOnboardingCompleted && (
-                  <DropdownMenuContent>
-                    <section className="p-2 flex flex-col">
+                  <DropdownMenuContent
+                    hideWhenDetached
+                    sideOffset={8}
+                    align="end"
+                  >
+                    <section className="px-4 pb-1 pt-2 flex flex-col">
                       <h3 className="truncate text-sm font-medium text-slate-900">
                         {user?.name}
                       </h3>
@@ -68,20 +78,19 @@ export const Navbar = ({ session, setSidebarOpen, currentStudent }: Props) => {
                         {user?.email}
                       </span>
                     </section>
-
-                    <MenuButton
-                      label="Settings"
-                      Icon={Settings}
-                      url="/dashboard/settings"
+                    <DropdownMenuItemLink
+                      text="Settings"
+                      startIcon={SettingsGear}
+                      href="/dashboard/settings"
                     />
-                    <MenuButton
-                      label="Help Centers"
-                      Icon={HelpCircle}
-                      url="/dashboard/help-centers"
+                    <DropdownMenuItemLink
+                      text="Help Centers"
+                      startIcon={HelpCircle}
+                      href="/dashboard/help-centers"
                     />
-                    <MenuButton
-                      label="Sign out"
-                      Icon={LogOut}
+                    <DropdownMenuItemButton
+                      text="Sign out"
+                      startIcon={ArrowLogout}
                       onClick={() => handleLogout()}
                     />
                   </DropdownMenuContent>
@@ -90,6 +99,7 @@ export const Navbar = ({ session, setSidebarOpen, currentStudent }: Props) => {
             </section>
           ) : (
             <Button
+              appearance="primary-slate"
               size="xs"
               onClick={() =>
                 handleAuthentication({ nextUrl: window.location.href })

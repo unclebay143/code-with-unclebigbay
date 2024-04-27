@@ -31,15 +31,7 @@ export async function getCurrentHackathon() {
     });
     const hackathonRes = await result.json();
 
-    const hackathonId = hackathonRes.hackathon._id;
-    const isRegisteredUrl = `${baseURL}/api/hackathons/is-registered/${hackathonId}`;
-    const isRegisteredResult = await fetch(isRegisteredUrl, {
-      headers: headers(),
-    });
-
-    const { isRegistered } = await isRegisteredResult.json();
-
-    return { hackathon: hackathonRes.hackathon, isRegistered, session };
+    return { hackathon: hackathonRes.hackathon, session };
   } catch (e: any) {
     console.log({ message: e.message });
   }
@@ -69,12 +61,11 @@ async function getStudents() {
 const Home = async () => {
   const { students } = await getStudents();
 
-  const { hackathon, isRegistered, session } =
-    (await getCurrentHackathon()) as {
-      hackathon: Hackathon;
-      isRegistered: boolean;
-      session: Session | null;
-    };
+  const { hackathon, session } = (await getCurrentHackathon()) as {
+    hackathon: Hackathon;
+    isRegistered: boolean;
+    session: Session | null;
+  };
 
   return (
     <main>
@@ -82,7 +73,7 @@ const Home = async () => {
       <section className="flex flex-col gap-10 overflow-hidden">
         <div>
           <Navbar session={session} />
-          <HackathonWidget hackathon={hackathon} isRegistered={isRegistered} />
+          <HackathonWidget hackathon={hackathon} />
         </div>
         <SectionWrapper>
           <Meteors />

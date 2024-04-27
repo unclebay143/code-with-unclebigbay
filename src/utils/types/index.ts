@@ -191,3 +191,17 @@ export type Hackathon = {
 };
 
 export type Hackathons = Hackathon[];
+
+export type HackathonSubmission = {
+  hackathon: string;
+  student: string;
+  project: {
+    name: string;
+    url: string;
+    demoUrl: string;
+    articleUrl: string;
+    repositoryUrl: string;
+    socialUrl: string;
+  };
+  feedback: string;
+};

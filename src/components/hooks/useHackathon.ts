@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { useMutation, useQuery } from '@tanstack/react-query';
-import { Hackathon, Hackathons } from '@/utils/types';
+import { HackathonSubmission, Hackathons } from '@/utils/types';
 
 const useHackathons = () => {
   const {
@@ -19,15 +19,17 @@ const useHackathons = () => {
 };
 
 const useHackathonById = (_id: string) => {
-  const { data: isRegistered, isLoading: isCheckingRegistrationStatus } =
-    useQuery({
-      queryKey: ['isRegisteredForHackathon'],
-      queryFn: () =>
-        axios
-          .get(`/api/hackathons/is-registered/${_id}`)
-          .then((res) => res.data.isRegistered as boolean),
-    });
+  // Registration status
+  // const { data: isRegistered, isLoading: isCheckingRegistrationStatus } =
+  //   useQuery({
+  //     queryKey: ['isRegisteredForHackathon'],
+  //     queryFn: () =>
+  //       axios
+  //         .get(`/api/hackathons/is-registered/${_id}`)
+  //         .then((res) => res.data.isRegistered as boolean),
+  //   });
 
+  // Registration
   const { mutateAsync: joinHackathon, isPending: isJoinHackathonPending } =
     useMutation({
       mutationFn: ({
@@ -39,11 +41,18 @@ const useHackathonById = (_id: string) => {
       }) => axios.post('/api/hackathons/register', { hackathonId, studentId }),
     });
 
+  // Submission
+  const { mutateAsync: submitEntry, isPending: isSubmitEntryPending } =
+    useMutation({
+      mutationFn: (payload: HackathonSubmission) =>
+        axios.post('/api/hackathons/submission', payload),
+    });
+
   return {
-    isRegistered,
-    isCheckingRegistrationStatus,
     joinHackathon,
     isJoinHackathonPending,
+    submitEntry,
+    isSubmitEntryPending,
   };
 };
 

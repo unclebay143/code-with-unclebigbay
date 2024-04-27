@@ -2,7 +2,7 @@ import { DashboardSubheading } from '@/components/molecules/dashboard/dashboard-
 import { WhiteArea } from '@/components/molecules/dashboard/white-area';
 import { baseURL } from '../../../../frontend.config';
 import { headers } from 'next/headers';
-import { Hackathons } from '@/utils/types';
+import { Hackathon } from '@/utils/types';
 import { HackathonTabView } from './HackathonTabView';
 
 /* 
@@ -15,7 +15,7 @@ Badges name ideas
 
 async function getAllHackathons() {
   try {
-    const url = `${baseURL}/api/hackathons`;
+    const url = `${baseURL}/api/hackathons`; // isRegistered is derived from server
     const result = await fetch(url, {
       headers: headers(),
     });
@@ -29,7 +29,7 @@ async function getAllHackathons() {
 
 const Page = async () => {
   const { hackathons } = (await getAllHackathons()) as {
-    hackathons: Hackathons;
+    hackathons: (Hackathon & { isRegistered: boolean })[];
   };
 
   return (
