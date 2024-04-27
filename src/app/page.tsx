@@ -9,58 +9,18 @@ import { HeroSection } from '@/components/molecules/home/HeroSection';
 import { SectionWrapper } from '@/components/molecules/home';
 import { Meteors } from '@/components/atoms/meteors';
 import { CommunityCTA } from '@/components/atoms/CommunityCTA';
-import { baseURL } from '../../frontend.config';
-import { headers } from 'next/headers';
 import { Hackathon } from '@/utils/types';
 import { HackathonWidget } from '@/components/molecules/home/HackathonWidget';
-import { getServerSessionWithAuthOptions } from '@/utils/auth-options';
 import { Session } from 'next-auth';
+import { getCurrentHackathon, getStudents } from '@/utils/server.service';
 
 export const metadata: Metadata = {
   title: 'Code with Unclebigbay',
   description: 'Learn to Code and Build Your Career',
 };
 
-export async function getCurrentHackathon() {
-  try {
-    const session = await getServerSessionWithAuthOptions();
-
-    const url = `${baseURL}/api/hackathons/current-hackathon`;
-    const result = await fetch(url, {
-      headers: headers(),
-    });
-    const hackathonRes = await result.json();
-
-    return { hackathon: hackathonRes.hackathon, session };
-  } catch (e: any) {
-    console.log({ message: e.message });
-  }
-}
-
-async function getStudents() {
-  try {
-    const url = `${baseURL}/api/students`;
-    const result = await fetch(url, {
-      cache: 'no-cache',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    });
-
-    if (!result.ok) {
-      console.log(result.statusText);
-      return [];
-    }
-
-    return result.json();
-  } catch (error) {
-    console.log({ error });
-  }
-}
-
 const Home = async () => {
   const { students } = await getStudents();
-
   const { hackathon, session } = (await getCurrentHackathon()) as {
     hackathon: Hackathon;
     isRegistered: boolean;

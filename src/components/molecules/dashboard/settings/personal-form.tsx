@@ -25,6 +25,8 @@ const UserPersonalSettings = () => {
   const email = user?.email;
   const photo = user?.photo;
 
+  const isUpdating = update.isPending;
+
   const {
     control,
     reset,
@@ -170,8 +172,12 @@ const UserPersonalSettings = () => {
                 )}
               />
             </div>
-            <div className="flex">
-              <Button size="sm" appearance="primary-slate">
+            <div>
+              <Button
+                size="sm"
+                appearance="primary-slate"
+                disabled={isUpdating}
+              >
                 Update
               </Button>
             </div>
