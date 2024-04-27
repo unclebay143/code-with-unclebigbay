@@ -9,7 +9,6 @@ const hackathonRegistrationSchema = new Schema(
       type: Schema.ObjectId,
       ref: 'Student',
       required: true,
-      unique: true,
     },
     isBanned: { type: Boolean },
   },

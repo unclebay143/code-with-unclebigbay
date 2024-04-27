@@ -1,0 +1,211 @@
+{
+  "coverImage": "https://cdn.hashnode.com/res/hashnode/image/upload/v1713126618568/474b9236-15f4-4651-9237-6f6301b1b991.png",
+  "hashTag": "#LocalBusinessBoost2024",
+  "title": "Empower Your Local Community: Build a Landing Page, Boost Visibility",
+  "name": "Local Business Boost Hackathon",
+  "brief": "Support local businesses by building impactful landing pages in this hackathon!",
+  "slug": "local-business-boost-hackathon-2024",
+  "startDate": "2024-05-10T00:00:00.000Z",
+  "endDate": "2024-06-12T00:00:00.000Z",
+  "about": "This hackathon challenges designers, developers, and marketing enthusiasts to build landing pages for local businesses in need of a digital presence. Help empower your community and support local businesses!",
+  "whatToBuild": "Create user-friendly and visually appealing landing pages for local businesses. Focus on showcasing essential information, capturing leads, and driving conversions.",
+  "howToParticipate": [
+    "Register for the hackathon by clicking the button below.",
+    "Choose a business from our list of participating local businesses.",
+    "Form a team (optional) to combine design, development, and marketing expertise.",
+    "Build your landing page using your creativity and skills.",
+    "Submit your completed landing page before the deadline."
+  ],
+  "judges": [
+    {
+      "name": "Sarah Jones",
+      "title": "UX/UI Designer at Designify",
+      "photo": "https://cdn.hashnode.com/res/hashnode/image/upload/v1707121372242/57c3ede2-19a1-4530-beec-fae5db66c6a2.png",
+      "socialLink": "https://www.linkedin.com/in/sarah-jones-designer"
+    },
+    {
+      "name": "David Lee",
+      "title": "Software Engineer at Tech Solutions",
+      "photo": "https://cdn.hashnode.com/res/hashnode/image/upload/v1707121372242/57c3ede2-19a1-4530-beec-fae5db66c6a2.png",
+      "socialLink": "https://www.linkedin.com/in/david-lee-engineer"
+    }
+  ],
+  "judgingCriteria": [
+    {
+      "heading": "Design",
+      "copy": "Visual appeal, user experience, and brand alignment."
+    },
+    {
+      "heading": "Functionality",
+      "copy": "Ease of use, responsiveness, and effectiveness in capturing leads."
+    },
+    {
+      "heading": "Clarity of Information",
+      "copy": "Clear presentation of the business's offerings and value proposition."
+    },
+    {
+      "heading": "Overall Impact",
+      "copy": "Potential of the landing page to drive business growth for the chosen local business."
+    }
+  ],
+  "schedules": [
+    {
+      "heading": "Registration Opens",
+      "date": "April 25th, 2024"
+    },
+    {
+      "heading": "Hackathon Begins",
+      "date": "May 10th, 2024"
+    },
+    {
+      "heading": "Submission Deadline",
+      "date": "May 12th, 2024 at 5:00 PM PST"
+    },
+    {
+      "heading": "Winners Announced",
+      "date": "May 14th, 2024"
+    }
+  ],
+  "resources": [
+    {
+      "label": "Landing Page Design Best Practices",
+      "url": "https://www.websiteplanet.com/blog/landing-page-design-best-practices/"
+    },
+    {
+      "label": "List of Participating Businesses",
+      "url": "https://www.websiteplanet.com/blog/landing-page-design-best-practices/" 
+    }
+  ],
+  "prizes": [
+    {
+      "label": "Grand Prize",
+      "prizes": [
+        "$5,000 Cash Prize"
+      ]
+    },
+    {
+      "label": "Top Submissions Recognition",
+      "prizes": [
+        "Showcased on platform",
+        "Shared with participating businesses"
+      ]
+    }
+  ],
+  "sponsors": [
+    {
+      "name": "Acme Inc.",
+      "photo": "https://cdn.hashnode.com/res/hashnode/image/upload/v1707121372242/57c3ede2-19a1-4530-beec-fae5db66c6a2.png",
+      "link": "https://www.acmeinc.com"
+    },
+    {
+      "name": "Tech Solutions",
+      "photo": "https://cdn.hashnode.com/res/hashnode/image/upload/v1707121372242/57c3ede2-19a1-4530-beec-fae5db66c6a2.png",
+      "link": "https://www.techsolutions.com"
+    }
+  ]
+}
+
+
+{
+  "coverImage": "https://cdn.hashnode.com/res/hashnode/image/upload/v1713126618568/474b9236-15f4-4651-9237-6f6301b1b991.png",
+  "hashTag": "#AIforGood2024",
+  "title": "AI for Good: Solve Real-World Challenges with Artificial Intelligence",
+  "name": "AI for Good Hackathon",
+  "brief": "Develop innovative AI solutions that address global challenges in this hackathon!",
+  "slug": "ai-for-good-hackathon-2024",
+  "startDate": "2024-06-10T00:00:00.000Z",
+  "endDate": "2024-10-12T00:00:00.000Z",
+  "about": "This hackathon challenges data scientists, developers, and AI enthusiasts to leverage their skills for good. Build AI solutions that tackle pressing issues like climate change, healthcare accessibility, or social justice.",
+  "whatToBuild": "Focus on developing AI-powered applications that address a specific challenge area. Consider machine learning models, computer vision, natural language processing, or other AI techniques.",
+  "howToParticipate": [
+    "Register for the hackathon by clicking the button below.",
+    "Choose a challenge area that aligns with your interests and expertise.",
+    "Form a team (optional) to combine diverse skills in data science, development, and design.",
+    "Develop your AI solution using the provided datasets and resources.",
+    "Present your project to a panel of judges and compete for exciting prizes."
+  ],
+  "judges": [
+    {
+      "name": "Dr. Alice Zhang",
+      "title": "AI Researcher at GreenTech Labs",
+      "photo": "https://cdn.hashnode.com/res/hashnode/image/upload/v1707121372242/57c3ede2-19a1-4530-beec-fae5db66c6a2.png",
+      "socialLink": "https://www.linkedin.com/in/alice-zhang-ai/"
+    },
+    {
+      "name": "David Lee",
+      "title": "Head of Product at Socially Aware Inc.",
+      "photo": "https://cdn.hashnode.com/res/hashnode/image/upload/v1707121372242/57c3ede2-19a1-4530-beec-fae5db66c6a2.png",
+      "socialLink": "https://www.linkedin.com/in/david-lee-product/"
+    }
+  ],
+  "judgingCriteria": [
+    {
+      "heading": "Impact and Innovation",
+      "copy": "Potential of the AI solution to address the chosen challenge and create positive societal impact."
+    },
+    {
+      "heading": "Technical Feasibility",
+      "copy": "Clarity and effectiveness of the chosen AI approach and implementation."
+    },
+    {
+      "heading": "Presentation and Communication",
+      "copy": "Clear and concise explanation of the project, its functionalities, and potential benefits."
+    }
+  ],
+  "schedules": [
+    {
+      "heading": "Registration Opens",
+      "date": "June 1st, 2024"
+    },
+    {
+      "heading": "Hackathon Begins",
+      "date": "July 15th, 2024"
+    },
+    {
+      "heading": "Project Submission Deadline",
+      "date": "July 17th, 2024 at 11:59 PM PST"
+    },
+    {
+      "heading": "Winners Announced",
+      "date": "July 18th, 2024"
+    }
+  ],
+  "resources": [
+    {
+      "label": "AI for Good Challenge Areas",
+      "url": "https://www.tensorflow.org/tutorials"
+    },
+    {
+      "label": "Getting Started with TensorFlow",
+      "url": "https://www.tensorflow.org/tutorials"
+    }
+  ],
+  "prizes": [
+    {
+      "label": "Grand Prize",
+      "prizes": [
+        "$10,000 Cash Prize",
+        "Mentorship from industry experts"
+      ]
+    },
+    {
+      "label": "Runner-Up Prizes",
+      "prizes": [
+        "Recognition and awards",
+        "Potential partnership opportunities"
+      ]
+    }
+  ],
+  "sponsors": [
+    {
+      "name": "TechForChange Initiative",
+      "photo": "https://cdn.hashnode.com/res/hashnode/image/upload/v1707121372242/57c3ede2-19a1-4530-beec-fae5db66c6a2.png",
+      "link": "https://www.techforchange.org"
+    },
+    {
+      "name": "Cloud Solutions Inc.",
+      "photo": "https://cdn.hashnode.com/res/hashnode/image/upload/v1707121372242/57c3ede2-19a1-4530-beec-fae5db66c6a2.png",
+    "link": "https://www.techforchange.org"
+    }
+  ]
+}

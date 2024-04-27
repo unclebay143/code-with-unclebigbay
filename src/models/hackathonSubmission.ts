@@ -9,7 +9,6 @@ const hackathonSubmissionSchema = new Schema(
       type: Schema.ObjectId,
       ref: 'Student',
       required: true,
-      unique: true,
     },
     project: {
       name: { type: String },

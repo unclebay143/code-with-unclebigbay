@@ -6,7 +6,10 @@ import { SectionWrapper } from '@/components/molecules/home';
 import { Footer } from '@/components/atoms/Footer';
 import { Metadata } from 'next';
 
-import { getCurrentStudentByUsername } from '@/utils/server.service';
+import {
+  getCountries,
+  getCurrentStudentByUsername,
+} from '@/utils/server.service';
 import { Profile } from './profile';
 
 type Props = {
@@ -35,7 +38,10 @@ const Page = async ({ params }: { params: { username: string } }) => {
 
   const { student, canUpdateProfile, session } = data;
 
-  const profileProps = { canUpdateProfile, student };
+  const profileProps = {
+    canUpdateProfile,
+    student,
+  };
 
   return (
     <div className="flex flex-col gap-5">

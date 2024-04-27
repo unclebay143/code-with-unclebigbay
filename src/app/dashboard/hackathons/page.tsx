@@ -1,7 +1,5 @@
 import { DashboardSubheading } from '@/components/molecules/dashboard/dashboard-subheading';
 import { WhiteArea } from '@/components/molecules/dashboard/white-area';
-import { baseURL } from '../../../../frontend.config';
-import { headers } from 'next/headers';
 import { Hackathon } from '@/utils/types';
 import { HackathonTabView } from './HackathonTabView';
 import { getAllHackathons } from '@/utils/server.service';
