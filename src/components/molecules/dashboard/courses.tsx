@@ -8,7 +8,7 @@ import {
   SelectItem,
   SelectTrigger,
   SelectViewPort,
-} from '../../atoms/Select';
+} from '@hashnode/matrix-ui';
 import { Courses as CoursesType } from '@/utils/types';
 import { Button } from '../../atoms/Button';
 
@@ -48,7 +48,7 @@ export const Courses = ({
           </div>
           <div className="sm:w-[200px]">
             <Select onValueChange={(e) => console.log(e)}>
-              <SelectTrigger size="md" placeholder="Select a course..." />
+              <SelectTrigger size="md" />
               <SelectContent>
                 <SelectViewPort>
                   <SelectItem value={'value-1'} label="HTML" />

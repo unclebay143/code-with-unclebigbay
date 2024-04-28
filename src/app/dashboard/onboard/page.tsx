@@ -5,17 +5,19 @@ import { WhiteArea } from '@/components/molecules/dashboard/white-area';
 
 import React, { useEffect, useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
+import useCurrentStudent from '@/components/hooks/useCurrentStudent';
+import useAudit from '@/components/hooks/useAudit';
 import {
+  IconButton,
+  ChevronDown,
+  ChevronUp,
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectViewPort,
-} from '@/components/atoms/Select';
-import useCurrentStudent from '@/components/hooks/useCurrentStudent';
-import { Button } from '@/components/atoms/Button';
-import useAudit from '@/components/hooks/useAudit';
-import { IconButton, ChevronDown, ChevronUp } from '@hashnode/matrix-ui';
+  Button,
+} from '@hashnode/matrix-ui';
 
 const Page = () => {
   const { data: currentStudent, update } = useCurrentStudent();
@@ -111,11 +113,7 @@ const Page = () => {
                         name="stack"
                         render={({ field }) => (
                           <Select onValueChange={field.onChange}>
-                            <SelectTrigger
-                              size="md"
-                              shape="md-rectangle"
-                              placeholder="Select stack"
-                            />
+                            <SelectTrigger size="md" shape="rectangle" />
                             <SelectContent>
                               <SelectViewPort>
                                 <SelectItem
@@ -138,7 +136,12 @@ const Page = () => {
                     </div>
                   </div>
                   <div>
-                    <Button type="submit" size="sm" disabled={disableBtn}>
+                    <Button
+                      appearance="primary-slate"
+                      type="submit"
+                      size="sm"
+                      disabled={disableBtn}
+                    >
                       Complete exercise 🎉
                     </Button>
                   </div>

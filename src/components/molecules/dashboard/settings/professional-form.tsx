@@ -1,20 +1,19 @@
 'use client';
-import { Button } from '@hashnode/matrix-ui';
-import React, { useEffect } from 'react';
-import { WhiteArea } from '../white-area';
-import { DashboardSubheading } from '../dashboard-subheading';
 import {
+  Button,
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectViewPort,
-} from '../../../atoms/Select';
+} from '@hashnode/matrix-ui';
+import React, { useEffect } from 'react';
+import { WhiteArea } from '../white-area';
+import { DashboardSubheading } from '../dashboard-subheading';
 import * as z from 'zod';
 import { useForm, SubmitHandler, Controller } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { professionalDetailSchema } from '@/validation/userSocialValidation';
-import { toast } from 'sonner';
 import useCurrentStudent from '@/components/hooks/useCurrentStudent';
 
 professionalDetailSchema;
@@ -93,11 +92,14 @@ const UserProfessionalSettings = () => {
               control={control}
               name="stack"
               render={({ field }) => (
-                <Select onValueChange={field.onChange}>
+                <Select
+                  onValueChange={field.onChange}
+                  defaultValue={capitalizeFirstLetter(field.value)}
+                >
                   <SelectTrigger
                     size="md"
-                    placeholder={capitalizeFirstLetter(field.value)}
-                    shape="md-rectangle"
+                    // placeholder={capitalizeFirstLetter(field.value)}
+                    shape="rectangle"
                   />
                   <SelectContent>
                     <SelectViewPort>
@@ -119,7 +121,8 @@ const UserProfessionalSettings = () => {
               type="text"
               placeholder="https://myportfolio.com"
               className="text-sm text-slate-600 p-2 outline-none focus:ring-2 focus:ring-slate-500 focus:border-slate-300 border rounded-md"
-              {...register('portfolio')}
+              // {...register('portfolio')}
+              value={user?.socials.portfolio}
             />
             {errors.portfolio && (
               <span className="text-sm text-red-600">
