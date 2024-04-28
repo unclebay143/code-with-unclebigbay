@@ -12,8 +12,6 @@ import { CommunityCTA } from '@/components/atoms/CommunityCTA';
 import { HackathonWidget } from '@/components/molecules/home/HackathonWidget';
 import { getCurrentHackathon, getStudents } from '@/utils/server.service';
 
-export const dynamic = 'force-dynamic';
-
 export const metadata: Metadata = {
   title: 'Code with Unclebigbay',
   description: 'Learn to Code and Build Your Career',
