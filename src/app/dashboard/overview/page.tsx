@@ -107,6 +107,4 @@ const Page = async () => {
 
 export default Page;
 
-export const config = {
-  runtime: 'experimental-edge',
-};
+export const runtime = 'experimental-edge';
