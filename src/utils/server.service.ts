@@ -15,18 +15,14 @@ export const getCustomHeaders = () => {
 export async function getCurrentStudent(): Promise<
   { student: Student } | undefined
 > {
-  try {
-    const url = `${baseURL}/api/auth/student`;
-    const result = await fetch(url, {
-      headers: getCustomHeaders(),
-      cache: 'force-cache',
-    });
-    const resultJson = await result.json();
+  const url = `${baseURL}/api/auth/student`;
+  const result = await fetch(url, {
+    headers: getCustomHeaders(),
+    cache: 'force-cache',
+  });
+  const resultJson = await result.json();
 
-    return { student: resultJson.student };
-  } catch (e: any) {
-    console.log({ message: e.message });
-  }
+  return { student: resultJson.student };
 }
 
 type GetCurrentStudentByUsernameResponse = {
@@ -38,60 +34,48 @@ type GetCurrentStudentByUsernameResponse = {
 export async function getCurrentStudentByUsername(
   username: string,
 ): Promise<GetCurrentStudentByUsernameResponse | undefined> {
-  try {
-    const session = await getServerSessionWithAuthOptions();
-    const url = `${baseURL}/api/students/${username}`;
-    const result = await fetch(url, {
-      cache: 'no-cache',
-    });
-    const { student } = await result.json();
+  const session = await getServerSessionWithAuthOptions();
+  const url = `${baseURL}/api/students/${username}`;
+  const result = await fetch(url, {
+    cache: 'no-cache',
+  });
+  const { student } = await result.json();
 
-    const canUpdateProfile = session?.user.email === student.email;
+  const canUpdateProfile = session?.user.email === student.email;
 
-    if (!result.ok) return undefined;
+  if (!result.ok) return undefined;
 
-    return { student, canUpdateProfile, session };
-  } catch (e: any) {
-    console.log({ message: e.message });
-  }
+  return { student, canUpdateProfile, session };
 }
 
 type GetStudentsResponse = { students: Students };
 export async function getStudents(): Promise<GetStudentsResponse | undefined> {
-  try {
-    const url = `${baseURL}/api/students`;
-    const result = await fetch(url, {
-      cache: 'no-cache',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    });
+  const url = `${baseURL}/api/students`;
+  const result = await fetch(url, {
+    cache: 'no-cache',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  });
 
-    if (!result.ok) return undefined;
+  if (!result.ok) return undefined;
 
-    const students = await result.json();
-    return students;
-  } catch (error) {
-    console.log({ error });
-  }
+  const students = await result.json();
+  return students;
 }
 
 export async function getAllActivityAudits(): Promise<
   { audits: Audits } | undefined
 > {
-  try {
-    const url = `${baseURL}/api/audits`;
-    const result = await fetch(url, {
-      headers: getCustomHeaders(),
-      cache: 'force-cache',
-    });
+  const url = `${baseURL}/api/audits`;
+  const result = await fetch(url, {
+    headers: getCustomHeaders(),
+    cache: 'force-cache',
+  });
 
-    if (!result.ok) return undefined;
-    const audits = await result.json();
-    return audits;
-  } catch (e: any) {
-    console.log({ message: e.message });
-  }
+  if (!result.ok) return undefined;
+  const audits = await result.json();
+  return audits;
 }
 
 type GetCurrentHackathonResponse = {
@@ -102,99 +86,79 @@ type GetCurrentHackathonResponse = {
 export async function getCurrentHackathon(): Promise<
   GetCurrentHackathonResponse | undefined
 > {
-  try {
-    const session = await getServerSessionWithAuthOptions();
-    const url = `${baseURL}/api/hackathons/current-hackathon`;
-    const result = await fetch(url, {
-      headers: getCustomHeaders(),
-      cache: 'force-cache',
-    });
-    const { hackathon } = await result.json();
+  const session = await getServerSessionWithAuthOptions();
+  const url = `${baseURL}/api/hackathons/current-hackathon`;
+  const result = await fetch(url, {
+    headers: getCustomHeaders(),
+    cache: 'force-cache',
+  });
+  const { hackathon } = await result.json();
 
-    if (!hackathon) return undefined;
+  if (!hackathon) return undefined;
 
-    return { hackathon, session };
-  } catch (e: any) {
-    console.log({ message: e.message });
-  }
+  return { hackathon, session };
 }
 
 export async function getLeaderBoard() {
-  try {
-    const url = `${baseURL}/api/students/leaderboard`;
-    const result = await fetch(url, {
-      headers: getCustomHeaders(),
-      cache: 'no-cache',
-    });
-    const leaderboard = await result.json();
+  const url = `${baseURL}/api/students/leaderboard`;
+  const result = await fetch(url, {
+    headers: getCustomHeaders(),
+    cache: 'no-cache',
+  });
+  const leaderboard = await result.json();
 
-    return leaderboard;
-  } catch (e: any) {
-    console.log({ message: e.message });
-  }
+  return leaderboard;
 }
 
 export async function getEnrolledCourses(): Promise<
   { enrolledCourses: any } | undefined
 > {
-  try {
-    const url = `${baseURL}/api/courses/enroll`;
-    const result = await fetch(url, {
-      cache: 'force-cache',
-      headers: getCustomHeaders(),
-    });
+  const url = `${baseURL}/api/courses/enroll`;
+  const result = await fetch(url, {
+    cache: 'force-cache',
+    headers: getCustomHeaders(),
+  });
 
-    if (!result.ok) {
-      console.log(result.statusText);
-    }
-
-    const { enrolledCourses } = await result.json();
-    return { enrolledCourses };
-  } catch (error) {
-    console.log({ error });
+  if (!result.ok) {
+    console.log(result.statusText);
   }
+
+  const { enrolledCourses } = await result.json();
+  return { enrolledCourses };
 }
 
 export async function getAllHackathons() {
-  try {
-    const url = `${baseURL}/api/hackathons`; // isRegistered is derived from server
-    const result = await fetch(url, {
-      headers: getCustomHeaders(),
-      cache: 'force-cache',
-    });
-    const hackathons = await result.json();
+  const url = `${baseURL}/api/hackathons`; // isRegistered is derived from server
+  const result = await fetch(url, {
+    headers: getCustomHeaders(),
+    cache: 'force-cache',
+  });
+  const hackathons = await result.json();
 
-    return hackathons;
-  } catch (e: any) {
-    console.log({ message: e.message });
-  }
+  return hackathons;
 }
 
 export async function getHackathonBySlug(hackathonSlug: string) {
-  try {
-    const url = `${baseURL}/api/hackathons/${hackathonSlug}`;
-    const result = await fetch(url, {
-      headers: getCustomHeaders(),
-      cache: 'force-cache',
-    });
+  const url = `${baseURL}/api/hackathons/${hackathonSlug}`;
+  const result = await fetch(url, {
+    headers: getCustomHeaders(),
+    cache: 'force-cache',
+  });
 
-    const { hackathon } = await result.json();
-    const hackathonId = hackathon._id;
-    const isRegisteredUrl = `${baseURL}/api/hackathons/is-registered/${hackathonId}`;
-    const hasSubmittedUrl = `${baseURL}/api/hackathons/has-submitted/${hackathonId}`;
-    const isRegisteredResult = await fetch(isRegisteredUrl, {
-      headers: getCustomHeaders(),
-    });
-    const hasSubmittedResult = await fetch(hasSubmittedUrl, {
-      headers: getCustomHeaders(),
-    });
+  const { hackathon } = await result.json();
+  const hackathonId = hackathon._id;
+  const isRegisteredUrl = `${baseURL}/api/hackathons/is-registered/${hackathonId}`;
+  const hasSubmittedUrl = `${baseURL}/api/hackathons/has-submitted/${hackathonId}`;
+  const isRegisteredResult = await fetch(isRegisteredUrl, {
+    headers: getCustomHeaders(),
+  });
+  const hasSubmittedResult = await fetch(hasSubmittedUrl, {
+    headers: getCustomHeaders(),
+  });
 
-    const { isRegistered } = await isRegisteredResult.json();
-    const { hasSubmitted } = await hasSubmittedResult.json();
-    return { hackathon, isRegistered, hasSubmitted };
-  } catch (e: any) {
-    console.log({ message: e.message });
-  }
+  const { isRegistered } = await isRegisteredResult.json();
+  const { hasSubmitted } = await hasSubmittedResult.json();
+  return { hackathon, isRegistered, hasSubmitted };
 }
 
 type GetCountriesResponse = {
@@ -205,22 +169,18 @@ type GetCountriesResponse = {
 export async function getCountries(): Promise<
   GetCountriesResponse | undefined
 > {
-  try {
-    const url = 'https://restcountries.com/v3.1/all?fields=name';
+  const url = 'https://restcountries.com/v3.1/all?fields=name';
 
-    const result = await fetch(url, {
-      cache: 'force-cache',
-    });
+  const result = await fetch(url, {
+    cache: 'force-cache',
+  });
 
-    if (!result.ok) return undefined;
+  if (!result.ok) return undefined;
 
-    const countries = await result.json();
-    const sortedCountries = countries.sort((a: Country, b: Country) =>
-      a.name.common.localeCompare(b.name.common),
-    );
+  const countries = await result.json();
+  const sortedCountries = countries.sort((a: Country, b: Country) =>
+    a.name.common.localeCompare(b.name.common),
+  );
 
-    return { countries, sortedCountries };
-  } catch (e: any) {
-    console.log({ message: e.message });
-  }
+  return { countries, sortedCountries };
 }
