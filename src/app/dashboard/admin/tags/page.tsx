@@ -22,6 +22,8 @@ const Page = () => {
     formState: { isSubmitting },
   } = useForm({ defaultValues: { name: '', logo: '', wiki: '', slug: '' } });
 
+  // delete later
+
   const handleCreateNewTag = (data: Tag) => {
     mutation.mutate({
       ...data,

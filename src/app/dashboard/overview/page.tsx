@@ -1,4 +1,3 @@
-import React from 'react';
 import { EmptyState } from '@/components/molecules/dashboard/empty-state';
 import { WhiteArea } from '@/components/molecules/dashboard/white-area';
 import { QuoteOfTheDay } from '@/components/molecules/dashboard/quote-of-the-day';
@@ -16,7 +15,7 @@ import {
 
 const Page = async () => {
   const auditsRes = await getAllActivityAudits();
-  const audits = auditsRes?.audits!;
+  const audits = auditsRes!.audits;
 
   const enrolledCoursesRes = await getEnrolledCourses();
   const enrolledCourses = enrolledCoursesRes?.enrolledCourses;

@@ -1,3 +1,9 @@
 {
-  "cSpell.words": ["Hackathons", "Leaderboard", "lucide", "tanstack"]
+  "cSpell.words": ["Hackathons", "Leaderboard", "lucide", "tanstack"],
+  "eslint.validate": [
+    "javascript",
+    "javascriptreact",
+    "html",
+    "typescriptreact"
+  ]
 }
