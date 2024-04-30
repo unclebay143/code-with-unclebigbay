@@ -10,12 +10,53 @@ import { SectionWrapper } from '@/components/molecules/home';
 import { Meteors } from '@/components/atoms/meteors';
 import { CommunityCTA } from '@/components/atoms/CommunityCTA';
 import { HackathonWidget } from '@/components/molecules/home/HackathonWidget';
-import { getCurrentHackathon, getStudents } from '@/utils/server.service';
+import { Hackathon, Students } from '@/utils/types';
+import { baseURL } from '../../frontend.config';
+import { Session } from 'next-auth';
+import { getServerSessionWithAuthOptions } from '@/utils/auth-options';
+import { getCustomHeaders } from '@/utils/server.service';
 
 export const metadata: Metadata = {
   title: 'Code with Unclebigbay',
   description: 'Learn to Code and Build Your Career',
 };
+
+type GetStudentsResponse = { students: Students };
+export async function getStudents(): Promise<GetStudentsResponse | undefined> {
+  const url = `${baseURL}/api/students`;
+  const result = await fetch(url, {
+    cache: 'no-cache',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  });
+
+  if (!result.ok) return undefined;
+
+  const students = await result.json();
+  return students;
+}
+
+type GetCurrentHackathonResponse = {
+  hackathon: Hackathon;
+  session: Session | null;
+};
+
+export async function getCurrentHackathon(): Promise<
+  GetCurrentHackathonResponse | undefined
+> {
+  const session = await getServerSessionWithAuthOptions();
+  const url = `${baseURL}/api/hackathons/current-hackathon`;
+  const result = await fetch(url, {
+    headers: getCustomHeaders(),
+    cache: 'force-cache',
+  });
+  const { hackathon } = await result.json();
+
+  if (!hackathon) return undefined;
+
+  return { hackathon, session };
+}
 
 const Page = async () => {
   const [studentsRes, currentHackathonRes] = await Promise.all([
