@@ -1,0 +1,13 @@
+{
+  "framework": "nextjs",
+  "functions": {
+    "src/app/**/*": {
+      "memory": 3008,
+      "maxDuration": 20
+    },
+    "src/app/dashboard/*": {
+      "memory": 3008,
+      "maxDuration": 24
+    }
+  }
+}
