@@ -1,18 +1,5 @@
 {
   "parser": "@typescript-eslint/parser",
-  "plugins": ["unused-imports", "@typescript-eslint"],
-  "extends": [
-    "next/core-web-vitals",
-    "eslint:recommended",
-    "plugin:@typescript-eslint/eslint-recommended",
-    "plugin:@typescript-eslint/recommended"
-  ],
-  "rules": {
-    "react/destructuring-assignment": "off",
-    "unused-imports/no-unused-imports": "error",
-    "@typescript-eslint/no-unused-vars": [
-      "error",
-      { "varsIgnorePattern": "^_", "argsIgnorePattern": "^_" }
-    ]
-  }
+  "plugins": ["unused-imports"],
+  "extends": ["next/core-web-vitals"]
 }
