@@ -8,13 +8,14 @@ const Page = async () => {
   const studentRes = await getCurrentStudent();
   const countriesRes = await getCountries();
   const sortedCountries = countriesRes ? countriesRes?.sortedCountries : [];
+  const student = studentRes!.student;
 
   return (
     <div className="lg:(w-[80%] px-3)">
       <div className="flex flex-col gap-4">
         <UserPersonalInfoForm
           countries={sortedCountries}
-          currentStudent={studentRes?.student!}
+          currentStudent={student}
         />
         <UserProfessionalsForm />
         <UserSocialsForm />

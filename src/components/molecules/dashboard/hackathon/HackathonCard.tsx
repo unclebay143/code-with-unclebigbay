@@ -57,7 +57,7 @@ export const HackathonCard = ({
                   <>
                     <span className="text-sm text-slate-600 flex items-center gap-1">
                       <Users size={14} />
-                      Participants: {participantCount}
+                      Participants {participantCount}
                     </span>
                     <span className="mx-1 hidden lg:inline">&middot;</span>
                   </>
@@ -90,7 +90,6 @@ export const HackathonCard = ({
                     studentId: currentStudent._id,
                   }).then(() => {
                     setRegistered(true);
-                    console.log('run');
                   });
                 }
               }}
