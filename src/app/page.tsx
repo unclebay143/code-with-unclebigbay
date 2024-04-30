@@ -21,55 +21,55 @@ export const metadata: Metadata = {
   description: 'Learn to Code and Build Your Career',
 };
 
-// type GetStudentsResponse = { students: Students };
-// async function getStudents(): Promise<GetStudentsResponse | undefined> {
-//   const url = `${baseURL}/api/students`;
-//   const result = await fetch(url, {
-//     cache: 'no-cache',
-//     headers: {
-//       'Content-Type': 'application/json',
-//     },
-//   });
+type GetStudentsResponse = { students: Students };
+async function getStudents(): Promise<GetStudentsResponse | undefined> {
+  const url = `${baseURL}/api/students`;
+  const result = await fetch(url, {
+    cache: 'no-cache',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  });
 
-//   if (!result.ok) return undefined;
+  if (!result.ok) return undefined;
 
-//   const students = await result.json();
-//   return students;
-// }
+  const students = await result.json();
+  return students;
+}
 
-// type GetCurrentHackathonResponse = {
-//   hackathon: Hackathon;
-//   session: Session | null;
-// };
+type GetCurrentHackathonResponse = {
+  hackathon: Hackathon;
+  session: Session | null;
+};
 
-// async function getCurrentHackathon(): Promise<
-//   GetCurrentHackathonResponse | undefined
-// > {
-//   const session = await getServerSessionWithAuthOptions();
-//   const url = `${baseURL}/api/hackathons/current-hackathon`;
-//   const result = await fetch(url, {
-//     headers: getCustomHeaders(),
-//     cache: 'force-cache',
-//   });
-//   const { hackathon } = await result.json();
+async function getCurrentHackathon(): Promise<
+  GetCurrentHackathonResponse | undefined
+> {
+  const session = await getServerSessionWithAuthOptions();
+  const url = `${baseURL}/api/hackathons/current-hackathon`;
+  const result = await fetch(url, {
+    headers: getCustomHeaders(),
+    cache: 'force-cache',
+  });
+  const { hackathon } = await result.json();
 
-//   if (!hackathon) return undefined;
+  if (!hackathon) return undefined;
 
-//   return { hackathon, session };
-// }
+  return { hackathon, session };
+}
 
 const Page = async () => {
-  // const [studentsRes, currentHackathonRes] = await Promise.all([
-  //   getStudents(),
-  //   getCurrentHackathon(),
-  // ]);
-  // const students = studentsRes?.students;
-  // const hackathon = currentHackathonRes?.hackathon;
-  // const session = currentHackathonRes?.session;
+  const [studentsRes, currentHackathonRes] = await Promise.all([
+    getStudents(),
+    getCurrentHackathon(),
+  ]);
+  const students = studentsRes?.students;
+  const hackathon = currentHackathonRes?.hackathon;
+  const session = currentHackathonRes?.session;
 
-  // const showStudentCommunity = students && students.length > 0;
-  // const showHackathonWidget = !!hackathon;
-  // const showNavbar = !!session;
+  const showStudentCommunity = students && students.length > 0;
+  const showHackathonWidget = !!hackathon;
+  const showNavbar = !!session;
 
   return (
     <main>
@@ -77,8 +77,8 @@ const Page = async () => {
       <section className="flex flex-col gap-10 overflow-hidden">
         <div>
           <h3>New</h3>
-          {/* {showNavbar && <Navbar session={session} />}
-          {showHackathonWidget && <HackathonWidget hackathon={hackathon} />} */}
+          {showNavbar && <Navbar session={session} />}
+          {showHackathonWidget && <HackathonWidget hackathon={hackathon} />}
         </div>
         <SectionWrapper>
           <Meteors />
@@ -91,11 +91,11 @@ const Page = async () => {
         <SectionWrapper>
           <TestimonialSection />
         </SectionWrapper>
-        {/* <SectionWrapper>
+        <SectionWrapper>
           {showStudentCommunity ? (
             <CommunityMembersSection students={students} />
           ) : null}
-        </SectionWrapper> */}
+        </SectionWrapper>
         <SectionWrapper>
           <CommunityCTA />
         </SectionWrapper>
