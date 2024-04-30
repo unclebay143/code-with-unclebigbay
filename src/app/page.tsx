@@ -19,18 +19,22 @@ export const metadata: Metadata = {
 
 const Page = async () => {
   const studentsRes = await getStudents();
-  const students = studentsRes!.students;
+  const students = studentsRes?.students;
   const currentHackathonRes = await getCurrentHackathon();
-  const hackathon = currentHackathonRes!.hackathon;
-  const session = currentHackathonRes!.session;
+  const hackathon = currentHackathonRes?.hackathon;
+  const session = currentHackathonRes?.session;
+
+  const showStudentCommunity = students && students.length > 0;
+  const showHackathonWidget = !!hackathon;
+  const showNavbar = !!session;
 
   return (
     <main>
       {/* Todo: figure out why ResponsiveWrapper isn't working intermittently */}
       <section className="flex flex-col gap-10 overflow-hidden">
         <div>
-          <Navbar session={session} />
-          <HackathonWidget hackathon={hackathon} />
+          {showNavbar && <Navbar session={session} />}
+          {showHackathonWidget && <HackathonWidget hackathon={hackathon} />}
         </div>
         <SectionWrapper>
           <Meteors />
@@ -44,7 +48,9 @@ const Page = async () => {
           <TestimonialSection />
         </SectionWrapper>
         <SectionWrapper>
-          <CommunityMembersSection students={students} />
+          {showStudentCommunity ? (
+            <CommunityMembersSection students={students} />
+          ) : null}
         </SectionWrapper>
         <SectionWrapper>
           <CommunityCTA />
