@@ -18,9 +18,11 @@ export const metadata: Metadata = {
 };
 
 const Page = async () => {
-  const studentsRes = await getStudents();
+  const [studentsRes, currentHackathonRes] = await Promise.all([
+    getStudents(),
+    getCurrentHackathon(),
+  ]);
   const students = studentsRes?.students;
-  const currentHackathonRes = await getCurrentHackathon();
   const hackathon = currentHackathonRes?.hackathon;
   const session = currentHackathonRes?.session;
 
