@@ -30,6 +30,8 @@ const UserPersonalSettings = ({
   const fullName = currentStudent?.fullName;
   const email = currentStudent?.email;
   const photo = currentStudent?.photo;
+  const bio = currentStudent?.bio;
+  const location = currentStudent?.location;
 
   const isUpdating = update.isPending;
 
@@ -40,9 +42,9 @@ const UserPersonalSettings = ({
     formState: { errors },
   } = useForm<personalDetailSchemaType>({
     resolver: zodResolver(personalDetailSchema),
-    defaultValues: {
-      bio: currentStudent?.bio,
-      location: currentStudent?.location,
+    values: {
+      bio,
+      location: location,
     },
   });
 

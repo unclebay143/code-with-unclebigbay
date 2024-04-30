@@ -5,7 +5,7 @@ import { baseURL } from '../../../frontend.config';
 import { getServerSessionWithAuthOptions } from '@/utils/auth-options';
 import { Student } from '@/utils/types';
 
-export const dynamic = 'force-dynamic';
+export const dynamic = 'force-dynamic'; //
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -15,25 +15,21 @@ export const metadata: Metadata = {
 };
 
 async function getCurrentStudent() {
-  try {
-    const session = await getServerSessionWithAuthOptions();
+  const session = await getServerSessionWithAuthOptions();
 
-    const url = `${baseURL}/api/auth/student/${session?.user?.email}`;
-    const result = await fetch(url, {
-      cache: 'no-store',
-    });
+  const url = `${baseURL}/api/auth/student/${session?.user?.email}`;
+  const result = await fetch(url, {
+    cache: 'no-store',
+  });
 
-    if (!result.ok) {
-      console.log(result.statusText);
-      return [];
-    }
-
-    const { student } = await result.json();
-
-    return { student, session };
-  } catch (error) {
-    console.log({ error });
+  if (!result.ok) {
+    console.log(result.statusText);
+    return [];
   }
+
+  const { student } = await result.json();
+
+  return { student, session };
 }
 
 export default async function RootLayout({
