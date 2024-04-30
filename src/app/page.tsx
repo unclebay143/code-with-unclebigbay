@@ -22,7 +22,7 @@ export const metadata: Metadata = {
 };
 
 type GetStudentsResponse = { students: Students };
-export async function getStudents(): Promise<GetStudentsResponse | undefined> {
+async function getStudents(): Promise<GetStudentsResponse | undefined> {
   const url = `${baseURL}/api/students`;
   const result = await fetch(url, {
     cache: 'no-cache',
@@ -42,7 +42,7 @@ type GetCurrentHackathonResponse = {
   session: Session | null;
 };
 
-export async function getCurrentHackathon(): Promise<
+async function getCurrentHackathon(): Promise<
   GetCurrentHackathonResponse | undefined
 > {
   const session = await getServerSessionWithAuthOptions();
