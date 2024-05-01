@@ -140,7 +140,6 @@ export async function getEnrolledCourses(): Promise<
 export async function getAllHackathons() {
   const url = `${baseURL}/api/hackathons`; // isRegistered is derived from server
   const result = await fetch(url, {
-    headers: getCustomHeaders(),
     cache: 'force-cache',
   });
   const hackathons = await result.json();
