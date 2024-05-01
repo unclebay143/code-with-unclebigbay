@@ -71,7 +71,7 @@ export async function getStudents(): Promise<GetStudentsResponse | undefined> {
 }
 
 export async function getAllActivityAudits(): Promise<
-  { audits: Audits } | [] | undefined
+  { audits: Audits | [] } | undefined
 > {
   try {
     const url = `${baseURL}/api/audits`;
@@ -80,7 +80,7 @@ export async function getAllActivityAudits(): Promise<
       cache: 'force-cache',
     });
     console.log(result);
-    if (!result.ok) return [];
+    if (!result.ok) return { audits: [] };
     const audits = await result.json();
     return audits;
   } catch (error) {
