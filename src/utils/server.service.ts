@@ -71,18 +71,30 @@ export async function getStudents(): Promise<GetStudentsResponse | undefined> {
     console.log(`Error from getStudents Error:- ${error}`);
   }
 }
+
 type GetAllActivityAuditsResponse = { audits: Audits };
 export async function getAllActivityAudits(): Promise<
   GetAllActivityAuditsResponse | undefined
 > {
   try {
-    const session = await getServerSessionWithAuthOptions();
-    const student = await StudentModel.findOne({ email: session?.user.email });
-    const audits = await AuditTrailModel.find({ student: student.id }).sort({
-      createdAt: -1,
+    const url = `${baseURL}/api/audits`;
+    const result = await fetch(url, {
+      headers: new Headers(headers()),
+      cache: 'force-cache',
     });
 
-    return { audits: JSON.parse(JSON.stringify(audits)) };
+    if (!result.ok) return { audits: [] };
+    const audits = await result.json();
+
+    return audits;
+
+    // const session = await getServerSessionWithAuthOptions();
+    // const student = await StudentModel.findOne({ email: session?.user.email });
+    // const audits = await AuditTrailModel.find({ student: student.id }).sort({
+    //   createdAt: -1,
+    // });
+
+    // return { audits: JSON.parse(JSON.stringify(audits)) };
   } catch (error) {
     console.log(`Error from getAllActivityAudits: Error:- ${error}`);
   }
