@@ -114,8 +114,7 @@ export async function getCurrentHackathon(): Promise<
     });
     const { hackathon } = await result.json();
 
-    if (!hackathon) return undefined;
-    return { hackathon, session };
+    return { hackathon: hackathon || null, session };
   } catch (error) {
     console.log(`Error from getCurrentHackathon Error:- ${error}`);
   }
