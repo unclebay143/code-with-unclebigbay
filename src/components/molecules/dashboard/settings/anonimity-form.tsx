@@ -1,13 +1,17 @@
 'use client';
-import React, { ChangeEvent, useEffect, useState } from 'react';
+
+import React, { ChangeEvent, useState } from 'react';
 import { WhiteArea } from '../white-area';
 import { DashboardSubheading } from '../dashboard-subheading';
 import useCurrentStudent from '@/components/hooks/useCurrentStudent';
+import { Student } from '@/utils/types';
 
-const AnonymityForm = () => {
-  const { data: currentStudent, update } = useCurrentStudent();
+const AnonymityForm = ({ currentStudent }: { currentStudent: Student }) => {
+  const { update } = useCurrentStudent();
 
-  const [isAnonymous, setIsAnonymous] = useState<boolean | undefined>();
+  const [isAnonymous, setIsAnonymous] = useState<boolean>(
+    currentStudent?.isAnonymous,
+  );
   const handleAnonymity = (e: ChangeEvent<HTMLInputElement>) => {
     const status = e.target.checked;
 
@@ -23,10 +27,6 @@ const AnonymityForm = () => {
       console.log(err);
     }
   };
-
-  useEffect(() => {
-    setIsAnonymous(currentStudent?.isAnonymous);
-  }, [currentStudent?.isAnonymous]);
 
   return (
     <WhiteArea border>

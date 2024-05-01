@@ -5,7 +5,6 @@ import { CodeWithUnclebigbayLogo } from '../../atoms/CodeWithUnclebigbayLogo';
 import { ChevronDown } from 'lucide-react';
 
 import { handleAuthentication, handleLogout } from '@/utils/auth';
-import { Bar3CenterLeft } from '../../icons/Bar3CenterLeft';
 import { Student } from '@/utils/types';
 import {
   ArrowLogout,
