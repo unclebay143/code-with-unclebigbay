@@ -50,6 +50,8 @@ export async function getCurrentStudentByUsername(
 
 type GetStudentsResponse = { students: Students };
 export async function getStudents(): Promise<GetStudentsResponse | undefined> {
+  console.log('Running getCurrentHackathon');
+
   try {
     const url = `${baseURL}/api/students`;
     const result = await fetch(url, {
@@ -90,6 +92,7 @@ type GetCurrentHackathonResponse = {
 export async function getCurrentHackathon(): Promise<
   GetCurrentHackathonResponse | undefined
 > {
+  console.log('Running getCurrentHackathon');
   try {
     const session = await getServerSessionWithAuthOptions();
     const url = `${baseURL}/api/hackathons/current-hackathon`;
