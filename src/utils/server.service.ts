@@ -1,17 +1,21 @@
 import { Audits } from '@/utils/types';
-import { cookies, headers } from 'next/headers';
+import { cookies } from 'next/headers';
 import { baseURL } from '../../frontend.config';
 import { getServerSessionWithAuthOptions } from './auth-options';
 import { Countries, Country, Hackathon, Student, Students } from './types';
 import { Session } from 'next-auth';
-import { Student as StudentModel } from '@/models/student';
-import { AuditTrail as AuditTrailModel } from '@/models/audit-trail';
 
 // https://www.reddit.com/r/nextjs/comments/16hzdsr/i_have_a_question_using_headers/
-export const getCustomHeaders = () => {
-  const defaultHeaders = headers();
-  const customHeaders = new Headers(defaultHeaders);
-  return customHeaders;
+// export const getCustomHeaders = () => {
+//   const defaultHeaders = headers();
+//   const customHeaders = new Headers(defaultHeaders);
+//   return customHeaders;
+// };
+
+export const getCookie = async (name?: string) => {
+  if (!name) return cookies().toString();
+
+  return cookies().get(name)?.value.toString() ?? '';
 };
 
 export async function getCurrentStudent(): Promise<
@@ -19,7 +23,9 @@ export async function getCurrentStudent(): Promise<
 > {
   const url = `${baseURL}/api/auth/student`;
   const result = await fetch(url, {
-    headers: getCustomHeaders(),
+    headers: {
+      Cookie: await getCookie(),
+    },
     cache: 'force-cache',
   });
   const resultJson = await result.json();
@@ -76,12 +82,11 @@ type GetAllActivityAuditsResponse = { audits: Audits };
 export async function getAllActivityAudits(): Promise<
   GetAllActivityAuditsResponse | undefined
 > {
-  const sessionCookie = cookies();
   try {
     const url = `${baseURL}/api/audits`;
     const result = await fetch(url, {
       headers: {
-        Cookie: `${sessionCookie}`,
+        Cookie: await getCookie(),
       },
       cache: 'force-cache',
     });
@@ -90,14 +95,6 @@ export async function getAllActivityAudits(): Promise<
     const audits = await result.json();
 
     return audits;
-
-    // const session = await getServerSessionWithAuthOptions();
-    // const student = await StudentModel.findOne({ email: session?.user.email });
-    // const audits = await AuditTrailModel.find({ student: student.id }).sort({
-    //   createdAt: -1,
-    // });
-
-    // return { audits: JSON.parse(JSON.stringify(audits)) };
   } catch (error) {
     console.log(`Error from getAllActivityAudits: Error:- ${error}`);
   }
@@ -129,8 +126,9 @@ export async function getCurrentHackathon(): Promise<
 
 export async function getLeaderBoard() {
   const url = `${baseURL}/api/students/leaderboard`;
+
   const result = await fetch(url, {
-    headers: getCustomHeaders(),
+    headers: { Cookie: await getCookie() },
     cache: 'no-cache',
   });
   const leaderboard = await result.json();
@@ -144,7 +142,9 @@ export async function getEnrolledCourses(): Promise<
   const url = `${baseURL}/api/courses/enroll`;
   const result = await fetch(url, {
     cache: 'force-cache',
-    headers: getCustomHeaders(),
+    headers: {
+      Cookie: await getCookie(),
+    },
   });
 
   if (!result.ok) {
