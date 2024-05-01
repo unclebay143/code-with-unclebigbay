@@ -21,6 +21,7 @@ import { Tags } from '@/utils/types';
 import useCurrentStudent from '@/components/hooks/useCurrentStudent';
 import { formatDate } from '@/utils';
 import { Tooltip } from '@/components/atoms/Tooltip';
+import { handleAuthentication } from '@/utils/auth';
 
 const Page = () => {
   const [showMore, setShowMore] = useState(false);
@@ -81,9 +82,24 @@ const Page = () => {
                   <YTVideo ytVideoId={course?.ytVideoId} />
                 </section>
                 {!isLoggedin && (
-                  <span className="text-sm text-orange-500">
-                    {renderStartCourseCTA}
-                  </span>
+                  <div className="flex  justify-between items-center flex-wrap gap-2">
+                    <span className="text-sm text-orange-500">
+                      {renderStartCourseCTA}
+                    </span>
+                    <div>
+                      <Button
+                        appearance="primary-slate"
+                        size="xs"
+                        onClick={() =>
+                          handleAuthentication({
+                            nextUrl: window.location.href,
+                          })
+                        }
+                      >
+                        Sign in to enroll
+                      </Button>
+                    </div>
+                  </div>
                 )}
               </section>
             ) : (
