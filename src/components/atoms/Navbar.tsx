@@ -10,7 +10,7 @@ import { handleAuthentication } from '@/utils/auth';
 import { BarsHamburger, Button, IconButton } from '@hashnode/matrix-ui';
 import { Session } from 'next-auth';
 
-export const Navbar = ({ session }: { session: Session | null }) => {
+export const Navbar = ({ session }: { session?: Session | null }) => {
   const [sidebarVisibility, setSidebarVisibility] = useState(false);
   return (
     <nav className="sticky top-0 bg-white z-50 py-5">
