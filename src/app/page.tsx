@@ -43,7 +43,6 @@ const Page = async () => {
       {/* Todo: figure out why ResponsiveWrapper isn't working intermittently */}
       <section className="flex flex-col gap-10 overflow-hidden">
         <div>
-          <h3>New</h3>
           {showNavbar && <Navbar session={session} />}
           {showHackathonWidget && <HackathonWidget hackathon={hackathon} />}
         </div>

@@ -105,7 +105,7 @@ export async function getCurrentHackathon(): Promise<
     if (!hackathon) return undefined;
     return { hackathon, session };
   } catch (error) {
-    console.log(`Error from getStudents Error:- ${error}`);
+    console.log(`Error from getCurrentHackathon Error:- ${error}`);
   }
 }
 
