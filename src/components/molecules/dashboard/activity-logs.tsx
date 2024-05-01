@@ -80,7 +80,7 @@ export const ActivityLogs = ({
   show,
   hideShowMore,
 }: {
-  audits: Audits | [] | undefined;
+  audits: Audits;
   show?: number;
   loaderCount?: number;
   hideShowMore?: boolean;
