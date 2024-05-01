@@ -77,9 +77,8 @@ export async function getAllActivityAudits(): Promise<
     const url = `${baseURL}/api/audits`;
     const result = await fetch(url, {
       headers: headers(),
-      cache: 'force-cache',
     });
-    console.log(result);
+
     if (!result.ok) return { audits: [] };
     const audits = await result.json();
     return audits;
