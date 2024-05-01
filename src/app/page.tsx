@@ -14,49 +14,16 @@ import { Hackathon, Students } from '@/utils/types';
 import { baseURL } from '../../frontend.config';
 import { Session } from 'next-auth';
 import { getServerSessionWithAuthOptions } from '@/utils/auth-options';
-import { getCustomHeaders } from '@/utils/server.service';
+import {
+  getCurrentHackathon,
+  getCustomHeaders,
+  getStudents,
+} from '@/utils/server.service';
 
 export const metadata: Metadata = {
   title: 'Code with Unclebigbay',
   description: 'Learn to Code and Build Your Career',
 };
-
-type GetStudentsResponse = { students: Students };
-async function getStudents(): Promise<GetStudentsResponse | undefined> {
-  const url = `${baseURL}/api/students`;
-  const result = await fetch(url, {
-    cache: 'no-cache',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-  });
-
-  if (!result.ok) return undefined;
-
-  const students = await result.json();
-  return students;
-}
-
-type GetCurrentHackathonResponse = {
-  hackathon: Hackathon;
-  session: Session | null;
-};
-
-async function getCurrentHackathon(): Promise<
-  GetCurrentHackathonResponse | undefined
-> {
-  const session = await getServerSessionWithAuthOptions();
-  const url = `${baseURL}/api/hackathons/current-hackathon`;
-  const result = await fetch(url, {
-    headers: getCustomHeaders(),
-    cache: 'force-cache',
-  });
-  const { hackathon } = await result.json();
-
-  if (!hackathon) return undefined;
-
-  return { hackathon, session };
-}
 
 const Page = async () => {
   const [studentsRes, currentHackathonRes] = await Promise.all([
