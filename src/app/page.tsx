@@ -10,15 +10,7 @@ import { SectionWrapper } from '@/components/molecules/home';
 import { Meteors } from '@/components/atoms/meteors';
 import { CommunityCTA } from '@/components/atoms/CommunityCTA';
 import { HackathonWidget } from '@/components/molecules/home/HackathonWidget';
-import { Hackathon, Students } from '@/utils/types';
-import { baseURL } from '../../frontend.config';
-import { Session } from 'next-auth';
-import { getServerSessionWithAuthOptions } from '@/utils/auth-options';
-import {
-  getCurrentHackathon,
-  getCustomHeaders,
-  getStudents,
-} from '@/utils/server.service';
+import { getCurrentHackathon, getStudents } from '@/utils/server.service';
 
 export const metadata: Metadata = {
   title: 'Code with Unclebigbay',
