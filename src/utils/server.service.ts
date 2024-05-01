@@ -1,5 +1,5 @@
 import { Audits } from '@/utils/types';
-import { headers } from 'next/headers';
+import { cookies, headers } from 'next/headers';
 import { baseURL } from '../../frontend.config';
 import { getServerSessionWithAuthOptions } from './auth-options';
 import { Countries, Country, Hackathon, Student, Students } from './types';
@@ -76,10 +76,13 @@ type GetAllActivityAuditsResponse = { audits: Audits };
 export async function getAllActivityAudits(): Promise<
   GetAllActivityAuditsResponse | undefined
 > {
+  const sessionCookie = cookies();
   try {
     const url = `${baseURL}/api/audits`;
     const result = await fetch(url, {
-      headers: new Headers(headers()),
+      headers: {
+        Cookie: `${sessionCookie}`,
+      },
       cache: 'force-cache',
     });
 
