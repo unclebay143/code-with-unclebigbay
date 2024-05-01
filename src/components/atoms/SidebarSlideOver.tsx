@@ -10,7 +10,7 @@ import { Session } from 'next-auth';
 type Props = {
   isOpen: boolean;
   close: () => void;
-  session: Session | null;
+  session?: Session | null;
 };
 
 export const SidebarSlideOver = ({ isOpen, close, session }: Props) => {
