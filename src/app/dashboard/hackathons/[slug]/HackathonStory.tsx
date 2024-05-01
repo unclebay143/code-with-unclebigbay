@@ -91,38 +91,6 @@ export const HackathonStory = ({
     }
   };
 
-  if (!hackathon) {
-    return (
-      <WhiteArea border>
-        <section className="flex min-h-[80vh] items-center justify-center">
-          <div className="flex flex-col gap-2 justify-center items-center">
-            <div className="text-center">
-              <p className="text-2xl font-semibold text-slate-700">
-                The Hackathon Escaped Us!
-              </p>
-              <span className="text-slate-500">
-                This hackathon isn&apos;t listed, check the link again or
-                discover recent hackathons.
-              </span>
-            </div>
-            <div className="flex items-center justify-between mb-5">
-              <Button
-                size="xs"
-                appearance="secondary-slate"
-                startIcon={ArrowLeft}
-                asChild
-              >
-                <Link href="/dashboard/hackathons">
-                  Discover recent hackathons
-                </Link>
-              </Button>
-            </div>
-          </div>
-        </section>
-      </WhiteArea>
-    );
-  }
-
   const sectionHeadingStyle = 'font-semibold text-slate-700 text-xl';
   const uLStyle = 'list-decimal list-outside ml-5 text-slate-600';
   const oLStyle = 'list-disc list-outside ml-5 text-slate-600';
