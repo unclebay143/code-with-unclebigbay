@@ -47,6 +47,7 @@ const GET = async () => {
           ...(student && {
             pipeline: [
               { $match: { student: student._id } }, // Filter registrations by student ID
+              { $project: { _id: 0, fullName: 1, status: 1 } },
             ],
           }),
         },

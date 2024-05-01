@@ -1,4 +1,4 @@
-import { Audits } from '@/utils/types';
+import { Audits, LeaderBoard } from '@/utils/types';
 import { cookies } from 'next/headers';
 import { baseURL } from '../../frontend.config';
 import { getServerSessionWithAuthOptions } from './auth-options';
@@ -58,8 +58,6 @@ export async function getCurrentStudentByUsername(
 
 type GetStudentsResponse = { students: Students };
 export async function getStudents(): Promise<GetStudentsResponse | undefined> {
-  console.log('Running getStudents');
-
   try {
     const url = `${baseURL}/api/students`;
     const result = await fetch(url, {
@@ -108,7 +106,6 @@ type GetCurrentHackathonResponse = {
 export async function getCurrentHackathon(): Promise<
   GetCurrentHackathonResponse | undefined
 > {
-  console.log('Running getCurrentHackathon');
   try {
     const session = await getServerSessionWithAuthOptions();
     const url = `${baseURL}/api/hackathons/current-hackathon`;
@@ -124,7 +121,13 @@ export async function getCurrentHackathon(): Promise<
   }
 }
 
-export async function getLeaderBoard() {
+type GetLeaderBoardResponse = {
+  leaderboard: LeaderBoard;
+  position: number;
+};
+export async function getLeaderBoard(): Promise<
+  GetLeaderBoardResponse | undefined
+> {
   const url = `${baseURL}/api/students/leaderboard`;
 
   const result = await fetch(url, {
