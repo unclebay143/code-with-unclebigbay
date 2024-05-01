@@ -98,7 +98,7 @@ export async function getCurrentHackathon(): Promise<
     const url = `${baseURL}/api/hackathons/current-hackathon`;
     const result = await fetch(url, {
       headers: getCustomHeaders(),
-      cache: 'force-cache',
+      cache: 'no-cache',
     });
     const { hackathon } = await result.json();
 
