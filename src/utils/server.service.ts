@@ -50,7 +50,7 @@ export async function getCurrentStudentByUsername(
 
 type GetStudentsResponse = { students: Students };
 export async function getStudents(): Promise<GetStudentsResponse | undefined> {
-  console.log('Running getCurrentHackathon');
+  console.log('Running getStudents');
 
   try {
     const url = `${baseURL}/api/students`;
