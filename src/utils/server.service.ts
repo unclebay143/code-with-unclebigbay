@@ -71,17 +71,21 @@ export async function getStudents(): Promise<GetStudentsResponse | undefined> {
 }
 
 export async function getAllActivityAudits(): Promise<
-  { audits: Audits } | undefined
+  { audits: Audits } | [] | undefined
 > {
-  const url = `${baseURL}/api/audits`;
-  const result = await fetch(url, {
-    headers: getCustomHeaders(),
-    cache: 'force-cache',
-  });
-
-  if (!result.ok) return undefined;
-  const audits = await result.json();
-  return audits;
+  try {
+    const url = `${baseURL}/api/audits`;
+    const result = await fetch(url, {
+      headers: headers(),
+      cache: 'force-cache',
+    });
+    console.log(result);
+    if (!result.ok) return [];
+    const audits = await result.json();
+    return audits;
+  } catch (error) {
+    console.log(`Error from getAllActivityAudits: Error:- ${error}`);
+  }
 }
 
 type GetCurrentHackathonResponse = {
@@ -97,7 +101,6 @@ export async function getCurrentHackathon(): Promise<
     const session = await getServerSessionWithAuthOptions();
     const url = `${baseURL}/api/hackathons/current-hackathon`;
     const result = await fetch(url, {
-      // headers: getCustomHeaders(),
       cache: 'no-cache',
     });
     const { hackathon } = await result.json();
@@ -163,13 +166,9 @@ export async function getHackathonBySlug(hackathonSlug: string) {
   const isRegisteredUrl = `${baseURL}/api/hackathons/is-registered/${hackathonId}`;
   const hasSubmittedUrl = `${baseURL}/api/hackathons/has-submitted/${hackathonId}`;
 
-  const isRegisteredResult = await fetch(isRegisteredUrl, {
-    headers: getCustomHeaders(),
-  });
+  const isRegisteredResult = await fetch(isRegisteredUrl);
 
-  const hasSubmittedResult = await fetch(hasSubmittedUrl, {
-    headers: getCustomHeaders(),
-  });
+  const hasSubmittedResult = await fetch(hasSubmittedUrl);
 
   const { isRegistered } = await isRegisteredResult.json();
   const { hasSubmitted } = await hasSubmittedResult.json();
