@@ -28,14 +28,13 @@ const Page = async () => {
 
   const showStudentCommunity = students && students.length > 0;
   const showHackathonWidget = !!hackathon;
-  const showNavbar = !!session;
 
   return (
     <main>
       {/* Todo: figure out why ResponsiveWrapper isn't working intermittently */}
       <section className="flex flex-col gap-10 overflow-hidden">
         <div>
-          {showNavbar && <Navbar session={session} />}
+          <Navbar session={session} />
           {showHackathonWidget && <HackathonWidget hackathon={hackathon} />}
         </div>
         <SectionWrapper>
