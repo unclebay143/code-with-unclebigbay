@@ -39,7 +39,7 @@ const Page = async () => {
         </div>
         <SectionWrapper>
           <Meteors />
-          <HeroSection />
+          <HeroSection session={session} />
         </SectionWrapper>
         <SectionWrapper>
           <CoursesCardGroup />
