@@ -13,8 +13,6 @@ import { Session } from 'next-auth';
 export const Navbar = ({ session }: { session?: Session | null }) => {
   const [sidebarVisibility, setSidebarVisibility] = useState(false);
 
-  console.log(session);
-  console.log(session ? 'session' : 'no session');
   return (
     <nav className="sticky top-0 bg-white z-50 py-5">
       <SectionWrapper>
