@@ -27,7 +27,7 @@ const Page = async () => {
   const session = currentHackathonRes?.session;
 
   const showStudentCommunity = students && students.length > 0;
-  const showHackathonWidget = !!hackathon;
+  const hasHackathon = !!hackathon;
 
   return (
     <main>
@@ -35,7 +35,7 @@ const Page = async () => {
       <section className="flex flex-col gap-10 overflow-hidden">
         <div>
           <Navbar session={session} />
-          {showHackathonWidget && <HackathonWidget hackathon={hackathon} />}
+          {hasHackathon && <HackathonWidget hackathon={hackathon} />}
         </div>
         <SectionWrapper>
           <Meteors />
@@ -54,7 +54,7 @@ const Page = async () => {
           ) : null}
         </SectionWrapper>
         <SectionWrapper>
-          <CommunityCTA />
+          <CommunityCTA session={session} />
         </SectionWrapper>
         <SectionWrapper>
           <Meteors />
