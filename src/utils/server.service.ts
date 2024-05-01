@@ -50,18 +50,22 @@ export async function getCurrentStudentByUsername(
 
 type GetStudentsResponse = { students: Students };
 export async function getStudents(): Promise<GetStudentsResponse | undefined> {
-  const url = `${baseURL}/api/students`;
-  const result = await fetch(url, {
-    cache: 'no-cache',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-  });
+  try {
+    const url = `${baseURL}/api/students`;
+    const result = await fetch(url, {
+      cache: 'no-cache',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
 
-  if (!result.ok) return undefined;
+    if (!result.ok) return undefined;
 
-  const students = await result.json();
-  return students;
+    const students = await result.json();
+    return students;
+  } catch (error) {
+    console.log(`Error from getStudents Error:- ${error}`);
+  }
 }
 
 export async function getAllActivityAudits(): Promise<
@@ -86,17 +90,20 @@ type GetCurrentHackathonResponse = {
 export async function getCurrentHackathon(): Promise<
   GetCurrentHackathonResponse | undefined
 > {
-  const session = await getServerSessionWithAuthOptions();
-  const url = `${baseURL}/api/hackathons/current-hackathon`;
-  const result = await fetch(url, {
-    headers: getCustomHeaders(),
-    cache: 'force-cache',
-  });
-  const { hackathon } = await result.json();
+  try {
+    const session = await getServerSessionWithAuthOptions();
+    const url = `${baseURL}/api/hackathons/current-hackathon`;
+    const result = await fetch(url, {
+      headers: getCustomHeaders(),
+      cache: 'force-cache',
+    });
+    const { hackathon } = await result.json();
 
-  if (!hackathon) return undefined;
-
-  return { hackathon, session };
+    if (!hackathon) return undefined;
+    return { hackathon, session };
+  } catch (error) {
+    console.log(`Error from getStudents Error:- ${error}`);
+  }
 }
 
 export async function getLeaderBoard() {
@@ -146,6 +153,7 @@ export async function getHackathonBySlug(hackathonSlug: string) {
   });
 
   const { hackathon } = await result.json();
+  if (!hackathon) return null;
   const hackathonId = hackathon._id;
   const isRegisteredUrl = `${baseURL}/api/hackathons/is-registered/${hackathonId}`;
   const hasSubmittedUrl = `${baseURL}/api/hackathons/has-submitted/${hackathonId}`;
