@@ -41,7 +41,7 @@ export const Navbar = ({ session }: { session?: Session | null }) => {
                   </Button>
                 </div>
               ) : (
-                <section className="flex gap-1 items-center">
+                <section className="flex gap-1.5 items-center">
                   <Button
                     size="sm"
                     onClick={() => handleAuthentication()}

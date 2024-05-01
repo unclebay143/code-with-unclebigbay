@@ -3,6 +3,7 @@
 import { Hackathon } from '@/utils/types';
 import { HackathonStory } from './HackathonStory';
 import { getHackathonBySlug } from '@/utils/server.service';
+import { notFound } from 'next/navigation';
 
 const Page = async ({ params }: { params: { slug: string } }) => {
   const hackathonSlug = params.slug;
@@ -11,6 +12,8 @@ const Page = async ({ params }: { params: { slug: string } }) => {
     isRegistered: boolean;
     hasSubmitted: boolean;
   };
+
+  if (!hackathonRes) return notFound();
 
   const { hackathon, isRegistered, hasSubmitted } = hackathonRes;
 

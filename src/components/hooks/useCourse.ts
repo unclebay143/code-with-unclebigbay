@@ -55,7 +55,7 @@ const useCourseById = (_id: string) => {
       axios.get('/api/courses/' + _id).then((res) => res.data.course as Course),
   });
 
-  const mutation = useMutation({
+  const { mutate: enroll, isPending: isEnrollingPending } = useMutation({
     mutationFn: (newEnrollment: { studentId: string; courseId: string }) => {
       return axios.post('/api/courses/enroll', newEnrollment);
     },
@@ -71,7 +71,15 @@ const useCourseById = (_id: string) => {
     },
   });
 
-  return { course, isFetching, isRefetching, error, isPending, mutation };
+  return {
+    course,
+    isFetching,
+    isRefetching,
+    error,
+    isPending,
+    enroll,
+    isEnrollingPending,
+  };
 };
 
 export default useCourse;
