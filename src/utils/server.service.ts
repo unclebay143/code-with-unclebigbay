@@ -149,19 +149,24 @@ export async function getAllHackathons() {
 
 export async function getHackathonBySlug(hackathonSlug: string) {
   const url = `${baseURL}/api/hackathons/${hackathonSlug}`;
+
   const result = await fetch(url, {
-    headers: getCustomHeaders(),
     cache: 'force-cache',
   });
 
   const { hackathon } = await result.json();
+
   if (!hackathon) return null;
+
   const hackathonId = hackathon._id;
+
   const isRegisteredUrl = `${baseURL}/api/hackathons/is-registered/${hackathonId}`;
   const hasSubmittedUrl = `${baseURL}/api/hackathons/has-submitted/${hackathonId}`;
+
   const isRegisteredResult = await fetch(isRegisteredUrl, {
     headers: getCustomHeaders(),
   });
+
   const hasSubmittedResult = await fetch(hasSubmittedUrl, {
     headers: getCustomHeaders(),
   });
