@@ -11,6 +11,7 @@ import {
   HelpCircle,
   ChevronDown,
   ChevronUp,
+  ArrowRefresh,
 } from '@hashnode/matrix-ui';
 import { YTVideo } from '@/components/atoms/YTVideo';
 import Link from 'next/link';
@@ -32,9 +33,8 @@ const Page = () => {
   const currentPathname = usePathname();
   const courseId = currentPathname.split('/').pop();
 
-  const { course, isFetching, isRefetching, mutation } = useCourseById(
-    courseId!,
-  );
+  const { course, isFetching, isRefetching, enroll, isEnrollingPending } =
+    useCourseById(courseId!);
   const isCompleted = course?.isCompleted;
   const completionDate = course?.completionDate;
   const isEnrolled = course?.isEnrolled;
@@ -59,7 +59,7 @@ const Page = () => {
   const handleEnroll = () => {
     if (studentId && courseId) {
       const payload = { studentId, courseId };
-      mutation.mutate(payload);
+      enroll(payload);
     }
   };
 
@@ -109,7 +109,15 @@ const Page = () => {
               >
                 <div className="absolute bg-black/60 inset-0 w-full" />
                 <div className="z-[1] dark">
-                  <Button onClick={handleEnroll} appearance="primary-slate">
+                  <Button
+                    onClick={handleEnroll}
+                    appearance="primary-slate"
+                    disabled={isEnrollingPending}
+                    startIcon={ArrowRefresh}
+                    startIconClassName={
+                      isEnrollingPending ? 'animate-spin' : 'hidden'
+                    }
+                  >
                     Start Learning
                   </Button>
                 </div>
