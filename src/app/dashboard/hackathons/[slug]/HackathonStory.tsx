@@ -72,14 +72,16 @@ export const HackathonStory = ({
   const disableSubmitEntryBtn = isClosed;
   const disableRegisterBtn = registered || isClosed || isJoinHackathonPending;
 
-  const animatedTooltipParticipants = participants.map((participant) => {
-    return {
-      id: participant._id,
-      name: participant.fullName,
-      designation: participant.stack,
-      image: participant.photo,
-    };
-  });
+  const animatedTooltipParticipants = participants
+    .filter((participant) => !participant.isAnonymous)
+    .map((participant) => {
+      return {
+        id: participant._id,
+        name: participant.fullName,
+        designation: participant.stack,
+        image: participant.photo,
+      };
+    });
 
   const handleJoinHackathon = () => {
     if (!studentId && hackathonUrl) {
@@ -227,8 +229,10 @@ export const HackathonStory = ({
                     className="flex gap-3 items-center"
                     key={`judges-${name}`}
                   >
-                    <div className="relative w-14 h-14 sm:w-16 sm:h-16 md:w-24 md:h-24 rounded-full overflow-hidden">
-                      <Image src={photo} alt="" fill />
+                    <div>
+                      <div className="relative w-14 h-14 sm:w-16 sm:h-16 md:w-24 md:h-24 rounded-full overflow-hidden">
+                        <Image src={photo} alt="" fill />
+                      </div>
                     </div>
                     <a href={socialLink} target="_blank" className="">
                       <p className="text-lg font-semibold text-black">{name}</p>

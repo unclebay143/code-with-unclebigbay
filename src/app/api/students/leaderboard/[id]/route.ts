@@ -23,8 +23,6 @@ const GET = async () => {
       student: currentStudent._id,
     });
 
-    console.log(studentLeaderBoard);
-
     return NextResponse.json(
       {
         message: 'Student total score fetched.',
