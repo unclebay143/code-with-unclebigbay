@@ -21,6 +21,7 @@ import { Hackathon } from '@/utils/types';
 import { useHackathonById } from '@/components/hooks/useHackathon';
 import useCurrentStudent from '@/components/hooks/useCurrentStudent';
 import { formatStartAndEndDate } from '@/utils/date';
+import { handleAuthentication } from '@/utils/auth';
 
 type HackathonStoryProps = {
   hackathon: Hackathon;
@@ -81,14 +82,16 @@ export const HackathonStory = ({
   });
 
   const handleJoinHackathon = () => {
-    if (studentId) {
-      joinHackathon({
-        hackathonId,
-        studentId,
-      }).then(() => {
-        setRegistered(true);
-      });
+    if (!studentId && hackathonUrl) {
+      return handleAuthentication({ nextUrl: hackathonUrl });
     }
+
+    joinHackathon({
+      hackathonId,
+      studentId,
+    }).then(() => {
+      setRegistered(true);
+    });
   };
 
   const sectionHeadingStyle = 'font-semibold text-slate-700 text-xl';
