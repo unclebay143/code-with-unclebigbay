@@ -18,17 +18,13 @@ export const metadata: Metadata = {
 };
 
 const Page = async () => {
-  // const [studentsRes, currentHackathonRes] = await Promise.all([
-  //   getStudents(),
-  //   getCurrentHackathon(),
-  // ]);
-  // const students = studentsRes?.students;
-  // const hackathon = currentHackathonRes?.hackathon;
-  // const session = currentHackathonRes?.session;
-
-  // const showStudentCommunity = students && students.length > 0;
-  // const showHackathonWidget = !!hackathon;
-  // const showNavbar = !!session;
+  const [studentsRes, currentHackathonRes] = await Promise.all([
+    getStudents(),
+    getCurrentHackathon(),
+  ]);
+  const students = studentsRes?.students;
+  const hackathon = currentHackathonRes?.hackathon;
+  const session = currentHackathonRes?.session;
 
   const showStudentCommunity = students && students.length > 0;
   const hasHackathon = !!hackathon;
@@ -52,11 +48,11 @@ const Page = async () => {
         <SectionWrapper>
           <TestimonialSection />
         </SectionWrapper>
-        {/* <SectionWrapper> */}
-        {/* {showStudentCommunity ? (
+        <SectionWrapper>
+          {showStudentCommunity ? (
             <CommunityMembersSection students={students} />
-          ) : null} */}
-        {/* </SectionWrapper> */}
+          ) : null}
+        </SectionWrapper>
         <SectionWrapper>
           <CommunityCTA session={session} />
         </SectionWrapper>
