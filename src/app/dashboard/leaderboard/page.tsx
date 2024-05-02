@@ -3,55 +3,93 @@ import { WhiteArea } from '@/components/molecules/dashboard/white-area';
 import Image from 'next/image';
 import Link from 'next/link';
 import React from 'react';
-import { LeaderBoard, LeaderBoardData } from '@/utils/types';
-import { Trophy } from 'lucide-react';
-import { getLeaderBoard } from '@/utils/server.service';
+import { LeaderBoardData } from '@/utils/types';
+import { MoreHorizontal, Trophy } from 'lucide-react';
+import { getCurrentStudent, getLeaderBoard } from '@/utils/server.service';
+// import { DotsHorizontal } from '@hashnode/matrix-ui';
 
 const LeaderboardCard = ({
   rank,
   student,
   totalScore,
-}: LeaderBoardData & { rank: number }) => {
+  position,
+}: LeaderBoardData & { rank: number; position: number }) => {
+  const { isAnonymous, photo, fullName, stack, username } = student || {};
+
+  let isCurrentUser;
+
+  if (position) {
+    isCurrentUser = position === rank;
+  }
+
+  const Comp = isAnonymous ? 'div' : Link;
+  const LinkAttributes = {
+    href: `/@${username}`,
+    target: '_blank',
+  };
+
   return (
     <div className="flex items-center justify-between bg-slate-50/70 hover:bg-slate-100/70 p-3 px-5 border border-slate-200/75 rounded-lg min-w-[300px]">
       <div className="group flex items-center gap-2">
         <span className="text-2xl text-opacity-[1] text-slate-400 font-medium">
           #{rank}
         </span>
-        <Link href="" className="relative rounded-full h-8 w-8 overflow-hidden">
-          <Image fill src={student.photo} alt="" />
-        </Link>
+        {/* @ts-ignore */}
+        <Comp
+          {...(!isAnonymous && LinkAttributes)}
+          className="relative rounded-full h-8 w-8 overflow-hidden"
+        >
+          {isAnonymous ? (
+            <Image
+              src="https://cdn.hashnode.com/res/hashnode/image/upload/v1707121372242/57c3ede2-19a1-4530-beec-fae5db66c6a2.png"
+              alt="default profile"
+              fill
+            />
+          ) : (
+            <Image src={photo} alt={fullName} fill />
+          )}
+        </Comp>
         <div>
-          <Link
-            href=""
-            className="font-medium text-slate-600 group-hover:underline"
+          {/* @ts-ignore */}
+          <Comp
+            {...(!isAnonymous && LinkAttributes)}
+            className={`font-medium text-slate-600 ${isAnonymous ? '' : 'group-hover:underline'}`}
           >
-            {student.fullName}
-          </Link>
+            {isAnonymous ? 'Anonymous' : fullName} {isCurrentUser && '(you)'}
+          </Comp>
           <div className="flex items-center gap-2">
-            {student.stack && (
+            {stack && (
               <h3 className="font-medium capitalize text-sm text-slate-600">
-                {student.stack}
+                {stack}
               </h3>
             )}
             {/* {flag && <h3 className="font-medium">{flag}</h3>} */}
           </div>
         </div>
       </div>
-      <div className="">
+      {totalScore && (
         <div className="flex items-center h-6 px-1 bg-slate-100 text-slate-500 rounded-full">
           <span className="text-xs font-medium">{totalScore}</span>
         </div>
-      </div>
+      )}
     </div>
   );
 };
 
 const Page = async () => {
-  const { leaderboard, position } = (await getLeaderBoard()) as {
-    leaderboard: LeaderBoard;
-    position: number;
-  };
+  const [studentRes, leaderboardRes] = await Promise.all([
+    getCurrentStudent(),
+    getLeaderBoard(),
+  ]);
+
+  if (!leaderboardRes || !studentRes) return null;
+
+  const { leaderboard, position } = leaderboardRes;
+  const { student: currentStudent } = studentRes;
+
+  const isCurrentUserInTop10 = leaderboard.find(
+    (leaderboard) => leaderboard.rank === position,
+  );
 
   return (
     <WhiteArea border>
@@ -85,16 +123,25 @@ const Page = async () => {
             ?.slice(0, 3)
             ?.map(({ _id, student, totalScore, rank }) => {
               let isCurrentUser;
+
               if (position) {
                 isCurrentUser = position === rank;
               }
 
+              const { username, photo, fullName, isAnonymous, stack } = student;
+
+              const Comp = isAnonymous ? 'div' : Link;
+              const LinkAttributes = {
+                href: `/@${username}`,
+                target: '_blank',
+              };
+
               return (
-                <Link
+                // @ts-ignore
+                <Comp
+                  {...(!isAnonymous && LinkAttributes)}
                   key={_id}
-                  href={`/@${student.username}`}
-                  target="_blank"
-                  className="relative flex flex-col items-center justify-center gap-3 border rounded-lg p-5 hover:bg-slate-50"
+                  className="relative flex flex-col items-center justify-center gap-3 border rounded-lg p-5 hover:bg-slate-5"
                 >
                   <div className="absolute left-3 top-3">
                     {rank === 1 ? (
@@ -109,26 +156,34 @@ const Page = async () => {
                   </div>
                   <div className="flex items-center gap-2">
                     <div className="relative rounded-full h-12 w-12 overflow-hidden">
-                      <Image src={student.photo} alt="" fill />
+                      {isAnonymous ? (
+                        <Image
+                          src="https://cdn.hashnode.com/res/hashnode/image/upload/v1707121372242/57c3ede2-19a1-4530-beec-fae5db66c6a2.png"
+                          alt="default profile"
+                          fill
+                        />
+                      ) : (
+                        <Image src={photo} alt={fullName} fill />
+                      )}
                     </div>
                   </div>
                   <div className="flex flex-col gap-2 text-center capitalize text-slate-800">
                     <div className="flex flex-col">
                       <p className="font-extrabold">
-                        {student.fullName}{' '}
+                        {isAnonymous ? 'Anonymous' : fullName}{' '}
                         {isCurrentUser && (
                           <span className="lowercase">(you)</span>
                         )}
                       </p>
                       <p className="text-sm font-semibold">
-                        {student.stack}
+                        {stack}
                         {/* {flag} */}
                       </p>
                     </div>
 
                     <p className="text-xs font-medium">Points: {totalScore}</p>
                   </div>
-                </Link>
+                </Comp>
               );
             })}
         </div>
@@ -136,30 +191,28 @@ const Page = async () => {
           return (
             <LeaderboardCard
               key={student._id}
-              rank={rank} // let this come from backend
+              rank={rank}
               totalScore={totalScore}
               student={student}
+              position={position}
             />
           );
         })}
 
-        {/* {session && (
-            <>
-              <div className="my-1 text-slate-600">
-                <MoreHorizontal size={20} />
-              </div>
+        {position && !isCurrentUserInTop10 && (
+          <>
+            <div className="my-1 text-slate-600">
+              <MoreHorizontal size={14} />
+            </div>
 
-              <LeaderboardCard
-                rank={communityMember.rank}
-                username={communityMember?.username}
-                photo={communityMember?.photo}
-                name={communityMember?.name}
-                stack={communityMember?.stack}
-                flag={communityMember?.flag}
-                totalScore={communityMember?.totalScore}
-              />
-            </>
-          )} */}
+            <LeaderboardCard
+              rank={position}
+              student={currentStudent}
+              totalScore={currentStudent?.totalScore}
+              position={position}
+            />
+          </>
+        )}
       </div>
     </WhiteArea>
   );

@@ -190,6 +190,7 @@ export type Hackathon = {
     stack: string;
     username: string;
     photo: string;
+    isAnonymous: boolean;
   }[];
 };
 

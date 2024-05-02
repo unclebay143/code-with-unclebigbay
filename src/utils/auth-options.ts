@@ -56,6 +56,7 @@ export const authOptions = {
   },
 } satisfies NextAuthOptions;
 
+// https://next-auth.js.org/configuration/nextjs#getserversession
 export function getServerSessionWithAuthOptions(
   ...args:
     | [GetServerSidePropsContext['req'], GetServerSidePropsContext['res']]

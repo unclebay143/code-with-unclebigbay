@@ -31,7 +31,7 @@ const studentSchema = new Schema(
     isPro: { type: Boolean },
     accountOnHold: { type: Boolean },
     isBanned: { type: Boolean },
-    isAnonymous: { type: Boolean },
+    isAnonymous: { type: Boolean, default: false },
     isSuperAdmin: { type: Boolean },
     isAdmin: { type: Boolean },
     isModerator: { type: Boolean },
