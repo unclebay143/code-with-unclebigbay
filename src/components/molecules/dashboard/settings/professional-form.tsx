@@ -7,7 +7,7 @@ import {
   SelectTrigger,
   SelectViewPort,
 } from '@hashnode/matrix-ui';
-import React, { useEffect } from 'react';
+import React from 'react';
 import { WhiteArea } from '../white-area';
 import { DashboardSubheading } from '../dashboard-subheading';
 import * as z from 'zod';
@@ -15,17 +15,18 @@ import { useForm, SubmitHandler, Controller } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { professionalDetailSchema } from '@/validation/userSocialValidation';
 import useCurrentStudent from '@/components/hooks/useCurrentStudent';
-
-professionalDetailSchema;
+import { Student } from '@/utils/types';
 
 type professionalDetailSchemaType = z.infer<typeof professionalDetailSchema>;
 
-const UserProfessionalSettings = () => {
-  const { data: currentStudent, update } = useCurrentStudent();
-  const { data: user } = useCurrentStudent();
+const UserProfessionalSettings = ({
+  currentStudent,
+}: {
+  currentStudent: Student;
+}) => {
+  const { update } = useCurrentStudent();
 
   const {
-    reset,
     control,
     register,
     handleSubmit,
@@ -33,9 +34,9 @@ const UserProfessionalSettings = () => {
   } = useForm<professionalDetailSchemaType>({
     resolver: zodResolver(professionalDetailSchema),
     defaultValues: {
-      stack: user?.stack,
-      portfolio: user?.socials?.portfolio,
-      blog: user?.socials?.blog,
+      stack: currentStudent?.stack,
+      portfolio: currentStudent?.socials?.portfolio,
+      blog: currentStudent?.socials?.blog,
     },
   });
 
@@ -48,7 +49,7 @@ const UserProfessionalSettings = () => {
         _id: currentStudent?._id,
         stack: data.stack,
         socials: {
-          ...user?.socials,
+          ...currentStudent?.socials,
           portfolio: data.portfolio,
           blog: data.blog,
         },
@@ -57,21 +58,6 @@ const UserProfessionalSettings = () => {
       console.log(err);
     }
   };
-
-  useEffect(() => {
-    if (user) {
-      reset({
-        stack: user?.stack,
-        portfolio: user?.socials?.portfolio,
-        blog: user?.socials?.blog,
-      });
-    }
-  }, [user, reset]);
-
-  function capitalizeFirstLetter(word: string) {
-    if (!word) return;
-    return word.charAt(0).toUpperCase() + word.slice(1);
-  }
 
   return (
     <WhiteArea border>
@@ -94,13 +80,9 @@ const UserProfessionalSettings = () => {
               render={({ field }) => (
                 <Select
                   onValueChange={field.onChange}
-                  defaultValue={capitalizeFirstLetter(field.value)}
+                  defaultValue={field.value}
                 >
-                  <SelectTrigger
-                    size="md"
-                    // placeholder={capitalizeFirstLetter(field.value)}
-                    shape="rectangle"
-                  />
+                  <SelectTrigger size="md" shape="rectangle" />
                   <SelectContent>
                     <SelectViewPort>
                       <SelectItem value={'frontend'} label={'Frontend'} />
@@ -121,8 +103,7 @@ const UserProfessionalSettings = () => {
               type="text"
               placeholder="https://myportfolio.com"
               className="text-sm text-slate-600 p-2 outline-none focus:ring-2 focus:ring-slate-500 focus:border-slate-300 border rounded-md"
-              // {...register('portfolio')}
-              value={user?.socials.portfolio}
+              {...register('portfolio')}
             />
             {errors.portfolio && (
               <span className="text-sm text-red-600">

@@ -57,7 +57,11 @@ const GET = async () => {
     let leaderboard = await LeaderBoard.find()
       .sort({ totalScore: -1 })
       .limit(10)
-      .populate('student', '_id fullName stack photo username', Student);
+      .populate({
+        path: 'student',
+        select: '_id fullName stack photo username',
+        model: Student,
+      });
 
     // leaderboard with rank
     leaderboard = leaderboard.map((entry, index) => ({

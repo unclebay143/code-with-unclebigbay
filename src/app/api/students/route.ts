@@ -6,7 +6,7 @@ const GET = async () => {
   try {
     await connectViaMongoose();
 
-    const students = await Student.find({})
+    const students = await Student.find({ isAnonymous: false })
       .select('username fullName photo stack socials')
       .limit(10)
       .lean()

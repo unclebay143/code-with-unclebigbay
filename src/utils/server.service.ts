@@ -1,15 +1,21 @@
-import { Audits } from '@/utils/types';
-import { headers } from 'next/headers';
+import { Audits, LeaderBoard } from '@/utils/types';
+import { cookies } from 'next/headers';
 import { baseURL } from '../../frontend.config';
 import { getServerSessionWithAuthOptions } from './auth-options';
 import { Countries, Country, Hackathon, Student, Students } from './types';
 import { Session } from 'next-auth';
 
 // https://www.reddit.com/r/nextjs/comments/16hzdsr/i_have_a_question_using_headers/
-export const getCustomHeaders = () => {
-  const defaultHeaders = headers();
-  const customHeaders = new Headers(defaultHeaders);
-  return customHeaders;
+// export const getCustomHeaders = () => {
+//   const defaultHeaders = headers();
+//   const customHeaders = new Headers(defaultHeaders);
+//   return customHeaders;
+// };
+
+export const getCookie = async (name?: string) => {
+  if (!name) return cookies().toString();
+
+  return cookies().get(name)?.value.toString() ?? '';
 };
 
 export async function getCurrentStudent(): Promise<
@@ -17,7 +23,9 @@ export async function getCurrentStudent(): Promise<
 > {
   const url = `${baseURL}/api/auth/student`;
   const result = await fetch(url, {
-    headers: getCustomHeaders(),
+    headers: {
+      Cookie: await getCookie(),
+    },
     cache: 'force-cache',
   });
   const resultJson = await result.json();
@@ -50,32 +58,44 @@ export async function getCurrentStudentByUsername(
 
 type GetStudentsResponse = { students: Students };
 export async function getStudents(): Promise<GetStudentsResponse | undefined> {
-  const url = `${baseURL}/api/students`;
-  const result = await fetch(url, {
-    cache: 'no-cache',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-  });
+  try {
+    const url = `${baseURL}/api/students`;
+    const result = await fetch(url, {
+      cache: 'no-cache',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
 
-  if (!result.ok) return undefined;
+    if (!result.ok) return undefined;
 
-  const students = await result.json();
-  return students;
+    const students = await result.json();
+    return students;
+  } catch (error) {
+    console.log(`Error from getStudents Error:- ${error}`);
+  }
 }
 
+type GetAllActivityAuditsResponse = { audits: Audits };
 export async function getAllActivityAudits(): Promise<
-  { audits: Audits } | undefined
+  GetAllActivityAuditsResponse | undefined
 > {
-  const url = `${baseURL}/api/audits`;
-  const result = await fetch(url, {
-    headers: getCustomHeaders(),
-    cache: 'force-cache',
-  });
+  try {
+    const url = `${baseURL}/api/audits`;
+    const result = await fetch(url, {
+      headers: {
+        Cookie: await getCookie(),
+      },
+      cache: 'force-cache',
+    });
 
-  if (!result.ok) return undefined;
-  const audits = await result.json();
-  return audits;
+    if (!result.ok) return { audits: [] };
+    const audits = await result.json();
+
+    return audits;
+  } catch (error) {
+    console.log(`Error from getAllActivityAudits: Error:- ${error}`);
+  }
 }
 
 type GetCurrentHackathonResponse = {
@@ -86,23 +106,31 @@ type GetCurrentHackathonResponse = {
 export async function getCurrentHackathon(): Promise<
   GetCurrentHackathonResponse | undefined
 > {
-  const session = await getServerSessionWithAuthOptions();
-  const url = `${baseURL}/api/hackathons/current-hackathon`;
-  const result = await fetch(url, {
-    headers: getCustomHeaders(),
-    cache: 'force-cache',
-  });
-  const { hackathon } = await result.json();
+  try {
+    const session = await getServerSessionWithAuthOptions();
+    const url = `${baseURL}/api/hackathons/current-hackathon`;
+    const result = await fetch(url, {
+      cache: 'no-cache',
+    });
+    const { hackathon } = await result.json();
 
-  if (!hackathon) return undefined;
-
-  return { hackathon, session };
+    return { hackathon: hackathon || null, session };
+  } catch (error) {
+    console.log(`Error from getCurrentHackathon Error:- ${error}`);
+  }
 }
 
-export async function getLeaderBoard() {
+type GetLeaderBoardResponse = {
+  leaderboard: LeaderBoard;
+  position: number;
+};
+export async function getLeaderBoard(): Promise<
+  GetLeaderBoardResponse | undefined
+> {
   const url = `${baseURL}/api/students/leaderboard`;
+
   const result = await fetch(url, {
-    headers: getCustomHeaders(),
+    headers: { Cookie: await getCookie() },
     cache: 'no-cache',
   });
   const leaderboard = await result.json();
@@ -116,7 +144,9 @@ export async function getEnrolledCourses(): Promise<
   const url = `${baseURL}/api/courses/enroll`;
   const result = await fetch(url, {
     cache: 'force-cache',
-    headers: getCustomHeaders(),
+    headers: {
+      Cookie: await getCookie(),
+    },
   });
 
   if (!result.ok) {
@@ -130,7 +160,6 @@ export async function getEnrolledCourses(): Promise<
 export async function getAllHackathons() {
   const url = `${baseURL}/api/hackathons`; // isRegistered is derived from server
   const result = await fetch(url, {
-    headers: getCustomHeaders(),
     cache: 'force-cache',
   });
   const hackathons = await result.json();
@@ -140,21 +169,23 @@ export async function getAllHackathons() {
 
 export async function getHackathonBySlug(hackathonSlug: string) {
   const url = `${baseURL}/api/hackathons/${hackathonSlug}`;
+
   const result = await fetch(url, {
-    headers: getCustomHeaders(),
     cache: 'force-cache',
   });
 
   const { hackathon } = await result.json();
+
+  if (!hackathon) return null;
+
   const hackathonId = hackathon._id;
+
   const isRegisteredUrl = `${baseURL}/api/hackathons/is-registered/${hackathonId}`;
   const hasSubmittedUrl = `${baseURL}/api/hackathons/has-submitted/${hackathonId}`;
-  const isRegisteredResult = await fetch(isRegisteredUrl, {
-    headers: getCustomHeaders(),
-  });
-  const hasSubmittedResult = await fetch(hasSubmittedUrl, {
-    headers: getCustomHeaders(),
-  });
+
+  const isRegisteredResult = await fetch(isRegisteredUrl);
+
+  const hasSubmittedResult = await fetch(hasSubmittedUrl);
 
   const { isRegistered } = await isRegisteredResult.json();
   const { hasSubmitted } = await hasSubmittedResult.json();

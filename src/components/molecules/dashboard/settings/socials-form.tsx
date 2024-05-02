@@ -9,11 +9,16 @@ import { useForm, SubmitHandler } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { ProfileUpdateSchema } from '@/validation/userSocialValidation';
 import useCurrentStudent from '@/components/hooks/useCurrentStudent';
+import { Student } from '@/utils/types';
 
 type profileUpdateSchemaType = z.infer<typeof ProfileUpdateSchema>;
 
-const UserSocialSettings = () => {
-  const { data: currentStudent, update } = useCurrentStudent();
+const UserSocialSettings = ({
+  currentStudent,
+}: {
+  currentStudent: Student;
+}) => {
+  const { update } = useCurrentStudent();
   const isUpdating = update.isPending;
 
   const defaultValues = {

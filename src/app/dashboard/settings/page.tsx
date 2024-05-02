@@ -17,9 +17,9 @@ const Page = async () => {
           countries={sortedCountries}
           currentStudent={student}
         />
-        <UserProfessionalsForm />
-        <UserSocialsForm />
-        <AnonymityForm />
+        <UserProfessionalsForm currentStudent={student} />
+        <UserSocialsForm currentStudent={student} />
+        <AnonymityForm currentStudent={student} />
       </div>
     </div>
   );
