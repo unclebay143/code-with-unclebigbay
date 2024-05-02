@@ -21,6 +21,7 @@ import { Hackathon } from '@/utils/types';
 import { useHackathonById } from '@/components/hooks/useHackathon';
 import useCurrentStudent from '@/components/hooks/useCurrentStudent';
 import { formatStartAndEndDate } from '@/utils/date';
+import { handleAuthentication } from '@/utils/auth';
 
 type HackathonStoryProps = {
   hackathon: Hackathon;
@@ -71,57 +72,29 @@ export const HackathonStory = ({
   const disableSubmitEntryBtn = isClosed;
   const disableRegisterBtn = registered || isClosed || isJoinHackathonPending;
 
-  const animatedTooltipParticipants = participants.map((participant) => {
-    return {
-      id: participant._id,
-      name: participant.fullName,
-      designation: participant.stack,
-      image: participant.photo,
-    };
-  });
+  const animatedTooltipParticipants = participants
+    .filter((participant) => !participant.isAnonymous)
+    .map((participant) => {
+      return {
+        id: participant._id,
+        name: participant.fullName,
+        designation: participant.stack,
+        image: participant.photo,
+      };
+    });
 
   const handleJoinHackathon = () => {
-    if (studentId) {
-      joinHackathon({
-        hackathonId,
-        studentId,
-      }).then(() => {
-        setRegistered(true);
-      });
+    if (!studentId && hackathonUrl) {
+      return handleAuthentication({ nextUrl: hackathonUrl });
     }
-  };
 
-  if (!hackathon) {
-    return (
-      <WhiteArea border>
-        <section className="flex min-h-[80vh] items-center justify-center">
-          <div className="flex flex-col gap-2 justify-center items-center">
-            <div className="text-center">
-              <p className="text-2xl font-semibold text-slate-700">
-                The Hackathon Escaped Us!
-              </p>
-              <span className="text-slate-500">
-                This hackathon isn&apos;t listed, check the link again or
-                discover recent hackathons.
-              </span>
-            </div>
-            <div className="flex items-center justify-between mb-5">
-              <Button
-                size="xs"
-                appearance="secondary-slate"
-                startIcon={ArrowLeft}
-                asChild
-              >
-                <Link href="/dashboard/hackathons">
-                  Discover recent hackathons
-                </Link>
-              </Button>
-            </div>
-          </div>
-        </section>
-      </WhiteArea>
-    );
-  }
+    joinHackathon({
+      hackathonId,
+      studentId,
+    }).then(() => {
+      setRegistered(true);
+    });
+  };
 
   const sectionHeadingStyle = 'font-semibold text-slate-700 text-xl';
   const uLStyle = 'list-decimal list-outside ml-5 text-slate-600';
@@ -256,8 +229,10 @@ export const HackathonStory = ({
                     className="flex gap-3 items-center"
                     key={`judges-${name}`}
                   >
-                    <div className="relative w-14 h-14 sm:w-16 sm:h-16 md:w-24 md:h-24 rounded-full overflow-hidden">
-                      <Image src={photo} alt="" fill />
+                    <div>
+                      <div className="relative w-14 h-14 sm:w-16 sm:h-16 md:w-24 md:h-24 rounded-full overflow-hidden">
+                        <Image src={photo} alt="" fill />
+                      </div>
                     </div>
                     <a href={socialLink} target="_blank" className="">
                       <p className="text-lg font-semibold text-black">{name}</p>

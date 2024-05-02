@@ -10,53 +10,12 @@ import { SectionWrapper } from '@/components/molecules/home';
 import { Meteors } from '@/components/atoms/meteors';
 import { CommunityCTA } from '@/components/atoms/CommunityCTA';
 import { HackathonWidget } from '@/components/molecules/home/HackathonWidget';
-import { Hackathon, Students } from '@/utils/types';
-import { baseURL } from '../../frontend.config';
-import { Session } from 'next-auth';
-import { getServerSessionWithAuthOptions } from '@/utils/auth-options';
-import { getCustomHeaders } from '@/utils/server.service';
+import { getCurrentHackathon, getStudents } from '@/utils/server.service';
 
 export const metadata: Metadata = {
   title: 'Code with Unclebigbay',
   description: 'Learn to Code and Build Your Career',
 };
-
-// type GetStudentsResponse = { students: Students };
-// async function getStudents(): Promise<GetStudentsResponse | undefined> {
-//   const url = `${baseURL}/api/students`;
-//   const result = await fetch(url, {
-//     cache: 'no-cache',
-//     headers: {
-//       'Content-Type': 'application/json',
-//     },
-//   });
-
-//   if (!result.ok) return undefined;
-
-//   const students = await result.json();
-//   return students;
-// }
-
-// type GetCurrentHackathonResponse = {
-//   hackathon: Hackathon;
-//   session: Session | null;
-// };
-
-// async function getCurrentHackathon(): Promise<
-//   GetCurrentHackathonResponse | undefined
-// > {
-//   const session = await getServerSessionWithAuthOptions();
-//   const url = `${baseURL}/api/hackathons/current-hackathon`;
-//   const result = await fetch(url, {
-//     headers: getCustomHeaders(),
-//     cache: 'force-cache',
-//   });
-//   const { hackathon } = await result.json();
-
-//   if (!hackathon) return undefined;
-
-//   return { hackathon, session };
-// }
 
 const Page = async () => {
   // const [studentsRes, currentHackathonRes] = await Promise.all([
@@ -72,21 +31,19 @@ const Page = async () => {
   // const showNavbar = !!session;
 
   const showStudentCommunity = students && students.length > 0;
-  const showHackathonWidget = !!hackathon;
-  const showNavbar = !!session;
+  const hasHackathon = !!hackathon;
 
   return (
     <main>
       {/* Todo: figure out why ResponsiveWrapper isn't working intermittently */}
       <section className="flex flex-col gap-10 overflow-hidden">
         <div>
-          <h3>New</h3>
-          {/* {showNavbar && <Navbar session={session} />} */}
-          {/* {showHackathonWidget && <HackathonWidget hackathon={hackathon} />} */}
+          <Navbar session={session} />
+          {hasHackathon && <HackathonWidget hackathon={hackathon} />}
         </div>
         <SectionWrapper>
           <Meteors />
-          <HeroSection />
+          <HeroSection session={session} />
         </SectionWrapper>
         <SectionWrapper>
           <CoursesCardGroup />
@@ -101,7 +58,7 @@ const Page = async () => {
           ) : null} */}
         {/* </SectionWrapper> */}
         <SectionWrapper>
-          <CommunityCTA />
+          <CommunityCTA session={session} />
         </SectionWrapper>
         <SectionWrapper>
           <Meteors />

@@ -10,6 +10,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useState } from 'react';
 import Countdown from 'react-countdown';
+import { handleAuthentication } from '@/utils/auth';
 
 export const HackathonCard = ({
   hackathon,
@@ -19,7 +20,7 @@ export const HackathonCard = ({
   isRegistered: boolean;
 }) => {
   const {
-    _id,
+    _id: hackathonId,
     coverImage,
     brief,
     title,
@@ -31,11 +32,28 @@ export const HackathonCard = ({
   } = hackathon;
 
   const { data: currentStudent } = useCurrentStudent();
-  const { joinHackathon, isJoinHackathonPending } = useHackathonById(_id);
+  const studentId = currentStudent?._id!;
+  const { joinHackathon, isJoinHackathonPending } =
+    useHackathonById(hackathonId);
   const [hackathonHasEnded, setHackathonHasEnded] = useState(false);
   const [registered, setRegistered] = useState(isRegistered);
+  const hackathonUrl =
+    typeof window !== 'undefined' && `${window.location.href}/${slug}`;
 
   const disableJoinBtn = registered || isJoinHackathonPending;
+
+  const handleJoinHackathon = () => {
+    if (!studentId && hackathonUrl) {
+      return handleAuthentication({ nextUrl: hackathonUrl });
+    }
+
+    joinHackathon({
+      hackathonId,
+      studentId,
+    }).then(() => {
+      setRegistered(true);
+    });
+  };
 
   return (
     <section
@@ -83,16 +101,7 @@ export const HackathonCard = ({
             <Button
               size="xs"
               disabled={disableJoinBtn}
-              onClick={() => {
-                if (currentStudent?._id) {
-                  joinHackathon({
-                    hackathonId: _id,
-                    studentId: currentStudent._id,
-                  }).then(() => {
-                    setRegistered(true);
-                  });
-                }
-              }}
+              onClick={handleJoinHackathon}
               appearance="primary-slate"
             >
               {registered ? 'Joined!' : 'Join hackathon'}

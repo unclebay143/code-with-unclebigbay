@@ -3,10 +3,10 @@
 import React, { useState } from 'react';
 import { usePathname } from 'next/navigation';
 import { toast } from 'sonner';
-import { Button } from '@hashnode/matrix-ui';
+import { Button, Spinner } from '@hashnode/matrix-ui';
 import { DashboardSubheading } from '@/components/molecules/dashboard/dashboard-subheading';
 import { WhiteArea } from '@/components/molecules/dashboard/white-area';
-import { ArrowLeft, Loader, RotateCw } from 'lucide-react';
+import { ArrowLeft } from 'lucide-react';
 import { useForm } from 'react-hook-form';
 import useAssignment, {
   useAssignmentById,
@@ -78,23 +78,23 @@ const Page = () => {
 
   // useWarnBeforePageReload();
 
+  const loader = (
+    <WhiteArea twClass="!p-0 bg-slate-50 animate-pulse" border>
+      <div className="flex items-center justify-center min-h-[80vh] gap-2 text-slate-600">
+        <Spinner className="text-slate-600" />
+        <span>Loading assignment</span>
+      </div>
+    </WhiteArea>
+  );
+
   if (!isFetching && alreadyResponded) {
     window.location.href = `/dashboard/courses/${courseId}/assignment/${assignmentId}/result`;
-    return null;
+    return loader;
   }
 
   return (
     <div className="relative rounded-lg overflow-hidden">
-      {isFetching && (
-        <WhiteArea twClass="!p-0 bg-slate-50 animate-pulse" border>
-          <div className="flex items-center justify-center min-h-[80vh] gap-2 text-slate-600">
-            <span>Loading assignment...</span>
-            <span className="animate-spin">
-              <Loader />
-            </span>
-          </div>
-        </WhiteArea>
-      )}
+      {isFetching && loader}
       {canShowQuestions && (
         <WhiteArea border>
           <div className="flex flex-col gap-5">
@@ -172,10 +172,8 @@ const Page = () => {
       {isSubmitting && (
         <WhiteArea twClass="!p-0 bg-slate-50/20 animate-pulse" border>
           <div className="flex items-center justify-center min-h-[80vh] gap-2 text-slate-600">
+            <Spinner />
             <span>Submitting assignment...</span>
-            <span className="animate-spin">
-              <Loader />
-            </span>
             <span>Don&apos;t close this tab</span>
           </div>
         </WhiteArea>

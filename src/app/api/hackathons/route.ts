@@ -31,13 +31,11 @@ const GET = async () => {
   try {
     await connectViaMongoose();
     const session = await getServerSessionWithAuthOptions();
-    if (!session) {
-      return NextResponse.json(
-        { message: 'Session required' },
-        { status: 403 },
-      );
+    let student;
+
+    if (session) {
+      student = await Student.findOne({ email: session.user.email });
     }
-    const student = await Student.findOne({ email: session.user.email });
 
     const hackathons = await Hackathon.aggregate([
       {
@@ -46,9 +44,12 @@ const GET = async () => {
           localField: '_id',
           foreignField: 'hackathon',
           as: 'participants',
-          pipeline: [
-            { $match: { student: student._id } }, // Filter registrations by student ID
-          ],
+          ...(student && {
+            pipeline: [
+              { $match: { student: student._id } }, // Filter registrations by student ID
+              { $project: { _id: 0, fullName: 1, status: 1 } },
+            ],
+          }),
         },
       },
       {
@@ -69,7 +70,9 @@ const GET = async () => {
           status: 1,
           slug: 1,
           participantCount: 1,
-          isRegistered: { $gt: [{ $size: '$participants' }, 0] }, // Check if participants exist
+          ...(student && {
+            isRegistered: { $gt: [{ $size: '$participants' }, 0] },
+          }), // Check if participants exist
         },
       },
     ]);
