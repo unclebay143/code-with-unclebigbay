@@ -95,6 +95,7 @@ const Page = async () => {
               size={10}
               hideSearchOptions
               courses={iterableEnrolledCourses}
+              hideReachedEnd
             />
           </section>
         </WhiteArea>

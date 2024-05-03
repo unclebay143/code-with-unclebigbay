@@ -128,6 +128,9 @@ export type Student = {
   location: string;
   gender: string;
   interests: string;
+  betaFeatures: {
+    [key: string]: boolean;
+  };
 };
 
 export type Students = Student[];

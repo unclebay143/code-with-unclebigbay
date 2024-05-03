@@ -3,7 +3,7 @@
 import { Button } from '@/components/atoms/Button';
 import useCourse from '@/components/hooks/useCourse';
 import useCurrentStudent from '@/components/hooks/useCurrentStudent';
-import useTag from '@/components/hooks/useTag';
+// import useTag from '@/components/hooks/useTag';
 import { Courses } from '@/components/molecules/dashboard/courses';
 import { DashboardSubheading } from '@/components/molecules/dashboard/dashboard-subheading';
 import { EmptyState } from '@/components/molecules/dashboard/empty-state';
@@ -18,7 +18,7 @@ const Page = () => {
     useCurrentStudent();
   const isAdmin = currentUser?.isAdmin;
 
-  const { tags } = useTag();
+  // const { tags } = useTag();
 
   const { courses, isFetching } = useCourse();
   const [_courses, set_courses] = useState<CoursesType | undefined>(courses);
@@ -30,14 +30,14 @@ const Page = () => {
     ? 'These courses are personalized based on your stack.'
     : 'Login to see only personalized courses based on your stack.';
 
-  const userStackMatch = tags?.filter((tag) => tag.name !== currentUser?.stack);
-  const handleFilterCourseByTagName = (tagName: string) => {
-    if (!tagName || tagName === 'all') return set_courses(courses);
-    const filteredCourses = courses?.filter((course) => {
-      return course.tags.some((tag) => tag.name === tagName);
-    });
-    set_courses(filteredCourses);
-  };
+  // const userStackMatch = tags?.filter((tag) => tag.name !== currentUser?.stack);
+  // const handleFilterCourseByTagName = (tagName: string) => {
+  //   if (!tagName || tagName === 'all') return set_courses(courses);
+  //   const filteredCourses = courses?.filter((course) => {
+  //     return course.tags.some((tag) => tag.name === tagName);
+  //   });
+  //   set_courses(filteredCourses);
+  // };
 
   useEffect(() => {
     set_courses(courses);
@@ -110,6 +110,7 @@ const Page = () => {
             isFetching={isFetching}
             hideSearchOptions
             loaderCounter={6}
+            hideReachedEnd
           />
         </div>
       </WhiteArea>
