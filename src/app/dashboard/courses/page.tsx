@@ -112,9 +112,9 @@ const Page = () => {
             loaderCounter={6}
             hideReachedEnd
           />
+          {noCourses && <EmptyState label="No course to display here ☹️" />}
         </div>
       </WhiteArea>
-      {noCourses && <EmptyState label="No course to display here ☹️" />}
     </div>
   );
 };
