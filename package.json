@@ -29,6 +29,7 @@
     "dayjs": "^1.11.10",
     "framer-motion": "^11.1.7",
     "joi": "^17.13.0",
+    "js-cookie": "^3.0.5",
     "lucide-react": "^0.338.0",
     "mongodb": "^6.5.0",
     "mongoose": "^8.3.2",

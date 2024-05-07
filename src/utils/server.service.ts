@@ -98,6 +98,29 @@ export async function getAllActivityAudits(): Promise<
   }
 }
 
+type QuoteType = {
+  slip: {
+    id: number;
+    advice: string;
+  };
+};
+
+export async function getRandomQuote(): Promise<QuoteType | undefined> {
+  try {
+    const url = 'https://api.adviceslip.com/advice';
+    const result = await fetch(url, {
+      cache: 'force-cache',
+    });
+
+    if (!result.ok) return { slip: { id: 0, advice: '' } };
+    const quote = await result.json();
+
+    return quote;
+  } catch (error) {
+    console.log(`Error from getRandomQuote: Error:- ${error}`);
+  }
+}
+
 type GetCurrentHackathonResponse = {
   hackathon: Hackathon;
   session: Session | null;
