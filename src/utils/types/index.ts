@@ -29,6 +29,7 @@ export type Overview = {
   active?: boolean;
   setCurrentCourse?: Function;
 };
+export type Overviews = Overview[];
 
 export type CommunityMember = {
   name: string;
@@ -128,6 +129,9 @@ export type Student = {
   location: string;
   gender: string;
   interests: string;
+  betaFeatures: {
+    [key: string]: boolean;
+  };
 };
 
 export type Students = Student[];
