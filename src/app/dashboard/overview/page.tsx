@@ -11,11 +11,13 @@ import { showCount } from '@/utils';
 import {
   getAllActivityAudits,
   getEnrolledCourses,
+  getRandomQuote,
 } from '@/utils/server.service';
 
 const Page = async () => {
   const auditsRes = await getAllActivityAudits();
   const audits = auditsRes!.audits;
+  const quoteRes = await getRandomQuote();
 
   const enrolledCoursesRes = await getEnrolledCourses();
   const enrolledCourses = enrolledCoursesRes?.enrolledCourses;
@@ -55,7 +57,7 @@ const Page = async () => {
 
   return (
     <section className="flex flex-col gap-3">
-      <QuoteOfTheDay />
+      <QuoteOfTheDay quote={quoteRes?.slip?.advice as string} isVisible />
       <WhiteArea twClass="bg-blue-50 border-blue-200" border>
         <section className="flex flex-col gap-3">
           <DashboardSubheading title="Your course overview" />
