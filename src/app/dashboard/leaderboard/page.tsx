@@ -169,7 +169,7 @@ const Page = async () => {
                   </div>
                   <div className="flex flex-col gap-2 text-center capitalize text-slate-800">
                     <div className="flex flex-col">
-                      <p className="font-extrabold">
+                      <p className="font-semibold text-slate-900">
                         {isAnonymous ? 'Anonymous' : fullName}{' '}
                         {isCurrentUser && (
                           <span className="lowercase">(you)</span>
