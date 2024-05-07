@@ -25,10 +25,10 @@ export const DashboardIndex = ({
   const onboardingRoutes = onboardingLinks.map((link) => link.slug);
   const pathIsOnboarding = onboardingRoutes.includes(currentPageName);
 
-  const allowedDashboardRoute = publicLinks.map((link) => link.key);
+  const unAuthenticatedRoutes = publicLinks.map((link) => link.key);
 
   const requireAdminAccess = !isAdmin && adminRoute;
-  const canAccessWithoutAuth = allowedDashboardRoute.includes(currentPageName);
+  const canAccessWithoutAuth = unAuthenticatedRoutes.includes(currentPageName);
   const requireAuth = !session && !canAccessWithoutAuth;
 
   if (requireAuth) {
