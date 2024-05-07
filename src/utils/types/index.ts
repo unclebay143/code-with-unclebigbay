@@ -29,6 +29,7 @@ export type Overview = {
   active?: boolean;
   setCurrentCourse?: Function;
 };
+export type Overviews = Overview[];
 
 export type CommunityMember = {
   name: string;

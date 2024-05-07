@@ -116,7 +116,7 @@ const privateLinks: SidebarLinks = [
   settings,
   helpCenter,
 ];
-const adminLinks: SidebarLinks = [questions, tags, hackathons, leaderboard];
+const adminLinks: SidebarLinks = [hackathons, leaderboard, questions, tags];
 
 export const getSidebarLinks = ({
   isAdmin,
