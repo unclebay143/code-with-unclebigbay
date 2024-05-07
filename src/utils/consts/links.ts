@@ -101,12 +101,10 @@ const tags: SidebarLink = {
 };
 
 export const onboardingLinks: SidebarLinks = [onboarding, helpCenter];
-export const publicLinks: SidebarLinks = [
-  courses,
-  helpCenter,
-  // hackathons,
-  // leaderboard,
-];
+export const publicLinks: SidebarLinks =
+  process.env.NODE_ENV === 'development'
+    ? [courses, hackathons, leaderboard, helpCenter]
+    : [courses, helpCenter];
 const privateLinks: SidebarLinks = [
   overview,
   courses,
