@@ -101,22 +101,20 @@ const tags: SidebarLink = {
 };
 
 export const onboardingLinks: SidebarLinks = [onboarding, helpCenter];
-export const publicLinks: SidebarLinks = [
-  courses,
-  hackathons,
-  leaderboard,
-  helpCenter,
-];
+export const publicLinks: SidebarLinks =
+  process.env.NODE_ENV === 'development'
+    ? [courses, hackathons, leaderboard, helpCenter]
+    : [courses, helpCenter];
 const privateLinks: SidebarLinks = [
   overview,
   courses,
-  hackathons,
-  leaderboard,
+  // hackathons,
+  // leaderboard,
   activity,
   settings,
   helpCenter,
 ];
-const adminLinks: SidebarLinks = [questions, tags];
+const adminLinks: SidebarLinks = [hackathons, leaderboard, questions, tags];
 
 export const getSidebarLinks = ({
   isAdmin,
