@@ -40,6 +40,7 @@ const studentSchema = new Schema(
     location: { type: String },
     gender: { type: String, enum: ALLOWED_GENDER },
     interests: [{ type: String }],
+    betaFeatures: { type: 'Object' },
   },
   {
     toJSON: {

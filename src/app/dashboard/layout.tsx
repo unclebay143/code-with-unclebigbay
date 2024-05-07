@@ -5,8 +5,6 @@ import { baseURL } from '../../../frontend.config';
 import { getServerSessionWithAuthOptions } from '@/utils/auth-options';
 import { Student } from '@/utils/types';
 
-// export const dynamic = 'force-dynamic';
-
 const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {

@@ -1,13 +1,14 @@
 'use client';
 
 import React from 'react';
+import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { Button } from '@hashnode/matrix-ui';
+import { ArrowLeft, Badge, Button, Spinner } from '@hashnode/matrix-ui';
 import { DashboardSubheading } from '@/components/molecules/dashboard/dashboard-subheading';
 import { WhiteArea } from '@/components/molecules/dashboard/white-area';
-import { ArrowLeft, Loader } from 'lucide-react';
 
 import { useAssignmentResponseById } from '@/components/hooks/useAssignmentResponse';
+import { capitalizeFirstLetter } from '@/utils';
 
 const Page = () => {
   const currentPathname = usePathname();
@@ -23,54 +24,53 @@ const Page = () => {
   const canShowQuestions = !isFetching;
   const courseTitle = assignmentResponse?.course?.title;
 
-  const mapStatusToColor: { [key: string]: string } = {
-    passed: 'text-green-500',
-    failed: 'text-red-500',
+  const mapStatusToColor: { [key: string]: 'green' | 'red' } = {
+    passed: 'green',
+    failed: 'red',
   };
+
+  const loader = (
+    <WhiteArea twClass="!p-0 bg-slate-50 animate-pulse" border>
+      <div className="flex items-center justify-center min-h-[80vh] gap-2 text-slate-600">
+        <Spinner className="text-slate-600" />
+        <span>Loading assignment response</span>
+      </div>
+    </WhiteArea>
+  );
 
   return (
     <div className="relative rounded-lg overflow-hidden">
-      {isFetching && (
-        <WhiteArea twClass="!p-0 bg-slate-50 animate-pulse" border>
-          <div className="flex items-center justify-center min-h-[80vh] gap-2 text-slate-600">
-            <span>Loading assignment response...</span>
-            <span className="animate-spin">
-              <Loader />
-            </span>
-          </div>
-        </WhiteArea>
-      )}
+      {isFetching && loader}
       {canShowQuestions && (
         <WhiteArea border>
           <div className="flex flex-col gap-5">
             <div className="flex flex-col gap-2 justify-between">
-              <div className="flex items-center justify-between">
-                <DashboardSubheading title={`Assignment: ${courseTitle}`} />
-                <Button size="xs" appearance="secondary-slate" asChild>
-                  <a
+              <div className="flex flex-col items-start gap-2 md:flex-row-reverse md:items-center justify-between">
+                <Button
+                  size="xs"
+                  appearance="secondary-slate"
+                  startIcon={ArrowLeft}
+                  asChild
+                >
+                  <Link
                     href={`/dashboard/courses/${courseId}`}
-                    className="flex gap-1 items-center"
+                    className="whitespace-nowrap"
                   >
-                    <ArrowLeft size={14} />
-                    <span>Back to course</span>
-                  </a>
+                    Back to course
+                  </Link>
                 </Button>
+                <DashboardSubheading title={`Assignment: ${courseTitle}`} />
               </div>
               <div className="flex text-slate-600">
-                <div className="text-sm">
+                <div className="text-sm flex gap-1 items-center">
                   <span className="font-medium"> Status: </span>
-                  <span
-                    className={`${mapStatusToColor[status]} font-medium capitalize`}
-                  >
-                    {status}
-                  </span>
-                  <span className="mx-1 invisible">&middot;</span>
+                  <Badge theme={`${mapStatusToColor[status]}`}>
+                    {capitalizeFirstLetter(status)}
+                  </Badge>
                   <span className="font-medium">Total: </span>
                   <span>{totalQuestion}</span>
-                  <span className="mx-1 invisible">&middot;</span>
                   <span className="font-medium">Score: </span>
                   <span>{score}</span>
-                  <span className="mx-1 invisible">&middot;</span>
                   <span className="font-medium">Grade: </span>
                   <span>{grade}</span>
                 </div>
