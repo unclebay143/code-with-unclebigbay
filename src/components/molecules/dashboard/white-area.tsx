@@ -15,7 +15,7 @@ export const WhiteArea = ({
 }: Props) => {
   return (
     <section
-      className={`${twClass ? twClass : 'bg-white'} rounded-lg p-4 px-5 ${border ? 'border' : ''} ${shadow ? 'shadow' : ''}`}
+      className={`${twClass ? twClass : 'bg-white'} rounded-xl p-4 px-5 ${border ? 'border' : ''} ${shadow ? 'shadow' : ''}`}
       {...otherProps}
     />
   );
