@@ -12,7 +12,7 @@ import {
 import { useRouter, useSearchParams } from 'next/navigation';
 import { WhiteArea } from '@/components/molecules/dashboard/white-area';
 import { HackathonCard } from '@/components/molecules/dashboard/hackathon/HackathonCard';
-import { Hackathon, Hackathons } from '@/utils/types';
+import { Hackathon } from '@/utils/types';
 import Link from 'next/link';
 
 const VIEW = {

@@ -1,4 +1,4 @@
-import { Audits, LeaderBoard } from '@/utils/types';
+import { Audits, Courses, LeaderBoard } from '@/utils/types';
 import { cookies } from 'next/headers';
 import { baseURL } from '../../frontend.config';
 import { getServerSessionWithAuthOptions } from './auth-options';
@@ -159,6 +159,23 @@ export async function getLeaderBoard(): Promise<
   const leaderboard = await result.json();
 
   return leaderboard;
+}
+
+export async function getCourses(): Promise<{ courses: Courses } | undefined> {
+  const url = `${baseURL}/api/courses`;
+  const result = await fetch(url, {
+    cache: 'force-cache',
+    headers: {
+      Cookie: await getCookie(),
+    },
+  });
+
+  if (!result.ok) {
+    console.log(result.statusText);
+  }
+
+  const { courses } = await result.json();
+  return { courses };
 }
 
 export async function getEnrolledCourses(): Promise<
