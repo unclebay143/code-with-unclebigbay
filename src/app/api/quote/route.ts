@@ -1,7 +1,6 @@
 import connectViaMongoose from '@/utils/mongoose';
 import { Quote } from '@/models/quote';
 import { NextResponse } from 'next/server';
-// import { getServerSessionWithAuthOptions } from '@/utils/auth-options';
 
 const POST = async (req: Request, _res: Response) => {
   const body = await req.json();
@@ -38,14 +37,21 @@ const POST = async (req: Request, _res: Response) => {
   }
 };
 
+
+
+
 const GET = async () => {
   try {
     await connectViaMongoose();
     const quote = await Quote.findOne({ isReleased: false });
-    //Use cron-job to set this quote to true after 24hrs after getting.
-    //check all the quote status after and set it back to false if all is now true.
+    if (!quote) return null;
+    if (quote) {
+      quote.isReleased = true;
+      await quote.save();
+    }
+    const nextQuote = await Quote.findOne({ isReleased: false });
     return NextResponse.json(
-      { message: 'Quote fetched successfully', quote },
+      { message: 'Quote fetched successfully', quote: nextQuote },
       {
         status: 200,
       },
@@ -59,5 +65,7 @@ const GET = async () => {
     );
   }
 };
+
+
 
 export { POST, GET };
