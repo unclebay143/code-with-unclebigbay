@@ -41,8 +41,8 @@ const Page = () => {
   const enrolledDate = course?.enrolledDate;
   const enrolledStudentsCount = course?.enrolledStudentsCount;
 
-  const isLoggedin = !!currentStudent;
-  const playableMode = !isLoggedin || isEnrolled;
+  const isLoggedIn = !!currentStudent;
+  const playableMode = !isLoggedIn || isEnrolled;
 
   const renderStartCourseCTA =
     "It looks like you're not logged in. Sign in to enroll in this course and access the assignment.";
@@ -81,7 +81,7 @@ const Page = () => {
                 <section className="rounded overflow-hidden">
                   <YTVideo ytVideoId={course?.ytVideoId} />
                 </section>
-                {!isLoggedin && (
+                {!isLoggedIn && (
                   <div className="flex  justify-between items-center flex-wrap gap-2">
                     <span className="text-sm text-orange-500">
                       {renderStartCourseCTA}
@@ -138,7 +138,6 @@ const Page = () => {
               {showMore && (
                 <section className="flex flex-col items-start gap-5 py-4 px-1">
                   <div className="w-full flex flex-col gap-5 sm:gap-7 flex-wrap">
-                    {/* <div className="w-full flex flex-col justify-between items-start gap-4"> */}
                     <div className="w-full flex flex-col items-start justify-between lg:flex-row lg:items-end gap-4">
                       {course?.description && (
                         <div>
@@ -150,23 +149,6 @@ const Page = () => {
                           </p>
                         </div>
                       )}
-                      <div className="lg:whitespace-nowrap">
-                        <Button
-                          size="xs"
-                          appearance="secondary-slate"
-                          endIcon={ArrowExternalLink01}
-                          asChild
-                        >
-                          <Link
-                            href={`https://www.youtube.com/watch?v=${course?.ytVideoId}`}
-                            target="_blank"
-                            rel="noopener"
-                            className="gap-1 font-normal"
-                          >
-                            Like and comment on YouTube
-                          </Link>
-                        </Button>
-                      </div>
                     </div>
                     <div className="flex flex-col gap-5 sm:gap-7">
                       <div className="flex flex-col gap-6 md:flex-row md:flex-wrap md:items-center">
@@ -183,15 +165,15 @@ const Page = () => {
                           <h3 className="font-medium text-lg text-slate-700">
                             Status:
                           </h3>
-                          <p
-                            className={`${isCompleted ? 'text-green-600' : isEnrolled ? 'text-yellow-600' : 'text-slate-600'}`}
+                          <Badge
+                            theme={`${isCompleted ? 'green' : isEnrolled ? 'yellow' : 'slate'}`}
                           >
                             {isCompleted
                               ? 'Completed'
                               : isEnrolled
                                 ? 'Enrolled'
-                                : 'Not Started'}
-                          </p>
+                                : 'Not enrolled'}
+                          </Badge>
                         </div>
                         {(isEnrolled && isCompleted) ||
                           (isEnrolled && (
@@ -231,16 +213,7 @@ const Page = () => {
                         </div>
                       )}
 
-                      <div className="flex flex-wrap gap-5 w-full justify-between items-end">
-                        {!(tags.length === 0) && (
-                          <div className="flex flex-wrap gap-1">
-                            {tags?.map(({ name, _id }) => (
-                              <Badge key={_id} size="md">
-                                <span className="capitalize">{name}</span>
-                              </Badge>
-                            ))}
-                          </div>
-                        )}
+                      <div className="flex justify-end">
                         {hasAssignment && (
                           <div>
                             {isEnrolled ? (
@@ -268,6 +241,34 @@ const Page = () => {
                             )}
                           </div>
                         )}
+                      </div>
+
+                      <div className="flex flex-col-reverse sm:flex-row gap-5 w-full justify-between items-end">
+                        {!(tags.length === 0) && (
+                          <div className="flex flex-wrap gap-1 self-start">
+                            {tags?.map(({ name, _id }) => (
+                              <Badge key={_id} size="md">
+                                <span className="capitalize">{name}</span>
+                              </Badge>
+                            ))}
+                          </div>
+                        )}
+
+                        <Button
+                          size="xs"
+                          appearance="secondary-slate"
+                          endIcon={ArrowExternalLink01}
+                          asChild
+                        >
+                          <Link
+                            href={`https://www.youtube.com/watch?v=${course?.ytVideoId}`}
+                            target="_blank"
+                            rel="noopener"
+                          >
+                            Like and comment on YouTube
+                          </Link>
+                        </Button>
+                        {/* </div> */}
                       </div>
                     </div>
                   </div>

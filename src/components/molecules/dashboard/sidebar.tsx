@@ -1,10 +1,9 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { usePathname } from 'next/navigation';
 import Link from 'next/link';
 import { SlideOver } from '../../atoms/SlideOver';
 import { CodeWithUnclebigbayLogo } from '../../atoms/CodeWithUnclebigbayLogo';
 import { SidebarLinks, getSidebarLinks } from '@/utils/consts/links';
-import { IconButton, X } from '@hashnode/matrix-ui';
 
 const SidebarLink = ({
   label,
@@ -34,9 +33,13 @@ const SidebarLink = ({
   );
 };
 
-const RenderNavItems = ({ sidebarLinks }: { sidebarLinks: SidebarLinks }) => {
-  const pathname = usePathname();
-  const currentPageName = pathname.split('/')[2] || pathname.split('/')[1];
+const RenderNavItems = ({
+  sidebarLinks,
+  currentPageName,
+}: {
+  sidebarLinks: SidebarLinks;
+  currentPageName: string;
+}) => {
   return (
     <>
       {sidebarLinks.map(({ key, label, Icon, slug }) => {
@@ -75,13 +78,23 @@ export const Sidebar = ({
     isOnboardingCompleted,
   });
 
+  const pathname = usePathname();
+  const currentPageName = pathname.split('/')[2] || pathname.split('/')[1];
+
+  useEffect(() => {
+    if (currentPageName) setSidebarOpen(false);
+  }, [currentPageName, setSidebarOpen]);
+
   return (
     <>
       <aside className="hidden lg:flex">
         <nav>
           <div className="transition-all w-0 lg:w-[270px]" />
-          <div className="border rounded-lg flex flex-col gap-1 px-2 fixed py-4 z-10 bg-white dark:bg-slate-950 w-[270px]">
-            <RenderNavItems sidebarLinks={sidebarLinks} />
+          <div className="border rounded-xl flex flex-col gap-1 px-2 fixed py-4 z-10 bg-white dark:bg-slate-950 w-[270px]">
+            <RenderNavItems
+              sidebarLinks={sidebarLinks}
+              currentPageName={currentPageName}
+            />
           </div>
         </nav>
       </aside>
@@ -98,14 +111,9 @@ export const Sidebar = ({
               </div>
             </div>
 
-            <RenderNavItems sidebarLinks={sidebarLinks} />
-          </div>
-          <div className="flex justify-center mt-10">
-            <IconButton
-              Icon={X}
-              size="xs"
-              appearance="secondary"
-              onClick={() => setSidebarOpen(false)}
+            <RenderNavItems
+              sidebarLinks={sidebarLinks}
+              currentPageName={currentPageName}
             />
           </div>
         </div>
