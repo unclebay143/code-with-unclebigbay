@@ -3,10 +3,9 @@
 import React, { useState } from 'react';
 import { usePathname } from 'next/navigation';
 import { toast } from 'sonner';
-import { Button, Spinner } from '@hashnode/matrix-ui';
+import { ArrowLeft, Badge, Button, Spinner } from '@hashnode/matrix-ui';
 import { DashboardSubheading } from '@/components/molecules/dashboard/dashboard-subheading';
 import { WhiteArea } from '@/components/molecules/dashboard/white-area';
-import { ArrowLeft } from 'lucide-react';
 import { useForm } from 'react-hook-form';
 import useAssignment, {
   useAssignmentById,
@@ -14,6 +13,7 @@ import useAssignment, {
 import { Questions } from '@/utils/types';
 // import { useWarnBeforePageReload } from '@/components/hooks/useWarnBeforePageReload';
 import useCurrentStudent from '@/components/hooks/useCurrentStudent';
+import Link from 'next/link';
 
 const Page = () => {
   const { data: student } = useCurrentStudent();
@@ -99,25 +99,27 @@ const Page = () => {
         <WhiteArea border>
           <div className="flex flex-col gap-5">
             <div className="flex flex-col gap-2 justify-between">
-              <div className="flex items-center justify-between">
-                <DashboardSubheading title={`Assignment: ${courseTitle}`} />
-                <Button size="xs" appearance="secondary-slate" asChild>
-                  <a
+              <div className="flex flex-col items-start gap-2 md:flex-row-reverse md:items-center justify-between">
+                <Button
+                  size="xs"
+                  appearance="secondary-slate"
+                  startIcon={ArrowLeft}
+                  asChild
+                >
+                  <Link
                     href={`/dashboard/courses/${courseId}`}
-                    className="flex gap-1 items-center"
+                    className="whitespace-nowrap"
                   >
-                    <ArrowLeft size={14} />
-                    <span>Back to course</span>
-                  </a>
+                    Back to course
+                  </Link>
                 </Button>
+                <DashboardSubheading title={`Assignment: ${courseTitle}`} />
               </div>
               <div className="flex text-slate-600">
-                <div className="text-sm">
+                <div className="text-sm flex gap-1 items-center">
                   <span className="font-medium"> Status: </span>
-                  <span className="text-yellow-500 font-medium">
-                    Not attempted
-                  </span>
-                  <span className="mx-1">&middot;</span>
+                  <Badge>Not attempted</Badge>
+                  <span className="">&middot;</span>
                   <span className="font-medium">Total: </span>
                   <span>{questions?.length}</span>
                 </div>
