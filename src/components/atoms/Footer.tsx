@@ -12,11 +12,9 @@ import {
 export const Footer = () => {
   return (
     <footer className="pt-[60vh] flex flex-col gap-6">
-      <section className="text-center flex flex-col justify-end items-center">
-        <h2 className="text-slate-300">
-          [This Space Intentionally Left Blank]
-        </h2>
-        <p className="text-slate-300 italic">
+      <section className=" text-zinc-300 text-center flex flex-col justify-end items-center">
+        <h2>[This Space Is Intentionally Left Blank]</h2>
+        <p className="italic">
           The bottom of every page is padded so you can maintain a consistent
           eye-line.
         </p>

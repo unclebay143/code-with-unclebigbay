@@ -1,4 +1,5 @@
 'use client';
+
 import {
   mapTestimonialSourceToColor,
   mapTestimonialSourceToIcon,
@@ -6,12 +7,9 @@ import {
 } from '@/utils/consts/testimonials';
 import Image from 'next/image';
 import React from 'react';
-import * as ScrollArea from '@radix-ui/react-scroll-area';
 import CustomScrollArea from './ScrollArea';
 
-type Props = {};
-
-const Testimonials = (props: Props) => {
+const Testimonials = () => {
   return (
     <section id="testimonials" className="">
       <CustomScrollArea>
