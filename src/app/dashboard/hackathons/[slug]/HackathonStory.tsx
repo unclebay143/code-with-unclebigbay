@@ -1,6 +1,7 @@
 'use client';
 
 import React from 'react';
+import { AddToCalendarButton } from 'add-to-calendar-button-react';
 import {
   Button,
   ArrowLeft,
@@ -22,6 +23,7 @@ import { useHackathonById } from '@/components/hooks/useHackathon';
 import useCurrentStudent from '@/components/hooks/useCurrentStudent';
 import { formatStartAndEndDate } from '@/utils/date';
 import { handleAuthentication } from '@/utils/auth';
+import dayjs from 'dayjs';
 
 type HackathonStoryProps = {
   hackathon: Hackathon;
@@ -135,6 +137,7 @@ export const HackathonStory = ({
               {formatStartAndEndDate(startDate, endDate)}
               {isClosed ? '(closed)' : null}
             </span>
+
             <div className="dark">
               {registered ? (
                 <>
@@ -369,6 +372,21 @@ export const HackathonStory = ({
                 )}
               </div>
             </div>
+          </section>
+          <section className="flex justify-center">
+            <AddToCalendarButton
+              name={`CWUBB Hackathon: ${title}`}
+              description={about}
+              startDate={dayjs(startDate).format('YYYY-mM-D')}
+              endDate={dayjs(endDate).format('YYYY-mM-D')}
+              options="'Apple','Google','iCal','Outlook.com','Yahoo'"
+              timeZone="Africa/Lagos"
+              organizer="Code with Unclebigbay|unclebigbay@gmail.com"
+              location="World Wide Web"
+              size="0"
+              buttonStyle="flat"
+              trigger="hover"
+            />
           </section>
         </section>
       </section>
