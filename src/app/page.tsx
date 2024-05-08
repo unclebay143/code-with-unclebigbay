@@ -11,6 +11,7 @@ import { Meteors } from '@/components/atoms/meteors';
 import { CommunityCTA } from '@/components/atoms/CommunityCTA';
 import { HackathonWidget } from '@/components/molecules/home/HackathonWidget';
 import { getCurrentHackathon, getStudents } from '@/utils/server.service';
+import { Features } from '@/components/molecules/home/Features';
 
 export const metadata: Metadata = {
   title: 'Code with Unclebigbay',
@@ -37,22 +38,32 @@ const Page = async () => {
           <Navbar session={session} />
           {hasHackathon && <HackathonWidget hackathon={hackathon} />}
         </div>
+
         <SectionWrapper>
           <Meteors />
           <HeroSection session={session} />
         </SectionWrapper>
+
         <SectionWrapper>
           <CoursesCardGroup />
         </SectionWrapper>
+
         <ChannelIntroVideoSection />
+
         <SectionWrapper>
           <TestimonialSection />
         </SectionWrapper>
+
+        <SectionWrapper>
+          <Features />
+        </SectionWrapper>
+
         <SectionWrapper>
           {showStudentCommunity ? (
             <CommunityMembersSection students={students} />
           ) : null}
         </SectionWrapper>
+
         <SectionWrapper>
           <CommunityCTA session={session} />
         </SectionWrapper>
