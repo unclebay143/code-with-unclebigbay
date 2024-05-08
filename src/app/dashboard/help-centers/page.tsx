@@ -1,6 +1,15 @@
+'use client';
+
 import { YTVideo } from '@/components/atoms/YTVideo';
 import { DashboardSubheading } from '@/components/molecules/dashboard/dashboard-subheading';
 import { WhiteArea } from '@/components/molecules/dashboard/white-area';
+import {
+  ArrowExternalLink01,
+  ArrowExternalLink02,
+  ArrowExternalLink03,
+  BrandYoutube,
+  Discord,
+} from '@hashnode/matrix-ui';
 import { Youtube } from 'lucide-react';
 import Link from 'next/link';
 import React from 'react';
@@ -24,9 +33,12 @@ const Page = () => {
           </section>
           <section className="grid md:grid-cols-3 gap-3">
             <WhiteArea
-              twClass="text-white bg-[#282828] bg-opacity-95 hover:bg-opacity-100"
+              twClass="group relative text-white bg-[#282828] bg-opacity-95 hover:bg-opacity-100"
               border
             >
+              <div className="absolute right-3 invisible text-slate-50 group-hover:visible">
+                <ArrowExternalLink02 size="sm" />
+              </div>
               <Link
                 rel="noopener"
                 target="_blank"
@@ -37,9 +49,12 @@ const Page = () => {
               </Link>
             </WhiteArea>
             <WhiteArea
-              twClass="text-white bg-[#128c7e] bg-opacity-95 hover:bg-opacity-100"
+              twClass="group relative text-white bg-[#128c7e] bg-opacity-95 hover:bg-opacity-100"
               border
             >
+              <div className="absolute right-3 invisible text-slate-50 group-hover:visible">
+                <ArrowExternalLink02 size="sm" />
+              </div>
               <Link
                 target="_blank"
                 rel="noopener"
@@ -56,9 +71,12 @@ const Page = () => {
               </Link>
             </WhiteArea>
             <WhiteArea
-              twClass="text-white bg-[#7289DA] bg-opacity-95 hover:bg-opacity-100"
+              twClass="group relative text-white bg-[#7289DA] bg-opacity-95 hover:bg-opacity-100"
               border
             >
+              <div className="absolute right-3 invisible text-slate-50 group-hover:visible">
+                <ArrowExternalLink02 size="sm" />
+              </div>
               <Link
                 target="_blank"
                 rel="noopener"
