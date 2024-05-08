@@ -20,6 +20,7 @@ specifiers:
   '@types/react': ^18.3.0
   '@types/react-dom': ^18.3.0
   '@typescript-eslint/eslint-plugin': ^7.8.0
+  add-to-calendar-button-react: ^2.6.14
   autoprefixer: ^10.4.19
   axios: ^1.6.8
   class-variance-authority: ^0.7.0
@@ -66,6 +67,7 @@ dependencies:
   '@radix-ui/react-tooltip': 1.0.7_tzafjpduflxal6bzaz3hkywfeq
   '@tanstack/react-query': 5.32.0_react@18.3.0
   '@typescript-eslint/eslint-plugin': 7.8.0_te743w6atip6hhlha3uq43n2xe
+  add-to-calendar-button-react: 2.6.14_rydrfxeul5zqz7xqpjjwnjuu7i
   axios: 1.6.8
   class-variance-authority: 0.7.0
   clsx: 2.1.1
@@ -2440,6 +2442,25 @@ packages:
     resolution: {integrity: sha512-Y9rRfJG5jcKOE0CLisYbojUjIrIEE7AGMzA/Sm4BslANhbS+cDMpgBdcPT91oJ7OuJ9hYJBx59RjbhxVnrF8Xg==}
     engines: {node: '>=0.4.0'}
     hasBin: true
+
+  /add-to-calendar-button-react/2.6.14_rydrfxeul5zqz7xqpjjwnjuu7i:
+    resolution: {integrity: sha512-MhxzyBeobJhSfNPnNby5RoQLTJ99YiSOU+OqB9M7Pnc3TlqtTqRAongdyY09AKe8pA+7lSSpGQDZurd2hwzEHA==}
+    engines: {node: '>=18.17.0', npm: '>=9.6.7'}
+    peerDependencies:
+      react: '>=18.0.0'
+      react-dom: '>=18.0.0'
+    dependencies:
+      add-to-calendar-button: 2.6.14
+      react: 18.3.0
+      react-dom: 18.3.0_react@18.3.0
+    dev: false
+
+  /add-to-calendar-button/2.6.14:
+    resolution: {integrity: sha512-kGh+KgiDWq7SmX/f5FXhigHSC7QD9DoG7OyRrO2DHizSque/XgWlvvfJC4TVfRs92U4fewMKKGyB1wrJpWrSwg==}
+    engines: {node: '>=18.17.0', npm: '>=9.6.7'}
+    dependencies:
+      timezones-ical-library: 1.8.2
+    dev: false
 
   /ajv/6.12.6:
     resolution: {integrity: sha512-j3fVLgvTo527anyYyJOGTYJbG+vnnQYvE0m5mmkc1TK+nxAppkCLMIL0aZ4dblVCNoGShhm+kzE4ZUykBoMg4g==}
@@ -5391,6 +5412,11 @@ packages:
   /throttle-debounce/3.0.1:
     resolution: {integrity: sha512-dTEWWNu6JmeVXY0ZYoPuH5cRIwc0MeGbJwah9KUNYSJwommQpCzTySTpEe8Gs1J23aeWEuAobe4Ag7EHVt/LOg==}
     engines: {node: '>=10'}
+    dev: false
+
+  /timezones-ical-library/1.8.2:
+    resolution: {integrity: sha512-0bbCp+xXtTUOcBo7bAGkzK5yMiNnY/FmJblTlnkGcqW5O+SChvWNtvsOX9WqbU5/8sT+Nl/MKQ7c9qafIkUstA==}
+    engines: {node: '>=18.17.0', npm: '>=9.6.7'}
     dev: false
 
   /to-regex-range/5.0.1:
