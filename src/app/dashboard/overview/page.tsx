@@ -57,7 +57,7 @@ const Page = async () => {
 
   return (
     <section className="flex flex-col gap-3">
-      <QuoteOfTheDay quote={quoteRes?.quote as string} isVisible />
+      <QuoteOfTheDay quote={quoteRes?.slip?.advice as string} isVisible />
       <WhiteArea twClass="bg-blue-50 border-blue-200" border>
         <section className="flex flex-col gap-3">
           <DashboardSubheading title="Your course overview" />
