@@ -104,6 +104,13 @@ const Page = async () => {
 
       <ActivityLogs audits={audits} show={5} />
     </section>
+
+    <Overview
+      // overviews={overviews}
+      audits={audits}
+      enrolledCourses={enrolledCourses}
+    />
+
   );
 };
 
