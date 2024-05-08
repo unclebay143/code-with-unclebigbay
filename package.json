@@ -2,6 +2,7 @@
   "name": "code-with-unclebigbay",
   "version": "0.1.0",
   "private": true,
+  "packageManager": "pnpm@7.27.1",
   "scripts": {
     "dev": "next dev -p 3001",
     "build": "next build",
@@ -23,6 +24,7 @@
     "@radix-ui/react-tooltip": "^1.0.7",
     "@tanstack/react-query": "^5.32.0",
     "@typescript-eslint/eslint-plugin": "^7.8.0",
+    "add-to-calendar-button-react": "^2.6.14",
     "axios": "^1.6.8",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
