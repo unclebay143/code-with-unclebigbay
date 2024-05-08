@@ -37,19 +37,19 @@ const POST = async (req: Request, _res: Response) => {
   }
 };
 
-
-
-
 const GET = async () => {
   try {
     await connectViaMongoose();
     const quote = await Quote.findOne({ isReleased: false });
-    if (!quote) return null;
     if (quote) {
       quote.isReleased = true;
       await quote.save();
     }
     const nextQuote = await Quote.findOne({ isReleased: false });
+    if (!quote) {
+      await Quote.updateMany({ isReleased: true }, { isReleased: false });
+      await quote.save();
+    }
     return NextResponse.json(
       { message: 'Quote fetched successfully', quote: nextQuote },
       {
@@ -65,7 +65,5 @@ const GET = async () => {
     );
   }
 };
-
-
 
 export { POST, GET };
