@@ -21,7 +21,6 @@ export const QuoteOfTheDay = ({
 }) => {
   const [showQuoteWidget, setShowQuoteWidget] = useState<boolean>(true);
 
-
   // eslint-disable-next-line react-hooks/rules-of-hooks
   useEffect(() => {
     const hideUntil = Cookies.get('hideUntil');
@@ -49,7 +48,7 @@ export const QuoteOfTheDay = ({
   };
 
   return (
-    <div>
+    <main>
       {showQuoteWidget && (
         <WhiteArea shadow>
           <section className="flex justify-between">
@@ -89,6 +88,6 @@ export const QuoteOfTheDay = ({
           </section>
         </WhiteArea>
       )}
-    </div>
+    </main>
   );
 };
