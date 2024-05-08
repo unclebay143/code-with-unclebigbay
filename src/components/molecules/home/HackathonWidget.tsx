@@ -62,7 +62,7 @@ export const HackathonWidget = ({ hackathon }: Props) => {
           <div className="dark">
             {studentId ? (
               <Button size="sm" appearance="primary-slate" asChild>
-                <Link href={hackathonUrl}>View hackathon</Link>
+                <Link href={hackathonUrl}>Explore Hackathon</Link>
               </Button>
             ) : (
               <Button
