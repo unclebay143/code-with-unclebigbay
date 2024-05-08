@@ -10,6 +10,7 @@ import {
 import { MenuButton } from './menu-button';
 import { useState, useEffect } from 'react';
 import Cookies from 'js-cookie';
+import { baseURL } from '../../../../frontend.config';
 
 export const QuoteOfTheDay = ({
   quote,
@@ -19,6 +20,7 @@ export const QuoteOfTheDay = ({
   isVisible: boolean;
 }) => {
   const [showQuoteWidget, setShowQuoteWidget] = useState<boolean>(true);
+
 
   // eslint-disable-next-line react-hooks/rules-of-hooks
   useEffect(() => {
