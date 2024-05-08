@@ -47,7 +47,7 @@ export const QuoteOfTheDay = ({
   };
 
   return (
-    <main>
+    <div>
       {showQuoteWidget && (
         <WhiteArea shadow>
           <section className="flex justify-between">
@@ -87,6 +87,6 @@ export const QuoteOfTheDay = ({
           </section>
         </WhiteArea>
       )}
-    </main>
+    </div>
   );
 };
