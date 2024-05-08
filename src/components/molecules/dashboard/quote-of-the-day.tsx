@@ -10,7 +10,6 @@ import {
 import { MenuButton } from './menu-button';
 import { useState, useEffect } from 'react';
 import Cookies from 'js-cookie';
-import { baseURL } from '../../../../frontend.config';
 
 export const QuoteOfTheDay = ({
   quote,

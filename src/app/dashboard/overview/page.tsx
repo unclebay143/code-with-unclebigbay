@@ -1,9 +1,18 @@
+import { EmptyState } from '@/components/molecules/dashboard/empty-state';
+import { WhiteArea } from '@/components/molecules/dashboard/white-area';
+import { QuoteOfTheDay } from '@/components/molecules/dashboard/quote-of-the-day';
+import { DashboardSubheading } from '@/components/molecules/dashboard/dashboard-subheading';
+import { OverviewCard } from '@/components/molecules/dashboard/overview-card';
+import { ActivityLogs } from '@/components/molecules/dashboard/activity-logs';
+import { Courses } from '@/components/molecules/dashboard/courses';
+import { Overview } from '@/utils/types';
+import { ActivityIcon, CheckCheckIcon, LibraryBig } from 'lucide-react';
+import { showCount } from '@/utils';
 import {
   getAllActivityAudits,
   getEnrolledCourses,
   getRandomQuote,
 } from '@/utils/server.service';
-import Overview from './overview';
 
 const Page = async () => {
   const auditsRes = await getAllActivityAudits();
@@ -12,6 +21,39 @@ const Page = async () => {
 
   const enrolledCoursesRes = await getEnrolledCourses();
   const enrolledCourses = enrolledCoursesRes?.enrolledCourses;
+
+  const iterableEnrolledCourses = enrolledCourses.map(
+    (enrolledCourse: any) => enrolledCourse.course,
+  );
+  const enrolledCoursesCount = enrolledCourses?.length;
+  const noEnrolledCourses = enrolledCoursesCount === 0;
+  const pendingCoursesCount = enrolledCourses.filter(
+    (enrolledCourse: any) => !enrolledCourse.isCompleted,
+  ).length;
+  const completedCoursesCount = enrolledCoursesCount - pendingCoursesCount;
+
+  const overviews: Overview[] = [
+    {
+      id: 'total',
+      label: 'Total enrolled',
+      Icon: LibraryBig,
+      count: enrolledCoursesCount,
+    },
+    {
+      id: 'pending',
+      label: 'Pending',
+      Icon: ActivityIcon,
+      count: pendingCoursesCount,
+    },
+    {
+      id: 'completed',
+      label: 'Completed',
+      Icon: CheckCheckIcon,
+      count: completedCoursesCount,
+    },
+  ];
+
+  // Todo: indicate courses that are completed
 
   return (
     <section className="flex flex-col gap-3">
