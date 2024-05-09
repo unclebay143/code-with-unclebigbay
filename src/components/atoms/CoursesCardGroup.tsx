@@ -34,7 +34,7 @@ const CourseLinkCard = ({ course }: CourseLinkCardProps) => {
         }}
       />
       <Link
-        href={url}
+        href="/dashboard/courses"
         className={`${comingSoon ? 'opacity-70 hover:opacity-100 focus:opacity-100' : ''} group border hover:border-[${color}] px-5 py-7 rounded-xl flex flex-col gap-3`}
         id={`course-card-for-${title}`}
       >
@@ -48,11 +48,11 @@ const CourseLinkCard = ({ course }: CourseLinkCardProps) => {
                 New
               </span>
             )}
-            {comingSoon && (
+            {/* {comingSoon && (
               <span className="px-1 text-[12px] font-medium border bg-slate-100 text-slate-600 rounded-full">
                 Coming soon
               </span>
-            )}
+            )} */}
           </div>
           <span
             className={`hidden group-hover:inline`}
