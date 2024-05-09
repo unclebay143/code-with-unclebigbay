@@ -46,7 +46,6 @@ const GET = async () => {
     }
     if (!quote) {
       await Quote.updateMany({ isReleased: true }, { isReleased: false });
-      await quote.save();
     }
     return NextResponse.json(
       { message: 'Quote fetched successfully', quote },
