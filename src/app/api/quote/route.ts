@@ -43,15 +43,13 @@ const GET = async () => {
     const quote = await Quote.findOne({ isReleased: false });
     if (quote) {
       quote.isReleased = true;
-      await quote.save();
     }
-    const nextQuote = await Quote.findOne({ isReleased: false });
     if (!quote) {
       await Quote.updateMany({ isReleased: true }, { isReleased: false });
       await quote.save();
     }
     return NextResponse.json(
-      { message: 'Quote fetched successfully', quote: nextQuote },
+      { message: 'Quote fetched successfully', quote },
       {
         status: 200,
       },
