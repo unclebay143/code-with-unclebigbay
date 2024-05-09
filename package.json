@@ -2,7 +2,7 @@
   "name": "code-with-unclebigbay",
   "version": "0.1.0",
   "private": true,
-  "packageManager": "pnpm@7.27.1",
+  "packageManager": "pnpm@9.1.0",
   "scripts": {
     "dev": "next dev -p 3001",
     "build": "next build",
