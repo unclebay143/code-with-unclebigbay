@@ -9,73 +9,91 @@ import { SectionWrapper } from '../molecules/home';
 import { handleAuthentication } from '@/utils/auth';
 import { BarsHamburger, Button, IconButton } from '@hashnode/matrix-ui';
 import { Session } from 'next-auth';
+import { AuthModal } from './AuthModal';
 
 export const Navbar = ({ session }: { session?: Session | null }) => {
   const [sidebarVisibility, setSidebarVisibility] = useState(false);
+  const [openAuthModal, setOpenAuthModal] = useState(false);
+  const [authenticationType, setAuthenticationType] = useState<
+    'login' | 'signup'
+  >('login');
 
   return (
-    <nav className="sticky top-0 bg-white z-50 py-5">
-      <SectionWrapper>
-        <section className="flex w-full items-center justify-between">
-          <CodeWithUnclebigbayLogo />
-          <section className="hidden lg:flex items-center gap-3 text-slate-600">
-            {navLinks.map(({ label, url, target }, index) => (
-              <Button
-                size="sm"
-                asChild
-                appearance="link-secondary"
-                key={`big-screen-nav-links-${index}`}
-              >
-                <Link href={url} target={target}>
-                  {label}
-                </Link>
-              </Button>
-            ))}
+    <>
+      <nav className="sticky top-0 bg-white z-50 py-5">
+        <SectionWrapper>
+          <section className="flex w-full items-center justify-between">
+            <CodeWithUnclebigbayLogo />
+            <section className="hidden lg:flex items-center gap-3 text-slate-600">
+              {navLinks.map(({ label, url, target }, index) => (
+                <Button
+                  size="sm"
+                  asChild
+                  appearance="link-secondary"
+                  key={`big-screen-nav-links-${index}`}
+                >
+                  <Link href={url} target={target}>
+                    {label}
+                  </Link>
+                </Button>
+              ))}
+            </section>
+
+            <div className="flex gap-4 items-center">
+              <section className="hidden sm:block w-[163px]">
+                {session ? (
+                  <div className="flex justify-end">
+                    <Button size="xs" appearance="primary-slate" asChild>
+                      <Link href="/dashboard/overview">Dashboard</Link>
+                    </Button>
+                  </div>
+                ) : (
+                  <section className="flex gap-1.5 items-center">
+                    <Button
+                      size="sm"
+                      onClick={() => {
+                        setOpenAuthModal(true);
+                        setAuthenticationType('login');
+                      }}
+                      appearance="link-secondary"
+                    >
+                      Sign in
+                    </Button>
+                    <Button
+                      size="xs"
+                      appearance="primary-slate"
+                      onClick={() => {
+                        setOpenAuthModal(true);
+                        setAuthenticationType('signup');
+                      }}
+                    >
+                      Sign up
+                    </Button>
+                  </section>
+                )}
+              </section>
+              <section className="lg:hidden">
+                <IconButton
+                  size="xs"
+                  onClick={() => setSidebarVisibility(true)}
+                  Icon={BarsHamburger}
+                />
+              </section>
+            </div>
           </section>
+        </SectionWrapper>
+      </nav>
+      <SidebarSlideOver
+        isOpen={sidebarVisibility}
+        close={() => setSidebarVisibility(false)}
+        session={session}
+      />
 
-          <div className="flex gap-4 items-center">
-            <section className="hidden sm:block w-[163px]">
-              {session ? (
-                <div className="flex justify-end">
-                  <Button size="xs" appearance="primary-slate" asChild>
-                    <Link href="/dashboard/overview">Dashboard</Link>
-                  </Button>
-                </div>
-              ) : (
-                <section className="flex gap-1.5 items-center">
-                  <Button
-                    size="sm"
-                    onClick={() => handleAuthentication()}
-                    appearance="link-secondary"
-                  >
-                    Sign in
-                  </Button>
-                  <Button
-                    size="xs"
-                    appearance="primary-slate"
-                    onClick={() => handleAuthentication()}
-                  >
-                    Sign up
-                  </Button>
-                </section>
-              )}
-            </section>
-            <section className="lg:hidden">
-              <IconButton
-                size="xs"
-                onClick={() => setSidebarVisibility(true)}
-                Icon={BarsHamburger}
-              />
-            </section>
-          </div>
-
-          <SidebarSlideOver
-            isOpen={sidebarVisibility}
-            close={() => setSidebarVisibility(false)}
-            session={session}
-          />
-        </section>
-      </SectionWrapper>
-    </nav>
+      <AuthModal
+        isOpen={openAuthModal}
+        close={() => setOpenAuthModal(false)}
+        type={authenticationType}
+      />
+    </>
   );
 };
