@@ -60,19 +60,9 @@ export const HackathonWidget = ({ hackathon }: Props) => {
           </Link>
 
           <div className="dark">
-            {studentId ? (
-              <Button size="sm" appearance="primary-slate" asChild>
-                <Link href={hackathonUrl}>Explore Hackathon</Link>
-              </Button>
-            ) : (
-              <Button
-                size="sm"
-                appearance="primary-slate"
-                onClick={() => handleAuthentication({ nextUrl: hackathonUrl })}
-              >
-                View hackathon
-              </Button>
-            )}
+            <Button size="sm" appearance="primary-slate" asChild>
+              <Link href={hackathonUrl}>Explore Hackathon</Link>
+            </Button>
           </div>
         </section>
       </SectionWrapper>
