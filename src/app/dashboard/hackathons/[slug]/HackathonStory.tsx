@@ -390,7 +390,7 @@ export const HackathonStory = ({
           </section>
         </section>
       </section>
-      <section className="flex items-center justify-center gap-2">
+      <section className="flex flex-col sm:flex-row items-center justify-center gap-2">
         <a
           href={socialShare}
           target="_blank"
@@ -399,7 +399,7 @@ export const HackathonStory = ({
           <BrandXTwitter size="sm" />
           Share on Twitter
         </a>
-        <span className="text-slate-500">&middot;</span>
+        <span className="text-slate-500 hidden sm:inline">&middot;</span>
         <a
           href="https://www.youtube.com/@unclebigbay"
           target="_blank"
