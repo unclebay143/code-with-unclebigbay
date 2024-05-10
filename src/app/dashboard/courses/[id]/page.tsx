@@ -68,8 +68,10 @@ const Page = () => {
       <WhiteArea border>
         {showCourse ? (
           <div className="flex flex-col gap-5">
-            <div className="flex items-center justify-between gap-1 text-xl text-slate-600">
-              <DashboardSubheading title={course.title} />
+            <div className="flex items-start justify-between gap-1 text-xl text-slate-600">
+              <div className="max-w-[90%]">
+                <DashboardSubheading title={course.title} />
+              </div>
               <Tooltip tooltip="Need help? Click me" asChild>
                 <a target="_blank" href="/dashboard/help-centers">
                   <IconButton Icon={HelpCircle} size="lg" />
@@ -160,7 +162,9 @@ const Page = () => {
                             {formatDate(course.createdAt!)}
                           </p>
                         </div>
-                        <hr className="hidden md:block w-0 h-10 border" />
+                        {isEnrolled && (
+                          <hr className="hidden md:block h-10 border" />
+                        )}
                         {isEnrolled && (
                           <div>
                             <h3 className="font-medium text-lg text-slate-700">
@@ -171,6 +175,7 @@ const Page = () => {
                             </p>
                           </div>
                         )}
+                        <hr className="hidden md:block h-10 border" />
                         <div>
                           <h3 className="font-medium text-lg text-slate-700">
                             Status:
@@ -185,10 +190,9 @@ const Page = () => {
                                 : 'Not enrolled'}
                           </Badge>
                         </div>
-                        {(isEnrolled && isCompleted) ||
-                          (isEnrolled && (
-                            <hr className="hidden md:block w-0 h-10 border" />
-                          ))}
+                        {isCompleted && (
+                          <hr className="hidden md:block h-10 border" />
+                        )}
                         {isEnrolled && isCompleted && (
                           <div>
                             <h3 className="font-medium text-lg text-slate-700">
