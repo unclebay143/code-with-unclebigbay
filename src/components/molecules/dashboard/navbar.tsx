@@ -6,7 +6,7 @@ import Image from 'next/image';
 import { CodeWithUnclebigbayLogo } from '../../atoms/CodeWithUnclebigbayLogo';
 import { ChevronDown } from 'lucide-react';
 
-import { handleAuthentication, handleLogout } from '@/utils/auth';
+import { handleLogout } from '@/utils/auth';
 import { Student } from '@/utils/types';
 import {
   ArrowLogout,
@@ -107,16 +107,6 @@ export const Navbar = ({ session, setSidebarOpen, currentStudent }: Props) => {
                 </DropdownMenu>
               </section>
             ) : (
-              // <Button
-              //   appearance="primary-slate"
-              //   size="xs"
-              //   onClick={() =>
-              //     handleAuthentication({ nextUrl: window.location.href })
-              //   }
-              // >
-              //   Sign in
-              // </Button>
-
               <section className="flex gap-1.5 items-center">
                 <Button
                   size="sm"
@@ -147,7 +137,9 @@ export const Navbar = ({ session, setSidebarOpen, currentStudent }: Props) => {
         isOpen={openAuthModal}
         close={() => setOpenAuthModal(false)}
         type={authenticationType}
-        nextUrl={window.location.href}
+        nextUrl={
+          typeof window !== 'undefined' ? window.location.href : undefined
+        }
       />
     </>
   );

@@ -44,11 +44,10 @@ const Page = () => {
   const isLoggedIn = !!currentStudent;
   const playableMode = !isLoggedIn || isEnrolled;
 
-  const renderStartCourseCTA =
-    "It looks like you're not logged in. Sign in to enroll in this course and access the assignment.";
-
   const assignmentId = course?.assignment;
   const hasAssignment = !!assignmentId;
+
+  const renderStartCourseCTA = `Sign in to enroll in this course${hasAssignment ? ' and access the assignment.' : '.'}`;
 
   const handleShowMoreVisibility = () => {
     setShowMore((prevVisibility) => !prevVisibility);
