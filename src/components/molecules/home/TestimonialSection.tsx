@@ -20,6 +20,7 @@ export const TestimonialSection = () => {
         courses have impacted their journey."
       />
       <hr className="pb-1 invisible" />
+
       <Testimonials />
     </section>
   );
