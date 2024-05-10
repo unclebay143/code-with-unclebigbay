@@ -56,7 +56,7 @@ export const QuoteOfTheDay = ({
                 <span>
                   <Sparkles size={16} />
                 </span>
-                <h2>Quote of the day!..</h2>
+                <h2>Quote of the day!</h2>
               </section>
               <section className="ml-5">
                 <span className="text-sm text-slate-500">{quote}</span>
