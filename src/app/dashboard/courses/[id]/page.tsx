@@ -161,6 +161,16 @@ const Page = () => {
                           </p>
                         </div>
                         <hr className="hidden md:block w-0 h-10 border" />
+                        {isEnrolled && (
+                          <div>
+                            <h3 className="font-medium text-lg text-slate-700">
+                              Date Enrolled:
+                            </h3>
+                            <p className="text-slate-600">
+                              {formatDate(enrolledDate!)}
+                            </p>
+                          </div>
+                        )}
                         <div>
                           <h3 className="font-medium text-lg text-slate-700">
                             Status:
@@ -186,16 +196,6 @@ const Page = () => {
                             </h3>
                             <p className="text-slate-600">
                               {formatDate(completionDate!)}
-                            </p>
-                          </div>
-                        )}
-                        {isEnrolled && (
-                          <div>
-                            <h3 className="font-medium text-lg text-slate-700">
-                              Date Enrolled:
-                            </h3>
-                            <p className="text-slate-600">
-                              {formatDate(enrolledDate!)}
                             </p>
                           </div>
                         )}
