@@ -1,4 +1,4 @@
-import { Audits, LeaderBoard } from '@/utils/types';
+import { Audits, Courses, LeaderBoard } from '@/utils/types';
 import { cookies } from 'next/headers';
 import { baseURL } from '../../frontend.config';
 import { getServerSessionWithAuthOptions } from './auth-options';
@@ -98,29 +98,6 @@ export async function getAllActivityAudits(): Promise<
   }
 }
 
-type QuoteType = {
-  slip: {
-    id: number;
-    advice: string;
-  };
-};
-
-export async function getRandomQuote(): Promise<QuoteType | undefined> {
-  try {
-    const url = 'https://api.adviceslip.com/advice';
-    const result = await fetch(url, {
-      cache: 'force-cache',
-    });
-
-    if (!result.ok) return { slip: { id: 0, advice: '' } };
-    const quote = await result.json();
-
-    return quote;
-  } catch (error) {
-    console.log(`Error from getRandomQuote: Error:- ${error}`);
-  }
-}
-
 type GetCurrentHackathonResponse = {
   hackathon: Hackathon;
   session: Session | null;
@@ -159,6 +136,23 @@ export async function getLeaderBoard(): Promise<
   const leaderboard = await result.json();
 
   return leaderboard;
+}
+
+export async function getCourses(): Promise<{ courses: Courses } | undefined> {
+  const url = `${baseURL}/api/courses`;
+  const result = await fetch(url, {
+    cache: 'force-cache',
+    headers: {
+      Cookie: await getCookie(),
+    },
+  });
+
+  if (!result.ok) {
+    console.log(result.statusText);
+  }
+
+  const { courses } = await result.json();
+  return { courses };
 }
 
 export async function getEnrolledCourses(): Promise<
