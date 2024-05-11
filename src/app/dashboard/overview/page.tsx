@@ -3,6 +3,11 @@ import {
   getEnrolledCourses,
 } from '@/utils/server.service';
 import Overview from './overview';
+import { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: 'Overview - Dashboard',
+};
 
 const Page = async () => {
   const auditsRes = await getAllActivityAudits();
