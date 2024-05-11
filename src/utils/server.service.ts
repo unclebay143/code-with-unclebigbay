@@ -7,6 +7,7 @@ import { Session } from 'next-auth';
 import { NextResponse } from 'next/server';
 import { Student as StudentModel } from '@/models/student';
 import { AuditTrail } from '@/models/audit-trail';
+import connectViaMongoose from './mongoose';
 
 // https://www.reddit.com/r/nextjs/comments/16hzdsr/i_have_a_question_using_headers/
 // export const getCustomHeaders = () => {
@@ -104,7 +105,7 @@ export async function getAllActivityAudits(): Promise<
     //     { status: 403 },
     //   );
     // }
-
+    await connectViaMongoose();
     const student = await StudentModel.findOne({ email: session?.user.email });
     console.log({ student });
 
