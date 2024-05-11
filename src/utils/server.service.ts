@@ -4,7 +4,6 @@ import { baseURL } from '../../frontend.config';
 import { getServerSessionWithAuthOptions } from './auth-options';
 import { Countries, Country, Hackathon, Student, Students } from './types';
 import { Session } from 'next-auth';
-import { NextResponse } from 'next/server';
 import { Student as StudentModel } from '@/models/student';
 import { AuditTrail } from '@/models/audit-trail';
 import connectViaMongoose from './mongoose';
@@ -116,7 +115,7 @@ export async function getAllActivityAudits(): Promise<
     //   { status: 200 },
     // );
 
-    return { audits };
+    return { audits: JSON.parse(JSON.stringify(audits)) };
   } catch (error) {
     console.log(`Error from getAllActivityAudits: Error:- ${error}`);
   }
