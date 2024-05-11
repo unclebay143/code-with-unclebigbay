@@ -43,7 +43,6 @@ const POST = async (req: Request, _res: Response) => {
 
 const GET = async () => {
   try {
-    await connectViaMongoose();
     const session = await getServerSessionWithAuthOptions();
     if (!session) {
       return NextResponse.json(
@@ -53,6 +52,8 @@ const GET = async () => {
         },
       );
     }
+
+    await connectViaMongoose();
     const student: StudentType | null = await Student.findOne({
       email: session.user.email,
     });
