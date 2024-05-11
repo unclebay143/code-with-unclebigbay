@@ -5,6 +5,8 @@ const Page = async () => {
   const res = await getAllActivityAudits();
   const audits = res?.audits;
 
+  console.log(res?.audits);
+
   if (audits)
     return <ActivityLogs audits={audits} loaderCount={5} hideShowMore />;
 };
