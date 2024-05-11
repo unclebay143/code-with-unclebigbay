@@ -37,8 +37,11 @@ export const AuthModal = ({
                 <IconButton Icon={X} size="sm" onClick={close} />
               </section>
               <p className="text-sm text-slate-600">
-                Authenticate with your GitHub account. We will retrieve your
-                name, avatar and other data.
+                {type === 'login' &&
+                  'Welcome back! Please log in with your GitHub account to access your profile, settings, and continue where you left off.'}
+
+                {type === 'signup' &&
+                  'Connect with your GitHub account to unlock personalized features, and enhance your experience with us.'}
               </p>
             </section>
             <Button
