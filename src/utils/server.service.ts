@@ -97,7 +97,6 @@ export async function getAllActivityAudits(): Promise<
     // const audits = await result.json();
 
     const session = await getServerSessionWithAuthOptions();
-    console.log({ session });
 
     // if (!session) {
     //   return NextResponse.json(
@@ -107,19 +106,15 @@ export async function getAllActivityAudits(): Promise<
     // }
     await connectViaMongoose();
     const student = await StudentModel.findOne({ email: session?.user.email });
-    console.log({ student });
 
     const audits = await AuditTrail.find({ student: student.id }).sort({
       createdAt: -1,
     });
-    console.log({ audits });
 
     // return NextResponse.json(
     //   { message: 'Student audits fetched', audits },
     //   { status: 200 },
     // );
-
-    console.log(audits);
 
     return { audits };
   } catch (error) {
