@@ -14,6 +14,7 @@ const GET = async () => {
       );
     }
 
+    await connectViaMongoose();
     const student = await Student.findOne({ email: session.user.email });
     const audits = await AuditTrail.find({ student: student.id }).sort({
       createdAt: -1,
