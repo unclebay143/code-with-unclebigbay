@@ -4,7 +4,8 @@ import { PlayCircle } from 'lucide-react';
 import type { LucideIcon } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { formatTime } from '@/utils';
+import { formatDate, formatTime } from '@/utils';
+import dayjs from 'dayjs';
 
 type CourseCardProps = {
   course: Course;
@@ -64,14 +65,14 @@ export const CourseCard = ({ layout = 'grid', course }: CourseCardProps) => {
               />
             </div>
           </div>
-          <section className="h-[220px] p-6 flex flex-col gap-3 justify-between">
+          <section className="p-5 flex flex-col gap-3 justify-between">
             <div className="flex flex-col gap-3">
-              <div className="flex items-start justify-between">
+              <div className="flex flex-col gap-2 items-start justify-between">
                 <div
                   title={title}
-                  className="text-gray-700 font-medium hover:text-slate-800 text-lg line-clamp-2"
+                  className="text-gray-700 font-medium hover:text-slate-800 text-lg"
                 >
-                  {title}{' '}
+                  {title}
                 </div>
                 {viewTime ? (
                   <span className="py-1 px-2 whitespace-nowrap rounded-full bg-slate-100 text-xs font-semibold">
@@ -81,6 +82,7 @@ export const CourseCard = ({ layout = 'grid', course }: CourseCardProps) => {
               </div>
               <p className="text-slate-500 line-clamp-3">{description}</p>
             </div>
+
             {isEnrolled && (
               <span className="w-fit text-xs rounded px-3 py-1 bg-slate-100 text-slate-600 font-medium">
                 Enrolled
