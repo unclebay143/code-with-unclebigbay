@@ -7,6 +7,8 @@ import { Student } from '@/utils/types';
 
 const inter = Inter({ subsets: ['latin'] });
 
+export const maxDuration = 60;
+
 export const metadata: Metadata = {
   title: 'Dashboard | Code with Unclebigbay',
   description: 'Learn to Code and Build Your Career',
