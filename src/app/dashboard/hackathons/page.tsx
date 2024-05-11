@@ -4,6 +4,12 @@ import { Hackathon } from '@/utils/types';
 import { HackathonTabView } from './HackathonTabView';
 import { getAllHackathons } from '@/utils/server.service';
 
+import { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: 'Hackathons - Dashboard',
+};
+
 /* 
 Badges name ideas
 - First online hackathon

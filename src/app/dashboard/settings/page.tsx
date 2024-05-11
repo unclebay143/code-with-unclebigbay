@@ -3,6 +3,11 @@ import UserProfessionalsForm from '@/components/molecules/dashboard/settings/pro
 import UserSocialsForm from '@/components/molecules/dashboard/settings/socials-form';
 import AnonymityForm from '@/components/molecules/dashboard/settings/anonimity-form';
 import { getCountries, getCurrentStudent } from '@/utils/server.service';
+import { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: 'Settings - Dashboard',
+};
 
 const Page = async () => {
   const studentRes = await getCurrentStudent();
