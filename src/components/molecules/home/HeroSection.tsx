@@ -30,7 +30,7 @@ export const HeroSection = ({ session }: { session?: Session | null }) => {
           </div>
         </div>
       </Link>
-      <h1 className="text-center text-4xl leading-[48px] max-w-[379px] md:text-5xl md:leading-[60px] font-medium text-slate-800 mx-auto md:max-w-lg">
+      <h1 className="text-center text-4xl leading-[48px] max-w-[379px] md:text-5xl md:leading-[60px] font-medium text-slate-900 mx-auto md:max-w-lg">
         Learn to Code and Build Your Career
       </h1>
       {session ? null : (
