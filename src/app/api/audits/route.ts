@@ -4,6 +4,8 @@ import { getServerSessionWithAuthOptions } from '@/utils/auth-options';
 import connectViaMongoose from '@/utils/mongoose';
 import { NextResponse } from 'next/server';
 
+export const maxDuration = 60; // This function can run for a maximum of 60 seconds
+
 const GET = async () => {
   try {
     const session = await getServerSessionWithAuthOptions();
