@@ -1,4 +1,5 @@
 import { LeaderBoard } from '@/models/leader-board';
+import connectViaMongoose from '@/utils/mongoose';
 
 export const updateLeaderboard = async ({
   studentId,
@@ -8,8 +9,7 @@ export const updateLeaderboard = async ({
   newScore: number;
 }) => {
   try {
-    console.log('run');
-
+    await connectViaMongoose();
     await LeaderBoard.findOneAndUpdate(
       {
         student: studentId,
