@@ -39,36 +39,40 @@ export const Navbar = ({ session }: { session?: Session | null }) => {
               ))}
             </section>
 
-            <div className="flex gap-4 items-center">
-              <section className="hidden sm:block w-[163px]">
+            <div className="flex sm:gap-4 items-center">
+              <section>
                 {session ? (
-                  <div className="flex justify-end">
+                  <div className="hidden min-[374px]:flex justify-end">
                     <Button size="xs" appearance="primary-slate" asChild>
-                      <Link href="/dashboard/overview">Dashboard</Link>
+                      <a href="/dashboard/overview">Dashboard</a>
                     </Button>
                   </div>
                 ) : (
                   <section className="flex gap-1.5 items-center">
-                    <Button
-                      size="sm"
-                      onClick={() => {
-                        setOpenAuthModal(true);
-                        setAuthenticationType('login');
-                      }}
-                      appearance="link-secondary"
-                    >
-                      Sign in
-                    </Button>
-                    <Button
-                      size="xs"
-                      appearance="primary-slate"
-                      onClick={() => {
-                        setOpenAuthModal(true);
-                        setAuthenticationType('signup');
-                      }}
-                    >
-                      Sign up
-                    </Button>
+                    <div className="hidden min-[374px]:block">
+                      <Button
+                        size="sm"
+                        onClick={() => {
+                          setOpenAuthModal(true);
+                          setAuthenticationType('login');
+                        }}
+                        appearance="link-secondary"
+                      >
+                        Sign in
+                      </Button>
+                    </div>
+                    <div className="hidden sm:block">
+                      <Button
+                        size="xs"
+                        appearance="primary-slate"
+                        onClick={() => {
+                          setOpenAuthModal(true);
+                          setAuthenticationType('signup');
+                        }}
+                      >
+                        Sign up
+                      </Button>
+                    </div>
                   </section>
                 )}
               </section>
