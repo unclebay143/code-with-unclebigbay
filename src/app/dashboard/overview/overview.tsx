@@ -18,7 +18,7 @@ type Props = {
   enrolledCourses: any;
 };
 
-const Overview = ({ audits, enrolledCourses }: Props) => {
+const Overview = ({ audits, enrolledCourses, quoteRes, cookieRes }: Props) => {
   const showEmptyState = enrolledCourses.length === 0;
   const showEnrolledCourses = enrolledCourses.length > 0;
 
@@ -55,7 +55,7 @@ const Overview = ({ audits, enrolledCourses }: Props) => {
 
   return (
     <section className="flex flex-col gap-3">
-      <QuoteOfTheDay />
+      <QuoteOfTheDay quote={quoteRes.quote as string} isVisible={cookieRes} />
       <WhiteArea twClass="bg-blue-50 border-blue-200" border>
         <section className="flex flex-col gap-3">
           <DashboardSubheading title="Your course overview" />
