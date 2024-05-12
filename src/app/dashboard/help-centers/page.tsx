@@ -3,13 +3,7 @@
 import { YTVideo } from '@/components/atoms/YTVideo';
 import { DashboardSubheading } from '@/components/molecules/dashboard/dashboard-subheading';
 import { WhiteArea } from '@/components/molecules/dashboard/white-area';
-import {
-  ArrowExternalLink01,
-  ArrowExternalLink02,
-  ArrowExternalLink03,
-  BrandYoutube,
-  Discord,
-} from '@hashnode/matrix-ui';
+import { ArrowExternalLink02 } from '@hashnode/matrix-ui';
 import { Youtube } from 'lucide-react';
 import Link from 'next/link';
 import React from 'react';

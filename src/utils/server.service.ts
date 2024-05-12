@@ -5,6 +5,10 @@ import { getServerSessionWithAuthOptions } from './auth-options';
 import { Countries, Country, Hackathon, Student, Students } from './types';
 import { Session } from 'next-auth';
 import { setCookie, getCookie as customCookie, hasCookie } from 'cookies-next';
+import { Student as StudentModel } from '@/models/student';
+import { AuditTrail } from '@/models/audit-trail';
+import connectViaMongoose from './mongoose';
+
 
 // https://www.reddit.com/r/nextjs/comments/16hzdsr/i_have_a_question_using_headers/
 // export const getCustomHeaders = () => {
@@ -82,18 +86,38 @@ export async function getAllActivityAudits(): Promise<
   GetAllActivityAuditsResponse | undefined
 > {
   try {
-    const url = `${baseURL}/api/audits`;
-    const result = await fetch(url, {
-      headers: {
-        Cookie: await getCookie(),
-      },
-      cache: 'force-cache',
+    // const url = `${baseURL}/api/audits`;
+    // const result = await fetch(url, {
+    //   headers: {
+    //     Cookie: await getCookie(),
+    //   },
+    //   cache: 'force-cache',
+    // });
+
+    // if (!result.ok) return { audits: [] };
+    // const audits = await result.json();
+
+    const session = await getServerSessionWithAuthOptions();
+
+    // if (!session) {
+    //   return NextResponse.json(
+    //     { message: 'Session required' },
+    //     { status: 403 },
+    //   );
+    // }
+    await connectViaMongoose();
+    const student = await StudentModel.findOne({ email: session?.user.email });
+
+    const audits = await AuditTrail.find({ student: student.id }).sort({
+      createdAt: -1,
     });
 
-    if (!result.ok) return { audits: [] };
-    const audits = await result.json();
+    // return NextResponse.json(
+    //   { message: 'Student audits fetched', audits },
+    //   { status: 200 },
+    // );
 
-    return audits;
+    return { audits: JSON.parse(JSON.stringify(audits)) };
   } catch (error) {
     console.log(`Error from getAllActivityAudits: Error:- ${error}`);
   }
