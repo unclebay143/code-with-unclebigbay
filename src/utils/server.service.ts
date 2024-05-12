@@ -4,6 +4,7 @@ import { baseURL } from '../../frontend.config';
 import { getServerSessionWithAuthOptions } from './auth-options';
 import { Countries, Country, Hackathon, Student, Students } from './types';
 import { Session } from 'next-auth';
+import { setCookie, getCookie as customCookie, hasCookie } from 'cookies-next';
 
 // https://www.reddit.com/r/nextjs/comments/16hzdsr/i_have_a_question_using_headers/
 // export const getCustomHeaders = () => {
@@ -232,3 +233,67 @@ export async function getCountries(): Promise<
 
   return { countries, sortedCountries };
 }
+
+type QuoteType = {
+  quote: string;
+  isReleased: boolean;
+};
+
+export async function getDailyQuote(): Promise<QuoteType | undefined> {
+  try {
+    const url = `${baseURL}/api/quote`;
+    const result = await fetch(url, {
+      cache: 'force-cache',
+    });
+
+    if (!result.ok) return { quote: '', isReleased: false };
+    const quote = await result.json();
+
+    return quote;
+  } catch (error) {
+    console.log(`Error from getRandomQuote Error:- ${error}`);
+  }
+}
+
+export const setQuoteWidget = (key: string) => {
+  let currentTime = new Date().getMilliseconds();
+  let futureTime = 0;
+  if (key === 'day') {
+    futureTime = new Date().getMilliseconds() + 24 * 60 * 60 * 1000;
+    setCookie('userChoice', { currentTime, futureTime });
+  } else {
+    futureTime = new Date().getMilliseconds() + 365 * 24 * 60 * 60 * 1000;
+    setCookie('userChoice', { currentTime, futureTime });
+  }
+};
+
+export const widgetVisibility = () => {
+  const storedCookie = customCookie('userChoice', { cookies });
+  const isCookieAvailable = hasCookie('userChoice', { cookies });
+  let showWidget = false;
+
+  if (isCookieAvailable) {
+    const getCurrentDate = new Date().getMilliseconds();
+    const aDayCheck =
+      (getCurrentDate - storedCookie?.currentTime) / (1000 * 60 * 60);
+
+    const aYearCheck =
+      (getCurrentDate - storedCookie?.currentTime) / (1000 * 60 * 60);
+
+    if (aDayCheck >= 24) {
+      showWidget = true;
+      return;
+    }
+
+    if (aYearCheck >= 365) {
+      showWidget = true;
+      return;
+    }
+
+    showWidget = false;
+  } else {
+    showWidget = true;
+  }
+
+  return showWidget;
+};
