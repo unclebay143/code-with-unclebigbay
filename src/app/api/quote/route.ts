@@ -43,6 +43,7 @@ const GET = async () => {
     const quote = await Quote.findOne({ isReleased: false });
     if (quote) {
       quote.isReleased = true;
+      await quote.save();
     }
     if (!quote) {
       await Quote.updateMany({ isReleased: true }, { isReleased: false });
