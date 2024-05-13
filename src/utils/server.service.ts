@@ -262,7 +262,7 @@ type QuoteType = {
   isReleased: boolean;
 };
 
-export async function getDailyQuote(): Promise<QuoteType | undefined> {
+export async function getQuote(): Promise<QuoteType | undefined> {
   try {
     const url = `${baseURL}/api/quote`;
     const result = await fetch(url, {
@@ -278,30 +278,19 @@ export async function getDailyQuote(): Promise<QuoteType | undefined> {
   }
 }
 
-export const setQuoteWidget = (key: string) => {
-  let currentTime = new Date().getMilliseconds();
-  let futureTime = 0;
-  if (key === 'day') {
-    futureTime = new Date().getMilliseconds() + 24 * 60 * 60 * 1000;
-    setCookie('userChoice', { currentTime, futureTime });
-  } else {
-    futureTime = new Date().getMilliseconds() + 365 * 24 * 60 * 60 * 1000;
-    setCookie('userChoice', { currentTime, futureTime });
-  }
-};
-
 export const widgetVisibility = () => {
-  const storedCookie = customCookie('userChoice', { cookies });
-  const isCookieAvailable = hasCookie('userChoice', { cookies });
+  const quoteWidgetPref = customCookie('quoteWidgetPref', { cookies });
+  const hasClosedWidgetPreviously = !!quoteWidgetPref;
+  // hasCookie('quoteWidgetPref', { cookies });
   let showWidget = false;
 
-  if (isCookieAvailable) {
+  if (hasClosedWidgetPreviously) {
     const getCurrentDate = new Date().getMilliseconds();
     const aDayCheck =
-      (getCurrentDate - storedCookie?.currentTime) / (1000 * 60 * 60);
+      (getCurrentDate - quoteWidgetPref?.closedTime) / (1000 * 60 * 60);
 
     const aYearCheck =
-      (getCurrentDate - storedCookie?.currentTime) / (1000 * 60 * 60);
+      (getCurrentDate - quoteWidgetPref?.closedTime) / (1000 * 60 * 60);
 
     if (aDayCheck >= 24) {
       showWidget = true;

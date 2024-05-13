@@ -16,14 +16,14 @@ import { Courses } from '@/components/molecules/dashboard/courses';
 type Props = {
   audits: any;
   enrolledCourses: any;
-  quoteRes: any;
+  quote: any;
   quoteWidgetVisibility: any;
 };
 
 const Overview = ({
   audits,
   enrolledCourses,
-  quoteRes,
+  quote,
   quoteWidgetVisibility,
 }: Props) => {
   const showEmptyState = enrolledCourses.length === 0;
@@ -63,7 +63,7 @@ const Overview = ({
   return (
     <section className="flex flex-col gap-3">
       <QuoteOfTheDay
-        quote={quoteRes.quote.quote as string}
+        quote={quote.quote.quote as string}
         isVisible={quoteWidgetVisibility}
       />
       <WhiteArea twClass="bg-blue-50 border-blue-200" border>
