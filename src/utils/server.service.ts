@@ -278,19 +278,22 @@ export async function getQuote(): Promise<QuoteType | undefined> {
   }
 }
 
+type QuoteWidgetPref = { closedTime: number };
 export const widgetVisibility = () => {
-  const quoteWidgetPref = customCookie('quoteWidgetPref', { cookies });
+  const quoteWidgetPrefCookie = customCookie('quoteWidgetPref', { cookies });
+  const quoteWidgetPref =
+    quoteWidgetPrefCookie &&
+    (JSON.parse(quoteWidgetPrefCookie) as QuoteWidgetPref);
   const hasClosedWidgetPreviously = !!quoteWidgetPref;
-  // hasCookie('quoteWidgetPref', { cookies });
   let showWidget = false;
 
   if (hasClosedWidgetPreviously) {
     const getCurrentDate = new Date().getMilliseconds();
     const aDayCheck =
-      (getCurrentDate - quoteWidgetPref?.closedTime) / (1000 * 60 * 60);
+      (getCurrentDate - quoteWidgetPref.closedTime) / (1000 * 60 * 60);
 
     const aYearCheck =
-      (getCurrentDate - quoteWidgetPref?.closedTime) / (1000 * 60 * 60);
+      (getCurrentDate - quoteWidgetPref.closedTime) / (1000 * 60 * 60);
 
     if (aDayCheck >= 24) {
       showWidget = true;
