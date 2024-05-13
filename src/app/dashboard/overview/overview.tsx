@@ -17,10 +17,15 @@ type Props = {
   audits: any;
   enrolledCourses: any;
   quoteRes: any;
-  cookieRes: any;
+  quoteWidgetVisibility: any;
 };
 
-const Overview = ({ audits, enrolledCourses, quoteRes, cookieRes }: Props) => {
+const Overview = ({
+  audits,
+  enrolledCourses,
+  quoteRes,
+  quoteWidgetVisibility,
+}: Props) => {
   const showEmptyState = enrolledCourses.length === 0;
   const showEnrolledCourses = enrolledCourses.length > 0;
 
@@ -59,7 +64,7 @@ const Overview = ({ audits, enrolledCourses, quoteRes, cookieRes }: Props) => {
     <section className="flex flex-col gap-3">
       <QuoteOfTheDay
         quote={quoteRes.quote.quote as string}
-        isVisible={cookieRes}
+        isVisible={quoteWidgetVisibility}
       />
       <WhiteArea twClass="bg-blue-50 border-blue-200" border>
         <section className="flex flex-col gap-3">
