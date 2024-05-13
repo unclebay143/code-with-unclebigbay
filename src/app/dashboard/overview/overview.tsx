@@ -63,7 +63,7 @@ const Overview = ({
   return (
     <section className="flex flex-col gap-3">
       <QuoteOfTheDay
-        quote={quote.quote.quote as string}
+        quote={quote as string}
         isVisible={quoteWidgetVisibility}
       />
       <WhiteArea twClass="bg-blue-50 border-blue-200" border>

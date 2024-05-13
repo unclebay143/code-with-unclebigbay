@@ -25,7 +25,7 @@ const Page = async () => {
       // overviews={overviews}
       audits={audits}
       enrolledCourses={enrolledCourses}
-      quote={quote}
+      quote={quote?.quote.quote as string}
       quoteWidgetVisibility={quoteWidgetVisibility}
     />
   );
