@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { WhiteArea } from './white-area';
 import { EyeOff, MoreVertical, Sparkles, XCircle } from 'lucide-react';
 import {
@@ -18,9 +18,7 @@ export const QuoteOfTheDay = ({
   quote: string;
   isVisible: boolean;
 }) => {
-  // const [showQuoteWidget, setShowQuoteWidget] = useState<boolean>(true);
-  // const close = () => setShowQuoteWidget(false);
-  // if (!showQuoteWidget) return null;
+  const [state, setState] = useState(true);
 
   const setQuoteWidget = (key: string) => {
     let currentTime = new Date().getMilliseconds();
@@ -28,15 +26,17 @@ export const QuoteOfTheDay = ({
     if (key === 'day') {
       futureTime = new Date().getMilliseconds() + 24 * 1000;
       setCookie('userChoice', { currentTime, futureTime });
+      setState(false);
     } else {
       futureTime = new Date().getMilliseconds() + 365 * 1000;
       setCookie('userChoice', { currentTime, futureTime });
+      setState(false);
     }
   };
 
   return (
     <div>
-      {isVisible && (
+      {isVisible && state && (
         <WhiteArea shadow>
           <section className="flex justify-between">
             <section>
@@ -47,7 +47,7 @@ export const QuoteOfTheDay = ({
                 <h2>Quote of the day!</h2>
               </section>
               <section className="ml-5">
-                <span className="text-sm text-slate-500">{quote.quote}</span>
+                <span className="text-sm text-slate-500">{quote}</span>
               </section>
             </section>
             <section>
