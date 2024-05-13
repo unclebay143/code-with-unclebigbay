@@ -1,7 +1,7 @@
 import {
   getAllActivityAudits,
-  getDailyQuote,
   getEnrolledCourses,
+  getQuote,
   widgetVisibility,
 } from '@/utils/server.service';
 import Overview from './overview';
@@ -14,7 +14,7 @@ export const metadata: Metadata = {
 const Page = async () => {
   const auditsRes = await getAllActivityAudits();
   const audits = auditsRes!.audits;
-  const quoteRes = await getDailyQuote();
+  const quote = await getQuote();
   const quoteWidgetVisibility = widgetVisibility();
 
   const enrolledCoursesRes = await getEnrolledCourses();
@@ -25,7 +25,7 @@ const Page = async () => {
       // overviews={overviews}
       audits={audits}
       enrolledCourses={enrolledCourses}
-      quoteRes={quoteRes}
+      quote={quote}
       quoteWidgetVisibility={quoteWidgetVisibility}
     />
   );

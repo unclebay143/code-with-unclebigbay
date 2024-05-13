@@ -18,25 +18,25 @@ export const QuoteOfTheDay = ({
   quote: string;
   isVisible: boolean;
 }) => {
-  const [state, setState] = useState(true);
+  const [showQuoteWidget, setShowQuoteWidget] = useState<boolean>(isVisible);
 
-  const setQuoteWidget = (key: string) => {
-    let currentTime = new Date().getMilliseconds();
+  const hideQuoteWidget = (key: string) => {
+    let closedTime = new Date().getMilliseconds();
     let futureTime = 0;
     if (key === 'day') {
       futureTime = new Date().getMilliseconds() + 24 * 1000;
-      setCookie('userChoice', { currentTime, futureTime });
-      setState(false);
+      setCookie('quoteWidgetPref', { closedTime, futureTime });
+      setShowQuoteWidget(false);
     } else {
       futureTime = new Date().getMilliseconds() + 365 * 1000;
-      setCookie('userChoice', { currentTime, futureTime });
-      setState(false);
+      setCookie('quoteWidgetPref', { closedTime, futureTime });
+      setShowQuoteWidget(false);
     }
   };
 
   return (
     <div>
-      {isVisible && state && (
+      {showQuoteWidget && (
         <WhiteArea shadow>
           <section className="flex justify-between">
             <section>
@@ -61,13 +61,13 @@ export const QuoteOfTheDay = ({
                   <MenuButton
                     label="Hide until tomorrow"
                     Icon={EyeOff}
-                    onClick={() => setQuoteWidget('day')}
+                    onClick={() => hideQuoteWidget('day')}
                   />
                   <MenuButton
                     label="Don't show again"
                     Icon={XCircle}
                     type="danger"
-                    onClick={() => setQuoteWidget('year')}
+                    onClick={() => hideQuoteWidget('year')}
                   />
                 </DropdownMenuContent>
               </DropdownMenu>

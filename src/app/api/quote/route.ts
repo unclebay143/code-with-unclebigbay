@@ -37,16 +37,26 @@ const POST = async (req: Request, _res: Response) => {
   }
 };
 
+const pickQuote = async () => {
+  const quote = await Quote.findOne({ isReleased: false });
+
+  if (quote) {
+    quote.isReleased = true;
+    await quote.save();
+  }
+
+  return quote;
+};
+
 const GET = async () => {
   try {
     await connectViaMongoose();
-    const quote = await Quote.findOne({ isReleased: false });
-    if (quote) {
-      quote.isReleased = true;
-      await quote.save();
-    }
+    let quote;
+    quote = await pickQuote();
+
     if (!quote) {
       await Quote.updateMany({ isReleased: true }, { isReleased: false });
+      quote = await pickQuote();
     }
     return NextResponse.json(
       { message: 'Quote fetched successfully', quote },
