@@ -15,7 +15,7 @@ const Page = async () => {
   const auditsRes = await getAllActivityAudits();
   const audits = auditsRes!.audits;
   const quoteRes = await getDailyQuote();
-  const cookieRes = widgetVisibility();
+  const quoteWidgetVisibility = widgetVisibility();
 
   const enrolledCoursesRes = await getEnrolledCourses();
   const enrolledCourses = enrolledCoursesRes?.enrolledCourses;
@@ -26,7 +26,7 @@ const Page = async () => {
       audits={audits}
       enrolledCourses={enrolledCourses}
       quoteRes={quoteRes}
-      cookieRes={cookieRes}
+      quoteWidgetVisibility={quoteWidgetVisibility}
     />
   );
 };
