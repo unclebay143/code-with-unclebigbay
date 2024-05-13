@@ -16,6 +16,8 @@ import { Courses } from '@/components/molecules/dashboard/courses';
 type Props = {
   audits: any;
   enrolledCourses: any;
+  quoteRes: any;
+  cookieRes: any;
 };
 
 const Overview = ({ audits, enrolledCourses, quoteRes, cookieRes }: Props) => {
@@ -55,7 +57,10 @@ const Overview = ({ audits, enrolledCourses, quoteRes, cookieRes }: Props) => {
 
   return (
     <section className="flex flex-col gap-3">
-      <QuoteOfTheDay quote={quoteRes.quote as string} isVisible={cookieRes} />
+      <QuoteOfTheDay
+        quote={quoteRes.quote.quote as string}
+        isVisible={cookieRes}
+      />
       <WhiteArea twClass="bg-blue-50 border-blue-200" border>
         <section className="flex flex-col gap-3">
           <DashboardSubheading title="Your course overview" />
