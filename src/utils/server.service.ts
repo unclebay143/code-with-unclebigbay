@@ -4,10 +4,10 @@ import { baseURL } from '../../frontend.config';
 import { getServerSessionWithAuthOptions } from './auth-options';
 import { Countries, Country, Hackathon, Student, Students } from './types';
 import { Session } from 'next-auth';
+import { setCookie, getCookie as customCookie, hasCookie } from 'cookies-next';
 import { Student as StudentModel } from '@/models/student';
 import { AuditTrail } from '@/models/audit-trail';
 import connectViaMongoose from './mongoose';
-import { setCookie, getCookie as customCookie, hasCookie } from 'cookies-next';
 
 // https://www.reddit.com/r/nextjs/comments/16hzdsr/i_have_a_question_using_headers/
 // export const getCustomHeaders = () => {
