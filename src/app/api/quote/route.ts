@@ -45,7 +45,24 @@ const pickQuote = async () => {
     await quote.save();
   }
 
-  return quote;
+  const lastReleasedQuote = await Quote.findOne({ isReleased: true }).sort({
+    releaseDate: -1,
+  });
+
+  if (
+    !lastReleasedQuote ||
+    !lastReleasedQuote.releaseDate ||
+    Date.now() - lastReleasedQuote.releaseDate.getTime() >= 24 * 60 * 60 * 1000
+  ) {
+    const newQuote = await Quote.findOneAndUpdate(
+      { isReleased: false },
+      { $set: { isReleased: true, releaseDate: new Date() } },
+      { new: true },
+    );
+    return newQuote;
+  } else {
+    return quote;
+  }
 };
 
 const GET = async () => {
