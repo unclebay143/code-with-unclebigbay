@@ -40,6 +40,7 @@ const Page = () => {
   const isEnrolled = course?.isEnrolled;
   const enrolledDate = course?.enrolledDate;
   const enrolledStudentsCount = course?.enrolledStudentsCount;
+  //
 
   const isLoggedIn = !!currentStudent;
   const playableMode = !isLoggedIn || isEnrolled;
