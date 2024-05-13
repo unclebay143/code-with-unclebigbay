@@ -8,6 +8,12 @@ import { MoreHorizontal, Trophy } from 'lucide-react';
 import { getCurrentStudent, getLeaderBoard } from '@/utils/server.service';
 // import { DotsHorizontal } from '@hashnode/matrix-ui';
 
+import { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: 'Leaderboard - Dashboard',
+};
+
 const LeaderboardCard = ({
   rank,
   student,

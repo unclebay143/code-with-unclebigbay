@@ -4,8 +4,23 @@ import { Hackathon } from '@/utils/types';
 import { HackathonStory } from './HackathonStory';
 import { getHackathonBySlug } from '@/utils/server.service';
 import { notFound } from 'next/navigation';
+import { Metadata } from 'next';
 
-const Page = async ({ params }: { params: { slug: string } }) => {
+type Props = { params: { slug: string } };
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const hackathonSlug = params.slug;
+  const hackathonRes = (await getHackathonBySlug(hackathonSlug)) as {
+    hackathon: Hackathon;
+  };
+
+  return {
+    title: `Hackathon - ${hackathonRes.hackathon.title}`,
+    description: hackathonRes.hackathon.brief,
+  };
+}
+
+const Page = async ({ params }: Props) => {
   const hackathonSlug = params.slug;
   const hackathonRes = (await getHackathonBySlug(hackathonSlug)) as {
     hackathon: Hackathon;
