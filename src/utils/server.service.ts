@@ -266,7 +266,7 @@ export async function getQuote(): Promise<QuoteType | undefined> {
   try {
     const url = `${baseURL}/api/quote`;
     const result = await fetch(url, {
-      cache: 'force-cache',
+      cache: 'no-store',
     });
 
     if (!result.ok) return { quote: '', isReleased: false };

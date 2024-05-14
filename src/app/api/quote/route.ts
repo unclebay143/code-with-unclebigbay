@@ -38,29 +38,43 @@ const POST = async (req: Request, _res: Response) => {
 };
 
 const pickQuote = async () => {
-  const lastReleasedQuote = await Quote.findOne({ isReleased: true }).sort({
-    releaseDate: -1,
-  });
+  // const A_DAY_IN_MILLISECONDS = 24 * 60 * 60 * 1000;
 
-  const quote = await Quote.findOne({ isReleased: false });
-  if (quote) {
+  const TWENTY_SECONDS_IN_MILLISECONDS = 20 * 1000; // FOR TEST
+  try {
+    const lastReleasedQuoteArray = await Quote.find({ isReleased: true })
+      .sort({
+        releasedDate: -1,
+      })
+      .limit(1)
+      .lean();
+
+    const lastReleasedQuote = lastReleasedQuoteArray[0];
+
+    if (lastReleasedQuote && lastReleasedQuote.releasedDate) {
+      const releasedDateTime = lastReleasedQuote.releasedDate.getTime();
+      const today = Date.now();
+
+      const isDue = today - releasedDateTime >= TWENTY_SECONDS_IN_MILLISECONDS;
+
+      if (!isDue) {
+        return lastReleasedQuote;
+      }
+    }
+
+    const quote = await Quote.findOne({ isReleased: false });
+
+    if (!quote) {
+      return null;
+    }
+
     quote.isReleased = true;
+    quote.releasedDate = new Date();
     await quote.save();
-  }
-
-  if (
-    !lastReleasedQuote ||
-    !lastReleasedQuote.releaseDate ||
-    Date.now() - lastReleasedQuote.releaseDate.getTime() >= 24 * 60 * 60 * 1000
-  ) {
-    return lastReleasedQuote;
-  } else {
-    const newQuote = await Quote.findOneAndUpdate(
-      { isReleased: false },
-      { $set: { isReleased: true, releaseDate: new Date() } },
-      { new: true },
-    );
-    return newQuote;
+    return quote;
+  } catch (e) {
+    console.log(e);
+    return null;
   }
 };
 
@@ -69,7 +83,6 @@ const GET = async () => {
     await connectViaMongoose();
     let quote;
     quote = await pickQuote();
-
     if (!quote) {
       await Quote.updateMany({ isReleased: true }, { isReleased: false });
       quote = await pickQuote();
