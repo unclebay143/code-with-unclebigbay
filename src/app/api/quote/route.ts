@@ -38,30 +38,29 @@ const POST = async (req: Request, _res: Response) => {
 };
 
 const pickQuote = async () => {
-  const quote = await Quote.findOne({ isReleased: false });
+  const lastReleasedQuote = await Quote.findOne({ isReleased: true }).sort({
+    releaseDate: -1,
+  });
 
+  const quote = await Quote.findOne({ isReleased: false });
   if (quote) {
     quote.isReleased = true;
     await quote.save();
   }
-
-  const lastReleasedQuote = await Quote.findOne({ isReleased: true }).sort({
-    releaseDate: -1,
-  });
 
   if (
     !lastReleasedQuote ||
     !lastReleasedQuote.releaseDate ||
     Date.now() - lastReleasedQuote.releaseDate.getTime() >= 24 * 60 * 60 * 1000
   ) {
+    return lastReleasedQuote;
+  } else {
     const newQuote = await Quote.findOneAndUpdate(
       { isReleased: false },
       { $set: { isReleased: true, releaseDate: new Date() } },
       { new: true },
     );
     return newQuote;
-  } else {
-    return quote;
   }
 };
 
