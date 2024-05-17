@@ -62,7 +62,7 @@ const Overview = ({
 
   return (
     <section className="flex flex-col gap-3">
-      <QuoteOfTheDay quote={quote.quote} isVisible={quoteWidgetVisibility} />
+      <QuoteOfTheDay quote={quote} isVisible={quoteWidgetVisibility} />
       <WhiteArea twClass="bg-blue-50 border-blue-200" border>
         <section className="flex flex-col gap-3">
           <DashboardSubheading title="Your course overview" />
@@ -116,7 +116,6 @@ const Overview = ({
           </section>
         </WhiteArea>
       )}
-
       <ActivityLogs audits={audits} show={5} />
     </section>
   );

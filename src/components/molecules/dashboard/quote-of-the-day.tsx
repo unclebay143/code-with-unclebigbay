@@ -10,12 +10,13 @@ import {
 } from '../../atoms/DropdownMenu';
 import { MenuButton } from './menu-button';
 import { setCookie } from 'cookies-next';
+import { Quote } from '@/utils/types';
 
 export const QuoteOfTheDay = ({
   quote,
   isVisible,
 }: {
-  quote: string;
+  quote: Quote;
   isVisible: boolean;
 }) => {
   const [showQuoteWidget, setShowQuoteWidget] = useState<boolean>(isVisible);
@@ -34,47 +35,45 @@ export const QuoteOfTheDay = ({
     }
   };
 
+  if (!showQuoteWidget) return null;
+
   return (
-    <div>
-      {showQuoteWidget && (
-        <WhiteArea shadow>
-          <section className="flex justify-between">
-            <section>
-              <section className="flex items-center gap-1 text-pink-500">
-                <span>
-                  <Sparkles size={16} />
-                </span>
-                <h2>Quote of the day!</h2>
-              </section>
-              <section className="ml-5">
-                <span className="text-sm text-slate-500">{quote}</span>
-              </section>
-            </section>
-            <section>
-              <DropdownMenu>
-                <DropdownMenuTrigger>
-                  <button className="text-slate-500 p-2 rounded-full hover:bg-slate-100 dark:hover:bg-slate-800">
-                    <MoreVertical size={16} />
-                  </button>
-                </DropdownMenuTrigger>
-                <DropdownMenuContent alignOffset={-20}>
-                  <MenuButton
-                    label="Hide until tomorrow"
-                    Icon={EyeOff}
-                    onClick={() => hideQuoteWidget('day')}
-                  />
-                  <MenuButton
-                    label="Don't show again"
-                    Icon={XCircle}
-                    type="danger"
-                    onClick={() => hideQuoteWidget('year')}
-                  />
-                </DropdownMenuContent>
-              </DropdownMenu>
-            </section>
+    <WhiteArea shadow>
+      <section className="flex justify-between">
+        <section>
+          <section className="flex items-center gap-1 text-pink-500">
+            <span>
+              <Sparkles size={16} />
+            </span>
+            <h2>Quote of the day!</h2>
           </section>
-        </WhiteArea>
-      )}
-    </div>
+          <section className="ml-5">
+            <span className="text-sm text-slate-500">{quote.quote}</span>
+          </section>
+        </section>
+        <section>
+          <DropdownMenu>
+            <DropdownMenuTrigger>
+              <button className="text-slate-500 p-2 rounded-full hover:bg-slate-100 dark:hover:bg-slate-800">
+                <MoreVertical size={16} />
+              </button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent alignOffset={-20}>
+              <MenuButton
+                label="Hide until tomorrow"
+                Icon={EyeOff}
+                onClick={() => hideQuoteWidget('day')}
+              />
+              <MenuButton
+                label="Don't show again"
+                Icon={XCircle}
+                type="danger"
+                onClick={() => hideQuoteWidget('year')}
+              />
+            </DropdownMenuContent>
+          </DropdownMenu>
+        </section>
+      </section>
+    </WhiteArea>
   );
 };
