@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { WhiteArea } from './white-area';
 import { EyeOff, MoreVertical, Sparkles, XCircle } from 'lucide-react';
 import {

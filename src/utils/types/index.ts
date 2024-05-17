@@ -219,3 +219,10 @@ export type Country = {
 };
 
 export type Countries = Country[];
+
+export type Quote = {
+  _id: string;
+  quote: string;
+  isReleased: boolean;
+  releasedDate: Date;
+};
