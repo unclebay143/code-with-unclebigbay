@@ -15,7 +15,7 @@ const Page = async () => {
   const auditsRes = await getAllActivityAudits();
   const audits = auditsRes!.audits;
   const quote = await getQuote();
-  const quoteWidgetVisibility = widgetVisibility();
+  const quoteWidgetVisibility = !!quote && widgetVisibility();
 
   const enrolledCoursesRes = await getEnrolledCourses();
   const enrolledCourses = enrolledCoursesRes?.enrolledCourses;
