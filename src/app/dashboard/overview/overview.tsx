@@ -6,7 +6,7 @@ import { DashboardSubheading } from '@/components/molecules/dashboard/dashboard-
 import { OverviewCard } from '@/components/molecules/dashboard/overview-card';
 import { ActivityLogs } from '@/components/molecules/dashboard/activity-logs';
 import { BookDocument, Button, EmptyState } from '@hashnode/matrix-ui';
-import { Overviews } from '@/utils/types';
+import { Overviews, Quote } from '@/utils/types';
 import { ActivityIcon, CheckCheckIcon, LibraryBig } from 'lucide-react';
 import { EmptyStateContainer } from '@/components/molecules/dashboard/EmptyStateContainer';
 import Link from 'next/link';
@@ -16,9 +16,16 @@ import { Courses } from '@/components/molecules/dashboard/courses';
 type Props = {
   audits: any;
   enrolledCourses: any;
+  quote: Quote;
+  quoteWidgetVisibility: boolean;
 };
 
-const Overview = ({ audits, enrolledCourses }: Props) => {
+const Overview = ({
+  audits,
+  enrolledCourses,
+  quote,
+  quoteWidgetVisibility,
+}: Props) => {
   const showEmptyState = enrolledCourses.length === 0;
   const showEnrolledCourses = enrolledCourses.length > 0;
 
@@ -55,7 +62,7 @@ const Overview = ({ audits, enrolledCourses }: Props) => {
 
   return (
     <section className="flex flex-col gap-3">
-      <QuoteOfTheDay />
+      <QuoteOfTheDay quote={quote.quote} isVisible={quoteWidgetVisibility} />
       <WhiteArea twClass="bg-blue-50 border-blue-200" border>
         <section className="flex flex-col gap-3">
           <DashboardSubheading title="Your course overview" />
