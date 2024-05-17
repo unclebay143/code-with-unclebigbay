@@ -1,10 +1,10 @@
-import { Audits, Courses, LeaderBoard } from '@/utils/types';
+import { Audits, Courses, LeaderBoard, Quote } from '@/utils/types';
 import { cookies } from 'next/headers';
 import { baseURL } from '../../frontend.config';
 import { getServerSessionWithAuthOptions } from './auth-options';
 import { Countries, Country, Hackathon, Student, Students } from './types';
 import { Session } from 'next-auth';
-import { setCookie, getCookie as customCookie, hasCookie } from 'cookies-next';
+import { getCookie as customCookie } from 'cookies-next';
 import { Student as StudentModel } from '@/models/student';
 import { AuditTrail } from '@/models/audit-trail';
 import connectViaMongoose from './mongoose';
@@ -257,20 +257,16 @@ export async function getCountries(): Promise<
   return { countries, sortedCountries };
 }
 
-type QuoteType = {
-  quote: string;
-  isReleased: boolean;
-};
-
-export async function getQuote(): Promise<QuoteType | undefined> {
+export async function getQuote(): Promise<Quote | undefined> {
   try {
     const url = `${baseURL}/api/quote`;
     const result = await fetch(url, {
       cache: 'no-store',
     });
 
-    if (!result.ok) return { quote: '', isReleased: false };
-    const quote = await result.json();
+    if (!result) return undefined;
+
+    const { quote } = await result.json();
 
     return quote;
   } catch (error) {
@@ -295,14 +291,9 @@ export const widgetVisibility = () => {
     const aYearCheck =
       (getCurrentDate - quoteWidgetPref.closedTime) / (1000 * 60 * 60);
 
-    if (aDayCheck >= 24) {
+    if (aDayCheck >= 24 || aYearCheck >= 365) {
       showWidget = true;
-      return;
-    }
-
-    if (aYearCheck >= 365) {
-      showWidget = true;
-      return;
+      return showWidget;
     }
 
     showWidget = false;
