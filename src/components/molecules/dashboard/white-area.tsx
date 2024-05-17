@@ -6,6 +6,7 @@ type Props = {
   border?: boolean;
   shadow?: boolean;
 };
+//
 
 export const WhiteArea = ({
   border,
