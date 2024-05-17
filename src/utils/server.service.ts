@@ -1,9 +1,10 @@
-import { Audits, Courses, LeaderBoard } from '@/utils/types';
+import { Audits, Courses, LeaderBoard, Quote } from '@/utils/types';
 import { cookies } from 'next/headers';
 import { baseURL } from '../../frontend.config';
 import { getServerSessionWithAuthOptions } from './auth-options';
 import { Countries, Country, Hackathon, Student, Students } from './types';
 import { Session } from 'next-auth';
+import { getCookie as customCookie } from 'cookies-next';
 import { Student as StudentModel } from '@/models/student';
 import { AuditTrail } from '@/models/audit-trail';
 import connectViaMongoose from './mongoose';
@@ -255,3 +256,50 @@ export async function getCountries(): Promise<
 
   return { countries, sortedCountries };
 }
+
+export async function getQuote(): Promise<Quote | undefined> {
+  try {
+    const url = `${baseURL}/api/quote`;
+    const result = await fetch(url, {
+      cache: 'no-store',
+    });
+
+    if (!result) return undefined;
+
+    const { quote } = await result.json();
+
+    return quote;
+  } catch (error) {
+    console.log(`Error from getRandomQuote Error:- ${error}`);
+  }
+}
+
+type QuoteWidgetPref = { closedTime: number };
+export const widgetVisibility = () => {
+  const quoteWidgetPrefCookie = customCookie('quoteWidgetPref', { cookies });
+  const quoteWidgetPref =
+    quoteWidgetPrefCookie &&
+    (JSON.parse(quoteWidgetPrefCookie) as QuoteWidgetPref);
+  const hasClosedWidgetPreviously = !!quoteWidgetPref;
+  let showWidget = false;
+
+  if (hasClosedWidgetPreviously) {
+    const getCurrentDate = new Date().getMilliseconds();
+    const aDayCheck =
+      (getCurrentDate - quoteWidgetPref.closedTime) / (1000 * 60 * 60);
+
+    const aYearCheck =
+      (getCurrentDate - quoteWidgetPref.closedTime) / (1000 * 60 * 60);
+
+    if (aDayCheck >= 24 || aYearCheck >= 365) {
+      showWidget = true;
+      return showWidget;
+    }
+
+    showWidget = false;
+  } else {
+    showWidget = true;
+  }
+
+  return showWidget;
+};
