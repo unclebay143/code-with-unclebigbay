@@ -38,9 +38,8 @@ const POST = async (req: Request, _res: Response) => {
 };
 
 const pickQuote = async () => {
-  // const A_DAY_IN_MILLISECONDS = 24 * 60 * 60 * 1000;
+  const A_DAY_IN_MILLISECONDS = 24 * 60 * 60 * 1000;
 
-  const TWENTY_SECONDS_IN_MILLISECONDS = 20 * 1000; // FOR TEST
   try {
     const lastReleasedQuoteArray = await Quote.find({ isReleased: true })
       .sort({
@@ -55,7 +54,7 @@ const pickQuote = async () => {
       const releasedDateTime = lastReleasedQuote.releasedDate.getTime();
       const today = Date.now();
 
-      const isDue = today - releasedDateTime >= TWENTY_SECONDS_IN_MILLISECONDS;
+      const isDue = today - releasedDateTime >= A_DAY_IN_MILLISECONDS;
 
       if (!isDue) {
         return lastReleasedQuote;

@@ -22,10 +22,9 @@ const Page = async () => {
 
   return (
     <Overview
-      // overviews={overviews}
       audits={audits}
       enrolledCourses={enrolledCourses}
-      quote={quote?.quote as string}
+      quote={quote!}
       quoteWidgetVisibility={quoteWidgetVisibility}
     />
   );
