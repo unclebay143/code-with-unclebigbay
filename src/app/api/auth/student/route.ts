@@ -9,12 +9,11 @@ import connectViaMongoose from '@/utils/mongoose';
 const GET = async () => {
   try {
     const session = await getServerSessionWithAuthOptions();
-
     if (!session) {
       return NextResponse.json(
         { message: 'No session', student: null },
         {
-          status: 200,
+          status: 403,
         },
       );
     }
