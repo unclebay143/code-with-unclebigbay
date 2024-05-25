@@ -19,11 +19,13 @@ import Link from 'next/link';
 import { SubmitEntryModal } from './SubmitEntryModal';
 import { useState } from 'react';
 import { Hackathon } from '@/utils/types';
+
 import { useHackathonById } from '@/components/hooks/useHackathon';
 import useCurrentStudent from '@/components/hooks/useCurrentStudent';
 import { formatStartAndEndDate } from '@/utils/date';
 import { handleAuthentication } from '@/utils/auth';
 import dayjs from 'dayjs';
+import { HackathonFaqs } from './HackathonFaq';
 
 type HackathonStoryProps = {
   hackathon: Hackathon;
@@ -59,6 +61,7 @@ export const HackathonStory = ({
   const hackathonUrl = typeof window !== 'undefined' && window.location.href;
 
   const { data: currentStudent } = useCurrentStudent();
+  const [hasSubmittedEntry, setHasSubmittedEntry] = useState(hasSubmitted);
   const studentId = currentStudent?._id!;
   const [openSubmitEntryModal, setOpenSubmitEntryModal] = useState(false);
   const {
@@ -141,12 +144,8 @@ export const HackathonStory = ({
             <div className="dark">
               {registered ? (
                 <>
-                  {hasSubmitted ? (
-                    <Button
-                      size="xs"
-                      appearance="primary-slate"
-                      disabled={hasSubmitted}
-                    >
+                  {hasSubmittedEntry ? (
+                    <Button size="xs" appearance="primary-slate" disabled>
                       <span className="font-normal text-xs">
                         Entry submitted
                       </span>
@@ -173,21 +172,29 @@ export const HackathonStory = ({
                 </Button>
               )}
             </div>
-            {!registered && (
-              <section className="max-w-sm text-center">
+            <section className="max-w-sm text-center">
+              {registered ? (
+                <p className="text-[12px] text-slate-400">
+                  By submitting your entry, you grant us permission to showcase
+                  your project on our platform.
+                </p>
+              ) : (
                 <p className="text-[12px] text-slate-400">
                   By registering for this hackathon, you grant us permission to
                   contact you regarding the hackathon.
                 </p>
-              </section>
-            )}
+              )}
+            </section>
           </section>
         </div>
 
-        <section className="flex flex-col gap-8 mt-5">
+        <section className="flex flex-col gap-8 mt-5 lg:max-w-[90%]">
           <section className="flex flex-col gap-2">
             <h3 className={sectionHeadingStyle}>About {name}</h3>
-            <p className="text-slate-500">{about}</p>
+            <div
+              className="text-slate-500 flex flex-col gap-4"
+              dangerouslySetInnerHTML={{ __html: about }}
+            />
           </section>
           <section className="flex flex-col gap-2">
             <h3 className={sectionHeadingStyle}>What to build</h3>
@@ -316,8 +323,9 @@ export const HackathonStory = ({
                 </a>
               ))}
             </div>
+
             <a
-              href=""
+              href="https://dub.sh/n6qnahB"
               target="_blank"
               rel="noopener"
               className="inline text-sm text-slate-500 underline hover:text-slate-600"
@@ -333,61 +341,63 @@ export const HackathonStory = ({
               </section>
             </section>
           )}
-
-          {/* Todo: you can turn this section into social media sharing CTA after isRegistered is true */}
-
-          {/* <section className="py-10 bg-gradient-to-r from-fuchsia-600 to-blue-600 sm:py-16"> */}
-          <section className="mt-10 py-10 bg-gradient-to-r from-slate-600 to-slate-900 sm:py-16 rounded-xl">
-            <div className="px-4 mx-auto sm:px-6 lg:px-8 max-w-7xl">
-              <div className="dark text-center flex flex-col gap-4 items-center sm:flex-row sm:items-center sm:justify-between sm:text-left">
-                <h2 className="text-3xl font-bold text-white">
-                  {isRegistered ? "You're participating" : 'Participate'} in the
-                  Codathon Hackathon!
-                </h2>
-                {registered ? (
+        </section>
+        <section className="flex flex-col gap-4 mt-3">
+          <h3 className={sectionHeadingStyle}>Frequently asked questions</h3>
+          <HackathonFaqs />
+        </section>
+        {/* <section className="py-10 bg-gradient-to-r from-fuchsia-600 to-blue-600 sm:py-16"> */}
+        <section className="mt-10 py-10 bg-gradient-to-r from-slate-600 to-slate-900 sm:py-16 rounded-xl">
+          <div className="px-4 mx-auto sm:px-6 lg:px-8 max-w-7xl">
+            <div className="dark text-center flex flex-col gap-4 items-center sm:flex-row sm:items-center sm:justify-between sm:text-left">
+              <h2 className="text-3xl font-bold text-white">
+                {isRegistered ? "You're participating" : 'Participate'} in the{' '}
+                {hashTag} Hackathon!
+              </h2>
+              {registered ? (
+                <Button
+                  appearance="primary-slate"
+                  endIcon={BrandXTwitter}
+                  asChild
+                >
+                  <a
+                    href={socialShare}
+                    target="_blank"
+                    rel="noopener"
+                    className="whitespace-nowrap"
+                  >
+                    Share on
+                  </a>
+                </Button>
+              ) : (
+                <div className="whitespace-nowrap">
                   <Button
                     appearance="primary-slate"
-                    endIcon={BrandXTwitter}
-                    asChild
+                    onClick={handleJoinHackathon}
+                    disabled={registered}
                   >
-                    <a
-                      href={socialShare}
-                      target="_blank"
-                      rel="noopener"
-                      className="whitespace-nowrap"
-                    >
-                      Share on
-                    </a>
+                    {registered ? 'Joined' : 'Join hackathon'}
                   </Button>
-                ) : (
-                  <div className="whitespace-nowrap">
-                    <Button
-                      appearance="primary-slate"
-                      onClick={handleJoinHackathon}
-                      disabled={registered}
-                    >
-                      {registered ? 'Joined' : 'Join hackathon'}
-                    </Button>
-                  </div>
-                )}
-              </div>
+                </div>
+              )}
             </div>
-          </section>
-          <section className="flex justify-center">
-            <AddToCalendarButton
-              name={`CWUBB Hackathon: ${title}`}
-              description={about}
-              startDate={dayjs(startDate).format('YYYY-mM-D')}
-              endDate={dayjs(endDate).format('YYYY-mM-D')}
-              options="'Apple','Google','iCal','Outlook.com','Yahoo'"
-              timeZone="Africa/Lagos"
-              organizer="Code with Unclebigbay|unclebigbay@gmail.com"
-              location="World Wide Web"
-              size="0"
-              buttonStyle="flat"
-              trigger="hover"
-            />
-          </section>
+          </div>
+        </section>
+
+        <section className="flex justify-center">
+          <AddToCalendarButton
+            name={`CWUBB Hackathon: ${title}`}
+            description={about}
+            startDate={dayjs(startDate).format('YYYY-mM-D')}
+            endDate={dayjs(endDate).format('YYYY-mM-D')}
+            options="'Apple','Google','iCal','Outlook.com','Yahoo'"
+            timeZone="Africa/Lagos"
+            organizer="Code with Unclebigbay|unclebigbay@gmail.com"
+            location="World Wide Web"
+            size="0"
+            buttonStyle="flat"
+            trigger="hover"
+          />
         </section>
       </section>
       <section className="flex flex-col sm:flex-row items-center justify-center gap-2">
@@ -417,6 +427,7 @@ export const HackathonStory = ({
         close={() => setOpenSubmitEntryModal(false)}
         submitEntry={submitEntry}
         isSubmitEntryPending={isSubmitEntryPending}
+        onSubmitEntry={() => setHasSubmittedEntry(true)}
       />
     </WhiteArea>
   );

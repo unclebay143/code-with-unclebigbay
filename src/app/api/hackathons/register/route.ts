@@ -27,6 +27,19 @@ const POST = async (req: Request, _res: Response) => {
       return NextResponse.json({ message: 'Hackathon ended' }, { status: 404 });
     }
 
+    const alreadyRegistered = await HackathonRegistration.findOne({
+      hackathon: hackathonId,
+      student: studentId,
+    });
+
+    if (alreadyRegistered) {
+      return NextResponse.json(
+        { message: 'Already registered.' },
+        {
+          status: 409,
+        },
+      );
+    }
     const newParticipant = await HackathonRegistration.create({
       hackathon: hackathonId,
       student: studentId,
