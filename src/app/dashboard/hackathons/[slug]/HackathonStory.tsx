@@ -205,7 +205,10 @@ export const HackathonStory = ({
             <ul className={uLStyle}>
               {howToParticipate.map((how) => (
                 <li className="mb-3" key={`howToParticipate-${how}`}>
-                  <span className="text-slate-500">{how}</span>
+                  <span
+                    className="text-slate-500 [&>a]:underline"
+                    dangerouslySetInnerHTML={{ __html: how }}
+                  />
                 </li>
               ))}
             </ul>
