@@ -251,7 +251,7 @@ export async function hasSubmittedHackathonEntry(hackathonId: string) {
 export async function getHackathonBySlug(hackathonSlug: string) {
   const url = `${baseURL}/api/hackathons/${hackathonSlug}`;
 
-  const result = await fetch(url);
+  const result = await fetch(url, { next: { revalidate: 3 } }); // 3s cache
 
   const { hackathon } = await result.json();
 
