@@ -23,6 +23,7 @@ type SubmitEntryModalProps = {
     HackathonSubmission,
     unknown
   >;
+  onSubmitEntry: () => void;
 };
 
 const hackathonProjectSubmissionSchema = z.object({
@@ -47,6 +48,7 @@ export const SubmitEntryModal = ({
   studentId,
   submitEntry,
   isSubmitEntryPending,
+  onSubmitEntry,
 }: SubmitEntryModalProps) => {
   const [submitted, setSubmitted] = useState(false);
   const {
@@ -96,6 +98,7 @@ export const SubmitEntryModal = ({
     submitEntry(payload, {
       onSuccess() {
         setSubmitted(true);
+        onSubmitEntry();
       },
     });
   };

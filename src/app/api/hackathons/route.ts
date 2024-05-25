@@ -31,6 +31,7 @@ const GET = async () => {
   try {
     await connectViaMongoose();
     const session = await getServerSessionWithAuthOptions();
+
     let student;
 
     if (session) {
@@ -56,6 +57,9 @@ const GET = async () => {
         $addFields: {
           participantCount: { $size: '$participants' },
         },
+      },
+      {
+        $sort: { createdAt: -1 }, // Sort by createdAt in descending order (newest first)
       },
       {
         $project: {
