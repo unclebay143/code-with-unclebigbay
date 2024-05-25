@@ -8,6 +8,8 @@ import { getCookie as customCookie } from 'cookies-next';
 import { Student as StudentModel } from '@/models/student';
 import { AuditTrail } from '@/models/audit-trail';
 import connectViaMongoose from './mongoose';
+import { HackathonRegistration as HackathonRegistrationModel } from '@/models/hackathonRegistration';
+import { HackathonSubmission as HackathonSubmissionModel } from '@/models/hackathonSubmission';
 
 // https://www.reddit.com/r/nextjs/comments/16hzdsr/i_have_a_question_using_headers/
 // export const getCustomHeaders = () => {
@@ -22,19 +24,19 @@ export const getCookie = async (name?: string) => {
   return cookies().get(name)?.value.toString() ?? '';
 };
 
+/* 
+@usecase: to fetch currently logged in user/student profile
+*/
 export async function getCurrentStudent(): Promise<
   { student: Student } | undefined
 > {
-  const url = `${baseURL}/api/auth/student`;
-  const result = await fetch(url, {
-    headers: {
-      Cookie: await getCookie(),
-    },
-    cache: 'force-cache',
-  });
-  const resultJson = await result.json();
+  const session = await getServerSessionWithAuthOptions();
 
-  return { student: resultJson.student };
+  if (!session) return undefined;
+
+  await connectViaMongoose();
+  const student = await StudentModel.findOne({ email: session.user.email });
+  return { student: JSON.parse(JSON.stringify(student)) };
 }
 
 type GetCurrentStudentByUsernameResponse = {
@@ -201,35 +203,63 @@ export async function getEnrolledCourses(): Promise<
 export async function getAllHackathons() {
   const url = `${baseURL}/api/hackathons`; // isRegistered is derived from server
   const result = await fetch(url, {
-    cache: 'force-cache',
+    headers: {
+      Cookie: await getCookie(),
+    },
+    cache: 'no-store',
   });
   const hackathons = await result.json();
 
   return hackathons;
 }
 
+export async function isRegisteredForHackathon(hackathonId: string) {
+  const session = await getServerSessionWithAuthOptions();
+  await connectViaMongoose();
+
+  if (!session) return false;
+
+  const student = await StudentModel.findOne({ email: session.user.email });
+  const studentId = student._id;
+
+  const count = await HackathonRegistrationModel.countDocuments({
+    hackathon: hackathonId,
+    student: studentId,
+  });
+  const isRegistered = count > 0;
+
+  return isRegistered;
+}
+export async function hasSubmittedHackathonEntry(hackathonId: string) {
+  const session = await getServerSessionWithAuthOptions();
+  await connectViaMongoose();
+
+  if (!session) return false;
+
+  const student = await StudentModel.findOne({ email: session.user.email });
+  const studentId = student._id;
+
+  const count = await HackathonSubmissionModel.countDocuments({
+    hackathon: hackathonId,
+    student: studentId,
+  });
+  const hasSubmitted = count > 0;
+
+  return hasSubmitted;
+}
+
 export async function getHackathonBySlug(hackathonSlug: string) {
   const url = `${baseURL}/api/hackathons/${hackathonSlug}`;
 
-  const result = await fetch(url, {
-    cache: 'force-cache',
-  });
+  const result = await fetch(url);
 
   const { hackathon } = await result.json();
 
   if (!hackathon) return null;
 
   const hackathonId = hackathon._id;
-
-  const isRegisteredUrl = `${baseURL}/api/hackathons/is-registered/${hackathonId}`;
-  const hasSubmittedUrl = `${baseURL}/api/hackathons/has-submitted/${hackathonId}`;
-
-  const isRegisteredResult = await fetch(isRegisteredUrl);
-
-  const hasSubmittedResult = await fetch(hasSubmittedUrl);
-
-  const { isRegistered } = await isRegisteredResult.json();
-  const { hasSubmitted } = await hasSubmittedResult.json();
+  const isRegistered = await isRegisteredForHackathon(hackathonId);
+  const hasSubmitted = await hasSubmittedHackathonEntry(hackathonId);
   return { hackathon, isRegistered, hasSubmitted };
 }
 

@@ -1,20 +1,27 @@
 {
   "coverImage": "https://cdn.hashnode.com/res/hashnode/image/upload/v1713126618568/474b9236-15f4-4651-9237-6f6301b1b991.png",
-  "hashTag": "#LocalBusinessBoost2024",
-  "title": "Empower Your Local Community: Build a Landing Page, Boost Visibility",
-  "name": "Local Business Boost Hackathon",
+  "hashTag": "#BuildForBusiness",
+  "title": "Build for Business Hackathon: Build a Landing Page, Boost Visibility",
+  "name": "Build for Business Hackathon",
   "brief": "Support local businesses by building impactful landing pages in this hackathon!",
-  "slug": "local-business-boost-hackathon-2024",
+  "slug": "build-for-business-hackathon",
   "startDate": "2024-05-10T00:00:00.000Z",
   "endDate": "2024-06-12T00:00:00.000Z",
-  "about": "This hackathon challenges designers, developers, and marketing enthusiasts to build landing pages for local businesses in need of a digital presence. Help empower your community and support local businesses!",
-  "whatToBuild": "Create user-friendly and visually appealing landing pages for local businesses. Focus on showcasing essential information, capturing leads, and driving conversions.",
+  "about": "Welcome to the Build for Business Hackathon, a unique opportunity for developers of all skill levels to gain real-world experience by working with local businesses. In this month-long event, participants will partner with small businesses to create stunning, responsive websites that enhance their online presence and boost visibility. This hackathon is designed to bridge the gap between developers and the community, providing a platform for beginners to collaborate with real clients and understand their needs. Participants will go through the entire process of client interaction, requirement gathering, design, development, and deployment, ensuring a holistic learning experience. By the end of the hackathon, you'll have not only built a functional website for a local business but also developed invaluable skills in client communication, project management, and technical documentation. Join us in this exciting challenge and make a tangible impact on your local community while competing for top prizes!",
+  "whatToBuild": "Build a responsive, user-friendly website for a local business to enhance their online presence and boost visibility. With the steps below, you'll be well on your way to building a stellar website, helping a local business, and potentially winning amazing prizes!",
   "howToParticipate": [
-    "Register for the hackathon by clicking the button below.",
-    "Choose a business from our list of participating local businesses.",
-    "Form a team (optional) to combine design, development, and marketing expertise.",
-    "Build your landing page using your creativity and skills.",
-    "Submit your completed landing page before the deadline."
+    "Register for the hackathon. It’s FREE!",
+    "Identify a Business: Look for a local business in your area that could benefit from an online presence. This could be a small shop, a restaurant, a service provider, or any business without a robust online presence.",
+    "Approach the Business Owner: Introduce yourself and explain the hackathon. Discuss their needs and gather requirements such as the color theme, images, videos, text, and other content they want on their website.",
+    "Client Meeting: Arrange a meeting with the business owner to gather detailed requirements. Ensure you understand their brand, target audience, and specific needs for the website.",
+    "Documentation: Document all the requirements and create a project plan outlining the features and pages the website will include.",
+    "Design and Develop: Start designing and developing the website based on the gathered requirements. Focus on creating a responsive, user-friendly, and aesthetically pleasing site.",
+    "Regular Check-ins: Keep the business owner updated with your progress. Seek their feedback and make necessary adjustments based on their input.",
+    "Record a short video (1-2 minutes) showcasing your project. Upload it publicly on YouTube.",
+    "Publish an article on your Hashnode blog (or set one up if you don't have one) to officially launch your app.",
+    " Include the hashtags #buildForBusiness and #CodeWithUnclebigbay in your article for tracking purposes.",
+    "Spread the word about your project by sharing the article on social media and tagging the organizer (@codewithunclebigbay).",
+    "Submit your project entry for the hackathon before the deadline."
   ],
   "judges": [
     {
@@ -32,20 +39,28 @@
   ],
   "judgingCriteria": [
     {
-      "heading": "Design",
+      "heading": "Design and product thinking",
       "copy": "Visual appeal, user experience, and brand alignment."
     },
     {
       "heading": "Functionality",
-      "copy": "Ease of use, responsiveness, and effectiveness in capturing leads."
+      "copy": "How well the website meets the business owner's requirements."
     },
     {
-      "heading": "Clarity of Information",
-      "copy": "Clear presentation of the business's offerings and value proposition."
+      "heading": "Client Satisfaction",
+      "copy": "Quality of interaction with the business owner and how well their feedback was incorporated."
     },
     {
-      "heading": "Overall Impact",
-      "copy": "Potential of the landing page to drive business growth for the chosen local business."
+      "heading": "Code Quality & Documentation",
+      "copy": "Including a clear communication and documentation of the process in your article."
+    },
+    {
+      "heading": "Originality and Creativity",
+      "copy": "The uniqueness of the idea, and creative problem-solving in the project."
+    },
+    {
+      "heading": "Project completeness",
+      "copy": "The extent to which the project's objectives have been met and all features fully implemented and functioning."
     }
   ],
   "schedules": [
@@ -93,12 +108,7 @@
   ],
   "sponsors": [
     {
-      "name": "Acme Inc.",
-      "photo": "https://cdn.hashnode.com/res/hashnode/image/upload/v1707121372242/57c3ede2-19a1-4530-beec-fae5db66c6a2.png",
-      "link": "https://www.acmeinc.com"
-    },
-    {
-      "name": "Tech Solutions",
+      "name": "Walk-In Tech",
       "photo": "https://cdn.hashnode.com/res/hashnode/image/upload/v1707121372242/57c3ede2-19a1-4530-beec-fae5db66c6a2.png",
       "link": "https://www.techsolutions.com"
     }
