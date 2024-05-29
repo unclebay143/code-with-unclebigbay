@@ -55,7 +55,7 @@ export const HackathonCard = ({
         setRegistered(true);
       })
       .catch((error) => {
-        if (error.message === 'Already registered.') {
+        if (error.response.data.message === 'Already registered.') {
           setRegistered(true);
         }
       });
