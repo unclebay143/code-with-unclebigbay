@@ -10,6 +10,7 @@ import { AuditTrail } from '@/models/audit-trail';
 import connectViaMongoose from './mongoose';
 import { HackathonRegistration as HackathonRegistrationModel } from '@/models/hackathonRegistration';
 import { HackathonSubmission as HackathonSubmissionModel } from '@/models/hackathonSubmission';
+import { Enroll as EnrollModel } from '@/models/enroll';
 
 // https://www.reddit.com/r/nextjs/comments/16hzdsr/i_have_a_question_using_headers/
 // export const getCustomHeaders = () => {
@@ -191,20 +192,39 @@ export async function getCourses(): Promise<{ courses: Courses } | undefined> {
 export async function getEnrolledCourses(): Promise<
   { enrolledCourses: any } | undefined
 > {
-  const url = `${baseURL}/api/courses/enroll`;
-  const result = await fetch(url, {
-    cache: 'force-cache',
-    headers: {
-      Cookie: await getCookie(),
-    },
+  // const url = `${baseURL}/api/courses/enroll`;
+  // const result = await fetch(url, {
+  //   cache: 'force-cache',
+  //   headers: {
+  //     Cookie: await getCookie(),
+  //   },
+  // });
+
+  // if (!result.ok) {
+  //   console.log(result.statusText);
+  // }
+
+  // const { enrolledCourses } = await result.json();
+  // return { enrolledCourses };
+
+  const session = await getServerSessionWithAuthOptions();
+
+  if (!session) return undefined;
+
+  await connectViaMongoose();
+  let student = await StudentModel.findOne({
+    email: session.user.email,
   });
 
-  if (!result.ok) {
-    console.log(result.statusText);
-  }
+  const enrolledCourses = await EnrollModel.find({
+    student: student._id,
+  })
+    .populate('course')
+    .sort({
+      createdAt: -1,
+    });
 
-  const { enrolledCourses } = await result.json();
-  return { enrolledCourses };
+  return { enrolledCourses: JSON.parse(JSON.stringify(enrolledCourses)) };
 }
 
 export async function getAllHackathons() {
