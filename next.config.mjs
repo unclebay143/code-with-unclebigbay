@@ -43,6 +43,22 @@ const nextConfig = {
         destination: '/dashboard/overview',
       },
       {
+        source: '/courses',
+        destination: '/dashboard/courses',
+      },
+      {
+        source: '/courses/:path',
+        destination: '/dashboard/courses/:path',
+      },
+      {
+        source: '/hackathons',
+        destination: '/dashboard/hackathons',
+      },
+      {
+        source: '/hackathons/:path',
+        destination: '/dashboard/hackathons/:path',
+      },
+      {
         source: '/@:path',
         destination: `/profile/:path`,
       },

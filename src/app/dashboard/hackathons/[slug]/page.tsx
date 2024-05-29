@@ -15,6 +15,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   };
 
   return {
+    openGraph: {
+      images: [hackathonRes.hackathon.coverImage],
+    },
     title: `Hackathon - ${hackathonRes.hackathon.title}`,
     description: hackathonRes.hackathon.brief,
   };

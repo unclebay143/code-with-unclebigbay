@@ -30,13 +30,16 @@ export const getCookie = async (name?: string) => {
 export async function getCurrentStudent(): Promise<
   { student: Student } | undefined
 > {
-  const session = await getServerSessionWithAuthOptions();
+  try {
+    const session = await getServerSessionWithAuthOptions();
+    if (!session) return undefined;
 
-  if (!session) return undefined;
-
-  await connectViaMongoose();
-  const student = await StudentModel.findOne({ email: session.user.email });
-  return { student: JSON.parse(JSON.stringify(student)) };
+    await connectViaMongoose();
+    const student = await StudentModel.findOne({ email: session.user.email });
+    return { student: JSON.parse(JSON.stringify(student)) };
+  } catch (error) {
+    console.log('Error from getCurrentStudent:', error);
+  }
 }
 
 type GetCurrentStudentByUsernameResponse = {
