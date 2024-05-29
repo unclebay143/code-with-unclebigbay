@@ -26,6 +26,7 @@ const Overview = ({
   quote,
   quoteWidgetVisibility,
 }: Props) => {
+  console.log('enrolledCourses', enrolledCourses);
   const showEmptyState = enrolledCourses.length === 0;
   const showEnrolledCourses = enrolledCourses.length > 0;
 
