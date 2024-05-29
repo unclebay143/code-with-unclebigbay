@@ -34,8 +34,12 @@ export async function getCurrentStudent(): Promise<
     const session = await getServerSessionWithAuthOptions();
     if (!session) return undefined;
 
+    console.log('getCurrentStudent >>> session', session);
+
     await connectViaMongoose();
     const student = await StudentModel.findOne({ email: session.user.email });
+    console.log('getCurrentStudent >>> student', student);
+
     return { student: JSON.parse(JSON.stringify(student)) };
   } catch (error) {
     console.log('Error from getCurrentStudent:', error);
