@@ -60,13 +60,21 @@ export const HackathonTabView = ({ hackathons }: HackathonTabViewProps) => {
         <section className="pt-3 border-b border-slate-200">
           <TabsList aria-label="Manage your account">
             {/* <TabsTrigger value={VIEW.ALL}>All</TabsTrigger> */}
-            <TabsTrigger value={VIEW.ACTIVE}>Active</TabsTrigger>
-            <TabsTrigger value={VIEW.CLOSED}>Closed</TabsTrigger>
+            <TabsTrigger key={VIEW.ACTIVE} value={VIEW.ACTIVE} id="TabsTrigger">
+              Active
+            </TabsTrigger>
+            <TabsTrigger key={VIEW.CLOSED} value={VIEW.CLOSED} id="TabsTrigger">
+              Closed
+            </TabsTrigger>
           </TabsList>
         </section>
       </ScrollArea>
       <section className="mt-5">
-        <TabsContent value={VIEW.ACTIVE}>
+        <TabsContent
+          value={VIEW.ACTIVE}
+          hidden={currentView !== VIEW.ACTIVE}
+          forceMount
+        >
           <section className="flex flex-col gap-3">
             {activeHackathons?.map((hackathon) => {
               return (
@@ -79,7 +87,11 @@ export const HackathonTabView = ({ hackathons }: HackathonTabViewProps) => {
             })}
           </section>
         </TabsContent>
-        <TabsContent value={VIEW.CLOSED}>
+        <TabsContent
+          value={VIEW.CLOSED}
+          hidden={currentView !== VIEW.CLOSED}
+          forceMount
+        >
           <section className="flex flex-col gap-3">
             {closedHackathons?.map((hackathon) => {
               return (
