@@ -1,6 +1,7 @@
 import { Inter } from 'next/font/google';
 import { LayoutIndex } from './layoutIndex';
 import './globals.css';
+import './radix.css';
 import { Metadata } from 'next';
 import { GoogleAnalytics } from '@next/third-parties/google';
 
