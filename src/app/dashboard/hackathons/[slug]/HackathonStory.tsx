@@ -205,7 +205,10 @@ export const HackathonStory = ({
             <ul className={uLStyle}>
               {howToParticipate.map((how) => (
                 <li className="mb-3" key={`howToParticipate-${how}`}>
-                  <span className="text-slate-500">{how}</span>
+                  <span
+                    className="text-slate-500 [&>a]:underline"
+                    dangerouslySetInnerHTML={{ __html: how }}
+                  />
                 </li>
               ))}
             </ul>
@@ -386,7 +389,7 @@ export const HackathonStory = ({
 
         <section className="flex justify-center">
           <AddToCalendarButton
-            name={`CWUBB Hackathon: ${title}`}
+            name={`${title} - CodeWithUnclebigbay`}
             description={about}
             startDate={dayjs(startDate).format('YYYY-mM-D')}
             endDate={dayjs(endDate).format('YYYY-mM-D')}
