@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { useMutation, useQuery } from '@tanstack/react-query';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { HackathonSubmission, Hackathons } from '@/utils/types';
 
 const useHackathons = () => {
@@ -19,6 +19,7 @@ const useHackathons = () => {
 };
 
 const useHackathonById = (_id: string) => {
+  const queryClient = useQueryClient();
   // Registration status
   // const { data: isRegistered, isLoading: isCheckingRegistrationStatus } =
   //   useQuery({
