@@ -287,6 +287,7 @@ export async function getCountries(): Promise<
   if (!result.ok) return undefined;
 
   const countries = await result.json();
+  console.log('getCountries >>> countries', countries);
   const sortedCountries = countries.sort((a: Country, b: Country) =>
     a.name.common.localeCompare(b.name.common),
   );
