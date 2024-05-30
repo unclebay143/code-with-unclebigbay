@@ -30,6 +30,9 @@ const Page = async () => {
   const showStudentCommunity = students && students.length > 0;
   const hasHackathon = !!hackathon;
 
+  console.log({ hasHackathon });
+  console.log({ hackathon });
+
   return (
     <main>
       {/* Todo: figure out why ResponsiveWrapper isn't working intermittently */}
