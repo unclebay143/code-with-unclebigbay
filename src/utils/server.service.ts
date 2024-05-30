@@ -35,12 +35,8 @@ export async function getCurrentStudent(): Promise<
     const session = await getServerSessionWithAuthOptions();
     if (!session) return undefined;
 
-    console.log('getCurrentStudent >>> session', session);
-
     await connectViaMongoose();
     const student = await StudentModel.findOne({ email: session.user.email });
-    console.log('getCurrentStudent >>> student', student);
-
     return { student: JSON.parse(JSON.stringify(student)) };
   } catch (error) {
     console.log('Error from getCurrentStudent:', error);
@@ -298,21 +294,32 @@ type GetCountriesResponse = {
 export async function getCountries(): Promise<
   GetCountriesResponse | undefined
 > {
-  const url = 'https://restcountries.com/v3.1/all?fields=name';
+  // const url = 'https://restcountries.com/v3.1/all?fields=name';
 
-  const result = await fetch(url, {
-    cache: 'force-cache',
-  });
+  // const result = await fetch(url, {
+  //   cache: 'force-cache',
+  // });
 
-  if (!result.ok) return undefined;
+  // if (!result.ok) return undefined;
 
-  const countries = await result.json();
-  console.log('getCountries >>> countries', countries);
+  // const countries = await result.json();
+
+  const countries = [
+    { name: { common: 'Nigeria' } },
+    { name: { common: 'India' } },
+    { name: { common: 'Ghana' } },
+    { name: { common: 'Brazil' } },
+    { name: { common: 'Others' } },
+  ];
+
   const sortedCountries = countries.sort((a: Country, b: Country) =>
     a.name.common.localeCompare(b.name.common),
   );
 
-  return { countries, sortedCountries };
+  return {
+    countries,
+    sortedCountries,
+  };
 }
 
 export async function getQuote(): Promise<Quote | undefined> {
