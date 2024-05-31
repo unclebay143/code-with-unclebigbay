@@ -88,7 +88,7 @@ const Page = () => {
                     >
                       <span>{index + 1}.</span>
                       <section className="inline-flex flex-col w-full gap-2">
-                        <span className="inline-block mb-2 font-semibold">
+                        <span className="mb-2 font-semibold">
                           {question.question.question}
                         </span>
                         <ol className="pl-2 flex flex-col gap-2 list-inside list-[lower-alpha]">
