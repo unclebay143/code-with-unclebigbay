@@ -82,7 +82,7 @@ export const CourseCard = ({ layout = 'grid', course }: CourseCardProps) => {
               </div>
               <p
                 className="text-slate-500 line-clamp-3"
-                // dangerouslySetInnerHTML={{ __html: description }}
+                dangerouslySetInnerHTML={{ __html: description }}
               />
             </div>
 

@@ -24,7 +24,7 @@ const GET = async () => {
     const enrolledCourses = await Enroll.find({
       student: student._id,
     })
-      .populate('course')
+      .populate('course', '_id title', Course)
       .sort({
         createdAt: -1,
       });
