@@ -11,6 +11,7 @@ import connectViaMongoose from './mongoose';
 import { HackathonRegistration as HackathonRegistrationModel } from '@/models/hackathonRegistration';
 import { HackathonSubmission as HackathonSubmissionModel } from '@/models/hackathonSubmission';
 import { Enroll as EnrollModel } from '@/models/enroll';
+import { Course as CourseModel } from '@/models/course';
 
 // https://www.reddit.com/r/nextjs/comments/16hzdsr/i_have_a_question_using_headers/
 // export const getCustomHeaders = () => {
@@ -215,7 +216,7 @@ export async function getEnrolledCourses(): Promise<
   const enrolledCourses = await EnrollModel.find({
     student: student._id,
   })
-    .populate('course')
+    .populate('course', '', CourseModel)
     .sort({
       createdAt: -1,
     });
