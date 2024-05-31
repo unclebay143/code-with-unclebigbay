@@ -142,6 +142,7 @@ export type Course = {
   type?: string;
   title: string;
   description: string;
+  brief: string;
   ytVideoId: string;
   coverImageUrl: string;
   viewTime: number;

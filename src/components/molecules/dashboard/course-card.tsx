@@ -4,8 +4,7 @@ import { PlayCircle } from 'lucide-react';
 import type { LucideIcon } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { formatDate, formatTime } from '@/utils';
-import dayjs from 'dayjs';
+import { formatTime } from '@/utils';
 
 type CourseCardProps = {
   course: Course;
@@ -13,16 +12,8 @@ type CourseCardProps = {
 };
 
 export const CourseCard = ({ layout = 'grid', course }: CourseCardProps) => {
-  const {
-    _id,
-    type,
-    title,
-    description,
-    coverImageUrl,
-    viewTime,
-    isEnrolled,
-    tags,
-  } = course;
+  const { _id, type, title, brief, coverImageUrl, viewTime, isEnrolled } =
+    course;
 
   const mapTypeToIcon: { [key: string]: LucideIcon } = {
     video: PlayCircle,
@@ -82,7 +73,7 @@ export const CourseCard = ({ layout = 'grid', course }: CourseCardProps) => {
               </div>
               <p
                 className="text-slate-500 line-clamp-3"
-                dangerouslySetInnerHTML={{ __html: description }}
+                dangerouslySetInnerHTML={{ __html: brief }}
               />
             </div>
 
