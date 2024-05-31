@@ -12,6 +12,7 @@ import { HackathonRegistration as HackathonRegistrationModel } from '@/models/ha
 import { HackathonSubmission as HackathonSubmissionModel } from '@/models/hackathonSubmission';
 import { Enroll as EnrollModel } from '@/models/enroll';
 import { Course as CourseModel } from '@/models/course';
+import { Tag as TagModel } from '@/models/tag';
 
 // https://www.reddit.com/r/nextjs/comments/16hzdsr/i_have_a_question_using_headers/
 // export const getCustomHeaders = () => {
@@ -170,20 +171,81 @@ export async function getLeaderBoard(): Promise<
 }
 
 export async function getCourses(): Promise<{ courses: Courses } | undefined> {
-  const url = `${baseURL}/api/courses`;
-  const result = await fetch(url, {
-    cache: 'force-cache',
-    headers: {
-      Cookie: await getCookie(),
-    },
-  });
+  // const url = `${baseURL}/api/courses`;
+  // const result = await fetch(url, {
+  //   cache: 'force-cache',
+  //   headers: {
+  //     Cookie: await getCookie(),
+  //   },
+  // });
 
-  if (!result.ok) {
-    console.log(result.statusText);
+  // if (!result.ok) {
+  //   console.log(result.statusText);
+  // }
+
+  // const { courses } = await result.json();
+  // return { courses };
+
+  let courses;
+  await connectViaMongoose();
+
+  courses = await CourseModel.find({ isActive: true })
+    .sort({
+      createdAt: -1,
+    })
+    .populate('tags', '', TagModel);
+
+  const session = await getServerSessionWithAuthOptions();
+  if (!session) return undefined;
+
+  const student = await StudentModel.findOne({ email: session?.user.email });
+  const userStack = student.stack || 'platform-guide';
+  const userHasStack = session && userStack;
+  const isFullStack = student.stack === 'full-stack';
+
+  if (userHasStack && !isFullStack) {
+    const tag = await TagModel.findOne({ name: { $in: userStack } });
+
+    if (tag) {
+      courses = await CourseModel.find({
+        isActive: true,
+        tags: { $in: tag._id },
+      })
+        .sort({
+          createdAt: -1,
+        })
+        .populate('tags', '', TagModel);
+    }
   }
 
-  const { courses } = await result.json();
-  return { courses };
+  courses = await CourseModel.find({ isActive: true })
+    .sort({
+      createdAt: -1,
+    })
+    .populate('tags', '', TagModel);
+
+  const enrolledCourses = await EnrollModel.find({
+    student: student._id,
+  });
+
+  if (enrolledCourses) {
+    const courseIdsEnrolled = enrolledCourses.map(
+      (enrolledCourse) => enrolledCourse.course._id,
+    );
+
+    courses = courses?.map((course) => {
+      const isEnrolled = courseIdsEnrolled.some(
+        (courseId) => courseId.toString() === course._id.toString(),
+      );
+
+      return {
+        ...course.toJSON(),
+        isEnrolled,
+      };
+    });
+  }
+
+  return { courses: JSON.parse(JSON.stringify(courses)) };
 }
 
 export async function getEnrolledCourses(): Promise<
