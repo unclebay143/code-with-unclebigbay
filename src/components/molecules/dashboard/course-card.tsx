@@ -80,7 +80,10 @@ export const CourseCard = ({ layout = 'grid', course }: CourseCardProps) => {
                   </span>
                 ) : null}
               </div>
-              <p className="text-slate-500 line-clamp-3">{description}</p>
+              <p
+                className="text-slate-500 line-clamp-3"
+                dangerouslySetInnerHTML={{ __html: description }}
+              />
             </div>
 
             {isEnrolled && (
