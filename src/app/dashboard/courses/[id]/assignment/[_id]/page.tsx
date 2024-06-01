@@ -41,23 +41,25 @@ const Page = () => {
 
   const onSubmit = (data: Questions) => {
     setIsSubmitting(true);
-    const isEmptyOptionRegex = /^0\.[a-zA-Z0-9]+$/; // 0.option
 
     try {
       const assignmentResponse = questions?.map((question, index) => {
         const answerToQuestion = data[index].question;
-        const isEmptyOption = isEmptyOptionRegex.test(answerToQuestion);
-
-        if (isEmptyOption) {
-          setIsSubmitting(false);
-          throw Error('Some questions are not answered');
-        }
 
         return {
           question: question._id,
           answer: answerToQuestion,
         };
       });
+
+      const hasUnansweredQuestions = assignmentResponse.some(
+        (response) => !response.answer,
+      );
+
+      if (hasUnansweredQuestions) {
+        setIsSubmitting(false);
+        throw Error('Some questions are not answered');
+      }
 
       const payload = {
         student: student?._id,
