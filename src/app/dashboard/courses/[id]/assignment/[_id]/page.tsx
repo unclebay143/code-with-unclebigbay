@@ -69,9 +69,12 @@ const Page = () => {
       };
 
       // @ts-ignore
-      addNewResponse.mutate(payload);
+      addNewResponse.mutate(payload, {
+        onSuccess() {
+          window.location.href = `/dashboard/courses/${courseId}/assignment/${assignmentId}/submitted`;
+        },
+      });
       // window.onbeforeunload = null;
-      window.location.href = `/dashboard/courses/${courseId}/assignment/${assignmentId}/submitted`;
     } catch (e: any) {
       toast.error(e.message);
       setIsSubmitting(false);
