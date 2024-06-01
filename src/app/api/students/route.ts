@@ -8,7 +8,7 @@ const GET = async () => {
 
     const students = await Student.find({ isAnonymous: false })
       .select('username fullName photo stack socials')
-      .limit(10)
+      .limit(20)
       .lean()
       .exec();
 

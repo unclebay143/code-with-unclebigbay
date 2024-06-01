@@ -210,7 +210,7 @@ export const Profile = ({ student, canUpdateProfile }: ProfileProps) => {
           </div>
         </WhiteArea>
       )}
-      <WhiteArea border>
+      <WhiteArea border twClass="hidden">
         <h1 className="font-semibold text-slate-700">Badges</h1>
         <div className="flex flex-col items-center gap-8 text-slate-700 sm:items-start mt-3">
           <div className="flex flex-col sm:flex-row items-center gap-2">

@@ -67,10 +67,13 @@ const Page = () => {
                   <Badge theme={`${mapStatusToColor[status]}`}>
                     {capitalizeFirstLetter(status)}
                   </Badge>
+                  <span>&middot;</span>
                   <span className="font-medium">Total: </span>
                   <span>{totalQuestion}</span>
+                  <span>&middot;</span>
                   <span className="font-medium">Score: </span>
                   <span>{score}</span>
+                  <span>&middot;</span>
                   <span className="font-medium">Grade: </span>
                   <span>{grade}</span>
                 </div>
@@ -88,7 +91,7 @@ const Page = () => {
                     >
                       <span>{index + 1}.</span>
                       <section className="inline-flex flex-col w-full gap-2">
-                        <span className="inline-block mb-2 font-semibold">
+                        <span className="mb-2 font-semibold">
                           {question.question.question}
                         </span>
                         <ol className="pl-2 flex flex-col gap-2 list-inside list-[lower-alpha]">

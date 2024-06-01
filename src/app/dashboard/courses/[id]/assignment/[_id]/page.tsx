@@ -41,23 +41,25 @@ const Page = () => {
 
   const onSubmit = (data: Questions) => {
     setIsSubmitting(true);
-    const isEmptyOptionRegex = /^0\.[a-zA-Z0-9]+$/; // 0.option
 
     try {
       const assignmentResponse = questions?.map((question, index) => {
         const answerToQuestion = data[index].question;
-        const isEmptyOption = isEmptyOptionRegex.test(answerToQuestion);
-
-        if (isEmptyOption) {
-          setIsSubmitting(false);
-          throw Error('Some questions are not answered');
-        }
 
         return {
           question: question._id,
           answer: answerToQuestion,
         };
       });
+
+      const hasUnansweredQuestions = assignmentResponse.some(
+        (response) => !response.answer,
+      );
+
+      if (hasUnansweredQuestions) {
+        setIsSubmitting(false);
+        throw Error('Some questions are not answered');
+      }
 
       const payload = {
         student: student?._id,
@@ -67,9 +69,12 @@ const Page = () => {
       };
 
       // @ts-ignore
-      addNewResponse.mutate(payload);
+      addNewResponse.mutate(payload, {
+        onSuccess() {
+          window.location.href = `/dashboard/courses/${courseId}/assignment/${assignmentId}/submitted`;
+        },
+      });
       // window.onbeforeunload = null;
-      window.location.href = `/dashboard/courses/${courseId}/assignment/${assignmentId}/submitted`;
     } catch (e: any) {
       toast.error(e.message);
       setIsSubmitting(false);
@@ -133,10 +138,8 @@ const Page = () => {
                       key={question}
                       className="relative border-b last:border-none py-4"
                     >
-                      <span className="inline-block mb-2 font-semibold">
-                        {question}
-                      </span>
-                      <ol className="pl-2 flex flex-col gap-2 list-inside list-[lower-alpha]">
+                      <span className="font-semibold">{question}</span>
+                      <ol className="mt-1 pl-2 flex flex-col gap-2 list-inside list-[lower-alpha]">
                         {options.map(({ _id, option }) => {
                           return (
                             <li className="text-sm text-slate-800" key={_id}>

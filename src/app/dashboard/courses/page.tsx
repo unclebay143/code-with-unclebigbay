@@ -12,12 +12,17 @@ const Page = async () => {
     getCourses(),
   ]);
 
-  if (!coursesRes || !studentRes) return null;
-
   const courses = coursesRes?.courses;
-  const { student: currentStudent } = studentRes;
 
-  return <CoursesPage courses={courses} currentStudent={currentStudent} />;
+  // ts guard for courses
+  if (courses) {
+    return (
+      <CoursesPage
+        courses={courses}
+        currentStudent={studentRes?.student ? studentRes?.student : null}
+      />
+    );
+  }
 };
 
 export default Page;
