@@ -196,7 +196,10 @@ export async function getCourses(): Promise<{ courses: Courses } | undefined> {
     .populate('tags', '', TagModel);
 
   const session = await getServerSessionWithAuthOptions();
-  if (!session) return undefined;
+
+  if (!session) {
+    return { courses: JSON.parse(JSON.stringify(courses)) };
+  }
 
   const student = await StudentModel.findOne({ email: session?.user.email });
   const userStack = student.stack || 'platform-guide';
@@ -217,12 +220,6 @@ export async function getCourses(): Promise<{ courses: Courses } | undefined> {
         .populate('tags', '', TagModel);
     }
   }
-
-  courses = await CourseModel.find({ isActive: true })
-    .sort({
-      createdAt: -1,
-    })
-    .populate('tags', '', TagModel);
 
   const enrolledCourses = await EnrollModel.find({
     student: student._id,
