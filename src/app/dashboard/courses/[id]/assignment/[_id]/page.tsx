@@ -133,8 +133,8 @@ const Page = () => {
                       key={question}
                       className="relative border-b last:border-none py-4"
                     >
-                      <span className="mb-2 font-semibold">{question}</span>
-                      <ol className="pl-2 flex flex-col gap-2 list-inside list-[lower-alpha]">
+                      <span className="font-semibold">{question}</span>
+                      <ol className="mt-1 pl-2 flex flex-col gap-2 list-inside list-[lower-alpha]">
                         {options.map(({ _id, option }) => {
                           return (
                             <li className="text-sm text-slate-800" key={_id}>
