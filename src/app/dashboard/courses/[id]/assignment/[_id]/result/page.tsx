@@ -67,10 +67,13 @@ const Page = () => {
                   <Badge theme={`${mapStatusToColor[status]}`}>
                     {capitalizeFirstLetter(status)}
                   </Badge>
+                  <span>&middot;</span>
                   <span className="font-medium">Total: </span>
                   <span>{totalQuestion}</span>
+                  <span>&middot;</span>
                   <span className="font-medium">Score: </span>
                   <span>{score}</span>
+                  <span>&middot;</span>
                   <span className="font-medium">Grade: </span>
                   <span>{grade}</span>
                 </div>
