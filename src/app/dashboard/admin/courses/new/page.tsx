@@ -178,7 +178,7 @@ const Page = () => {
                     <Link
                       target="_blank"
                       rel="noopener"
-                      href="https://www.omnicalculator.com/conversion/minutes-to-seconds-converter"
+                      href="https://www.timecalculator.net/minutes-to-time"
                       className="underline text-blue-500"
                     >
                       Converter
