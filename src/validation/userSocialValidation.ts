@@ -14,7 +14,15 @@ export const ProfileUpdateSchema = z.object({
   x: z
     .string()
     .url()
-    .includes('https://twitter.com/', { message: 'Invalid twitter URL' })
+    .refine(
+      (value) =>
+        value.includes('https://twitter.com/') ||
+        value.includes('https://x.com/'),
+      {
+        message:
+          'Invalid URL: must include either https://twitter.com/ or https://x.com/',
+      },
+    )
     .or(z.literal('')),
   linkedin: z
     .string()
@@ -24,7 +32,9 @@ export const ProfileUpdateSchema = z.object({
   instagram: z
     .string()
     .url()
-    .includes('https://instagram.com/', { message: 'Invalid instagram URL' })
+    .includes('https://www.instagram.com/', {
+      message: 'Invalid instagram URL',
+    })
     .or(z.literal('')),
 
   stackoverflow: z
