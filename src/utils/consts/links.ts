@@ -105,6 +105,7 @@ export const publicLinks: SidebarLinks =
   process.env.NODE_ENV === 'development'
     ? [courses, hackathons, leaderboard, helpCenter]
     : [courses, helpCenter];
+
 const privateLinks: SidebarLinks = [
   overview,
   courses,

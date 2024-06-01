@@ -296,6 +296,48 @@ export const HackathonStory = ({
               <Award02 size="md" />
               <h3 className="font-semibold  text-xl">Prizes</h3>
             </div>
+            {/* <div className="hidden md:block overflow-x-auto border rounded-xl">
+              <table className="w-full">
+                <thead className="rounded-lg">
+                  <tr className="text-left border-b bg-slate-50">
+                    <th className="rounded-tl-lg text-sm font-medium py-4 px-6">
+                      Position
+                    </th>
+                    <th className="rounded-tr-lg text-sm font-medium py-4 px-6">
+                      Prizes
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {prizes.map(({ _id, label, prizes: _prizes }, index) => (
+                    <tr key={_id}>
+                      <td
+                        className={`px-6 py-4 ${prizes.length !== index + 1 && 'border-b'}`}
+                      >
+                        <span className="font-medium text-sm text-slate-700">
+                          {label}
+                        </span>
+                      </td>
+                      <td
+                        className={`px-6 py-4 ${prizes.length !== index + 1 && 'border-b'}`}
+                      >
+                        <ul
+                          className={`${_prizes.length !== 1 && 'list-disc'} ml-5 gap-1 text-sm text-slate-500 font-medium`}
+                        >
+                          {_prizes.map((prize) => (
+                            <li key={prize}>
+                              <span className="font-medium text-sm text-slate-600">
+                                {prize}
+                              </span>
+                            </li>
+                          ))}
+                        </ul>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div> */}
             <div className="flex flex-wrap gap-10 ml-2">
               {prizes.map(({ _id, label, prizes }) => (
                 <div

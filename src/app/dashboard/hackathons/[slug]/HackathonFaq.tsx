@@ -12,11 +12,11 @@ import React, { useState } from 'react';
 const faqs = [
   {
     q: 'Who can participate?',
-    a: "The hackathon is open to everyone! Whether you're a seasoned developer or just starting out, we welcome participants of all skill levels. No coding experience is necessary!",
+    a: 'The hackathon is open to everyone! We welcome participants of all skill levels.',
   },
   {
     q: 'Do I need a team?',
-    a: "You can participate as an individual or a team of up to 4 people.  Working in a team can be a great way to learn from each other and share the workload, but it's not mandatory.",
+    a: "You can participate as an individual or a team of up to X people (with only one submission per team).  Working in a team can be a great way to learn from each other and share the workload, but it's not mandatory.",
   },
   {
     q: 'Need help?',
@@ -53,7 +53,7 @@ const FaqCard = ({
       <article
         onClick={() => setOpen((prevOpen) => !prevOpen)}
         role="button"
-        className={`flex items-center justify-between w-full p-5 font-medium text-slate-600 border border-b-0 border-gray-200 last-of-type:border-b last-of-type:rounded-b-xl first-of-type:rounded-t-xl hover:bg-slate-50 gap-3 ${open && 'last-of-type:rounded-b-none bg-slate-50/60'}`}
+        className={`flex items-center justify-between w-full p-5 font-medium text-slate-600 border border-b-0 border-gray-200 last-of-type:border-b ${!open && 'last-of-type:rounded-b-xl'} first-of-type:rounded-t-xl hover:bg-slate-50 gap-3 ${open && 'last-of-type:rounded-b-none bg-slate-50/60'}`}
       >
         <span>
           {index + 1}: {q}
