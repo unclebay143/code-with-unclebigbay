@@ -1,3 +1,5 @@
+'use client';
+
 import { Badge } from '@hashnode/matrix-ui';
 import Image from 'next/image';
 import Link from 'next/link';
