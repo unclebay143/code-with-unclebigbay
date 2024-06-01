@@ -10,6 +10,9 @@ import { AuditTrail } from '@/models/audit-trail';
 import connectViaMongoose from './mongoose';
 import { HackathonRegistration as HackathonRegistrationModel } from '@/models/hackathonRegistration';
 import { HackathonSubmission as HackathonSubmissionModel } from '@/models/hackathonSubmission';
+import { Enroll as EnrollModel } from '@/models/enroll';
+import { Course as CourseModel } from '@/models/course';
+import { Tag as TagModel } from '@/models/tag';
 
 // https://www.reddit.com/r/nextjs/comments/16hzdsr/i_have_a_question_using_headers/
 // export const getCustomHeaders = () => {
@@ -168,39 +171,116 @@ export async function getLeaderBoard(): Promise<
 }
 
 export async function getCourses(): Promise<{ courses: Courses } | undefined> {
-  const url = `${baseURL}/api/courses`;
-  const result = await fetch(url, {
-    cache: 'force-cache',
-    headers: {
-      Cookie: await getCookie(),
-    },
-  });
+  // const url = `${baseURL}/api/courses`;
+  // const result = await fetch(url, {
+  //   cache: 'force-cache',
+  //   headers: {
+  //     Cookie: await getCookie(),
+  //   },
+  // });
 
-  if (!result.ok) {
-    console.log(result.statusText);
+  // if (!result.ok) {
+  //   console.log(result.statusText);
+  // }
+
+  // const { courses } = await result.json();
+  // return { courses };
+
+  let courses;
+  await connectViaMongoose();
+
+  courses = await CourseModel.find({ isActive: true })
+    .sort({
+      createdAt: -1,
+    })
+    .populate('tags', '', TagModel);
+
+  const session = await getServerSessionWithAuthOptions();
+
+  if (!session) {
+    return { courses: JSON.parse(JSON.stringify(courses)) };
   }
 
-  const { courses } = await result.json();
-  return { courses };
+  const student = await StudentModel.findOne({ email: session?.user.email });
+  const userStack = student.stack || 'platform-guide';
+  const userHasStack = session && userStack;
+  const isFullStack = student.stack === 'full-stack';
+
+  if (userHasStack && !isFullStack) {
+    const tag = await TagModel.findOne({ name: { $in: userStack } });
+
+    if (tag) {
+      courses = await CourseModel.find({
+        isActive: true,
+        tags: { $in: tag._id },
+      })
+        .sort({
+          createdAt: -1,
+        })
+        .populate('tags', '', TagModel);
+    }
+  }
+
+  const enrolledCourses = await EnrollModel.find({
+    student: student._id,
+  });
+
+  if (enrolledCourses) {
+    const courseIdsEnrolled = enrolledCourses.map(
+      (enrolledCourse) => enrolledCourse.course._id,
+    );
+
+    courses = courses?.map((course) => {
+      const isEnrolled = courseIdsEnrolled.some(
+        (courseId) => courseId.toString() === course._id.toString(),
+      );
+
+      return {
+        ...course.toJSON(),
+        isEnrolled,
+      };
+    });
+  }
+
+  return { courses: JSON.parse(JSON.stringify(courses)) };
 }
 
 export async function getEnrolledCourses(): Promise<
   { enrolledCourses: any } | undefined
 > {
-  const url = `${baseURL}/api/courses/enroll`;
-  const result = await fetch(url, {
-    cache: 'force-cache',
-    headers: {
-      Cookie: await getCookie(),
-    },
+  // const url = `${baseURL}/api/courses/enroll`;
+  // const result = await fetch(url, {
+  //   cache: 'force-cache',
+  //   headers: {
+  //     Cookie: await getCookie(),
+  //   },
+  // });
+
+  // if (!result.ok) {
+  //   console.log(result.statusText);
+  // }
+
+  // const { enrolledCourses } = await result.json();
+  // return { enrolledCourses };
+
+  const session = await getServerSessionWithAuthOptions();
+
+  if (!session) return undefined;
+
+  await connectViaMongoose();
+  let student = await StudentModel.findOne({
+    email: session.user.email,
   });
 
-  if (!result.ok) {
-    console.log(result.statusText);
-  }
+  const enrolledCourses = await EnrollModel.find({
+    student: student._id,
+  })
+    .populate('course', '', CourseModel)
+    .sort({
+      createdAt: -1,
+    });
 
-  const { enrolledCourses } = await result.json();
-  return { enrolledCourses };
+  return { enrolledCourses: JSON.parse(JSON.stringify(enrolledCourses)) };
 }
 
 export async function getAllHackathons() {
@@ -274,20 +354,32 @@ type GetCountriesResponse = {
 export async function getCountries(): Promise<
   GetCountriesResponse | undefined
 > {
-  const url = 'https://restcountries.com/v3.1/all?fields=name';
+  // const url = 'https://restcountries.com/v3.1/all?fields=name';
 
-  const result = await fetch(url, {
-    cache: 'force-cache',
-  });
+  // const result = await fetch(url, {
+  //   cache: 'force-cache',
+  // });
 
-  if (!result.ok) return undefined;
+  // if (!result.ok) return undefined;
 
-  const countries = await result.json();
+  // const countries = await result.json();
+
+  const countries = [
+    { name: { common: 'Nigeria' } },
+    { name: { common: 'India' } },
+    { name: { common: 'Ghana' } },
+    { name: { common: 'Brazil' } },
+    { name: { common: 'Others' } },
+  ];
+
   const sortedCountries = countries.sort((a: Country, b: Country) =>
     a.name.common.localeCompare(b.name.common),
   );
 
-  return { countries, sortedCountries };
+  return {
+    countries,
+    sortedCountries,
+  };
 }
 
 export async function getQuote(): Promise<Quote | undefined> {

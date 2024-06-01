@@ -15,7 +15,7 @@ const CoursesPage = ({
   currentStudent,
 }: {
   courses: CoursesType;
-  currentStudent: Student;
+  currentStudent: Student | null;
 }) => {
   const isAdmin = currentStudent?.isAdmin;
 

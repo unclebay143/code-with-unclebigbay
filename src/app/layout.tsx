@@ -4,6 +4,7 @@ import './globals.css';
 import './radix.css';
 import { Metadata } from 'next';
 import { GoogleAnalytics } from '@next/third-parties/google';
+import { Analytics } from '@vercel/analytics/react';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -23,6 +24,7 @@ export default function RootLayout({
       <body className={inter.className}>
         <LayoutIndex>{children}</LayoutIndex>
         <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS_ID!} />
+        <Analytics />
       </body>
     </html>
   );

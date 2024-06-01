@@ -20,7 +20,7 @@ import { usePathname } from 'next/navigation';
 import { useCourseById } from '@/components/hooks/useCourse';
 import { Tags } from '@/utils/types';
 import useCurrentStudent from '@/components/hooks/useCurrentStudent';
-import { formatDate } from '@/utils';
+import { formatDate, formatTime } from '@/utils';
 import { Tooltip } from '@/components/atoms/Tooltip';
 import { handleAuthentication } from '@/utils/auth';
 
@@ -40,7 +40,6 @@ const Page = () => {
   const isEnrolled = course?.isEnrolled;
   const enrolledDate = course?.enrolledDate;
   const enrolledStudentsCount = course?.enrolledStudentsCount;
-  //
 
   const isLoggedIn = !!currentStudent;
   const playableMode = !isLoggedIn || isEnrolled;
@@ -146,9 +145,12 @@ const Page = () => {
                           <h3 className="font-medium text-lg text-slate-700">
                             Description:
                           </h3>
-                          <p className="text-slate-600">
-                            {course?.description}
-                          </p>
+                          <div
+                            className="text-slate-600 flex flex-col gap-4 [&>a]:underline [&>ul]:list-disc [&>ul]:list-outside [&>ul]:ml-5 [&>ul>li]:mb-2"
+                            dangerouslySetInnerHTML={{
+                              __html: course?.description,
+                            }}
+                          />
                         </div>
                       )}
                     </div>
@@ -175,6 +177,15 @@ const Page = () => {
                             </p>
                           </div>
                         )}
+                        <hr className="hidden md:block h-10 border" />
+                        <div>
+                          <h3 className="font-medium text-lg text-slate-700">
+                            Duration:
+                          </h3>
+                          <p className="text-slate-600">
+                            {formatTime(course.viewTime)}
+                          </p>
+                        </div>
                         <hr className="hidden md:block h-10 border" />
                         <div>
                           <h3 className="font-medium text-lg text-slate-700">
