@@ -42,7 +42,7 @@ export const Navbar = ({ session }: { session?: Session | null }) => {
             <div className="flex sm:gap-4 items-center">
               <section>
                 {session ? (
-                  <div className="hidden min-[374px]:flex justify-end">
+                  <div className="hidden min-[425px]:flex justify-end">
                     <Button size="xs" appearance="primary-slate" asChild>
                       <a href="/dashboard/overview">Dashboard</a>
                     </Button>
