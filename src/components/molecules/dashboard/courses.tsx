@@ -3,6 +3,7 @@
 import React from 'react';
 import { CourseCard, CourseCardSkeleton } from './course-card';
 import {
+  InputField,
   Select,
   SelectContent,
   SelectItem,
@@ -40,15 +41,16 @@ export const Courses = ({
     <section className="flex flex-col gap-3">
       {hideSearchOptions || (
         <div className="flex flex-col sm:flex-row gap-2">
-          <div className="w-full">
-            <input
-              className="border rounded-xl text-slate-600 w-full py-3 pl-4 pr-2"
-              placeholder="Find learning course"
-            />
-          </div>
+          <InputField placeholder="Find learning course" size="sm" />
           <div className="sm:w-[200px]">
             <Select onValueChange={(e) => console.log(e)}>
-              <SelectTrigger size="md" />
+              <SelectTrigger
+                size="lg"
+                style={{
+                  borderRadius: '12px',
+                  borderColor: '#cbd5e1',
+                }}
+              />
               <SelectContent>
                 <SelectViewPort>
                   <SelectItem value={'value-1'} label="HTML" />
