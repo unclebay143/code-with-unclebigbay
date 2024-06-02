@@ -95,7 +95,7 @@ export const Profile = ({ student, canUpdateProfile }: ProfileProps) => {
             <div className="flex justify-center flex-col gap-4">
               <div className="flex flex-col gap-1">
                 <h2 className="font-semibold text-3xl capitalize">
-                  {student?.fullName}
+                  {student?.fullName || student?.username}
                 </h2>
                 <p className="text-slate-600 capitalize">
                   {student?.stack} Developer
@@ -159,12 +159,14 @@ export const Profile = ({ student, canUpdateProfile }: ProfileProps) => {
         </div>
       </WhiteArea>
       {/* Bio */}
-      <WhiteArea border>
-        <div className="flex flex-col">
-          <h1 className="font-semibold text-slate-700 mb-3">About me</h1>
-          <p>{student?.bio}</p>
-        </div>
-      </WhiteArea>
+      {student?.bio && (
+        <WhiteArea border>
+          <div className="flex flex-col">
+            <h1 className="font-semibold text-slate-700 mb-3">About me</h1>
+            <p>{student?.bio}</p>
+          </div>
+        </WhiteArea>
+      )}
 
       {/* Links */}
       {(socials.blog || socials.portfolio) && (
