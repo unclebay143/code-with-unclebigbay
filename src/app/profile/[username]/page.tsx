@@ -20,10 +20,11 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const data = await getCurrentStudentByUsername(username);
   const student = data?.student;
   const userFullName = student?.fullName;
+  const userName = student?.username;
   const bio = student?.bio;
 
   return {
-    title: `${userFullName} - Code with Unclebigbay`,
+    title: `${userFullName || userName} - Code with Unclebigbay`,
     description: `${userFullName}'s profile on Code with Unclebigbay. ${bio || ''}`,
   };
 }
