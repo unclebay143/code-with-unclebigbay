@@ -2,7 +2,13 @@
 
 import React from 'react';
 import { ModalWrapper } from '../molecules/dashboard/modal-wrapper';
-import { Button, Github, IconButton, X } from '@hashnode/matrix-ui';
+import {
+  ArrowExternalLink01,
+  Button,
+  Github,
+  IconButton,
+  X,
+} from '@hashnode/matrix-ui';
 import { handleAuthentication } from '@/utils/auth';
 
 type Props = {
@@ -37,21 +43,40 @@ export const AuthModal = ({
               'Connect with your GitHub account to unlock personalized features, and enhance your experience with us.'}
           </p>
         </section>
-        <Button
-          appearance="primary-slate"
-          size="sm"
-          width="full"
-          startIcon={Github}
-          onClick={() => {
-            if (nextUrl) return handleAuthentication({ nextUrl });
-            handleAuthentication();
-          }}
-        >
-          <span className="capitalize">
-            {type} <span className="lowercase">with </span>
-            GitHub
-          </span>
-        </Button>
+        <div className="flex flex-col gap-2 items-center">
+          <Button
+            appearance="primary-slate"
+            size="sm"
+            width="full"
+            startIcon={Github}
+            onClick={() => {
+              if (nextUrl) return handleAuthentication({ nextUrl });
+              handleAuthentication();
+            }}
+          >
+            <span className="capitalize">
+              {type} <span className="lowercase">with </span>
+              GitHub
+            </span>
+          </Button>
+          <div className="flex items-center text-xs gap-1 text-slate-600 font-medium">
+            <h3>New to GitHub?</h3>
+            <Button
+              appearance="link-slate"
+              size="xs"
+              endIcon={ArrowExternalLink01}
+            >
+              <a
+                href="https://dub.sh/dont-know-gh-guide"
+                target="_blank"
+                rel="noopener"
+                className="text-xs"
+              >
+                Learn more
+              </a>
+            </Button>
+          </div>
+        </div>
       </section>
     </ModalWrapper>
   );
