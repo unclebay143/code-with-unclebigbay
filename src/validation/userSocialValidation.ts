@@ -96,7 +96,7 @@ export const professionalDetailSchema = z.object({
 });
 
 export const personalDetailSchema = z.object({
-  fullName: z.string().min(0, 'Fullname is required.'),
+  fullName: z.string().trim().min(1, { message: 'Fullname is required.' }),
   bio: z.string().or(z.literal('')),
   location: z.string().or(z.literal('')),
 });
