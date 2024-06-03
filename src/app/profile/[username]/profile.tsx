@@ -153,7 +153,7 @@ export const Profile = ({ student, canUpdateProfile }: ProfileProps) => {
             )}
             <div className="text-slate-600 flex items-center gap-1">
               <CalendarEvent size="sm" />
-              <span>Joined {formatDate(student.createdAt)}</span>
+              <span>Joined since {formatDate(student.createdAt)}</span>
             </div>
           </div>
         </div>
