@@ -15,8 +15,6 @@ import { ExternalLink } from 'lucide-react';
 import Link from 'next/link';
 import { Countries, Student } from '@/utils/types';
 
-personalDetailSchema;
-
 type personalDetailSchemaType = z.infer<typeof personalDetailSchema>;
 
 const UserPersonalSettings = ({
@@ -45,6 +43,7 @@ const UserPersonalSettings = ({
     values: {
       bio,
       location: location,
+      fullName,
     },
   });
 
@@ -69,7 +68,7 @@ const UserPersonalSettings = ({
           <section className="border-b pb-3 flex items-center justify-between">
             <label htmlFor="photo" className="">
               <DashboardSubheading title="Profile Picture" />
-              <p className="text-slate-500 text-sm">Sourced from GitHub</p>
+              <p className="text-slate-500 text-sm">Sourced from GitHub.</p>
             </label>
             <Button size="xs" appearance="secondary-slate" asChild>
               <Link
@@ -118,9 +117,8 @@ const UserPersonalSettings = ({
               <input
                 type="text"
                 id="name"
-                className="disabled:cursor-not-allowed text-sm text-slate-600 p-2 outline-none focus:ring-2 focus:ring-slate-500 focus:border-slate-300 border rounded-md"
-                value={fullName}
-                disabled
+                className="text-sm text-slate-600 p-2 outline-none focus:ring-2 focus:ring-slate-500 focus:border-slate-300 border rounded-md"
+                {...register('fullName')}
               />
             </div>
             <div className="flex flex-col gap-3">
