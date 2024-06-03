@@ -21,7 +21,7 @@ export function formatStartAndEndDate(startDate: string, endDate: string) {
 }
 
 export const formatDate = (date: string) => {
-  return dayjs(date).format('MMM Do YY');
+  return dayjs(date).format('MMM Do, YYYY');
 };
 
 // @ts-ignore
