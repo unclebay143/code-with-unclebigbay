@@ -122,7 +122,7 @@ export const HackathonTabView = ({ hackathons }: HackathonTabViewProps) => {
                   We&apos;re currently running our first hackathon 🎉
                 </h3>
                 <Button size="xs" appearance="primary-slate" asChild>
-                  <Link href="https://dub.sh/closed-tab-cta">
+                  <Link href="/hackathons/build-for-business-hackathon?source=closed-hackathon-cta">
                     View hackathon
                   </Link>
                 </Button>
