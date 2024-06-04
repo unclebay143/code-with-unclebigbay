@@ -25,7 +25,7 @@ const GET = async (_: Request, { params }: { params: { _id: string } }) => {
     const prevResponse = await AssignmentResponse.findOne({
       assignment: assignmentId,
       student: studentId,
-    }).populate('course', '_id title', Course);
+    }).populate('course', '_id title slug', Course);
 
     if (prevResponse) {
       const assignment = { ...prevResponse.toJSON(), alreadyResponded: true };
@@ -39,7 +39,7 @@ const GET = async (_: Request, { params }: { params: { _id: string } }) => {
 
     const assignment = await Assignment.findOne({ _id: assignmentId })
       .select('_id course questions')
-      .populate('course', '_id title', Course)
+      .populate('course', '_id title slug', Course)
       .populate(
         'questions',
         '_id question options._id options.option',

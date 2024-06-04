@@ -25,9 +25,9 @@ const useCourse = () => {
     },
     onSuccess({ data }) {
       queryClient.invalidateQueries({ queryKey: ['courses'] });
-      const courseId = data.course._id;
+      const courseSlug = data.course.slug;
       toast.success('New course added.');
-      window.location.href = `/dashboard/courses/${courseId}`;
+      window.location.href = `/dashboard/courses/${courseSlug}`;
     },
     onError(error: any) {
       toast.success(error.response.data.message);

@@ -6,12 +6,13 @@ import { getServerSessionWithAuthOptions } from '@/utils/auth-options';
 import connectViaMongoose from '@/utils/mongoose';
 import { NextResponse } from 'next/server';
 
-const GET = async (_: Request, { params }: { params: { _id: string } }) => {
+const GET = async (_: Request, { params }: { params: { slug: string } }) => {
   try {
-    const courseId = params._id;
+    // const courseId = params._id;
+    const courseSlug = params.slug;
     await connectViaMongoose();
 
-    let course = await Course.findOne({ _id: courseId }).populate(
+    let course = await Course.findOne({ slug: courseSlug }).populate(
       'tags',
       '_id name slug logo',
       Tag,
@@ -24,6 +25,8 @@ const GET = async (_: Request, { params }: { params: { _id: string } }) => {
         },
       );
     }
+
+    const courseId = course._id;
 
     const enrolledStudentsCount = await Enroll.countDocuments({
       course: courseId,
