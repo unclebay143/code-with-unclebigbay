@@ -141,6 +141,7 @@ export type Course = {
   createdAt?: string;
   type?: string;
   title: string;
+  slug: string;
   description: string;
   brief: string;
   ytVideoId: string;
