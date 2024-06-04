@@ -17,9 +17,10 @@ const Page = () => {
 
   const assignmentResponse = data?.assignmentResponse;
   const courseId = assignmentResponse?.course?._id;
+  const courseSlug = assignmentResponse?.course?.slug;
   const courseTitle = assignmentResponse?.course?.title;
   const disableBtn = !courseId || !assignmentId;
-  const assignmentResponseUrl = `/dashboard/courses/${courseId}/assignment/${assignmentId}/result`;
+  const assignmentResponseUrl = `/dashboard/courses/${courseSlug}/assignment/${assignmentId}/result`;
   const recommendedCourses = courses
     ?.filter((course) => !course.isCompleted && course._id !== courseId)
     .splice(0, 3); // consider adding enroll field in the course object from BE

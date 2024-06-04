@@ -23,6 +23,7 @@ const Page = () => {
   const { mutation: addNewResponse } = useAssignment();
   const course = assignment?.course;
   const courseId = course?._id;
+  const courseSlug = course?.slug;
   const courseTitle = course?.title;
   const alreadyResponded = assignment?.alreadyResponded;
 
@@ -67,11 +68,10 @@ const Page = () => {
         assignment: assignmentId,
         response: assignmentResponse,
       };
-
       // @ts-ignore
       addNewResponse.mutate(payload, {
         onSuccess() {
-          window.location.href = `/dashboard/courses/${courseId}/assignment/${assignmentId}/submitted`;
+          window.location.href = `/dashboard/courses/${courseSlug}/assignment/${assignmentId}/submitted`;
         },
       });
       // window.onbeforeunload = null;
@@ -93,7 +93,7 @@ const Page = () => {
   );
 
   if (!isFetching && alreadyResponded) {
-    window.location.href = `/dashboard/courses/${courseId}/assignment/${assignmentId}/result`;
+    window.location.href = `/dashboard/courses/${courseSlug}/assignment/${assignmentId}/result`;
     return loader;
   }
 
@@ -112,7 +112,7 @@ const Page = () => {
                   asChild
                 >
                   <Link
-                    href={`/dashboard/courses/${courseId}`}
+                    href={`/dashboard/courses/${courseSlug}`}
                     className="whitespace-nowrap"
                   >
                     Back to course

@@ -20,7 +20,8 @@ const Page = () => {
   const grade = assignmentResponse?.grade;
   const response = assignmentResponse?.response;
   const totalQuestion = response?.length;
-  const courseId = assignmentResponse?.course?._id;
+  const courseSlug = assignmentResponse?.course?.slug;
+
   const canShowQuestions = !isFetching;
   const courseTitle = assignmentResponse?.course?.title;
 
@@ -53,7 +54,7 @@ const Page = () => {
                   asChild
                 >
                   <Link
-                    href={`/dashboard/courses/${courseId}`}
+                    href={`/dashboard/courses/${courseSlug}`}
                     className="whitespace-nowrap"
                   >
                     Back to course
