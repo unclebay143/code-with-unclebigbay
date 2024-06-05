@@ -81,7 +81,7 @@ const Course = () => {
                 startIcon={ArrowLeft}
                 asChild
               >
-                <Link href="/dashboard/admin/courses">All courses</Link>
+                <Link href="/dashboard/courses">All courses</Link>
               </Button>
             </div>
             <div className="flex items-start justify-between gap-1 text-xl text-slate-600">
