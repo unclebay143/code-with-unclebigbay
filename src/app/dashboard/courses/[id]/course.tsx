@@ -12,6 +12,7 @@ import {
   ChevronDown,
   ChevronUp,
   ArrowRefresh,
+  ArrowLeft,
 } from '@hashnode/matrix-ui';
 import { YTVideo } from '@/components/atoms/YTVideo';
 import Link from 'next/link';
@@ -73,6 +74,16 @@ const Course = () => {
       <WhiteArea border>
         {showCourse ? (
           <div className="flex flex-col gap-5">
+            <div className="flex justify-start lg:hidden">
+              <Button
+                size="xs"
+                appearance="secondary-slate"
+                startIcon={ArrowLeft}
+                asChild
+              >
+                <Link href="/dashboard/admin/courses">All courses</Link>
+              </Button>
+            </div>
             <div className="flex items-start justify-between gap-1 text-xl text-slate-600">
               <div className="max-w-[90%]">
                 <DashboardSubheading title={course.title} />

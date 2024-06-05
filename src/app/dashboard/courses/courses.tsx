@@ -8,7 +8,7 @@ import { EmptyState } from '@/components/molecules/dashboard/empty-state';
 import { WhiteArea } from '@/components/molecules/dashboard/white-area';
 import { showCount } from '@/utils';
 import { Courses as CoursesType, Student } from '@/utils/types';
-import { ArrowLeft, Button } from '@hashnode/matrix-ui';
+import { Button } from '@hashnode/matrix-ui';
 
 const CoursesPage = ({
   courses,
@@ -33,22 +33,11 @@ const CoursesPage = ({
         <div className="flex flex-col gap-5">
           {isAdmin && (
             <div className="flex justify-start">
-              <Button size="xs" asChild>
+              <Button size="xs" appearance="primary-slate" asChild>
                 <Link href="/dashboard/admin/courses/new">New course</Link>
               </Button>
             </div>
           )}
-
-          <div className="flex justify-start lg:hidden">
-            <Button
-              size="xs"
-              appearance="secondary-slate"
-              startIcon={ArrowLeft}
-              asChild
-            >
-              <Link href="/dashboard/admin/courses">All courses</Link>
-            </Button>
-          </div>
           <div className="flex items-center justify-between">
             <div className="w-full flex items-end justify-center">
               <div className="w-full flex flex-col gap-1">
