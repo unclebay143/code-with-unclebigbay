@@ -12,6 +12,11 @@ export const metadata: Metadata = {
   title: 'Code with Unclebigbay',
   description: 'Learn to Code and Build Your Career',
   authors: [{ name: 'Unclebigbay', url: 'https://x.com/@Unclebigbay143' }],
+  openGraph: {
+    images: [
+      'https://cdn.hashnode.com/res/hashnode/image/upload/v1717619595117/e5fbf899-3476-463b-873e-4e6d4acba751.png',
+    ],
+  },
 };
 
 export default function RootLayout({
