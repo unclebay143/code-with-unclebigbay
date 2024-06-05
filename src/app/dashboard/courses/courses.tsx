@@ -2,13 +2,13 @@
 
 import React from 'react';
 import Link from 'next/link';
-import { Button } from '@/components/atoms/Button';
 import { Courses } from '@/components/molecules/dashboard/courses';
 import { DashboardSubheading } from '@/components/molecules/dashboard/dashboard-subheading';
 import { EmptyState } from '@/components/molecules/dashboard/empty-state';
 import { WhiteArea } from '@/components/molecules/dashboard/white-area';
 import { showCount } from '@/utils';
 import { Courses as CoursesType, Student } from '@/utils/types';
+import { ArrowLeft, Button } from '@hashnode/matrix-ui';
 
 const CoursesPage = ({
   courses,
@@ -38,6 +38,17 @@ const CoursesPage = ({
               </Button>
             </div>
           )}
+
+          <div className="flex justify-start lg:hidden">
+            <Button
+              size="xs"
+              appearance="secondary-slate"
+              startIcon={ArrowLeft}
+              asChild
+            >
+              <Link href="/dashboard/admin/courses">All courses</Link>
+            </Button>
+          </div>
           <div className="flex items-center justify-between">
             <div className="w-full flex items-end justify-center">
               <div className="w-full flex flex-col gap-1">
