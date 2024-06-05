@@ -14,7 +14,7 @@ export const metadata: Metadata = {
   authors: [{ name: 'Unclebigbay', url: 'https://x.com/@Unclebigbay143' }],
   openGraph: {
     images: [
-      'https://cdn.hashnode.com/res/hashnode/image/upload/v1717619595117/e5fbf899-3476-463b-873e-4e6d4acba751.png',
+      'https://cdn.hashnode.com/res/hashnode/image/upload/v1717619988546/1cb207c0-f80d-4f34-a7b7-76a3d02b97da.png?auto=compress',
     ],
   },
 };
