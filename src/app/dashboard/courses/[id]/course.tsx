@@ -24,12 +24,6 @@ import useCurrentStudent from '@/components/hooks/useCurrentStudent';
 import { formatDate, formatTime } from '@/utils';
 import { Tooltip } from '@/components/atoms/Tooltip';
 import { handleAuthentication } from '@/utils/auth';
-import { Metadata } from 'next';
-
-export const metadata: Metadata = {
-  title: '...',
-  description: '...',
-};
 
 const Course = () => {
   const [showMore, setShowMore] = useState(false);
