@@ -37,7 +37,7 @@ const useCourse = () => {
   return { courses, isFetching, error, isPending, mutation };
 };
 
-const useCourseById = (_id: string) => {
+const useCourseBySlug = (_id: string) => {
   const queryClient = useQueryClient();
 
   const {
@@ -83,4 +83,4 @@ const useCourseById = (_id: string) => {
 };
 
 export default useCourse;
-export { useCourseById };
+export { useCourseBySlug };

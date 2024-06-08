@@ -18,7 +18,7 @@ import { YTVideo } from '@/components/atoms/YTVideo';
 import Link from 'next/link';
 import React, { useState } from 'react';
 import { usePathname } from 'next/navigation';
-import { useCourseById } from '@/components/hooks/useCourse';
+import { useCourseBySlug } from '@/components/hooks/useCourse';
 import { Tags } from '@/utils/types';
 import useCurrentStudent from '@/components/hooks/useCurrentStudent';
 import { formatDate, formatTime } from '@/utils';
@@ -32,10 +32,11 @@ const Course = () => {
   const studentId = currentStudent?._id;
 
   const currentPathname = usePathname();
-  const courseId = currentPathname.split('/').pop();
+  const courseSlug = currentPathname.split('/').pop();
 
   const { course, isFetching, isRefetching, enroll, isEnrollingPending } =
-    useCourseById(courseId!);
+    useCourseBySlug(courseSlug!);
+  const courseId = course?._id;
   const isCompleted = course?.isCompleted;
   const completionDate = course?.completionDate;
   const isEnrolled = course?.isEnrolled;
@@ -249,7 +250,7 @@ const Course = () => {
                                 asChild
                               >
                                 <Link
-                                  href={`${courseId}/assignment/${assignmentId}`}
+                                  href={`${courseSlug}/assignment/${assignmentId}`}
                                 >
                                   Attempt assignment
                                 </Link>
