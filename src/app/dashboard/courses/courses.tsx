@@ -8,7 +8,12 @@ import { DashboardSubheading } from '@/components/molecules/dashboard/dashboard-
 import { WhiteArea } from '@/components/molecules/dashboard/white-area';
 import { showCount } from '@/utils';
 import { Courses as CoursesType, Student } from '@/utils/types';
-import { Button, DocumentGuide, EmptyState } from '@hashnode/matrix-ui';
+import {
+  ArrowExternalLink01,
+  Button,
+  DocumentGuide,
+  EmptyState,
+} from '@hashnode/matrix-ui';
 import { EmptyStateContainer } from '@/components/molecules/dashboard/EmptyStateContainer';
 
 const CoursesPage = ({
@@ -60,8 +65,24 @@ const CoursesPage = ({
             <EmptyStateContainer>
               <EmptyState
                 icon={DocumentGuide}
-                title="No course found"
+                title=" "
                 copy="No course to display here ☹️"
+                ctaElement={
+                  <Button
+                    appearance="secondary-slate"
+                    size="xs"
+                    endIcon={ArrowExternalLink01}
+                    asChild
+                  >
+                    <Link
+                      target="_blank"
+                      rel="noopener"
+                      href="https://dub.sh/make-a-v-request"
+                    >
+                      Make a request.
+                    </Link>
+                  </Button>
+                }
               />
             </EmptyStateContainer>
           )}
