@@ -159,7 +159,8 @@ export const Courses = ({
         <EmptyStateContainer>
           <EmptyState
             icon={DocumentGuide}
-            title={`No course found for "${searchParamTagName}" 😭`}
+            title="No course found"
+            copy={`There's currently no course result for ${searchParamTagName ? `"${searchParamTagName}"` : 'your stack'}.`}
             ctaElement={
               <Button
                 appearance="secondary-slate"
