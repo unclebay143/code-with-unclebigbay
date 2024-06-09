@@ -19,7 +19,7 @@ type CourseLinkCardProps = {
 };
 
 const CourseLinkCard = ({ course }: CourseLinkCardProps) => {
-  const { title, copy, url, color, latest } = course;
+  const { title, copy, url, color, latest, tag } = course;
   const comingSoon = !url;
   return (
     <>
@@ -34,7 +34,7 @@ const CourseLinkCard = ({ course }: CourseLinkCardProps) => {
         }}
       />
       <Link
-        href="/dashboard/courses"
+        href={`/courses?tag=${tag}`}
         className={`${comingSoon ? 'opacity-70 hover:opacity-100 focus:opacity-100' : ''} group border hover:border-[${color}] px-5 py-7 rounded-xl flex flex-col gap-3`}
         id={`course-card-for-${title}`}
       >

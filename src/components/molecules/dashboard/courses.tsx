@@ -1,20 +1,24 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { CourseCard, CourseCardSkeleton } from './course-card';
 import {
-  InputField,
+  ArrowExternalLink01,
+  DocumentGuide,
+  EmptyState,
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectViewPort,
+  Button,
 } from '@hashnode/matrix-ui';
 import { Courses as CoursesType } from '@/utils/types';
-import { Button } from '../../atoms/Button';
-import { useSearchParams } from 'next/navigation';
+import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import useTag from '@/components/hooks/useTag';
 import { capitalizeFirstLetter } from '@/utils';
+import { EmptyStateContainer } from './EmptyStateContainer';
+import Link from 'next/link';
 
 type Props = {
   courses?: CoursesType;
@@ -25,6 +29,7 @@ type Props = {
   hideReachedEnd?: boolean;
   isFetching?: boolean;
   loaderCounter?: number;
+  setCourseCount?: Function;
 };
 
 export const Courses = ({
@@ -36,41 +41,77 @@ export const Courses = ({
   size,
   isFetching,
   loaderCounter = 3,
+  setCourseCount,
 }: Props) => {
-  const { tags } = useTag();
-  const [coursesToShow, setCoursesToShow] = useState(defaultCourses);
-  const showCourses = !isFetching && coursesToShow && coursesToShow?.length > 0;
-  const noCourses = !isFetching && coursesToShow && coursesToShow?.length < 1;
-  const showReachedEnd = !isFetching && !hideReachedEnd && !noCourses;
+  const router = useRouter();
+  const pathname = usePathname();
   const searchParams = useSearchParams();
   const searchParamTagName = searchParams.get('tag');
-  const [showLoader, setShowLoader] = useState(isFetching);
+  const { tags } = useTag();
+  const [coursesToShow, setCoursesToShow] = useState(defaultCourses);
+  const [coursesTotal, setCoursesTotal] = useState(coursesToShow?.length);
+  const [isSearchingViaTag, setIsSearchingViaTag] = useState(false);
 
-  console.log(tags);
+  const isLoading = isFetching || isSearchingViaTag;
+  const showLoader = isLoading;
+  const showCourses = !isLoading && coursesToShow && coursesToShow?.length > 0;
+  const noCourses = !isLoading && coursesToShow && coursesToShow?.length === 0;
+  const showReachedEnd = !isFetching && !hideReachedEnd && !noCourses;
 
-  const coursesTotal = coursesToShow?.length;
+  const createQueryString = useCallback(
+    (name: string, value: string) => {
+      const params = new URLSearchParams(searchParams.toString());
+      params.set(name, value);
+
+      return params.toString();
+    },
+    [searchParams],
+  );
 
   const searchCourseByTag = async (tagName: string) => {
-    setShowLoader(true);
-    const tagCoursesResult = await fetch('/api/courses/tag/' + tagName);
-    const tagCourses = await tagCoursesResult.json();
-    setCoursesToShow(tagCourses.courses);
-    setShowLoader(false);
+    router.push(pathname + '?' + createQueryString('tag', tagName));
+
+    if (tagName === 'all') {
+      setCoursesToShow(defaultCourses);
+      setCoursesTotal(defaultCourses?.length);
+      if (setCourseCount) {
+        setCourseCount(defaultCourses?.length);
+      }
+      return;
+    }
+
+    setIsSearchingViaTag(true);
+    fetch('/api/courses/tag/' + tagName)
+      .then((res) => res.json())
+      .then((tagCourses) => {
+        setCoursesToShow(tagCourses.courses);
+        setCoursesTotal(tagCourses.courses?.length);
+
+        if (setCourseCount) {
+          setCourseCount(tagCourses.courses?.length);
+        }
+      })
+      .finally(() => {
+        setIsSearchingViaTag(false);
+      });
   };
 
   useEffect(() => {
     if (searchParamTagName) {
       searchCourseByTag(searchParamTagName);
     }
-  }, [searchParamTagName]);
+  }, []);
 
   return (
     <section className="flex flex-col gap-3">
-      {hideSearchOptions || (
+      {hideSearchOptions && searchParamTagName && (
         <div className="flex flex-col sm:flex-row gap-2">
-          <InputField placeholder="Find a course to learn" size="sm" />
+          {/* <InputField placeholder="Find a course to learn" size="sm" /> */}
           <div className="sm:w-[200px]">
-            <Select onValueChange={(e) => searchCourseByTag(e)}>
+            <Select
+              onValueChange={(e) => searchCourseByTag(e)}
+              defaultValue={searchParamTagName?.toLowerCase()}
+            >
               <SelectTrigger
                 size="lg"
                 style={{
@@ -80,10 +121,11 @@ export const Courses = ({
               />
               <SelectContent>
                 <SelectViewPort>
+                  <SelectItem value="all" label="All" />
                   {tags?.map((tag) => (
                     <SelectItem
                       key={tag._id}
-                      value={tag.name}
+                      value={tag.name.toLowerCase()}
                       label={capitalizeFirstLetter(tag.name)}
                     />
                   ))}
@@ -112,6 +154,31 @@ export const Courses = ({
           </>
         )}
       </section>
+
+      {noCourses && (
+        <EmptyStateContainer>
+          <EmptyState
+            icon={DocumentGuide}
+            title={`No course found for "${searchParamTagName}" 😭`}
+            ctaElement={
+              <Button
+                appearance="secondary-slate"
+                size="xs"
+                endIcon={ArrowExternalLink01}
+                asChild
+              >
+                <Link
+                  target="_blank"
+                  rel="noopener"
+                  href="https://dub.sh/make-a-v-request"
+                >
+                  Make a request.
+                </Link>
+              </Button>
+            }
+          />
+        </EmptyStateContainer>
+      )}
 
       {showLoadMoreButton && !hideReachedEnd && (
         <section className="flex justify-center">
