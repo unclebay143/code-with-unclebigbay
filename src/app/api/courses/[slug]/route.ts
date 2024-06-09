@@ -8,7 +8,6 @@ import { NextResponse } from 'next/server';
 
 const GET = async (_: Request, { params }: { params: { slug: string } }) => {
   try {
-    // const courseId = params._id;
     const courseSlug = params.slug;
     await connectViaMongoose();
 
