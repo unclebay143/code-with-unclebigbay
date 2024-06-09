@@ -4,11 +4,12 @@ import React from 'react';
 import Link from 'next/link';
 import { Courses } from '@/components/molecules/dashboard/courses';
 import { DashboardSubheading } from '@/components/molecules/dashboard/dashboard-subheading';
-import { EmptyState } from '@/components/molecules/dashboard/empty-state';
+// import { EmptyState } from '@/components/molecules/dashboard/empty-state';
 import { WhiteArea } from '@/components/molecules/dashboard/white-area';
 import { showCount } from '@/utils';
 import { Courses as CoursesType, Student } from '@/utils/types';
-import { Button } from '@hashnode/matrix-ui';
+import { Button, DocumentGuide, EmptyState } from '@hashnode/matrix-ui';
+import { EmptyStateContainer } from '@/components/molecules/dashboard/EmptyStateContainer';
 
 const CoursesPage = ({
   courses,
@@ -55,7 +56,15 @@ const CoursesPage = ({
             loaderCounter={6}
             hideReachedEnd
           />
-          {noCourses && <EmptyState label="No course to display here ☹️" />}
+          {noCourses && (
+            <EmptyStateContainer>
+              <EmptyState
+                icon={DocumentGuide}
+                title="No course found"
+                copy="No course to display here ☹️"
+              />
+            </EmptyStateContainer>
+          )}
         </div>
       </WhiteArea>
     </div>
