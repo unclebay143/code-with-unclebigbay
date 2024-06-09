@@ -1,3 +1,5 @@
+/* NOT IN USE */
+
 import { Assignment } from '@/models/assignment';
 import { Course } from '@/models/course';
 import { Enroll } from '@/models/enroll';
@@ -19,6 +21,8 @@ const GET = async () => {
       .populate('tags', '', Tag);
 
     const session = await getServerSessionWithAuthOptions();
+
+    console.log({ session });
     if (!session) {
       return NextResponse.json(
         { message: 'Courses fetched.', courses },
@@ -30,6 +34,8 @@ const GET = async () => {
     const userStack = student.stack || 'platform-guide';
     const userHasStack = session && userStack;
     const isFullStack = student.stack === 'full-stack';
+
+    console.table({ userStack });
 
     if (userHasStack && !isFullStack) {
       const tag = await Tag.findOne({ name: { $in: userStack } });
@@ -78,6 +84,7 @@ const GET = async () => {
       { status: 200 },
     );
   } catch (e: any) {
+    console.log(e);
     return NextResponse.json({ error: e.message }, { status: 500 });
   }
 };

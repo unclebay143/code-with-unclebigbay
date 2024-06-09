@@ -206,8 +206,13 @@ export async function getCourses(): Promise<{ courses: Courses } | undefined> {
   const userHasStack = session && userStack;
   const isFullStack = student.stack === 'full-stack';
 
+  console.log(isFullStack);
+  console.log(userStack);
+
   if (userHasStack && !isFullStack) {
     const tag = await TagModel.findOne({ name: { $in: userStack } });
+
+    if (!tag) return { courses: [] };
 
     if (tag) {
       courses = await CourseModel.find({
