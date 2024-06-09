@@ -35,6 +35,6 @@ export const showCount = (count: number | string) => {
 };
 
 export function capitalizeFirstLetter(word: string) {
-  if (!word) return;
+  if (!word) return word;
   return word.charAt(0).toUpperCase() + word.slice(1);
 }
