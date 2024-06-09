@@ -56,6 +56,7 @@ export type Tag = {
   slug: string;
   logo?: string;
   wiki?: string;
+  stack: string;
 };
 export type Tags = Tag[];
 
