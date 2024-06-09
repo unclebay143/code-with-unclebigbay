@@ -55,7 +55,6 @@ const CoursesPage = ({
             hideReachedEnd
             setCourseCount={setCourseCount}
           />
-          {noCourses && <EmptyState label="No course to display here ☹️" />}
         </div>
       </WhiteArea>
     </div>
