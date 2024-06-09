@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { CourseCard, CourseCardSkeleton } from './course-card';
 import {
   InputField,
@@ -12,6 +12,9 @@ import {
 } from '@hashnode/matrix-ui';
 import { Courses as CoursesType } from '@/utils/types';
 import { Button } from '../../atoms/Button';
+import { useSearchParams } from 'next/navigation';
+import useTag from '@/components/hooks/useTag';
+import { capitalizeFirstLetter } from '@/utils';
 
 type Props = {
   courses?: CoursesType;
@@ -25,7 +28,7 @@ type Props = {
 };
 
 export const Courses = ({
-  courses,
+  courses: defaultCourses,
   showLoadMoreButton,
   hideSearchOptions,
   showCounter,
@@ -34,16 +37,40 @@ export const Courses = ({
   isFetching,
   loaderCounter = 3,
 }: Props) => {
-  const noData = !isFetching && courses && courses?.length < 1;
-  const showReachedEnd = !isFetching && !hideReachedEnd && !noData;
+  const { tags } = useTag();
+  const [coursesToShow, setCoursesToShow] = useState(defaultCourses);
+  const showCourses = !isFetching && coursesToShow && coursesToShow?.length > 0;
+  const noCourses = !isFetching && coursesToShow && coursesToShow?.length < 1;
+  const showReachedEnd = !isFetching && !hideReachedEnd && !noCourses;
+  const searchParams = useSearchParams();
+  const searchParamTagName = searchParams.get('tag');
+  const [showLoader, setShowLoader] = useState(isFetching);
+
+  console.log(tags);
+
+  const coursesTotal = coursesToShow?.length;
+
+  const searchCourseByTag = async (tagName: string) => {
+    setShowLoader(true);
+    const tagCoursesResult = await fetch('/api/courses/tag/' + tagName);
+    const tagCourses = await tagCoursesResult.json();
+    setCoursesToShow(tagCourses.courses);
+    setShowLoader(false);
+  };
+
+  useEffect(() => {
+    if (searchParamTagName) {
+      searchCourseByTag(searchParamTagName);
+    }
+  }, [searchParamTagName]);
 
   return (
     <section className="flex flex-col gap-3">
       {hideSearchOptions || (
         <div className="flex flex-col sm:flex-row gap-2">
-          <InputField placeholder="Find learning course" size="sm" />
+          <InputField placeholder="Find a course to learn" size="sm" />
           <div className="sm:w-[200px]">
-            <Select onValueChange={(e) => console.log(e)}>
+            <Select onValueChange={(e) => searchCourseByTag(e)}>
               <SelectTrigger
                 size="lg"
                 style={{
@@ -53,18 +80,22 @@ export const Courses = ({
               />
               <SelectContent>
                 <SelectViewPort>
-                  <SelectItem value={'value-1'} label="HTML" />
+                  {tags?.map((tag) => (
+                    <SelectItem
+                      key={tag._id}
+                      value={tag.name}
+                      label={capitalizeFirstLetter(tag.name)}
+                    />
+                  ))}
                 </SelectViewPort>
               </SelectContent>
             </Select>
           </div>
         </div>
       )}
-      {showCounter && (
-        <p className="text-slate-600">Total: {courses?.length}</p>
-      )}
+      {showCounter && <p className="text-slate-600">Total: {coursesTotal}</p>}
       <section className="max-w-full grid sm:grid-cols-2 xl:grid-cols-3 gap-3">
-        {isFetching && (
+        {showLoader && (
           <>
             {Array(loaderCounter)
               .fill({})
@@ -73,9 +104,9 @@ export const Courses = ({
               ))}
           </>
         )}
-        {!noData && (
+        {showCourses && (
           <>
-            {courses?.slice(0, size).map((course) => {
+            {coursesToShow?.slice(0, size).map((course) => {
               return <CourseCard key={course._id} course={course} />;
             })}
           </>

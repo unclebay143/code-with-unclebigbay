@@ -1,3 +1,4 @@
+import { ALLOWED_STACK } from '@/utils/consts';
 import mongoose, { model, models } from 'mongoose';
 
 const Schema = mongoose.Schema;
@@ -9,6 +10,7 @@ const tagSchema = new Schema(
     logo: { type: String },
     wiki: { type: String },
     isActive: { type: 'Boolean', default: true },
+    stack: { type: String, enum: ALLOWED_STACK, default: null },
   },
   {
     timestamps: true,

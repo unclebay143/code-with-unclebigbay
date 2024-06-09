@@ -1,4 +1,6 @@
+import { Student } from '@/models/student';
 import { Tag } from '@/models/tag';
+import { getServerSessionWithAuthOptions } from '@/utils/auth-options';
 import connectViaMongoose from '@/utils/mongoose';
 import { NextResponse } from 'next/server';
 
@@ -16,7 +18,30 @@ const POST = async (req: Request) => {
 const GET = async () => {
   try {
     await connectViaMongoose();
-    const tags = await Tag.find({ isActive: true });
+    const session = await getServerSessionWithAuthOptions();
+    const noSession = !session;
+
+    if (noSession) {
+      const tags = await Tag.find({ isActive: true });
+      return NextResponse.json(
+        { message: 'Tags fetched successfully', tags },
+        { status: 200 },
+      );
+    }
+
+    const student = await Student.findOne({ email: session?.user.email });
+    const userStack = student.stack || 'platform-guide';
+    const isFullStack = student.stack === 'full-stack';
+
+    if (isFullStack) {
+      const tags = await Tag.find({ isActive: true });
+      return NextResponse.json(
+        { message: 'Tags fetched successfully', tags },
+        { status: 200 },
+      );
+    }
+
+    const tags = await Tag.find({ isActive: true, stack: userStack });
     return NextResponse.json(
       { message: 'Tags fetched successfully', tags },
       { status: 200 },

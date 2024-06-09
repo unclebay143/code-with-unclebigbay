@@ -51,7 +51,7 @@ const CoursesPage = ({
 
           <Courses
             courses={courses}
-            hideSearchOptions
+            // hideSearchOptions
             loaderCounter={6}
             hideReachedEnd
           />
