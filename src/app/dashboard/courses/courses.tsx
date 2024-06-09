@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import React, { useState } from 'react';
 import Link from 'next/link';
 import { Courses } from '@/components/molecules/dashboard/courses';
 import { DashboardSubheading } from '@/components/molecules/dashboard/dashboard-subheading';
@@ -18,8 +18,7 @@ const CoursesPage = ({
   currentStudent: Student | null;
 }) => {
   const isAdmin = currentStudent?.isAdmin;
-
-  const count = courses?.length || 0;
+  const [courseCount, setCourseCount] = useState<number>(0);
   const noCourses = courses?.length === 0;
   const isLoggedIn = !!currentStudent;
 
@@ -42,7 +41,7 @@ const CoursesPage = ({
             <div className="w-full flex items-end justify-center">
               <div className="w-full flex flex-col gap-1">
                 <DashboardSubheading
-                  title={`Available Courses ${showCount(count)}`}
+                  title={`Available Courses ${showCount(courseCount)}`}
                 />
                 <span className="text-sm text-slate-600">{copy}</span>
               </div>
@@ -51,9 +50,10 @@ const CoursesPage = ({
 
           <Courses
             courses={courses}
-            // hideSearchOptions
+            hideSearchOptions
             loaderCounter={6}
             hideReachedEnd
+            setCourseCount={setCourseCount}
           />
           {noCourses && <EmptyState label="No course to display here ☹️" />}
         </div>

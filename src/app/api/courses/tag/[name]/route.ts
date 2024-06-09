@@ -18,7 +18,7 @@ const GET = async (_: Request, { params }: { params: { name: string } }) => {
 
     if (tagNotFound) {
       return NextResponse.json(
-        { message: 'Tag not found.' },
+        { message: 'Tag not found.', courses: [] },
         {
           status: 404,
         },
@@ -36,11 +36,11 @@ const GET = async (_: Request, { params }: { params: { name: string } }) => {
       })
       .populate('tags', '', Tag);
 
-    const noCourseNotFound = !courses;
+    const noCourseFound = courses.length === 0;
 
-    if (noCourseNotFound) {
+    if (noCourseFound) {
       return NextResponse.json(
-        { message: 'No course found for the tag.' },
+        { message: 'No course found for the tag.', courses: [] },
         {
           status: 404,
         },
