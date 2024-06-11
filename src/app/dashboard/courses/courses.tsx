@@ -4,7 +4,6 @@ import React, { useState } from 'react';
 import Link from 'next/link';
 import { Courses } from '@/components/molecules/dashboard/courses';
 import { DashboardSubheading } from '@/components/molecules/dashboard/dashboard-subheading';
-import { EmptyState } from '@/components/molecules/dashboard/empty-state';
 import { WhiteArea } from '@/components/molecules/dashboard/white-area';
 import { showCount } from '@/utils';
 import { Courses as CoursesType, Student } from '@/utils/types';
@@ -19,7 +18,6 @@ const CoursesPage = ({
 }) => {
   const isAdmin = currentStudent?.isAdmin;
   const [courseCount, setCourseCount] = useState<number>(0);
-  const noCourses = courses?.length === 0;
   const isLoggedIn = !!currentStudent;
 
   const copy = isLoggedIn
