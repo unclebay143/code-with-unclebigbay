@@ -1,3 +1,8 @@
+import dayjs from 'dayjs';
+import relativeTime from 'dayjs/plugin/relativeTime';
+
+dayjs.extend(relativeTime);
+
 export const convertEmptyStringToNull = (str: string) =>
   str === '' ? null : str;
 
@@ -38,3 +43,6 @@ export function capitalizeFirstLetter(word: string) {
   if (!word) return word;
   return word.charAt(0).toUpperCase() + word.slice(1);
 }
+
+export const hasHackathonEnded = (endDate: string) =>
+  dayjs().isAfter(dayjs(endDate));
