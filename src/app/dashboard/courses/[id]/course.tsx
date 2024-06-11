@@ -19,16 +19,14 @@ import Link from 'next/link';
 import React, { useState } from 'react';
 import { usePathname } from 'next/navigation';
 import { useCourseBySlug } from '@/components/hooks/useCourse';
-import { Tags } from '@/utils/types';
-import useCurrentStudent from '@/components/hooks/useCurrentStudent';
+import { Student, Tags } from '@/utils/types';
 import { formatDate, formatTime } from '@/utils';
 import { Tooltip } from '@/components/atoms/Tooltip';
 import { handleAuthentication } from '@/utils/auth';
 
-const Course = () => {
+const Course = ({ currentStudent }: { currentStudent: Student }) => {
   const [showMore, setShowMore] = useState(false);
 
-  const { data: currentStudent } = useCurrentStudent();
   const studentId = currentStudent?._id;
 
   const currentPathname = usePathname();
