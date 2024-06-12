@@ -123,10 +123,12 @@ const Course = ({ currentStudent }: { currentStudent: Student }) => {
                   <Button
                     onClick={handleEnroll}
                     appearance="primary-slate"
-                    disabled={isEnrollingPending}
+                    disabled={isEnrollingPending || isRefetching}
                     startIcon={ArrowRefresh}
                     startIconClassName={
-                      isEnrollingPending ? 'animate-spin' : 'hidden'
+                      isEnrollingPending || isRefetching
+                        ? 'animate-spin'
+                        : 'hidden'
                     }
                   >
                     Start Learning

@@ -368,10 +368,14 @@ export async function getCountries(): Promise<
 
   const countries = [
     { name: { common: 'Nigeria' } },
+    { name: { common: 'South Africa' } },
     { name: { common: 'India' } },
     { name: { common: 'Ghana' } },
     { name: { common: 'Brazil' } },
-    { name: { common: 'Others' } },
+    { name: { common: 'Canada' } },
+    { name: { common: 'United Kingdom' } },
+    { name: { common: 'United States' } },
+    { name: { common: 'Germany' } },
   ];
 
   const sortedCountries = countries.sort((a: Country, b: Country) =>

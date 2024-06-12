@@ -104,7 +104,7 @@ export const Courses = ({
 
   return (
     <section className="flex flex-col gap-3">
-      {hideSearchOptions && searchParamTagName && (
+      {hideSearchOptions || (
         <div className="flex flex-col sm:flex-row gap-2">
           {/* <InputField placeholder="Find a course to learn" size="sm" /> */}
           <div className="sm:w-[200px]">
