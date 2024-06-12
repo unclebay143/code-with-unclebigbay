@@ -48,10 +48,10 @@ const CoursesPage = ({
 
           <Courses
             courses={courses}
-            hideSearchOptions
-            loaderCounter={6}
-            hideReachedEnd
             setCourseCount={setCourseCount}
+            loaderCounter={6}
+            hideSearchOptions
+            hideReachedEnd
           />
         </div>
       </WhiteArea>
