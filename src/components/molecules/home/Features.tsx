@@ -5,6 +5,8 @@ import { motion } from 'framer-motion';
 import { HomeSectionHeading } from '.';
 import { CurlyDraw } from './CurlyDraw';
 import { showUpMotion } from '@/utils';
+import { Badge } from '@hashnode/matrix-ui';
+import Link from 'next/link';
 
 export const Features = () => {
   return (
@@ -14,7 +16,7 @@ export const Features = () => {
           <>
             Why{' '}
             <span className="relative whitespace-nowrap">
-              code <CurlyDraw />
+              Code <CurlyDraw />
               with
             </span>{' '}
             Unclebigbay
@@ -139,7 +141,7 @@ export const Features = () => {
               <h3 className="mt-8 text-lg font-semibold text-black">
                 Level Up with Hackathons
               </h3>
-              {/* <Badge>Coming soon</Badge> */}
+              <Badge>Coming soon</Badge>
             </section>
             <p className="mt-4 text-base text-gray-600">
               Push your limits, test your skills, and collaborate with
@@ -224,8 +226,8 @@ export const Features = () => {
               Mentorship Programs
             </h3>
             <p className="mt-4 text-base text-gray-600">
-              Get personalized guidance and career support from from the
-              community and experienced professionals.
+              Get personalized guidance and career support from the community
+              and experienced professionals.
             </p>
           </motion.div>
           <motion.div
@@ -264,8 +266,11 @@ export const Features = () => {
               Community Learning Groups
             </h3>
             <p className="mt-4 text-base text-gray-600">
-              Join our thriving community learning groups and connect with
-              fellow learners.
+              Join our thriving{' '}
+              <Link href="/help-centers" className="underline">
+                community learning groups
+              </Link>{' '}
+              and connect with fellow learners.
             </p>
           </motion.div>
           {/* <div>
