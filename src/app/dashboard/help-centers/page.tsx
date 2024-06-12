@@ -3,6 +3,7 @@
 import { YTVideo } from '@/components/atoms/YTVideo';
 import { DashboardSubheading } from '@/components/molecules/dashboard/dashboard-subheading';
 import { WhiteArea } from '@/components/molecules/dashboard/white-area';
+import { ONBOARDING_YT_VIDEO_ID } from '@/utils';
 import { ArrowExternalLink02 } from '@hashnode/matrix-ui';
 import { Youtube } from 'lucide-react';
 import Link from 'next/link';
@@ -108,7 +109,7 @@ const Page = () => {
         <h3 className="text-center text-2xl font-medium text-slate-600">
           How to use platform?
         </h3>
-        <YTVideo ytVideoId="JH77WsDH8yY" />
+        <YTVideo ytVideoId={ONBOARDING_YT_VIDEO_ID} />
       </section>
     </WhiteArea>
   );
