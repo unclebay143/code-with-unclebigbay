@@ -22,8 +22,11 @@ const Page = () => {
   const disableBtn = !courseId || !assignmentId;
   const assignmentResponseUrl = `/dashboard/courses/${courseSlug}/assignment/${assignmentId}/result`;
   const recommendedCourses = courses
-    ?.filter((course) => !course.isCompleted && course._id !== courseId)
+    ?.filter((course) => !course.isEnrolled && course._id !== courseId)
     .splice(0, 3); // consider adding enroll field in the course object from BE
+
+  const showRecommendedCourses =
+    recommendedCourses && recommendedCourses.length > 0;
 
   return (
     <WhiteArea border>
@@ -50,10 +53,14 @@ const Page = () => {
                 </Button>
               )}
             </div>
-            <span className="my-2 text-slate-600 text-sm">OR</span>
-            <p className="text-slate-600">
-              Checkout the recommended learning course below.
-            </p>
+            {showRecommendedCourses ? (
+              <>
+                <span className="my-2 text-slate-600 text-sm">OR</span>
+                <p className="text-slate-600">
+                  Checkout the recommended learning course below.
+                </p>
+              </>
+            ) : null}
           </div>
           {/* Pass recommended courses here */}
           <div className="w-full">
@@ -62,6 +69,7 @@ const Page = () => {
               isFetching={isFetching}
               hideSearchOptions
               hideReachedEnd
+              hideEmptyState
             />
           </div>
         </div>
