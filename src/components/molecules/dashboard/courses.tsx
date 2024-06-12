@@ -99,8 +99,10 @@ export const Courses = ({
   useEffect(() => {
     if (searchParamTagName) {
       searchCourseByTag(searchParamTagName);
+    } else {
+      setCoursesToShow(defaultCourses);
     }
-  }, []);
+  }, [defaultCourses, searchParamTagName]);
 
   return (
     <section className="flex flex-col gap-3">
