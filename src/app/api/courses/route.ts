@@ -22,7 +22,6 @@ const GET = async () => {
 
     const session = await getServerSessionWithAuthOptions();
 
-    console.log({ session });
     if (!session) {
       return NextResponse.json(
         { message: 'Courses fetched.', courses },
@@ -34,8 +33,6 @@ const GET = async () => {
     const userStack = student.stack || 'platform-guide';
     const userHasStack = session && userStack;
     const isFullStack = student.stack === 'full-stack';
-
-    console.table({ userStack });
 
     if (userHasStack && !isFullStack) {
       const tag = await Tag.findOne({ name: { $in: userStack } });
