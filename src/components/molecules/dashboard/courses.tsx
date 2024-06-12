@@ -30,6 +30,7 @@ type Props = {
   isFetching?: boolean;
   loaderCounter?: number;
   setCourseCount?: Function;
+  hideEmptyState?: boolean;
 };
 
 export const Courses = ({
@@ -42,6 +43,7 @@ export const Courses = ({
   isFetching,
   loaderCounter = 3,
   setCourseCount,
+  hideEmptyState,
 }: Props) => {
   const router = useRouter();
   const pathname = usePathname();
@@ -157,7 +159,7 @@ export const Courses = ({
         )}
       </section>
 
-      {noCourses && (
+      {noCourses && !hideEmptyState && (
         <EmptyStateContainer>
           <EmptyState
             icon={DocumentGuide}
