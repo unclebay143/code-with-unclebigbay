@@ -25,13 +25,12 @@ export const CommunityMembersSection = ({
             <>
               You are in <br className="md:hidden" />
               <span className="relative whitespace-nowrap">
-                good company
+                Good Company
                 <CurlyDraw />
               </span>
             </>
           }
-          copy="Join happy aspiring developers on a journey to mastering
-                web development."
+          copy="Join happy developers of all levels on their web development journey."
         />
       </div>
       <section className="grid grid-cols-2  sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-y-12 gap-x-8">
