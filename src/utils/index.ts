@@ -6,6 +6,8 @@ dayjs.extend(relativeTime);
 export const DEFAULT_PROFILE_PHOTO =
   'https://cdn.hashnode.com/res/hashnode/image/upload/v1687261896574/vKUU-ural.png';
 
+export const ONBOARDING_YT_VIDEO_ID = 'RKhDqw6g1nE';
+
 export const convertEmptyStringToNull = (str: string) =>
   str === '' ? null : str;
 
