@@ -1,12 +1,14 @@
 'use client';
 
 import Image from 'next/image';
+import { motion } from 'framer-motion';
 import Link from 'next/link';
 import React from 'react';
 import { HomeSectionHeading } from '.';
 import { Students } from '@/utils/types';
 import { BrandXTwitter, IconButton, Linkedin } from '@hashnode/matrix-ui';
 import { CurlyDraw } from './CurlyDraw';
+import { showUpMotion } from '@/utils';
 
 type CommunityMembersSectionProps = {
   students: Students;
@@ -43,7 +45,11 @@ export const CommunityMembersSection = ({
               : null;
 
           return (
-            <div
+            <motion.div
+              variants={showUpMotion}
+              initial="hidden"
+              whileInView="show"
+              viewport={{ once: true }}
               key={`communityMembers-${_id}`}
               className="flex flex-col border rounded overflow-hidden"
             >
@@ -82,7 +88,7 @@ export const CommunityMembersSection = ({
                   {stack} developer
                 </p>
               </div>
-            </div>
+            </motion.div>
           );
         })}
       </section>
