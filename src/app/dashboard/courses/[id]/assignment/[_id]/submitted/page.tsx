@@ -30,7 +30,9 @@ const Page = () => {
 
   return (
     <WhiteArea border>
-      <section className="relative flex flex-col items-center justify-center gap-3 p-4 overflow-hidden">
+      <section
+        className={`${!showRecommendedCourses && 'h-[430px]'} relative flex flex-col items-center justify-center gap-3 p-4 overflow-hidden`}
+      >
         <ShowConfetti width={952} height={100} />
         <div className="w-full flex flex-col items-center gap-5">
           <div className="flex flex-col text-center gap-2">
