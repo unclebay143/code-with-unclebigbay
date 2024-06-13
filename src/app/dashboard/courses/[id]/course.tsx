@@ -24,7 +24,7 @@ import { formatDate, formatTime } from '@/utils';
 import { Tooltip } from '@/components/atoms/Tooltip';
 import { handleAuthentication } from '@/utils/auth';
 
-const Course = ({ currentStudent }: { currentStudent: Student }) => {
+const Course = ({ currentStudent }: { currentStudent?: Student }) => {
   const [showMore, setShowMore] = useState(false);
 
   const studentId = currentStudent?._id;
