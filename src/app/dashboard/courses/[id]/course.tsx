@@ -250,7 +250,7 @@ const Course = ({ currentStudent }: { currentStudent?: Student }) => {
                                 asChild
                               >
                                 <Link
-                                  href={`${courseSlug}/assignment/${assignmentId}`}
+                                  href={`/dashboard/courses/${courseSlug}/assignment/${assignmentId}`}
                                 >
                                   Attempt assignment
                                 </Link>
