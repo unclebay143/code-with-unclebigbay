@@ -76,13 +76,15 @@ export const CourseCard = ({ layout = 'grid', course }: CourseCardProps) => {
                   >
                     {title}
                   </h3>{' '}
-                  {tags
-                    .map((tag) => tag.name.toLowerCase())
-                    .includes('css') && (
-                    <span className="px-1 text-[12px] font-medium border border-green-100 text-green-500 bg-green-100 rounded-full">
-                      New
-                    </span>
-                  )}
+                  {tags && tags.length > 0
+                    ? tags
+                        .map((tag) => tag?.name?.toLowerCase())
+                        .includes('css') && (
+                        <span className="px-1 text-[12px] font-medium border border-green-100 text-green-500 bg-green-100 rounded-full">
+                          New
+                        </span>
+                      )
+                    : null}
                 </div>
                 {viewTime ? (
                   <span className="py-1 px-2 whitespace-nowrap rounded-full bg-slate-100 text-xs font-semibold">
