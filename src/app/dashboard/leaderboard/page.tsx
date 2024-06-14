@@ -88,10 +88,9 @@ const Page = async () => {
     getLeaderBoard(),
   ]);
 
-  if (!leaderboardRes || !studentRes) return null;
+  if (!leaderboardRes) return null;
 
   const { leaderboard, position } = leaderboardRes;
-  const { student: currentStudent } = studentRes;
 
   const isCurrentUserInTop10 = leaderboard.find(
     (leaderboard) => leaderboard.rank === position,
@@ -205,7 +204,7 @@ const Page = async () => {
           );
         })}
 
-        {position && !isCurrentUserInTop10 && (
+        {position && studentRes?.student && !isCurrentUserInTop10 && (
           <>
             <div className="my-1 text-slate-600">
               <MoreHorizontal size={14} />
@@ -213,8 +212,8 @@ const Page = async () => {
 
             <LeaderboardCard
               rank={position}
-              student={currentStudent}
-              totalScore={currentStudent?.totalScore}
+              student={studentRes?.student}
+              totalScore={studentRes?.student?.totalScore}
               position={position}
             />
           </>
