@@ -26,6 +26,7 @@ const Page = () => {
   const courseSlug = course?.slug;
   const courseTitle = course?.title;
   const alreadyResponded = assignment?.alreadyResponded;
+  const isInvalidAssignment = !assignment;
 
   const {
     handleSubmit,
@@ -94,6 +95,11 @@ const Page = () => {
 
   if (!isFetching && alreadyResponded) {
     window.location.href = `/dashboard/courses/${courseSlug}/assignment/${assignmentId}/result`;
+    return loader;
+  }
+
+  if (!isFetching && isInvalidAssignment) {
+    window.location.href = `/dashboard/courses`;
     return loader;
   }
 
