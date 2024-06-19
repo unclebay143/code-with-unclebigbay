@@ -10,6 +10,14 @@ import { Tag } from '@/utils/types';
 import { Tag as TagIcon } from 'lucide-react';
 import React from 'react';
 import { useForm } from 'react-hook-form';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectViewPort,
+} from '@hashnode/matrix-ui';
+import { ALLOWED_STACK } from '@/utils/consts';
 
 const Page = () => {
   const { tags, mutation } = useTag();
@@ -20,9 +28,10 @@ const Page = () => {
     register,
     handleSubmit,
     formState: { isSubmitting },
-  } = useForm({ defaultValues: { name: '', logo: '', wiki: '', slug: '' } });
-
-  // delete later
+    setValue,
+  } = useForm({
+    defaultValues: { name: '', logo: '', wiki: '', slug: '', stack: '' },
+  });
 
   const handleCreateNewTag = (data: Tag) => {
     mutation.mutate({
@@ -76,6 +85,32 @@ const Page = () => {
                       placeholder="Write a brief about the tag"
                       className={`text-sm min-h-44 max-h-44 text-slate-600 p-2 outline-none focus:ring-2 focus:ring-slate-500 focus:border-slate-300 border rounded-md`}
                     />
+                  </div>
+
+                  <div className="flex flex-col gap-2">
+                    <label htmlFor="question" className="text-sm">
+                      <DashboardSubheading title="Stack" />
+                    </label>
+                    <Select onValueChange={(e) => setValue('stack', e)}>
+                      <SelectTrigger
+                        size="lg"
+                        style={{
+                          borderRadius: '12px',
+                          borderColor: '#cbd5e1',
+                        }}
+                      />
+                      <SelectContent>
+                        <SelectViewPort>
+                          {ALLOWED_STACK.map((STACK) => (
+                            <SelectItem
+                              key={STACK}
+                              value={STACK.toLowerCase()}
+                              label={STACK}
+                            />
+                          ))}
+                        </SelectViewPort>
+                      </SelectContent>
+                    </Select>
                   </div>
                   {/* <div className="flex flex-col gap-2">
                     <label htmlFor="question" className="text-sm">

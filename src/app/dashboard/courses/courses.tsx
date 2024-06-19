@@ -1,14 +1,13 @@
 'use client';
 
-import React from 'react';
+import React, { useState } from 'react';
 import Link from 'next/link';
-import { Button } from '@/components/atoms/Button';
 import { Courses } from '@/components/molecules/dashboard/courses';
 import { DashboardSubheading } from '@/components/molecules/dashboard/dashboard-subheading';
-import { EmptyState } from '@/components/molecules/dashboard/empty-state';
 import { WhiteArea } from '@/components/molecules/dashboard/white-area';
 import { showCount } from '@/utils';
 import { Courses as CoursesType, Student } from '@/utils/types';
+import { Button } from '@hashnode/matrix-ui';
 
 const CoursesPage = ({
   courses,
@@ -18,9 +17,7 @@ const CoursesPage = ({
   currentStudent: Student | null;
 }) => {
   const isAdmin = currentStudent?.isAdmin;
-
-  const count = courses?.length || 0;
-  const noCourses = courses?.length === 0;
+  const [courseCount, setCourseCount] = useState<number>(0);
   const isLoggedIn = !!currentStudent;
 
   const copy = isLoggedIn
@@ -33,7 +30,7 @@ const CoursesPage = ({
         <div className="flex flex-col gap-5">
           {isAdmin && (
             <div className="flex justify-start">
-              <Button size="xs" asChild>
+              <Button size="xs" appearance="primary-slate" asChild>
                 <Link href="/dashboard/admin/courses/new">New course</Link>
               </Button>
             </div>
@@ -42,7 +39,7 @@ const CoursesPage = ({
             <div className="w-full flex items-end justify-center">
               <div className="w-full flex flex-col gap-1">
                 <DashboardSubheading
-                  title={`Available Courses ${showCount(count)}`}
+                  title={`Available Courses ${showCount(courseCount)}`}
                 />
                 <span className="text-sm text-slate-600">{copy}</span>
               </div>
@@ -51,11 +48,11 @@ const CoursesPage = ({
 
           <Courses
             courses={courses}
-            hideSearchOptions
+            setCourseCount={setCourseCount}
             loaderCounter={6}
+            hideSearchOptions
             hideReachedEnd
           />
-          {noCourses && <EmptyState label="No course to display here ☹️" />}
         </div>
       </WhiteArea>
     </div>

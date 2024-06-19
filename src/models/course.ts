@@ -12,6 +12,12 @@ const courseSchema = new Schema(
       enum: ALLOWED_TYPE,
       required: [true, 'Course type is required'],
     },
+    slug: {
+      type: String,
+      required: [true, 'Course slug is required'],
+      unique: true,
+      index: true,
+    },
     title: { type: String },
     subTitle: { type: String, default: '' },
     brief: { type: String, default: '' },

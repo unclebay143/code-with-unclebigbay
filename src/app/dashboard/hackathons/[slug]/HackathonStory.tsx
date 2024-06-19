@@ -26,6 +26,7 @@ import { formatStartAndEndDate } from '@/utils/date';
 import { handleAuthentication } from '@/utils/auth';
 import dayjs from 'dayjs';
 import { HackathonFaqs } from './HackathonFaq';
+import { hasHackathonEnded } from '@/utils';
 
 type HackathonStoryProps = {
   hackathon: Hackathon;
@@ -73,7 +74,7 @@ export const HackathonStory = ({
 
   const [registered, setRegistered] = useState(isRegistered);
 
-  const isClosed = false;
+  const isClosed = hasHackathonEnded(endDate);
   const disableSubmitEntryBtn = isClosed;
   const disableRegisterBtn = registered || isClosed || isJoinHackathonPending;
 
@@ -138,7 +139,7 @@ export const HackathonStory = ({
             >
               <CalendarBlank size="sm" />{' '}
               {formatStartAndEndDate(startDate, endDate)}
-              {isClosed ? '(closed)' : null}
+              {isClosed ? ' (ended)' : null}
             </span>
 
             <div className="dark">

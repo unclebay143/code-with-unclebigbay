@@ -6,7 +6,6 @@ import { CodeWithUnclebigbayLogo } from './CodeWithUnclebigbayLogo';
 import { navLinks } from '@/utils/links';
 import { SidebarSlideOver } from './SidebarSlideOver';
 import { SectionWrapper } from '../molecules/home';
-import { handleAuthentication } from '@/utils/auth';
 import { BarsHamburger, Button, IconButton } from '@hashnode/matrix-ui';
 import { Session } from 'next-auth';
 import { AuthModal } from './AuthModal';
@@ -42,7 +41,7 @@ export const Navbar = ({ session }: { session?: Session | null }) => {
             <div className="flex sm:gap-4 items-center">
               <section>
                 {session ? (
-                  <div className="hidden min-[425px]:flex justify-end">
+                  <div className="hidden sm:flex justify-end">
                     <Button size="xs" appearance="primary-slate" asChild>
                       <a href="/dashboard/overview">Dashboard</a>
                     </Button>

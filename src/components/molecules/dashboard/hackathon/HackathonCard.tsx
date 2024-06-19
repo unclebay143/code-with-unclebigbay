@@ -11,6 +11,7 @@ import Link from 'next/link';
 import { useState } from 'react';
 import Countdown from 'react-countdown';
 import { handleAuthentication } from '@/utils/auth';
+import { hasHackathonEnded } from '@/utils';
 
 export const HackathonCard = ({
   hackathon,
@@ -35,12 +36,14 @@ export const HackathonCard = ({
   const studentId = currentStudent?._id!;
   const { joinHackathon, isJoinHackathonPending } =
     useHackathonById(hackathonId);
-  const [hackathonHasEnded, setHackathonHasEnded] = useState(false);
+
+  const isClosed = hasHackathonEnded(endDate);
+
   const [registered, setRegistered] = useState(isRegistered);
   const hackathonUrl =
     typeof window !== 'undefined' && `${window.location.href}/${slug}`;
 
-  const disableJoinBtn = registered || isJoinHackathonPending;
+  const disableJoinBtn = registered || isJoinHackathonPending || isClosed;
 
   const handleJoinHackathon = () => {
     if (!studentId && hackathonUrl) {
@@ -87,7 +90,7 @@ export const HackathonCard = ({
                   </>
                 ) : null}
                 <span className="text-blue-500 text-sm font-medium flex items-center gap-1">
-                  <Calendar size={14} />{' '}
+                  <Calendar size={14} />
                   {formatStartAndEndDate(startDate, endDate)}
                 </span>
               </div>
@@ -126,8 +129,8 @@ export const HackathonCard = ({
         </section>
       </section>
       <section className="px-5 hidden md:flex flex-col justify-center items-center text-center border-l whitespace-nowrap min-w-[112px]">
-        {hackathonHasEnded ? (
-          <h3 className="text-sm text-red-600">Ended</h3>
+        {isClosed ? (
+          <h3 className="font-bold text-xl text-slate-600">Ended</h3>
         ) : (
           <div className="flex items-center flex-col gap-2 text-slate-600">
             <Clock size={20} />
