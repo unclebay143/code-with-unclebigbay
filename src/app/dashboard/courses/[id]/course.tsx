@@ -38,6 +38,7 @@ const Course = ({ currentStudent }: { currentStudent?: Student }) => {
   const isCompleted = course?.isCompleted;
   const completionDate = course?.completionDate;
   const isEnrolled = course?.isEnrolled;
+  const hasAttemptedAssignment = course?.hasAttemptedAssignment;
   const enrolledDate = course?.enrolledDate;
   const enrolledStudentsCount = course?.enrolledStudentsCount;
 
@@ -61,6 +62,8 @@ const Course = ({ currentStudent }: { currentStudent?: Student }) => {
       enroll(payload);
     }
   };
+
+  const assignmentBaseUrl = `/dashboard/courses/${courseSlug}/assignment/${assignmentId}`;
 
   return (
     <>
@@ -250,9 +253,15 @@ const Course = ({ currentStudent }: { currentStudent?: Student }) => {
                                 asChild
                               >
                                 <Link
-                                  href={`/dashboard/courses/${courseSlug}/assignment/${assignmentId}`}
+                                  href={
+                                    hasAttemptedAssignment
+                                      ? `${assignmentBaseUrl}/result`
+                                      : assignmentBaseUrl
+                                  }
                                 >
-                                  Attempt assignment
+                                  {hasAttemptedAssignment
+                                    ? 'View assignment score'
+                                    : 'Attempt assignment'}
                                 </Link>
                               </Button>
                             ) : (

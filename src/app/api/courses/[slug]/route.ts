@@ -1,3 +1,4 @@
+import { AssignmentResponse } from '@/models/assignmentResponse';
 import { Course } from '@/models/course';
 import { Enroll } from '@/models/enroll';
 import { Student } from '@/models/student';
@@ -35,19 +36,25 @@ const GET = async (_: Request, { params }: { params: { slug: string } }) => {
     if (session) {
       const student = await Student.findOne({ email: session.user.email });
       const studentId = student._id;
+      const hasAssignmentResponse = await AssignmentResponse.find({
+        student: studentId,
+        course: courseId,
+      });
 
       const enrollmentData = await Enroll.findOne({
         student: studentId,
         course: courseId,
       });
 
-      const isEnrolled = enrollmentData ? true : false;
+      const isEnrolled = !!enrollmentData;
+      const hasAttemptedAssignment = !!hasAssignmentResponse;
 
       if (isEnrolled) {
         const courseWithEnrollmentStatus = {
           ...course.toJSON(),
           ...enrollmentData.toJSON(),
           isEnrolled,
+          hasAttemptedAssignment,
           enrolledStudentsCount,
         };
         course = courseWithEnrollmentStatus;

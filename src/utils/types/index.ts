@@ -151,6 +151,7 @@ export type Course = {
   tags: Tags;
   assignment: Assignment;
   isCompleted: boolean;
+  hasAttemptedAssignment: boolean;
   completionDate?: string;
   isEnrolled: boolean;
   enrolledDate?: string;
