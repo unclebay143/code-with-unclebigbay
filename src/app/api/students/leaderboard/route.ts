@@ -2,6 +2,7 @@ import { LeaderBoard } from '@/models/leader-board';
 import { Student } from '@/models/student';
 import { getServerSessionWithAuthOptions } from '@/utils/auth-options';
 import connectViaMongoose from '@/utils/mongoose';
+import type { LeaderBoard as LeaderBoardType } from '@/utils/types';
 import { NextResponse } from 'next/server';
 
 // const POST = async (req: Request, _res: Response) => {
@@ -56,18 +57,26 @@ const GET = async () => {
 
     let leaderboard = await LeaderBoard.find()
       .sort({ totalScore: -1 })
-      .limit(10)
+      .limit(20)
       .populate({
         path: 'student',
-        select: '_id fullName stack photo username',
+        select: '_id fullName stack photo username isAdmin',
         model: Student,
       });
 
+    // Todo: type
+    const excludeAdmin = (leaderboard: any) =>
+      leaderboard.filter(
+        (l: { student: { isAdmin: boolean } }) => !l.student.isAdmin,
+      );
+
     // leaderboard with rank
-    leaderboard = leaderboard.map((entry, index) => ({
-      ...entry.toJSON(),
-      rank: index + 1,
-    }));
+    leaderboard = excludeAdmin(leaderboard).map(
+      (entry: any, index: number) => ({
+        ...entry.toJSON(),
+        rank: index + 1,
+      }),
+    );
 
     if (session) {
       const currentStudent = await Student.findOne({
