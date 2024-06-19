@@ -142,7 +142,7 @@ export async function getCurrentHackathon(): Promise<
     const session = await getServerSessionWithAuthOptions();
     const url = `${baseURL}/api/hackathons/current-hackathon`;
     const result = await fetch(url, {
-      cache: 'no-cache',
+      cache: 'no-store',
     });
     const { hackathon } = await result.json();
 
@@ -208,6 +208,8 @@ export async function getCourses(): Promise<{ courses: Courses } | undefined> {
 
   if (userHasStack && !isFullStack) {
     const tag = await TagModel.findOne({ name: { $in: userStack } });
+
+    if (!tag) return { courses: [] };
 
     if (tag) {
       courses = await CourseModel.find({
@@ -366,10 +368,14 @@ export async function getCountries(): Promise<
 
   const countries = [
     { name: { common: 'Nigeria' } },
+    { name: { common: 'South Africa' } },
     { name: { common: 'India' } },
     { name: { common: 'Ghana' } },
     { name: { common: 'Brazil' } },
-    { name: { common: 'Others' } },
+    { name: { common: 'Canada' } },
+    { name: { common: 'United Kingdom' } },
+    { name: { common: 'United States' } },
+    { name: { common: 'Germany' } },
   ];
 
   const sortedCountries = countries.sort((a: Country, b: Country) =>

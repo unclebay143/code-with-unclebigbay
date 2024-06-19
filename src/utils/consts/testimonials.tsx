@@ -1,4 +1,4 @@
-import { BrandXTwitter } from '@hashnode/matrix-ui';
+import { BrandXTwitter, BrandYoutube } from '@hashnode/matrix-ui';
 import { ReactElement } from 'react';
 
 export const mapTestimonialSourceToIcon: { [key: string]: ReactElement } = {
@@ -29,131 +29,64 @@ export const mapTestimonialSourceToIcon: { [key: string]: ReactElement } = {
       <path d="M13.601 2.326A7.854 7.854 0 0 0 7.994 0C3.627 0 .068 3.558.064 7.926c0 1.399.366 2.76 1.057 3.965L0 16l4.204-1.102a7.933 7.933 0 0 0 3.79.965h.004c4.368 0 7.926-3.558 7.93-7.93A7.898 7.898 0 0 0 13.6 2.326zM7.994 14.521a6.573 6.573 0 0 1-3.356-.92l-.24-.144-2.494.654.666-2.433-.156-.251a6.56 6.56 0 0 1-1.007-3.505c0-3.626 2.957-6.584 6.591-6.584a6.56 6.56 0 0 1 4.66 1.931 6.557 6.557 0 0 1 1.928 4.66c-.004 3.639-2.961 6.592-6.592 6.592zm3.615-4.934c-.197-.099-1.17-.578-1.353-.646-.182-.065-.315-.099-.445.099-.133.197-.513.646-.627.775-.114.133-.232.148-.43.05-.197-.1-.836-.308-1.592-.985-.59-.525-.985-1.175-1.103-1.372-.114-.198-.011-.304.088-.403.087-.088.197-.232.296-.346.1-.114.133-.198.198-.33.065-.134.034-.248-.015-.347-.05-.099-.445-1.076-.612-1.47-.16-.389-.323-.335-.445-.34-.114-.007-.247-.007-.38-.007a.729.729 0 0 0-.529.247c-.182.198-.691.677-.691 1.654 0 .977.71 1.916.81 2.049.098.133 1.394 2.132 3.383 2.992.47.205.84.326 1.129.418.475.152.904.129 1.246.08.38-.058 1.171-.48 1.338-.943.164-.464.164-.86.114-.943-.049-.084-.182-.133-.38-.232z" />
     </svg>
   ),
+
+  YouTube: <BrandYoutube size="md" />,
 };
 
 export const mapTestimonialSourceToColor: { [key: string]: string } = {
   LinkedIn: '#0077B5',
   Twitter: '#e2e8f0',
   Whatsapp: '#075E54',
+  YouTube: '#ffffff',
 };
 
 export const testimonials = [
   {
     author: {
-      name: 'Perspective',
-      img: 'https://cdn.hashnode.com/res/hashnode/image/upload/v1677222800340/7FWlpF0aT.jpeg',
-      title: 'Software engineer',
+      name: 'Damilola Oyedunmade',
+      img: 'https://cdn.hashnode.com/res/hashnode/image/upload/v1718174839431/6344b2ba-7e44-4409-a396-38cac51c29a4.jpeg?auto=compress',
+      title: 'Student',
     },
     quote:
-      "The UI is great and has an enjoyable feel to it. I'd definitely use this.",
+      'This is a great Christmas present Unclebigbay. Excited about the journey ahead.',
     srcUrl:
-      'https://twitter.com/iamthebuilder__/status/1648968287961722880?s=20',
-    src: 'Twitter',
+      'https://www.youtube.com/watch?v=JH77WsDH8yY&lc=Ugx9xFO1m8N2GKXbV1J4AaABAg',
+    src: 'YouTube',
   },
   {
     author: {
-      name: 'Perspective',
-      img: 'https://cdn.hashnode.com/res/hashnode/image/upload/v1677222800340/7FWlpF0aT.jpeg',
-      title: 'Software engineer',
+      name: 'Victor Josiah',
+      img: 'https://cdn.hashnode.com/res/hashnode/image/upload/v1718175294200/4b661b33-abe8-427d-994f-2bd790e0933e.jpeg?auto=compress',
+      title: 'Student',
     },
     quote:
-      "The UI is great and has an enjoyable feel to it. I'd definitely use this.",
+      'My boss, it has been an amazing journey with you and your community, I will be recommending this channel to all my friends that have interest in coding, because this is where I started.',
     srcUrl:
-      'https://twitter.com/iamthebuilder__/status/1648968287961722880?s=20',
-    src: 'Twitter',
+      'https://www.youtube.com/watch?v=JH77WsDH8yY&lc=UgzzDDqv6SRSoBsmPht4AaABAg',
+    src: 'YouTube',
   },
   {
     author: {
-      name: 'Perspective',
-      img: 'https://cdn.hashnode.com/res/hashnode/image/upload/v1677222800340/7FWlpF0aT.jpeg',
-      title: 'Software engineer',
+      name: 'Mba Nnenna',
+      img: 'https://cdn.hashnode.com/res/hashnode/image/upload/v1718175545285/7f458568-a356-4959-847b-49214c19ad36.jpeg?auto=compress',
+      title: 'Student',
     },
     quote:
-      "The UI is great and has an enjoyable feel to it. I'd definitely use this.",
+      'Nice content! You have me onboard! I have subscribed and turn on my notifications cos I can’t miss out on this awesome opportunity. Keep up unclebigbay',
     srcUrl:
-      'https://twitter.com/iamthebuilder__/status/1648968287961722880?s=20',
-    src: 'Twitter',
+      'https://www.youtube.com/watch?v=rYvrUzzxcaE&lc=Ugxiik6wKEmcjBtbI1R4AaABAg',
+    src: 'YouTube',
   },
   {
     author: {
-      name: 'Perspective',
-      img: 'https://cdn.hashnode.com/res/hashnode/image/upload/v1677222800340/7FWlpF0aT.jpeg',
-      title: 'Software engineer',
+      name: 'YouTube User',
+      img: '',
+      title: 'Student',
     },
     quote:
-      "The UI is great and has an enjoyable feel to it. I'd definitely use this.",
+      "Amazing work Unclebigbay. I came here from x and I've learnt so much already. I've subscribed and turned on notification. Keep up the good work.",
     srcUrl:
-      'https://twitter.com/iamthebuilder__/status/1648968287961722880?s=20',
-    src: 'Twitter',
-  },
-  {
-    author: {
-      name: 'Perspective',
-      img: 'https://cdn.hashnode.com/res/hashnode/image/upload/v1677222800340/7FWlpF0aT.jpeg',
-      title: 'Software engineer',
-    },
-    quote:
-      "The UI is great and has an enjoyable feel to it. I'd definitely use this.",
-    srcUrl:
-      'https://twitter.com/iamthebuilder__/status/1648968287961722880?s=20',
-    src: 'Twitter',
-  },
-  {
-    author: {
-      name: 'Perspective',
-      img: 'https://cdn.hashnode.com/res/hashnode/image/upload/v1677222800340/7FWlpF0aT.jpeg',
-      title: 'Software engineer',
-    },
-    quote:
-      "The UI is great and has an enjoyable feel to it. I'd definitely use this.",
-    srcUrl:
-      'https://twitter.com/iamthebuilder__/status/1648968287961722880?s=20',
-    src: 'Twitter',
-  },
-  {
-    author: {
-      name: 'Perspective',
-      img: 'https://cdn.hashnode.com/res/hashnode/image/upload/v1677222800340/7FWlpF0aT.jpeg',
-      title: 'Software engineer',
-    },
-    quote:
-      "The UI is great and has an enjoyable feel to it. I'd definitely use this.",
-    srcUrl:
-      'https://twitter.com/iamthebuilder__/status/1648968287961722880?s=20',
-    src: 'Twitter',
-  },
-  {
-    author: {
-      name: 'Perspective',
-      img: 'https://cdn.hashnode.com/res/hashnode/image/upload/v1677222800340/7FWlpF0aT.jpeg',
-      title: 'Software engineer',
-    },
-    quote:
-      "The UI is great and has an enjoyable feel to it. I'd definitely use this.",
-    srcUrl:
-      'https://twitter.com/iamthebuilder__/status/1648968287961722880?s=20',
-    src: 'Twitter',
-  },
-
-  {
-    author: {
-      name: 'Konadu Akwasi 👨‍💻',
-      img: 'https://cdn.hashnode.com/res/hashnode/image/upload/v1677222800340/7FWlpF0aT.jpeg',
-      title: 'Full-Stack Web Developer',
-    },
-    quote: 'This looks cool, uncle BJay  🚀',
-    srcUrl: 'https://twitter.com/akuoko_konadu/status/1648982207170596864?s=20',
-    src: 'Twitter',
-  },
-  {
-    author: {
-      name: 'Rapture Chijioke Godson',
-      title: 'Web3 frontend engineer',
-      img: 'https://cdn.hashnode.com/res/hashnode/image/upload/v1677222800340/7FWlpF0aT.jpeg',
-    },
-    quote:
-      'LearnEase not only teaches me new skills, but also helps me understand the practical applications of those skills. The personalized learning experience with a sleek user interface is something that I really enjoy.',
-    srcUrl: '',
-    src: 'Whatsapp',
+      'https://www.youtube.com/watch?v=fS1lArPOHOU&lc=UgwPtBmnkCPbPQdn1_Z4AaABAg',
+    src: 'YouTube',
   },
 ];

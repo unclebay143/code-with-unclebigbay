@@ -1,12 +1,14 @@
 'use client';
 
 import Image from 'next/image';
+import { motion } from 'framer-motion';
 import Link from 'next/link';
 import React from 'react';
 import { HomeSectionHeading } from '.';
 import { Students } from '@/utils/types';
 import { BrandXTwitter, IconButton, Linkedin } from '@hashnode/matrix-ui';
 import { CurlyDraw } from './CurlyDraw';
+import { showUpMotion } from '@/utils';
 
 type CommunityMembersSectionProps = {
   students: Students;
@@ -23,13 +25,12 @@ export const CommunityMembersSection = ({
             <>
               You are in <br className="md:hidden" />
               <span className="relative whitespace-nowrap">
-                good company
+                Good Company
                 <CurlyDraw />
               </span>
             </>
           }
-          copy="Join happy aspiring developers on a journey to mastering
-                web development."
+          copy="Join happy developers of all levels on their web development journey."
         />
       </div>
       <section className="grid grid-cols-2  sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-y-12 gap-x-8">
@@ -43,7 +44,11 @@ export const CommunityMembersSection = ({
               : null;
 
           return (
-            <div
+            <motion.div
+              variants={showUpMotion}
+              initial="hidden"
+              whileInView="show"
+              viewport={{ once: true }}
               key={`communityMembers-${_id}`}
               className="flex flex-col border rounded overflow-hidden"
             >
@@ -82,7 +87,7 @@ export const CommunityMembersSection = ({
                   {stack} developer
                 </p>
               </div>
-            </div>
+            </motion.div>
           );
         })}
       </section>

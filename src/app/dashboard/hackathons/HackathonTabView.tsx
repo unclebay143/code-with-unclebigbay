@@ -14,6 +14,7 @@ import { WhiteArea } from '@/components/molecules/dashboard/white-area';
 import { HackathonCard } from '@/components/molecules/dashboard/hackathon/HackathonCard';
 import { Hackathon } from '@/utils/types';
 import Link from 'next/link';
+import { hasHackathonEnded } from '@/utils';
 
 const VIEW = {
   ALL: 'all',
@@ -43,11 +44,11 @@ export const HackathonTabView = ({ hackathons }: HackathonTabViewProps) => {
   };
 
   const activeHackathons = hackathons?.filter(
-    (hackathon) => hackathon.isActive,
+    (hackathon) => !hasHackathonEnded(hackathon.endDate),
   );
 
-  const closedHackathons = hackathons?.filter(
-    (hackathon) => !hackathon.isActive,
+  const closedHackathons = hackathons?.filter((hackathon) =>
+    hasHackathonEnded(hackathon.endDate),
   );
 
   return (
@@ -59,7 +60,9 @@ export const HackathonTabView = ({ hackathons }: HackathonTabViewProps) => {
       <ScrollArea orientation="horizontal">
         <section className="pt-3 border-b border-slate-200">
           <TabsList aria-label="Manage your account">
-            {/* <TabsTrigger value={VIEW.ALL}>All</TabsTrigger> */}
+            {/* <TabsTrigger key={VIEW.ALL} value={VIEW.ALL} id="TabsTrigger">
+              All
+            </TabsTrigger> */}
             <TabsTrigger key={VIEW.ACTIVE} value={VIEW.ACTIVE} id="TabsTrigger">
               Active
             </TabsTrigger>
@@ -93,7 +96,38 @@ export const HackathonTabView = ({ hackathons }: HackathonTabViewProps) => {
           forceMount
         >
           <section className="flex flex-col gap-3">
-            {closedHackathons?.map((hackathon) => {
+            {closedHackathons.length > 0 ? (
+              <>
+                {closedHackathons?.map((hackathon) => {
+                  return (
+                    <HackathonCard
+                      key={hackathon._id}
+                      hackathon={hackathon}
+                      isRegistered={hackathon.isRegistered}
+                    />
+                  );
+                })}
+              </>
+            ) : (
+              <WhiteArea
+                border
+                twClass="border-dashed h-[200px] flex flex-col gap-2 justify-center items-center"
+              >
+                <h3 className="text-slate-600">
+                  We&apos;re currently running our first hackathon 🎉
+                </h3>
+                <Button size="xs" appearance="primary-slate" asChild>
+                  <Link href="/hackathons/build-for-business-hackathon?source=closed-hackathon-cta">
+                    View hackathon
+                  </Link>
+                </Button>
+              </WhiteArea>
+            )}
+          </section>
+        </TabsContent>
+        {/* <TabsContent value={VIEW.ALL}>
+          <section className="flex flex-col gap-3">
+            {hackathons.map((hackathon) => {
               return (
                 <HackathonCard
                   key={hackathon._id}
@@ -102,35 +136,8 @@ export const HackathonTabView = ({ hackathons }: HackathonTabViewProps) => {
                 />
               );
             })}
-            <WhiteArea
-              border
-              twClass="border-dashed h-[200px] flex flex-col gap-2 justify-center items-center"
-            >
-              <h3 className="text-slate-600">
-                We&apos;re currently running our first hackathon 🎉
-              </h3>
-              <Button size="xs" appearance="primary-slate" asChild>
-                <Link href="/dashboard/hackathons/ai-for-good-hackathon-2024">
-                  View hackathon
-                </Link>
-              </Button>
-            </WhiteArea>
           </section>
-        </TabsContent>
-        {/* <TabsContent value={VIEW.ALL}>
-              {showHackathons && (
-                <section className="flex flex-col gap-3">
-                {hackathons.map((hackathon) => {
-                  return (
-                    <HackathonCard
-                    key={hackathon._id}
-                    hackathon={hackathon}
-                    />
-                  );
-                })}
-                </section>
-              )}
-            </TabsContent> */}
+        </TabsContent> */}
       </section>
     </Tabs>
   );

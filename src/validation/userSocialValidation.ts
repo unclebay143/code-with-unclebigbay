@@ -4,12 +4,26 @@ export const ProfileUpdateSchema = z.object({
   github: z
     .string()
     .url()
-    .includes('https://github.com/', { message: 'Invalid GitHub URL' })
+    .refine(
+      (value) =>
+        value.includes('https://github.com/') ||
+        value.includes('https://www.github.com/'),
+      {
+        message: 'Invalid GitHub URL',
+      },
+    )
     .or(z.literal('')),
   facebook: z
     .string()
     .url()
-    .includes('https://facebook.com/', { message: 'Invalid facebook URL' })
+    .refine(
+      (value) =>
+        value.includes('https://facebook.com/') ||
+        value.includes('https://www.facebook.com/'),
+      {
+        message: 'Invalid Facebook URL',
+      },
+    )
     .or(z.literal('')),
   x: z
     .string()
@@ -17,7 +31,9 @@ export const ProfileUpdateSchema = z.object({
     .refine(
       (value) =>
         value.includes('https://twitter.com/') ||
-        value.includes('https://x.com/'),
+        value.includes('https://x.com/') ||
+        value.includes('https://www.twitter.com/') ||
+        value.includes('https://www.x.com/'),
       {
         message:
           'Invalid URL: must include either https://twitter.com/ or https://x.com/',
@@ -27,14 +43,26 @@ export const ProfileUpdateSchema = z.object({
   linkedin: z
     .string()
     .url()
-    .includes('https://www.linkedin.com/', { message: 'Invalid linkedIn URL' })
+    .refine(
+      (value) =>
+        value.includes('https://www.linkedin.com/') ||
+        value.includes('https://linkedin.com/'),
+      {
+        message: 'Invalid LinkedIn URL',
+      },
+    )
     .or(z.literal('')),
   instagram: z
     .string()
     .url()
-    .includes('https://www.instagram.com/', {
-      message: 'Invalid instagram URL',
-    })
+    .refine(
+      (value) =>
+        value.includes('https://www.instagram.com/') ||
+        value.includes('https://instagram.com/'),
+      {
+        message: 'Invalid Instagram URL',
+      },
+    )
     .or(z.literal('')),
 
   stackoverflow: z
@@ -45,7 +73,14 @@ export const ProfileUpdateSchema = z.object({
   youtube: z
     .string()
     .url()
-    .includes('https://youtube.com/', { message: 'Invalid youtube URL' })
+    .refine(
+      (value) =>
+        value.includes('https://youtube.com/') ||
+        value.includes('https://www.youtube.com/'),
+      {
+        message: 'Invalid YouTube URL',
+      },
+    )
     .or(z.literal('')),
   mastodon: z
     .string()
@@ -61,6 +96,7 @@ export const professionalDetailSchema = z.object({
 });
 
 export const personalDetailSchema = z.object({
+  fullName: z.string().trim().min(1, { message: 'Fullname is required.' }),
   bio: z.string().or(z.literal('')),
   location: z.string().or(z.literal('')),
 });

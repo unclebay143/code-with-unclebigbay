@@ -5,7 +5,7 @@ import Image from 'next/image';
 import { WhiteArea } from '../white-area';
 import { DashboardSubheading } from '../dashboard-subheading';
 import { SelectCountry } from '../country-dropdown';
-import { Button } from '@hashnode/matrix-ui';
+import { Button, FormHelperField } from '@hashnode/matrix-ui';
 import useCurrentStudent from '@/components/hooks/useCurrentStudent';
 import * as z from 'zod';
 import { useForm, SubmitHandler, Controller } from 'react-hook-form';
@@ -14,8 +14,6 @@ import { personalDetailSchema } from '@/validation/userSocialValidation';
 import { ExternalLink } from 'lucide-react';
 import Link from 'next/link';
 import { Countries, Student } from '@/utils/types';
-
-personalDetailSchema;
 
 type personalDetailSchemaType = z.infer<typeof personalDetailSchema>;
 
@@ -45,7 +43,9 @@ const UserPersonalSettings = ({
     values: {
       bio,
       location: location,
+      fullName,
     },
+    mode: 'onSubmit',
   });
 
   const onSubmit: SubmitHandler<personalDetailSchemaType> = (data) => {
@@ -60,7 +60,7 @@ const UserPersonalSettings = ({
     }
   };
 
-  const bioErrorMessage = errors.bio?.message;
+  const fullNameErrorMessage = errors.fullName?.message;
 
   return (
     <div className="flex flex-col gap-4">
@@ -69,7 +69,7 @@ const UserPersonalSettings = ({
           <section className="border-b pb-3 flex items-center justify-between">
             <label htmlFor="photo" className="">
               <DashboardSubheading title="Profile Picture" />
-              <p className="text-slate-500 text-sm">Sourced from GitHub</p>
+              <p className="text-slate-500 text-sm">Sourced from GitHub.</p>
             </label>
             <Button size="xs" appearance="secondary-slate" asChild>
               <Link
@@ -118,10 +118,12 @@ const UserPersonalSettings = ({
               <input
                 type="text"
                 id="name"
-                className="disabled:cursor-not-allowed text-sm text-slate-600 p-2 outline-none focus:ring-2 focus:ring-slate-500 focus:border-slate-300 border rounded-md"
-                value={fullName}
-                disabled
+                className="text-sm text-slate-600 p-2 outline-none focus:ring-2 focus:ring-slate-500 focus:border-slate-300 border rounded-md"
+                {...register('fullName')}
               />
+              {fullNameErrorMessage && (
+                <FormHelperField type="error" text={fullNameErrorMessage} />
+              )}
             </div>
             <div className="flex flex-col gap-3">
               <label htmlFor="email">
@@ -147,9 +149,6 @@ const UserPersonalSettings = ({
                 placeholder="Introduce yourself to the world."
                 {...register('bio')}
               />
-              {bioErrorMessage && (
-                <span className="text-sm text-red-600">{bioErrorMessage}</span>
-              )}
             </div>
             <div className="flex flex-col gap-2">
               <label htmlFor="location">

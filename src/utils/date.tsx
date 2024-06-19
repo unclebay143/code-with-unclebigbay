@@ -20,8 +20,9 @@ export function formatStartAndEndDate(startDate: string, endDate: string) {
   }
 }
 
-export const formatDate = (date: string) => {
-  return dayjs(date).format('MMM Do YY');
+export const formatDate = (date: string, type?: 'short' | 'full') => {
+  if (type === 'full') return dayjs(date).format('MMM Do, YYYY');
+  return dayjs(date).format('MMM Do, YY');
 };
 
 // @ts-ignore

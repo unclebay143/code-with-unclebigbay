@@ -34,7 +34,7 @@ export const OverviewCard = ({ id, label, count, Icon }: OverviewCardProp) => {
           </div>
 
           <h3 className="ml-8 text-sm text-slate-600">
-            {count ? `${count} course${count > 1 ? 's' : ''}` : '-'}
+            {count ? `${count} course${count > 1 ? 's' : ''}` : '0 course'}
           </h3>
         </div>
         <span className="text-slate-400">

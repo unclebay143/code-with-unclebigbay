@@ -30,7 +30,7 @@ const GET = async (_: Request, { params }: { params: { _id: string } }) => {
         'question answerExplanation options.option options._id options.isCorrect status grade score',
         Question,
       )
-      .populate('course', 'title', Course);
+      .populate('course', '_id title slug', Course);
 
     if (!assignmentResponse) {
       return NextResponse.json(
