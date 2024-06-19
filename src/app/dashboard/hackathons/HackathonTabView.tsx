@@ -14,6 +14,7 @@ import { WhiteArea } from '@/components/molecules/dashboard/white-area';
 import { HackathonCard } from '@/components/molecules/dashboard/hackathon/HackathonCard';
 import { Hackathon } from '@/utils/types';
 import Link from 'next/link';
+import { hasHackathonEnded } from '@/utils';
 
 const VIEW = {
   ALL: 'all',
@@ -42,18 +43,12 @@ export const HackathonTabView = ({ hackathons }: HackathonTabViewProps) => {
     router.push(`hackathons?view=${value}`, { scroll: true });
   };
 
-  const hasEnded = (endDate: string) => {
-    const today = Date.now();
-    const hackathonEndDate = new Date(endDate).getTime();
-    return today > hackathonEndDate;
-  };
-
   const activeHackathons = hackathons?.filter(
-    (hackathon) => !hasEnded(hackathon.endDate),
+    (hackathon) => !hasHackathonEnded(hackathon.endDate),
   );
 
   const closedHackathons = hackathons?.filter((hackathon) =>
-    hasEnded(hackathon.endDate),
+    hasHackathonEnded(hackathon.endDate),
   );
 
   return (

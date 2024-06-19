@@ -26,7 +26,7 @@ export const SelectCountry = ({
       {...restOfProps}
     >
       <SelectTrigger size="md" shape="rectangle" />
-      <SelectContent>
+      <SelectContent style={{ maxHeight: '200px' }}>
         <SelectViewPort>
           {countries?.map((country, index) => {
             return (
@@ -37,6 +37,7 @@ export const SelectCountry = ({
               />
             );
           })}
+          <SelectItem value={'Others'} label={'Others'} />
         </SelectViewPort>
       </SelectContent>
     </Select>

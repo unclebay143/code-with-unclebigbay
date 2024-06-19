@@ -66,6 +66,10 @@ const nextConfig = {
         source: '/@:path/:slug*',
         destination: `/profile/:path/:slug*`,
       },
+      {
+        source: '/help-centers',
+        destination: '/dashboard/help-centers',
+      },
     ];
   },
 };

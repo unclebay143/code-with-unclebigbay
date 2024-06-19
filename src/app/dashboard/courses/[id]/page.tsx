@@ -1,6 +1,7 @@
 import { Metadata } from 'next';
 import Course from './course';
 import { baseURL } from '../../../../../frontend.config';
+import { getCurrentStudent } from '@/utils/server.service';
 
 type Props = { params: { id: string } };
 
@@ -19,8 +20,11 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   };
 }
 
-const Page = () => {
-  return <Course />;
+const Page = async () => {
+  const studentRes = await getCurrentStudent();
+  const student = studentRes && studentRes.student;
+
+  return <Course currentStudent={student} />;
 };
 
 export default Page;

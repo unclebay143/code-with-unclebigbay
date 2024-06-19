@@ -1,20 +1,13 @@
 'use client';
 
-import React from 'react';
+import React, { useState } from 'react';
 import Link from 'next/link';
 import { Courses } from '@/components/molecules/dashboard/courses';
 import { DashboardSubheading } from '@/components/molecules/dashboard/dashboard-subheading';
-// import { EmptyState } from '@/components/molecules/dashboard/empty-state';
 import { WhiteArea } from '@/components/molecules/dashboard/white-area';
 import { showCount } from '@/utils';
 import { Courses as CoursesType, Student } from '@/utils/types';
-import {
-  ArrowExternalLink01,
-  Button,
-  DocumentGuide,
-  EmptyState,
-} from '@hashnode/matrix-ui';
-import { EmptyStateContainer } from '@/components/molecules/dashboard/EmptyStateContainer';
+import { Button } from '@hashnode/matrix-ui';
 
 const CoursesPage = ({
   courses,
@@ -24,9 +17,7 @@ const CoursesPage = ({
   currentStudent: Student | null;
 }) => {
   const isAdmin = currentStudent?.isAdmin;
-
-  const count = courses?.length || 0;
-  const noCourses = courses?.length === 0;
+  const [courseCount, setCourseCount] = useState<number>(0);
   const isLoggedIn = !!currentStudent;
 
   const copy = isLoggedIn
@@ -48,7 +39,7 @@ const CoursesPage = ({
             <div className="w-full flex items-end justify-center">
               <div className="w-full flex flex-col gap-1">
                 <DashboardSubheading
-                  title={`Available Courses ${showCount(count)}`}
+                  title={`Available Courses ${showCount(courseCount)}`}
                 />
                 <span className="text-sm text-slate-600">{copy}</span>
               </div>
@@ -57,35 +48,11 @@ const CoursesPage = ({
 
           <Courses
             courses={courses}
-            hideSearchOptions
+            setCourseCount={setCourseCount}
             loaderCounter={6}
+            hideSearchOptions
             hideReachedEnd
           />
-          {noCourses && (
-            <EmptyStateContainer>
-              <EmptyState
-                icon={DocumentGuide}
-                title=" "
-                copy="No course to display here ☹️"
-                ctaElement={
-                  <Button
-                    appearance="secondary-slate"
-                    size="xs"
-                    endIcon={ArrowExternalLink01}
-                    asChild
-                  >
-                    <Link
-                      target="_blank"
-                      rel="noopener"
-                      href="https://dub.sh/make-a-v-request"
-                    >
-                      Make a request.
-                    </Link>
-                  </Button>
-                }
-              />
-            </EmptyStateContainer>
-          )}
         </div>
       </WhiteArea>
     </div>
