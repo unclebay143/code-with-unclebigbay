@@ -5,7 +5,9 @@ import { NextResponse } from 'next/server';
 const GET = async () => {
   try {
     await connectViaMongoose();
-    const hackathon = await Hackathon.find({ isActive: true })
+    const hackathon = await Hackathon.find({
+      isActive: true,
+    })
       .sort({
         createdAt: -1,
       })

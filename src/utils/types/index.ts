@@ -57,6 +57,7 @@ export type Tag = {
   logo?: string;
   wiki?: string;
 };
+
 export type Tags = Tag[];
 
 export type Question = {

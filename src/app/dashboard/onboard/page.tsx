@@ -18,6 +18,7 @@ import {
   SelectViewPort,
   Button,
 } from '@hashnode/matrix-ui';
+import { ONBOARDING_YT_VIDEO_ID } from '@/utils';
 
 const Page = () => {
   const { data: currentStudent, update } = useCurrentStudent();
@@ -54,7 +55,7 @@ const Page = () => {
     }
   };
 
-  const disableBtn = !isDirty || !isValid;
+  const disableBtn = !isDirty || !isValid || update.isPending;
 
   useEffect(() => {
     if (update.isSuccess) {
@@ -79,7 +80,7 @@ const Page = () => {
           </div>
         </div>
 
-        <YTVideo ytVideoId="JH77WsDH8yY" />
+        <YTVideo ytVideoId={ONBOARDING_YT_VIDEO_ID} />
 
         <WhiteArea twClass="!p-0 bg-white" border>
           <div
@@ -142,7 +143,9 @@ const Page = () => {
                       size="sm"
                       disabled={disableBtn}
                     >
-                      Complete exercise 🎉
+                      {update.isPending
+                        ? 'One moment...'
+                        : 'Complete exercise 🎉'}
                     </Button>
                   </div>
                 </form>
