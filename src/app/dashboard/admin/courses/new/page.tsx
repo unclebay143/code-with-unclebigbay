@@ -11,7 +11,7 @@ import { convertWhiteSpaceToDash } from '@/utils';
 import { Course, Questions, Tag, Tags } from '@/utils/types';
 import { X } from 'lucide-react';
 import Link from 'next/link';
-import React, { useState } from 'react';
+import React, { ChangeEvent, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { toast } from 'sonner';
 
@@ -20,6 +20,7 @@ const Page = () => {
   const [showSuggestedTags, setShowSelectedTags] = useState(false);
   const [selectTags, setSelectedTags] = useState<Tags>([]);
   const [currentTag, setCurrentTag] = useState<string>('');
+  const [slug, setSlug] = useState('');
 
   const { mutation } = useCourse();
   const [selectedQuestions, setSelectedQuestions] = useState<Questions>([]);
@@ -27,9 +28,11 @@ const Page = () => {
     useState<boolean>(false);
   const { data: user } = useCurrentStudent();
 
-  const { register, handleSubmit } = useForm({
+  const { register, handleSubmit, setValue } = useForm({
     defaultValues: {
       title: '',
+      brief: '',
+      slug: '',
       description: '',
       ytVideoId: '',
       coverImageUrl: '',
@@ -37,6 +40,18 @@ const Page = () => {
       author: user?._id,
     },
   });
+
+  const handleSlugChange = (event: ChangeEvent<HTMLInputElement>) => {
+    const newSlug = event.target.value;
+    // replace whitespace and any special characters from slug
+    const formattedSlug = newSlug
+      .replace(/[^a-zA-Z0-9-]/g, ' ')
+      .replace(/\s+/g, '-');
+
+    setValue('slug', formattedSlug.toLowerCase());
+    setSlug(formattedSlug.toLowerCase());
+  };
+
   const createNewCourse = (data: any) => {
     const newCourse: Course = {
       ...data,
@@ -124,13 +139,36 @@ const Page = () => {
               <DashboardSubheading title="New course" />
               <div className="flex flex-col gap-3">
                 <div className="flex flex-col gap-2">
-                  <label htmlFor="question" className="text-sm">
+                  <label htmlFor="title" className="text-sm">
                     <DashboardSubheading title="Title" />
                   </label>
                   <input
                     {...register('title')}
                     type="text"
                     placeholder="i.e introduction to software engineering"
+                    className={`text-sm text-slate-600 p-2 outline-none focus:ring-2 focus:ring-slate-500 focus:border-slate-300 border rounded-md`}
+                  />
+                </div>
+                <div className="flex flex-col gap-2">
+                  <label htmlFor="brief" className="text-sm">
+                    <DashboardSubheading title="Brief" />
+                  </label>
+                  <input
+                    {...register('brief')}
+                    type="text"
+                    placeholder="This course will teach you about introduction to software engineering"
+                    className={`text-sm text-slate-600 p-2 outline-none focus:ring-2 focus:ring-slate-500 focus:border-slate-300 border rounded-md`}
+                  />
+                </div>
+                <div className="flex flex-col gap-2">
+                  <label htmlFor="slug" className="text-sm">
+                    <DashboardSubheading title="Slug" />
+                  </label>
+                  <input
+                    onChange={handleSlugChange}
+                    type="text"
+                    value={slug}
+                    placeholder="introduction-to-software-engineering"
                     className={`text-sm text-slate-600 p-2 outline-none focus:ring-2 focus:ring-slate-500 focus:border-slate-300 border rounded-md`}
                   />
                 </div>
@@ -178,7 +216,7 @@ const Page = () => {
                     <Link
                       target="_blank"
                       rel="noopener"
-                      href="https://www.omnicalculator.com/conversion/minutes-to-seconds-converter"
+                      href="https://www.timecalculator.net/minutes-to-time"
                       className="underline text-blue-500"
                     >
                       Converter

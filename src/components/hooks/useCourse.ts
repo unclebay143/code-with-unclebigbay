@@ -25,9 +25,9 @@ const useCourse = () => {
     },
     onSuccess({ data }) {
       queryClient.invalidateQueries({ queryKey: ['courses'] });
-      const courseId = data.course._id;
+      const courseSlug = data.course.slug;
       toast.success('New course added.');
-      window.location.href = `/dashboard/courses/${courseId}`;
+      window.location.href = `/dashboard/courses/${courseSlug}`;
     },
     onError(error: any) {
       toast.success(error.response.data.message);
@@ -37,7 +37,7 @@ const useCourse = () => {
   return { courses, isFetching, error, isPending, mutation };
 };
 
-const useCourseById = (_id: string) => {
+const useCourseBySlug = (_id: string) => {
   const queryClient = useQueryClient();
 
   const {
@@ -83,4 +83,4 @@ const useCourseById = (_id: string) => {
 };
 
 export default useCourse;
-export { useCourseById };
+export { useCourseBySlug };

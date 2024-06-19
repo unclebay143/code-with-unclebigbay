@@ -57,6 +57,7 @@ export type Tag = {
   logo?: string;
   wiki?: string;
 };
+
 export type Tags = Tag[];
 
 export type Question = {
@@ -141,6 +142,7 @@ export type Course = {
   createdAt?: string;
   type?: string;
   title: string;
+  slug: string;
   description: string;
   brief: string;
   ytVideoId: string;
