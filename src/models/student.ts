@@ -1,11 +1,11 @@
 import mongoose, { model, models } from 'mongoose';
 import Joi from 'joi';
+import { ALLOWED_STACK } from '@/utils/consts';
 
 const Schema = mongoose.Schema;
 
 // Enums
 const ALLOWED_GENDER = ['male', 'female'];
-const ALLOWED_STACK = ['frontend', 'backend', 'full-stack'];
 
 const studentSchema = new Schema(
   {

@@ -5,6 +5,7 @@ import type { LucideIcon } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { formatTime } from '@/utils';
+import { Badge } from '@hashnode/matrix-ui';
 
 type CourseCardProps = {
   course: Course;
@@ -12,8 +13,17 @@ type CourseCardProps = {
 };
 
 export const CourseCard = ({ layout = 'grid', course }: CourseCardProps) => {
-  const { _id, type, slug, title, brief, coverImageUrl, viewTime, isEnrolled } =
-    course;
+  const {
+    _id,
+    type,
+    slug,
+    title,
+    brief,
+    coverImageUrl,
+    viewTime,
+    isEnrolled,
+    tags,
+  } = course;
 
   const mapTypeToIcon: { [key: string]: LucideIcon } = {
     video: PlayCircle,
@@ -59,11 +69,22 @@ export const CourseCard = ({ layout = 'grid', course }: CourseCardProps) => {
           <section className="p-5 flex flex-col gap-3 justify-between">
             <div className="flex flex-col gap-3">
               <div className="flex flex-col gap-2 items-start justify-between">
-                <div
-                  title={title}
-                  className="text-gray-700 font-medium hover:text-slate-800 text-lg"
-                >
-                  {title}
+                <div>
+                  <h3
+                    title={title}
+                    className="inline text-gray-700 font-medium hover:text-slate-800 text-lg"
+                  >
+                    {title}
+                  </h3>{' '}
+                  {tags && tags.length > 0
+                    ? tags
+                        .map((tag) => tag?.name?.toLowerCase())
+                        .includes('css') && (
+                        <span className="px-1 text-[12px] font-medium border border-green-100 text-green-500 bg-green-100 rounded-full">
+                          New
+                        </span>
+                      )
+                    : null}
                 </div>
                 {viewTime ? (
                   <span className="py-1 px-2 whitespace-nowrap rounded-full bg-slate-100 text-xs font-semibold">

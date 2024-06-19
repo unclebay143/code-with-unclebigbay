@@ -1,6 +1,7 @@
 import React from 'react';
 import { YTVideo } from '../../atoms/YTVideo';
 import { SectionWrapper } from '.';
+import { ONBOARDING_YT_VIDEO_ID } from '@/utils';
 
 export const ChannelIntroVideoSection = () => {
   return (
@@ -14,7 +15,7 @@ export const ChannelIntroVideoSection = () => {
             </span>
           </div>
           <section className="rounded-lg overflow-hidden ring-1 ring-slate-800">
-            <YTVideo ytVideoId="JH77WsDH8yY" />
+            <YTVideo ytVideoId={ONBOARDING_YT_VIDEO_ID} />
           </section>
         </section>
       </SectionWrapper>

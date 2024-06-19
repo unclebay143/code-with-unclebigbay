@@ -1,3 +1,13 @@
+import dayjs from 'dayjs';
+import relativeTime from 'dayjs/plugin/relativeTime';
+
+dayjs.extend(relativeTime);
+
+export const DEFAULT_PROFILE_PHOTO =
+  'https://cdn.hashnode.com/res/hashnode/image/upload/v1687261896574/vKUU-ural.png';
+
+export const ONBOARDING_YT_VIDEO_ID = 'RKhDqw6g1nE';
+
 export const convertEmptyStringToNull = (str: string) =>
   str === '' ? null : str;
 
@@ -35,6 +45,24 @@ export const showCount = (count: number | string) => {
 };
 
 export function capitalizeFirstLetter(word: string) {
-  if (!word) return;
+  if (!word) return word;
   return word.charAt(0).toUpperCase() + word.slice(1);
 }
+
+export const hasHackathonEnded = (endDate: string) =>
+  dayjs().isAfter(dayjs(endDate));
+
+export const showUpMotion = {
+  hidden: { opacity: 0, y: 50 },
+  show: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      delayChildren: 0.1,
+      staggerChildren: 0.1,
+      type: 'spring',
+      stiffness: 100,
+      damping: 20,
+    },
+  },
+};

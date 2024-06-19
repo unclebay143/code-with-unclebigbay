@@ -7,24 +7,17 @@ import { formatStartAndEndDate, renderer } from '@/utils/date';
 import { Button } from '@hashnode/matrix-ui';
 import { Calendar } from 'lucide-react';
 import Link from 'next/link';
-import useCurrentStudent from '@/components/hooks/useCurrentStudent';
-import { handleAuthentication } from '@/utils/auth';
 import dayjs from 'dayjs';
-import Countdown from 'react-countdown';
+import { hasHackathonEnded } from '@/utils';
 
 type Props = { hackathon: Hackathon };
 
 export const HackathonWidget = ({ hackathon }: Props) => {
-  const { data: currentStudent } = useCurrentStudent();
-  const studentId = currentStudent?._id;
-
   const { title, startDate, endDate, slug } = hackathon || {};
 
   const hackathonUrl = `/dashboard/hackathons/${slug}`;
 
-  const hasHackathonEnded = dayjs(endDate).isBefore(dayjs());
-
-  if (hasHackathonEnded) return null;
+  if (hasHackathonEnded(endDate)) return null;
 
   return (
     // [background-image:url('https://www.perxels.com/assets/images/banner/bannerPattern2.png')] bg-top
@@ -53,7 +46,7 @@ export const HackathonWidget = ({ hackathon }: Props) => {
               <span className="font-medium flex gap-1 group-hover:text-slate-300 text-slate-200">
                 <span>(ends in</span>
                 <span className="flex items-center [&>*]:group-hover:text-slate-300 [&>*]:text-slate-200 [&>*]:text-sm [&>*]:font-medium">
-                  <Countdown date={new Date(endDate)} renderer={renderer} />)
+                  {dayjs(endDate).toNow(true)})
                 </span>
               </span>
             </span>

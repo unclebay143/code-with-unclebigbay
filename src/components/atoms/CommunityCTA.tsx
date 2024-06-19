@@ -36,6 +36,7 @@ export const CommunityCTA = ({ session }: Props) => {
           </Button>
         </div>
       </section>
+
       <AuthModal
         isOpen={openAuthModal}
         close={() => setOpenAuthModal(false)}

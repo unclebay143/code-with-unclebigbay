@@ -31,6 +31,7 @@ const Page = () => {
   const { register, handleSubmit, setValue } = useForm({
     defaultValues: {
       title: '',
+      brief: '',
       slug: '',
       description: '',
       ytVideoId: '',
@@ -145,6 +146,17 @@ const Page = () => {
                     {...register('title')}
                     type="text"
                     placeholder="i.e introduction to software engineering"
+                    className={`text-sm text-slate-600 p-2 outline-none focus:ring-2 focus:ring-slate-500 focus:border-slate-300 border rounded-md`}
+                  />
+                </div>
+                <div className="flex flex-col gap-2">
+                  <label htmlFor="brief" className="text-sm">
+                    <DashboardSubheading title="Brief" />
+                  </label>
+                  <input
+                    {...register('brief')}
+                    type="text"
+                    placeholder="This course will teach you about introduction to software engineering"
                     className={`text-sm text-slate-600 p-2 outline-none focus:ring-2 focus:ring-slate-500 focus:border-slate-300 border rounded-md`}
                   />
                 </div>

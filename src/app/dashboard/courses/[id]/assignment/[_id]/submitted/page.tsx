@@ -22,12 +22,17 @@ const Page = () => {
   const disableBtn = !courseId || !assignmentId;
   const assignmentResponseUrl = `/dashboard/courses/${courseSlug}/assignment/${assignmentId}/result`;
   const recommendedCourses = courses
-    ?.filter((course) => !course.isCompleted && course._id !== courseId)
+    ?.filter((course) => !course.isEnrolled && course._id !== courseId)
     .splice(0, 3); // consider adding enroll field in the course object from BE
+
+  const showRecommendedCourses =
+    recommendedCourses && recommendedCourses.length > 0;
 
   return (
     <WhiteArea border>
-      <section className="relative flex flex-col items-center justify-center gap-3 p-4 overflow-hidden">
+      <section
+        className={`${!showRecommendedCourses && 'h-[430px]'} relative flex flex-col items-center justify-center gap-3 p-4 overflow-hidden`}
+      >
         <ShowConfetti width={952} height={100} />
         <div className="w-full flex flex-col items-center gap-5">
           <div className="flex flex-col text-center gap-2">
@@ -50,10 +55,14 @@ const Page = () => {
                 </Button>
               )}
             </div>
-            <span className="my-2 text-slate-600 text-sm">OR</span>
-            <p className="text-slate-600">
-              Checkout the recommended learning course below.
-            </p>
+            {showRecommendedCourses ? (
+              <>
+                <span className="my-2 text-slate-600 text-sm">OR</span>
+                <p className="text-slate-600">
+                  Checkout the recommended learning course below.
+                </p>
+              </>
+            ) : null}
           </div>
           {/* Pass recommended courses here */}
           <div className="w-full">
@@ -62,6 +71,7 @@ const Page = () => {
               isFetching={isFetching}
               hideSearchOptions
               hideReachedEnd
+              hideEmptyState
             />
           </div>
         </div>
