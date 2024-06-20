@@ -36,12 +36,10 @@ const GET = async (_: Request, { params }: { params: { slug: string } }) => {
     if (session) {
       const student = await Student.findOne({ email: session.user.email });
       const studentId = student._id;
-      const hasAssignmentResponse = await AssignmentResponse.find({
+      const hasAssignmentResponse = await AssignmentResponse.findOne({
         student: studentId,
         course: courseId,
       });
-
-      console.log(hasAssignmentResponse);
 
       const enrollmentData = await Enroll.findOne({
         student: studentId,
@@ -49,9 +47,7 @@ const GET = async (_: Request, { params }: { params: { slug: string } }) => {
       });
 
       const isEnrolled = !!enrollmentData;
-      const hasAttemptedAssignment = hasAssignmentResponse.length > 0;
-
-      console.log(hasAttemptedAssignment);
+      const hasAttemptedAssignment = !!hasAssignmentResponse;
 
       if (isEnrolled) {
         const courseWithEnrollmentStatus = {
