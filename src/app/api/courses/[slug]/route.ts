@@ -41,13 +41,17 @@ const GET = async (_: Request, { params }: { params: { slug: string } }) => {
         course: courseId,
       });
 
+      console.log(hasAssignmentResponse);
+
       const enrollmentData = await Enroll.findOne({
         student: studentId,
         course: courseId,
       });
 
       const isEnrolled = !!enrollmentData;
-      const hasAttemptedAssignment = !!hasAssignmentResponse;
+      const hasAttemptedAssignment = hasAssignmentResponse.length > 0;
+
+      console.log(hasAttemptedAssignment);
 
       if (isEnrolled) {
         const courseWithEnrollmentStatus = {
