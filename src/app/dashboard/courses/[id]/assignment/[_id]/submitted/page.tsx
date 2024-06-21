@@ -50,9 +50,11 @@ const Page = () => {
                   View score
                 </Button>
               ) : (
-                <Button size="xs" appearance="secondary-slate" asChild>
-                  <Link href={assignmentResponseUrl}>View score</Link>
-                </Button>
+                <section>
+                  <Button size="xs" appearance="secondary-slate" asChild>
+                    <Link href={assignmentResponseUrl}>View score</Link>
+                  </Button>
+                </section>
               )}
             </div>
             {showRecommendedCourses ? (

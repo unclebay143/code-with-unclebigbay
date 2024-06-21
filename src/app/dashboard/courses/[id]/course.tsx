@@ -23,9 +23,11 @@ import { Student, Tags } from '@/utils/types';
 import { formatDate, formatTime } from '@/utils';
 import { Tooltip } from '@/components/atoms/Tooltip';
 import { handleAuthentication } from '@/utils/auth';
+import { ShareButton } from '@/components/molecules/dashboard/share-button';
 
 const Course = ({ currentStudent }: { currentStudent?: Student }) => {
   const [showMore, setShowMore] = useState(false);
+  const [sidebarOpen, setSidebarOpen] = useState(false);
 
   const studentId = currentStudent?._id;
 
@@ -243,7 +245,11 @@ const Course = ({ currentStudent }: { currentStudent?: Student }) => {
                         </div>
                       )}
 
-                      <div className="flex justify-end">
+                      <div className="flex justify-between">
+                        <ShareButton
+                          setSidebarOpen={setSidebarOpen}
+                          title={course.title}
+                        />
                         {hasAssignment && (
                           <div>
                             {isEnrolled ? (
