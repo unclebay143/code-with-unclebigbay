@@ -102,6 +102,7 @@ export const Courses = ({
     if (searchParamTagName) {
       searchCourseByTag(searchParamTagName);
     } else {
+      if (setCourseCount) setCourseCount(defaultCourses?.length);
       setCoursesToShow(defaultCourses);
     }
   }, [defaultCourses, searchParamTagName]);
