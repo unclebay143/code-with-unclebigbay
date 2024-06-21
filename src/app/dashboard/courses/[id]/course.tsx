@@ -287,7 +287,7 @@ const Course = ({ currentStudent }: { currentStudent?: Student }) => {
                         )}
                       </div>
 
-                      <div className="flex flex-col-reverse items-start sm:flex-row gap-5 w-full justify-between sm:items-end">
+                      <div className="flex flex-col-reverse items-start sm:flex-row gap-5 w-full justify-between sm:items-center">
                         {!(tags.length === 0) && (
                           <div className="flex flex-wrap gap-1 self-start">
                             {tags?.map(({ name, _id }) => (
@@ -300,7 +300,7 @@ const Course = ({ currentStudent }: { currentStudent?: Student }) => {
                         <div>
                           <Button
                             size="xs"
-                            appearance="secondary-slate"
+                            appearance="link-slate"
                             endIcon={ArrowExternalLink01}
                             asChild
                           >
