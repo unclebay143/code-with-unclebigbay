@@ -14,15 +14,15 @@ import { useCallback } from 'react';
 import { toast } from 'sonner';
 
 type Props = {
-  title: String;
+  slug: String;
   isEnrolled: Boolean;
 };
 
-export const ShareButton = ({ title, isEnrolled }: Props) => {
-  const webUrl = `https://www.codewithunclebigbay.com/courses/${title}`;
+export const ShareButton = ({ slug, isEnrolled }: Props) => {
+  const courseUrl = `https://www.codewithunclebigbay.com/courses/${slug}`;
 
-  const enrolledMessage = `🎉 Just enrolled in an amazing course, '${title}', on CodeWithUnclebigbay! Can't wait to dive in and start learning.\nJoin me! ${webUrl} #codewithunclebigbay`;
-  const notEnrolledMessage = `📚 Excited to share this fantastic course, '${title}', I found on CodeWithUnclebigbay! It's packed with valuable insights and knowledge.\nCheck it out! ${webUrl} #codewithunclebigbay`;
+  const enrolledMessage = `🎉 Just enrolled in an amazing course, '${slug}', on CodeWithUnclebigbay! Can't wait to dive in and start learning.\nJoin me! ${courseUrl} #codewithunclebigbay`;
+  const notEnrolledMessage = `📚 Excited to share this fantastic course, '${slug}', I found on CodeWithUnclebigbay! It's packed with valuable insights and knowledge.\nCheck it out! ${courseUrl} #codewithunclebigbay`;
   const detailsToCopy = isEnrolled ? enrolledMessage : notEnrolledMessage;
 
   const handleCopy = useCallback(() => {
@@ -58,7 +58,7 @@ export const ShareButton = ({ title, isEnrolled }: Props) => {
           <DropdownMenuItemLink
             startIcon={Linkedin}
             text="LinkedIn"
-            href={`https://www.linkedin.com/sharing/share-offsite/?url=https://www.codewithunclebigbay.com/dashboard/courses/${title}`}
+            href={`https://www.linkedin.com/sharing/share-offsite/?url=https://www.codewithunclebigbay.com/dashboard/courses/${slug}`}
             target="_blank"
             rel="noopener"
           />
