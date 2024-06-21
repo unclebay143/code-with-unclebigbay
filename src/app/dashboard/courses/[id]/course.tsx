@@ -27,7 +27,6 @@ import { ShareButton } from '@/components/molecules/dashboard/share-button';
 
 const Course = ({ currentStudent }: { currentStudent?: Student }) => {
   const [showMore, setShowMore] = useState(false);
-  const [sidebarOpen, setSidebarOpen] = useState(false);
 
   const studentId = currentStudent?._id;
 
@@ -247,8 +246,8 @@ const Course = ({ currentStudent }: { currentStudent?: Student }) => {
 
                       <div className="flex justify-between">
                         <ShareButton
-                          setSidebarOpen={setSidebarOpen}
                           title={course.title}
+                          isEnrolled={isEnrolled}
                         />
                         {hasAssignment && (
                           <div>
