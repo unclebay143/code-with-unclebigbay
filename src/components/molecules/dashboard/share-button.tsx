@@ -4,6 +4,7 @@ import {
   DropdownMenuContent,
   DropdownMenuItemLink,
   DropdownMenuTrigger,
+  DropdownMenuItemButton,
   BrandXTwitter,
   Linkedin,
   Copy,
@@ -18,8 +19,7 @@ type Props = {
 };
 
 export const ShareButton = ({ title, isEnrolled }: Props) => {
-  const courseTitle = encodeURIComponent(title as string);
-  const webUrl = `https://www.codewithunclebigbay.com/courses/${courseTitle}`;
+  const webUrl = `https://www.codewithunclebigbay.com/courses/${title}`;
 
   const enrolledMessage = `🎉 Just enrolled in an amazing course, '${title}', on CodeWithUnclebigbay! Can't wait to dive in and start learning.\nJoin me! ${webUrl} #codewithunclebigbay`;
   const notEnrolledMessage = `📚 Excited to share this fantastic course, '${title}', I found on CodeWithUnclebigbay! It's packed with valuable insights and knowledge.\nCheck it out! ${webUrl} #codewithunclebigbay`;
@@ -44,19 +44,26 @@ export const ShareButton = ({ title, isEnrolled }: Props) => {
             startIcon={PhoneMobile}
             text="WhatsApp"
             href={`https://wa.me/?text=${encodeURIComponent(detailsToCopy)}`}
+            target="_blank"
+            rel="noopener"
           />
 
           <DropdownMenuItemLink
             startIcon={BrandXTwitter}
             text="Twitter(X)"
             href={`https://x.com/intent/tweet?text=${encodeURIComponent(detailsToCopy)}`}
+            target="_blank"
+            rel="noopener"
           />
           <DropdownMenuItemLink
             startIcon={Linkedin}
             text="LinkedIn"
-            href={`https://www.linkedin.com/shareArticle?mini=true&url=${webUrl}&title=${encodeURIComponent(detailsToCopy)}`}
+            href={`https://www.linkedin.com/sharing/share-offsite/?url=https://www.codewithunclebigbay.com/dashboard/courses/${title}`}
+            target="_blank"
+            rel="noopener"
           />
-          <DropdownMenuItemLink
+
+          <DropdownMenuItemButton
             startIcon={Copy}
             text="Copy Link"
             onClick={handleCopy}

@@ -246,8 +246,8 @@ const Course = ({ currentStudent }: { currentStudent?: Student }) => {
 
                       <div className="flex justify-between">
                         <ShareButton
-                          title={course.title}
-                          isEnrolled={isEnrolled}
+                          title={course.slug}
+                          isEnrolled={isEnrolled as boolean}
                         />
                         {hasAssignment && (
                           <div>
