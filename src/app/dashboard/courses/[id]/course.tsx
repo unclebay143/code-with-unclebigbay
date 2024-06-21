@@ -244,31 +244,34 @@ const Course = ({ currentStudent }: { currentStudent?: Student }) => {
                         </div>
                       )}
 
-                      <div className="flex justify-between">
+                      <div className="flex flex-col items-start gap-5 justify-between sm:flex-row sm:items-center">
                         <ShareButton
                           slug={course.slug}
                           isEnrolled={!!isEnrolled}
+                          title={course.title}
                         />
                         {hasAssignment && (
-                          <div>
+                          <>
                             {isEnrolled ? (
-                              <Button
-                                size="sm"
-                                appearance="primary-slate"
-                                asChild
-                              >
-                                <Link
-                                  href={
-                                    hasAttemptedAssignment
-                                      ? `${assignmentBaseUrl}/result`
-                                      : assignmentBaseUrl
-                                  }
+                              <>
+                                <Button
+                                  size="sm"
+                                  appearance="primary-slate"
+                                  asChild
                                 >
-                                  {hasAttemptedAssignment
-                                    ? 'View assignment score'
-                                    : 'Attempt assignment'}
-                                </Link>
-                              </Button>
+                                  <Link
+                                    href={
+                                      hasAttemptedAssignment
+                                        ? `${assignmentBaseUrl}/result`
+                                        : assignmentBaseUrl
+                                    }
+                                  >
+                                    {hasAttemptedAssignment
+                                      ? 'View assignment score'
+                                      : 'Attempt assignment'}
+                                  </Link>
+                                </Button>
+                              </>
                             ) : (
                               <Tooltip tooltip="Start course to attempt assignment">
                                 <Button
@@ -280,11 +283,11 @@ const Course = ({ currentStudent }: { currentStudent?: Student }) => {
                                 </Button>
                               </Tooltip>
                             )}
-                          </div>
+                          </>
                         )}
                       </div>
 
-                      <div className="flex flex-col-reverse sm:flex-row gap-5 w-full justify-between items-end">
+                      <div className="flex flex-col-reverse items-start sm:flex-row gap-5 w-full justify-between sm:items-end">
                         {!(tags.length === 0) && (
                           <div className="flex flex-wrap gap-1 self-start">
                             {tags?.map(({ name, _id }) => (
@@ -294,21 +297,27 @@ const Course = ({ currentStudent }: { currentStudent?: Student }) => {
                             ))}
                           </div>
                         )}
-
-                        <Button
-                          size="xs"
-                          appearance="secondary-slate"
-                          endIcon={ArrowExternalLink01}
-                          asChild
-                        >
-                          <Link
-                            href={`https://www.youtube.com/watch?v=${course?.ytVideoId}`}
-                            target="_blank"
-                            rel="noopener"
+                        <div>
+                          <Button
+                            size="xs"
+                            appearance="secondary-slate"
+                            endIcon={ArrowExternalLink01}
+                            asChild
                           >
-                            Like and comment on YouTube
-                          </Link>
-                        </Button>
+                            <Link
+                              href={`https://www.youtube.com/watch?v=${course?.ytVideoId}`}
+                              target="_blank"
+                              rel="noopener"
+                            >
+                              <span className="hidden sm:inline">
+                                Like and comment on YouTube
+                              </span>
+                              <span className="sm:hidden">
+                                Comment on YouTube
+                              </span>
+                            </Link>
+                          </Button>
+                        </div>
                       </div>
                     </div>
                   </div>

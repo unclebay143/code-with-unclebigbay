@@ -9,6 +9,7 @@ import {
   Linkedin,
   Copy,
   PhoneMobile,
+  Share,
 } from '@hashnode/matrix-ui';
 import { useCallback } from 'react';
 import { toast } from 'sonner';
@@ -16,13 +17,14 @@ import { toast } from 'sonner';
 type Props = {
   slug: String;
   isEnrolled: Boolean;
+  title: String;
 };
 
-export const ShareButton = ({ slug, isEnrolled }: Props) => {
+export const ShareButton = ({ title, slug, isEnrolled }: Props) => {
   const courseUrl = `https://www.codewithunclebigbay.com/courses/${slug}`;
 
-  const enrolledMessage = `🎉 Just enrolled in an amazing course, '${slug}', on CodeWithUnclebigbay! Can't wait to dive in and start learning.\nJoin me! ${courseUrl} #codewithunclebigbay`;
-  const notEnrolledMessage = `📚 Excited to share this fantastic course, '${slug}', I found on CodeWithUnclebigbay! It's packed with valuable insights and knowledge.\nCheck it out! ${courseUrl} #codewithunclebigbay`;
+  const enrolledMessage = `🎉 Just enrolled in an amazing course, '${title}', by @unclebigbay143 on CodeWithUnclebigbay! Can't wait to dive in and start learning.\nJoin me! ${courseUrl} #codewithunclebigbay`;
+  const notEnrolledMessage = `📚 Excited to share this fantastic course, '${title}' by @unclebigbay143, I found on CodeWithUnclebigbay! It's packed with valuable insights and knowledge.\nCheck it out! ${courseUrl} #codewithunclebigbay`;
   const detailsToCopy = isEnrolled ? enrolledMessage : notEnrolledMessage;
 
   const handleCopy = useCallback(() => {
@@ -34,11 +36,13 @@ export const ShareButton = ({ slug, isEnrolled }: Props) => {
   return (
     <section>
       <DropdownMenu>
-        <DropdownMenuTrigger asChild>
-          <Button size="sm" appearance="secondary-slate">
-            Share Course
-          </Button>
-        </DropdownMenuTrigger>
+        <div>
+          <DropdownMenuTrigger asChild>
+            <Button size="sm" appearance="secondary-slate" startIcon={Share}>
+              Share Course
+            </Button>
+          </DropdownMenuTrigger>
+        </div>
         <DropdownMenuContent hideWhenDetached sideOffset={8} align="start">
           <DropdownMenuItemLink
             startIcon={PhoneMobile}
