@@ -93,7 +93,7 @@ const Page = () => {
               color="neutral"
               icon={AlertTriangle}
               title="Screenshot Guidelines"
-              description="Please ensure your screenshot does not publicly display any answers."
+              description="Please ensure your screenshot does not publicly display any answers below."
               // description="Sharing assignment solutions online can compromise academic integrity for everyone.  When taking screenshots, please ensure solutions are not visible."
             />
             <WhiteArea border>
