@@ -42,19 +42,21 @@ const RenderNavItems = ({
 }) => {
   return (
     <>
-      {sidebarLinks.map(({ key, label, Icon, slug }) => {
-        const isCurrentPage = currentPageName === key.toLowerCase();
+      {sidebarLinks
+        .filter((sl) => sl.key !== 'hackathons' && sl.key !== 'leaderboard')
+        .map(({ key, label, Icon, slug }) => {
+          const isCurrentPage = currentPageName === key.toLowerCase();
 
-        return (
-          <SidebarLink
-            key={`sidebar-link-${key}`}
-            label={label}
-            Icon={Icon}
-            slug={slug}
-            isActive={isCurrentPage}
-          />
-        );
-      })}
+          return (
+            <SidebarLink
+              key={`sidebar-link-${key}`}
+              label={label}
+              Icon={Icon}
+              slug={slug}
+              isActive={isCurrentPage}
+            />
+          );
+        })}
     </>
   );
 };
