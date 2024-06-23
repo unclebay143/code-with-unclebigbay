@@ -3,7 +3,14 @@
 import React from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { ArrowLeft, Badge, Button, Spinner } from '@hashnode/matrix-ui';
+import {
+  ArrowLeft,
+  Badge,
+  Banner,
+  Button,
+  Spinner,
+  AlertTriangle,
+} from '@hashnode/matrix-ui';
 import { DashboardSubheading } from '@/components/molecules/dashboard/dashboard-subheading';
 import { WhiteArea } from '@/components/molecules/dashboard/white-area';
 
@@ -62,6 +69,7 @@ const Page = () => {
                 </Button>
                 <DashboardSubheading title={`Assignment: ${courseTitle}`} />
               </div>
+
               <div className="flex text-slate-600">
                 <div className="text-sm flex gap-1 items-center">
                   <span className="font-medium"> Status: </span>
@@ -80,6 +88,14 @@ const Page = () => {
                 </div>
               </div>
             </div>
+            <Banner
+              isFullWidth
+              color="neutral"
+              icon={AlertTriangle}
+              title="Screenshot Guidelines"
+              description="Please ensure your screenshot does not publicly display any answers."
+              // description="Sharing assignment solutions online can compromise academic integrity for everyone.  When taking screenshots, please ensure solutions are not visible."
+            />
             <WhiteArea border>
               <div className="list-decimal list-inside">
                 {response?.map((question: any, index: number) => {
