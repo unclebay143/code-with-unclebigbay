@@ -58,7 +58,7 @@ const Course = ({ currentStudent }: { currentStudent?: Student }) => {
     setShowMore((prevVisibility) => !prevVisibility);
   };
 
-  const courseNotFound = !course;
+  const showCourseNotFound = !isFetching && !course;
   const showCourse = (isRefetching && !!course) || (!isFetching && !!course);
   const tags = course?.tags as Tags;
 
@@ -73,7 +73,7 @@ const Course = ({ currentStudent }: { currentStudent?: Student }) => {
 
   return (
     <>
-      {courseNotFound ? (
+      {showCourseNotFound ? (
         <EmptyStateContainer>
           <EmptyState
             icon={BookDocument}
