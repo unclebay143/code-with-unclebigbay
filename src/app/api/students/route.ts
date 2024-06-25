@@ -11,7 +11,7 @@ const GET = async () => {
       fullName: { $exists: true, $ne: null }, // exclude students without name from GH
     })
       .select('username fullName photo stack socials')
-      .limit(40)
+      .limit(50)
       .lean()
       .exec();
 
