@@ -8,6 +8,7 @@ const hackathonSchema = new Schema(
     hashTag: { type: String, required: true, unique: true, index: true },
     title: { type: String, required: true, unique: true },
     name: { type: String, required: true, unique: true },
+    description: { type: String, required: true },
     brief: { type: String },
     slug: { type: String, required: true, unique: true, index: true },
     startDate: { type: String, required: true },
