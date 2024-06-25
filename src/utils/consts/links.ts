@@ -101,11 +101,10 @@ const tags: SidebarLink = {
 };
 
 export const onboardingLinks: SidebarLinks = [onboarding, helpCenter];
-// Final => [courses, hackathons, leaderboard, helpCenter]
 export const publicLinks: SidebarLinks = [
   courses,
-  hackathons,
-  leaderboard,
+  // hackathons,
+  // leaderboard,
   helpCenter,
 ]; // unauthenticated users
 
