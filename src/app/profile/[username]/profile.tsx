@@ -120,7 +120,7 @@ export const Profile = ({ student, canUpdateProfile }: ProfileProps) => {
             </div>
           </div>
           <div className="flex flex-col gap-3 items-end">
-            {!student.isAnonymous && totalPoint && (
+            {(canUpdateProfile || !student.isAnonymous) && totalPoint && (
               <h3 className="font-medium text-slate-600">
                 <span className="font-semibold">Total Points: </span>
                 <span>{totalPoint}</span>
