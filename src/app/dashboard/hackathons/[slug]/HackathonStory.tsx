@@ -27,6 +27,7 @@ import { handleAuthentication } from '@/utils/auth';
 import dayjs from 'dayjs';
 import { HackathonFaqs } from './HackathonFaq';
 import { hasHackathonEnded } from '@/utils';
+import { baseURL } from '../../../../../frontend.config';
 
 type HackathonStoryProps = {
   hackathon: Hackathon;
@@ -59,7 +60,7 @@ export const HackathonStory = ({
     resources,
   } = hackathon;
 
-  const hackathonUrl = typeof window !== 'undefined' && window.location.href;
+  const hackathonUrl = `${baseURL}/hackathons/${slug}`;
 
   const { data: currentStudent } = useCurrentStudent();
   const [hasSubmittedEntry, setHasSubmittedEntry] = useState(hasSubmitted);
@@ -116,7 +117,7 @@ export const HackathonStory = ({
             ${hackathonUrl}&text=I'm excited to publicly announce that I'm participating in the ${name}! %0A%0AJoin in this creative problem-solving. This is going to be epic!`;
   return (
     <WhiteArea border>
-      <div className="flex items-center justify-between mb-5">
+      <div className="flex items-center justify-between mb-5 lg:hidden">
         <Button
           size="xs"
           appearance="secondary-slate"
