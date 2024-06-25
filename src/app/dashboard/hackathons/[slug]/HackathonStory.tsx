@@ -363,7 +363,7 @@ export const HackathonStory = ({
             <div className="flex flex-wrap gap-5">
               {sponsors.map(({ _id, name, photo, link }) => (
                 <a key={_id} href={link} target="_blank" rel="noopener">
-                  <Avatar size="4xl">
+                  <Avatar size="4xl" title={name}>
                     <Image src={photo} alt={name} fill />
                   </Avatar>
                 </a>
