@@ -224,7 +224,9 @@ export const HackathonStory = ({
                   <li className="mb-3" key={`howToParticipate-${label}`}>
                     <div className="flex">
                       <Button appearance="link" asChild>
-                        <Link href={url}>{label}</Link>
+                        <Link href={url} target="_blank" rel="noopener">
+                          {label}
+                        </Link>
                       </Button>
                     </div>
                   </li>
@@ -248,7 +250,7 @@ export const HackathonStory = ({
                         <Image src={photo} alt="" fill />
                       </div>
                     </div>
-                    <a href={socialLink} target="_blank" className="">
+                    <a href={socialLink} target="_blank" rel="noopener">
                       <p className="text-lg font-semibold text-black">{name}</p>
                       <p className="text-slate-500">{title}</p>
                     </a>
@@ -450,6 +452,7 @@ export const HackathonStory = ({
         <a
           href={socialShare}
           target="_blank"
+          rel="noopener"
           className="hover:text-slate-600 text-sm text-center text-slate-500 flex items-center gap-1 justify-center"
         >
           <BrandXTwitter size="sm" />
@@ -459,6 +462,7 @@ export const HackathonStory = ({
         <a
           href="https://www.youtube.com/@unclebigbay"
           target="_blank"
+          rel="noopener"
           className="hover:text-slate-600 text-sm text-center text-slate-500 flex items-center gap-1 justify-center"
         >
           <BrandYoutube size="sm" />
