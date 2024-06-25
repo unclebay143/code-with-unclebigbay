@@ -280,7 +280,7 @@ export const HackathonStory = ({
               <ul className={uLStyle}>
                 {schedules.map(({ heading, date }) => (
                   <li className="mb-3" key={`judgingCriteria-${heading}`}>
-                    <div className="flex items-center gap-1">
+                    <div className="flex flex-col md:flex-row md:items-center gap-1">
                       <span className="text-slate-600 font-semibold">
                         {heading}:
                       </span>
