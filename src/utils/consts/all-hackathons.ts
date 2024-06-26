@@ -6,7 +6,7 @@ export const allHackathons = [
       'https://cdn.hashnode.com/res/hashnode/image/upload/v1677222800340/7FWlpF0aT.jpeg',
     title:
       'Build a Landing Page, Boost Visibility && create your first web pages for businesses.  the building block of the web',
-    about:
+    description:
       'Learn the fundamentals of HTML, the building block of the web, and create your first web pages.the building block of the web',
     coverimage:
       'https://cdn.hashnode.com/res/hashnode/image/upload/v1719374595684/f7b4f66a-f606-4d9b-a3b4-410cdee76806.png',
@@ -18,7 +18,7 @@ export const allHackathons = [
       'https://cdn.hashnode.com/res/hashnode/image/upload/v1677222800340/7FWlpF0aT.jpeg',
     title:
       'Build a Landing Page, Boost Visibility && create your first web pages for businesses',
-    about:
+    description:
       'Dive into CSS and learn how to style your web pages to make them visually appealing.',
     coverimage:
       'https://cdn.hashnode.com/res/hashnode/image/upload/v1719317574659/2c66b4f7-b94a-4c24-8bef-6f51d3d35e69.png',
@@ -30,7 +30,7 @@ export const allHackathons = [
       'https://cdn.hashnode.com/res/hashnode/image/upload/v1677222800340/7FWlpF0aT.jpeg',
     title:
       'Build a Landing Page, Boost Visibility && create your first web pages for businesses. the building block of the web',
-    about:
+    description:
       'Master JavaScript basics and add interactivity to your websites with dynamic scripting.',
     coverimage:
       'https://cdn.hashnode.com/res/hashnode/image/upload/v1719374595684/f7b4f66a-f606-4d9b-a3b4-410cdee76806.png',
@@ -42,7 +42,7 @@ export const allHackathons = [
       'https://cdn.hashnode.com/res/hashnode/image/upload/v1677222800340/7FWlpF0aT.jpeg',
     title:
       'Build a Landing Page, Boost Visibility && create your first web pages for businesses',
-    about:
+    description:
       'Master the modern utility-first CSS framework and streamline your web development workflow.',
     coverimage:
       'https://cdn.hashnode.com/res/hashnode/image/upload/v1719317574659/2c66b4f7-b94a-4c24-8bef-6f51d3d35e69.png',
@@ -54,7 +54,7 @@ export const allHackathons = [
       'https://cdn.hashnode.com/res/hashnode/image/upload/v1677222800340/7FWlpF0aT.jpeg',
     title:
       'Build a Landing Page, Boost Visibility && create your first web pages for businesses',
-    about:
+    description:
       'Discover React, a popular JavaScript library for building user interfaces, and create dynamic web applications.',
     coverimage:
       'https://cdn.hashnode.com/res/hashnode/image/upload/v1719374595684/f7b4f66a-f606-4d9b-a3b4-410cdee76806.png',
@@ -66,7 +66,7 @@ export const allHackathons = [
       'https://cdn.hashnode.com/res/hashnode/image/upload/v1677222800340/7FWlpF0aT.jpeg',
     title:
       'Build a Landing Page, Boost Visibility && create your first web pages for businesses',
-    about:
+    description:
       'Explore Next.js, a powerful React framework for building server-side rendered web applications.',
     coverimage:
       'https://cdn.hashnode.com/res/hashnode/image/upload/v1719317574659/2c66b4f7-b94a-4c24-8bef-6f51d3d35e69.png',
@@ -78,7 +78,7 @@ export const allHackathons = [
       'https://cdn.hashnode.com/res/hashnode/image/upload/v1677222800340/7FWlpF0aT.jpeg',
     title:
       'Build a Landing Page, Boost Visibility && create your first web pages for businesses',
-    about:
+    description:
       'Learn the fundamentals of HTML, the building block of the web, and create your first web pages.',
     coverimage:
       'https://cdn.hashnode.com/res/hashnode/image/upload/v1719374595684/f7b4f66a-f606-4d9b-a3b4-410cdee76806.png',
@@ -90,7 +90,7 @@ export const allHackathons = [
       'https://cdn.hashnode.com/res/hashnode/image/upload/v1677222800340/7FWlpF0aT.jpeg',
     title:
       'Build a Landing Page, Boost Visibility && create your first web pages for businesses',
-    about:
+    description:
       'Dive into CSS and learn how to style your web pages to make them visually appealing.',
     coverimage:
       'https://cdn.hashnode.com/res/hashnode/image/upload/v1719317574659/2c66b4f7-b94a-4c24-8bef-6f51d3d35e69.png',
@@ -102,7 +102,7 @@ export const allHackathons = [
       'https://cdn.hashnode.com/res/hashnode/image/upload/v1677222800340/7FWlpF0aT.jpeg',
     title:
       'Build a Landing Page, Boost Visibility && create your first web pages for businesses',
-    about:
+    description:
       'Learn the fundamentals of HTML, the building block of the web, and create your first web pages.',
     coverimage:
       'https://cdn.hashnode.com/res/hashnode/image/upload/v1719374595684/f7b4f66a-f606-4d9b-a3b4-410cdee76806.png',
@@ -114,7 +114,7 @@ export const allHackathons = [
       'https://cdn.hashnode.com/res/hashnode/image/upload/v1677222800340/7FWlpF0aT.jpeg',
     title:
       'Build a Landing Page, Boost Visibility && create your first web pages for businesses',
-    about:
+    description:
       'Dive into CSS and learn how to style your web pages to make them visually appealing.',
     coverimage:
       'https://cdn.hashnode.com/res/hashnode/image/upload/v1719317574659/2c66b4f7-b94a-4c24-8bef-6f51d3d35e69.png',
@@ -126,7 +126,7 @@ export const allHackathons = [
       'https://cdn.hashnode.com/res/hashnode/image/upload/v1677222800340/7FWlpF0aT.jpeg',
     title:
       'Build a Landing Page, Boost Visibility && create your first web pages for businesses',
-    about:
+    description:
       'Learn the fundamentals of HTML, the building block of the web, and create your first web pages.the building block of the web',
     coverimage:
       'https://cdn.hashnode.com/res/hashnode/image/upload/v1719374595684/f7b4f66a-f606-4d9b-a3b4-410cdee76806.png',
@@ -138,7 +138,7 @@ export const allHackathons = [
       'https://cdn.hashnode.com/res/hashnode/image/upload/v1677222800340/7FWlpF0aT.jpeg',
     title:
       'Build a Landing Page, Boost Visibility && create your first web pages for businesses',
-    about:
+    description:
       'Dive into CSS and learn how to style your web pages to make them visually appealing.',
     coverimage:
       'https://cdn.hashnode.com/res/hashnode/image/upload/v1719317574659/2c66b4f7-b94a-4c24-8bef-6f51d3d35e69.png',
@@ -150,7 +150,7 @@ export const allHackathons = [
       'https://cdn.hashnode.com/res/hashnode/image/upload/v1677222800340/7FWlpF0aT.jpeg',
     title:
       'Build a Landing Page, Boost Visibility && create your first web pages for businesses',
-    about:
+    description:
       'Learn the fundamentals of HTML, the building block of the web, and create your first web pages. the building block of the web',
     coverimage:
       'https://cdn.hashnode.com/res/hashnode/image/upload/v1719374595684/f7b4f66a-f606-4d9b-a3b4-410cdee76806.png',
@@ -162,7 +162,7 @@ export const allHackathons = [
       'https://cdn.hashnode.com/res/hashnode/image/upload/v1677222800340/7FWlpF0aT.jpeg',
     title:
       'Build a Landing Page, Boost Visibility && create your first web pages for businesses',
-    about:
+    description:
       'Dive into CSS and learn how to style your web pages to make them visually appealing.',
     coverimage:
       'https://cdn.hashnode.com/res/hashnode/image/upload/v1719317574659/2c66b4f7-b94a-4c24-8bef-6f51d3d35e69.png',
@@ -174,7 +174,7 @@ export const allHackathons = [
       'https://cdn.hashnode.com/res/hashnode/image/upload/v1677222800340/7FWlpF0aT.jpeg',
     title:
       'Build a Landing Page, Boost Visibility && create your first web pages for businesses',
-    about:
+    description:
       'Learn the fundamentals of HTML, the building block of the web, and create your first web pages. the building block of the web',
     coverimage:
       'https://cdn.hashnode.com/res/hashnode/image/upload/v1719374595684/f7b4f66a-f606-4d9b-a3b4-410cdee76806.png',
@@ -186,7 +186,7 @@ export const allHackathons = [
       'https://cdn.hashnode.com/res/hashnode/image/upload/v1677222800340/7FWlpF0aT.jpeg',
     title:
       'Build a Landing Page, Boost Visibility && create your first web pages for businesses',
-    about:
+    description:
       'Dive into CSS and learn how to style your web pages to make them visually appealing.',
     coverimage:
       'https://cdn.hashnode.com/res/hashnode/image/upload/v1719317574659/2c66b4f7-b94a-4c24-8bef-6f51d3d35e69.png',
@@ -198,7 +198,7 @@ export const allHackathons = [
       'https://cdn.hashnode.com/res/hashnode/image/upload/v1677222800340/7FWlpF0aT.jpeg',
     title:
       'Build a Landing Page, Boost Visibility && create your first web pages for businesses',
-    about:
+    description:
       'Learn the fundamentals of HTML, the building block of the web, and create your first web pages.',
     coverimage:
       'https://cdn.hashnode.com/res/hashnode/image/upload/v1719374595684/f7b4f66a-f606-4d9b-a3b4-410cdee76806.png',
@@ -210,7 +210,7 @@ export const allHackathons = [
       'https://cdn.hashnode.com/res/hashnode/image/upload/v1677222800340/7FWlpF0aT.jpeg',
     title:
       'Build a Landing Page, Boost Visibility && create your first web pages for businesses',
-    about:
+    description:
       'Dive into CSS and learn how to style your web pages to make them visually appealing.',
     coverimage:
       'https://cdn.hashnode.com/res/hashnode/image/upload/v1719317574659/2c66b4f7-b94a-4c24-8bef-6f51d3d35e69.png',
@@ -222,7 +222,7 @@ export const allHackathons = [
       'https://cdn.hashnode.com/res/hashnode/image/upload/v1677222800340/7FWlpF0aT.jpeg',
     title:
       'Build a Landing Page, Boost Visibility && create your first web pages for businesses',
-    about:
+    description:
       'Learn the fundamentals of HTML, the building block of the web, and create your first web pages. the building block of the web',
     coverimage:
       'https://cdn.hashnode.com/res/hashnode/image/upload/v1719374595684/f7b4f66a-f606-4d9b-a3b4-410cdee76806.png',
@@ -234,7 +234,7 @@ export const allHackathons = [
       'https://cdn.hashnode.com/res/hashnode/image/upload/v1677222800340/7FWlpF0aT.jpeg',
     title:
       'Build a Landing Page, Boost Visibility && create your first web pages for businesses',
-    about:
+    description:
       'Dive into CSS and learn how to style your web pages to make them visually appealing.',
     coverimage:
       'https://cdn.hashnode.com/res/hashnode/image/upload/v1719317574659/2c66b4f7-b94a-4c24-8bef-6f51d3d35e69.png',

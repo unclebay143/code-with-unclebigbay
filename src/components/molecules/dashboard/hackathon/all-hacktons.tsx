@@ -2,6 +2,7 @@ import { allHackathons } from '@/utils/consts/all-hackathons';
 import { useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
+import './style.css';
 
 export default function AllHackathons() {
   const [hackathons, setHackathons] = useState(allHackathons);
@@ -13,7 +14,7 @@ export default function AllHackathons() {
           hackathons.map((hackathon, index) => (
             <section
               key={index}
-              className="flex flex-col  gap-3 border border-slate-200 rounded-md hover:border-slate-400  w-[300px] h-[300px] odd:bg-[#FFF] even:bg-slate-50 pb-6"
+              className="flex flex-col  gap-3 border border-slate-200 rounded-md hover:border-slate-400  w-[300px] h-[350px] odd:bg-[#FFF] even:bg-slate-50 pb-6"
             >
               <Link
                 href={`/dashboard/hackathons/hackathon-name/submissions/${index}`}
@@ -28,8 +29,15 @@ export default function AllHackathons() {
                   className="rounded-t-md h-full w-full"
                 />
               </Link>
-              <div className="flex flex-col gap-5 p-5 ">
-                <p className="text-slate-600 text-sm ">{hackathon.title}</p>
+              <div className="flex flex-col gap-5 p-2 ">
+                <div className="flex flex-col gap-3">
+                  <h1 className="text-slate-800 text-md truncate-two-lines font-medium">
+                    {hackathon.title}
+                  </h1>
+                  <p className="text-slate-400 text-sm truncate-three-lines ">
+                    {hackathon.description}
+                  </p>
+                </div>
                 <section className="flex justify-between items-center">
                   <div className="flex gap-2 items-center text-slate-500 text-xs">
                     <p>By</p>
