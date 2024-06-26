@@ -13,7 +13,7 @@ export default function AllHackathons() {
           hackathons.map((hackathon, index) => (
             <section
               key={index}
-              className="flex flex-col  gap-5 border border-slate-200 rounded-md hover:border-slate-400  w-[300px] h-[280px] odd:bg-[#FFF] even:bg-slate-50"
+              className="flex flex-col  gap-3 border border-slate-200 rounded-md hover:border-slate-400  w-[300px] h-[300px] odd:bg-[#FFF] even:bg-slate-50 pb-6"
             >
               <Link
                 href={`/dashboard/hackathons/hackathon-name/submissions/${index}`}
@@ -28,24 +28,21 @@ export default function AllHackathons() {
                   className="rounded-t-md h-full w-full"
                 />
               </Link>
-              <div className="flex flex-col gap-5 p-2 ">
+              <div className="flex flex-col gap-5 p-5 ">
                 <p className="text-slate-600 text-sm ">{hackathon.title}</p>
                 <section className="flex justify-between items-center">
-                  <div className="flex gap-2 items-center ">
-                    <div className="h-8 w-8 overflow-hidden rounded-full hover:opacity-90">
+                  <div className="flex gap-2 items-center text-slate-500 text-xs">
+                    <p>By</p>
+                    <div className="h-7 w-7 overflow-hidden rounded-full hover:opacity-90">
                       <Image
                         src={hackathon.profileimage}
                         alt={hackathon.name}
-                        width={100}
-                        height={100}
+                        width={90}
+                        height={90}
                         priority
                       />
                     </div>
-                    <p className="text-slate-500 text-sm">
-                      {' '}
-                      <span>By </span>
-                      {hackathon.name}
-                    </p>
+                    <p> {hackathon.name}</p>
                   </div>
                   <a
                     target="_blank"
