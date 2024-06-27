@@ -25,37 +25,35 @@ const CoursesPage = ({
     : 'Login to see only personalized courses based on your stack.';
 
   return (
-    <div className="flex flex-col gap-3">
-      <WhiteArea border>
-        <div className="flex flex-col gap-5">
-          {isAdmin && (
-            <div className="flex justify-start">
-              <Button size="xs" appearance="primary-slate" asChild>
-                <Link href="/dashboard/admin/courses/new">New course</Link>
-              </Button>
-            </div>
-          )}
-          <div className="flex items-center justify-between">
-            <div className="w-full flex items-end justify-center">
-              <div className="w-full flex flex-col gap-1">
-                <DashboardSubheading
-                  title={`Available Courses ${showCount(courseCount)}`}
-                />
-                <span className="text-sm text-slate-600">{copy}</span>
-              </div>
+    <WhiteArea border>
+      <div className="flex flex-col gap-5">
+        {isAdmin && (
+          <div className="flex justify-start">
+            <Button size="xs" appearance="primary-slate" asChild>
+              <Link href="/dashboard/admin/courses/new">New course</Link>
+            </Button>
+          </div>
+        )}
+        <div className="flex items-center justify-between">
+          <div className="w-full flex items-end justify-center">
+            <div className="w-full flex flex-col gap-1">
+              <DashboardSubheading
+                title={`Available Courses ${showCount(courseCount)}`}
+              />
+              <span className="text-sm text-slate-600">{copy}</span>
             </div>
           </div>
-
-          <Courses
-            courses={courses}
-            setCourseCount={setCourseCount}
-            loaderCounter={6}
-            hideSearchOptions
-            hideReachedEnd
-          />
         </div>
-      </WhiteArea>
-    </div>
+
+        <Courses
+          courses={courses}
+          setCourseCount={setCourseCount}
+          loaderCounter={6}
+          hideSearchOptions
+          hideReachedEnd
+        />
+      </div>
+    </WhiteArea>
   );
 };
 

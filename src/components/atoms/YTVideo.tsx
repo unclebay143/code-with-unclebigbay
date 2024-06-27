@@ -2,9 +2,17 @@
 
 import { Spinner } from '@hashnode/matrix-ui';
 
-export function YTVideo({ ytVideoId }: { ytVideoId: string }) {
+export function YTVideo({
+  ytVideoId,
+  removeRounded,
+}: {
+  ytVideoId: string;
+  removeRounded?: boolean;
+}) {
   return (
-    <div className="relative border-transparent bg-slate-50 aspect-video overflow-hidden rounded-lg">
+    <div
+      className={`relative border-transparent bg-slate-50 aspect-video overflow-hidden ${removeRounded ? '' : 'rounded-lg'}`}
+    >
       <div className="absolute inset-0 flex justify-center items-center">
         <span className="animate-spin">
           <Spinner />

@@ -1,8 +1,20 @@
+'use client';
+
 import { allHackathons } from '@/utils/consts/all-hackathons';
 import { useState } from 'react';
-import Image from 'next/image';
 import Link from 'next/link';
 import './style.css';
+import {
+  ArrowExternalLink01,
+  ArrowLeft,
+  Avatar,
+  Badge,
+  Button,
+  IconButton,
+} from '@hashnode/matrix-ui';
+import Image from 'next/image';
+import { YTVideo } from '@/components/atoms/YTVideo';
+import { DashboardSubheading } from '../dashboard-subheading';
 
 interface HackathonType {
   id: number;
@@ -16,75 +28,56 @@ export default function AllHackathons() {
   const [hackathons, setHackathons] = useState<HackathonType[]>(allHackathons);
 
   return (
-    <section>
-      <div className="grid grid-cols-3 gap-4 justify-start items-start mt-3">
+    <section className="flex flex-col gap-5">
+      <div className="flex flex-col items-start gap-4 justify-between md:flex-row-reverse md:items-center">
+        <Button
+          size="xs"
+          appearance="secondary-slate"
+          startIcon={ArrowLeft}
+          asChild
+        >
+          <Link href="/dashboard/courses">Back to hackathon</Link>
+        </Button>
+        <DashboardSubheading title="Project Submissions for 'Build for Business Hackathon'" />
+      </div>
+      <div className="grid grid-cols-3 gap-4 justify-start">
         {hackathons && hackathons.length > 0 ? (
           hackathons.map(
             ({ id, name, title, description, coverImage, profileImage }) => (
-              <section
+              <Link
                 key={id}
-                className="flex flex-col  gap-3 border border-slate-200 rounded-md hover:border-slate-400  w-[300px] h-[350px] odd:bg-[#FFF] even:bg-slate-50 pb-6"
+                href={`/dashboard/hackathons/hackathon-name/submissions/${id}`}
+                className="border rounded-xl overflow-hidden transition-colors duration-200 ease-in-out hover:border-slate-300"
               >
-                <Link
-                  href={`/dashboard/hackathons/hackathon-name/submissions/${id}`}
-                  className="h-32 w-full overflow-hidden cursor-pointer "
-                >
-                  <Image
-                    src={coverImage}
-                    alt={name}
-                    width={500}
-                    height={500}
-                    priority
-                    className="rounded-t-md h-full w-full"
-                  />
-                </Link>
-                <div className="flex flex-col gap-5 p-2 ">
+                <div className="relative">
+                  <YTVideo ytVideoId="4wblm-X0rEc" removeRounded />
+                  <div className="absolute z-10 inset-0 w-full h-full" />
+                </div>
+                <div className="flex flex-col gap-5 p-4 pb-[14px]">
                   <div className="flex flex-col gap-3">
-                    <h1 className="text-slate-800 text-md truncate-two-lines font-medium">
+                    <h1 className="text-gray-700 text-md truncate-two-lines font-medium">
                       {title}
                     </h1>
-                    <p className="text-slate-400 text-sm truncate-three-lines ">
+                    <p className="text-slate-500 text-sm truncate-three-lines ">
                       {description}
                     </p>
                   </div>
-                  <section className="flex justify-between items-center">
-                    <div className="flex gap-2 items-center text-slate-500 text-xs">
-                      <p>By</p>
-                      <div className="h-7 w-7 overflow-hidden rounded-full hover:opacity-90">
-                        <Image
-                          src={profileImage}
-                          alt={name}
-                          width={90}
-                          height={90}
-                          priority
-                        />
-                      </div>
-                      <p> {name}</p>
+                  <div className="flex flex-col gap-1">
+                    <div className="flex items-center text-slate-500 text-xs">
+                      <p>by</p>&nbsp;
+                      <p className="truncate max-w-[200px]">{name}</p>
                     </div>
-                    <a
-                      target="_blank"
-                      rel="noopener"
-                      href="https://dub.sh/LJOPAON"
-                      className="text-slate-400 flex justify-end cursor-pointer hover:text-slate-600 px-2"
-                    >
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        stroke-width="1.5"
-                        stroke="currentColor"
-                        className="size-5"
-                      >
-                        <path
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                          d="M13.5 6H5.25A2.25 2.25 0 0 0 3 8.25v10.5A2.25 2.25 0 0 0 5.25 21h10.5A2.25 2.25 0 0 0 18 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25"
-                        />
-                      </svg>
-                    </a>
-                  </section>
+                    <div className="flex items-end justify-between">
+                      <Badge theme="slate" size="xs">
+                        <span className="truncate max-w-[150px] xl:max-w-[200px]">
+                          Build for Business Hackathon
+                        </span>
+                      </Badge>
+                      <IconButton Icon={ArrowExternalLink01} size="xs" />
+                    </div>
+                  </div>
                 </div>
-              </section>
+              </Link>
             ),
           )
         ) : (
