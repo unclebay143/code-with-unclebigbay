@@ -1,4 +1,4 @@
-export type ProjectDetails = {
+export type HackathonProjectDetails = {
   name: string;
   url: string;
   demoUrl: string;
@@ -7,18 +7,15 @@ export type ProjectDetails = {
   socialUrl: string;
 };
 
-export type DisplayHackathons = {
+export type SubmittedHackathonsDetails = {
   id: number;
   name: string;
-  title: string;
   description: string;
-  profileImage: string;
-  project: ProjectDetails;
-  feedback: string;
+  project: HackathonProjectDetails;
 };
 
-export type DisplayAllHackathons = DisplayHackathons[];
-export const displayAllHackathons: DisplayAllHackathons = [
+export type SubmittedHacktons = SubmittedHackathonsDetails[];
+export const submittedHackathons: SubmittedHacktons = [
   {
     id: 1,
     name: 'Idris Haruna',
@@ -30,14 +27,8 @@ export const displayAllHackathons: DisplayAllHackathons = [
       repositoryUrl: 'https://repository-url.com',
       socialUrl: 'https://social-url.com',
     },
-    profileImage:
-      'https://cdn.hashnode.com/res/hashnode/image/upload/v1677222800340/7FWlpF0aT.jpeg',
-    title:
-      'Build a Landing Page, Boost Visibility && create your first web pages for businesses.  the building block of the web',
     description:
       'Learn the fundamentals of HTML, the building block of the web, and create your first web pages.the building block of the web',
-    feedback:
-      'This hackathon was an amazing experience! The organization, support, and community were top-notch.',
   },
   {
     id: 2,
@@ -50,15 +41,8 @@ export const displayAllHackathons: DisplayAllHackathons = [
       repositoryUrl: 'https://repository-url.com',
       socialUrl: 'https://social-url.com',
     },
-    profileImage:
-      'https://cdn.hashnode.com/res/hashnode/image/upload/v1677222800340/7FWlpF0aT.jpeg',
-    title:
-      'Build a Landing Page, Boost Visibility && create your first web pages for businesses',
     description:
-      'Dive into CSS and learn how to style your web pages to make them visually appealing.',
-
-    feedback:
-      'This hackathon was an amazing experience! The organization, support, and community were top-notch.',
+      'Learn the fundamentals of HTML, the building block of the web, and create your first web pages.the building block of the web',
   },
   {
     id: 3,
@@ -71,15 +55,8 @@ export const displayAllHackathons: DisplayAllHackathons = [
       repositoryUrl: 'https://repository-url.com',
       socialUrl: 'https://social-url.com',
     },
-    profileImage:
-      'https://cdn.hashnode.com/res/hashnode/image/upload/v1677222800340/7FWlpF0aT.jpeg',
-    title:
-      'Build a Landing Page, Boost Visibility && create your first web pages for businesses. the building block of the web',
     description:
       'Master JavaScript basics and add interactivity to your websites with dynamic scripting.',
-
-    feedback:
-      'This hackathon was an amazing experience! The organization, support, and community were top-notch.',
   },
   {
     id: 4,
@@ -92,15 +69,8 @@ export const displayAllHackathons: DisplayAllHackathons = [
       repositoryUrl: 'https://repository-url.com',
       socialUrl: 'https://social-url.com',
     },
-    profileImage:
-      'https://cdn.hashnode.com/res/hashnode/image/upload/v1677222800340/7FWlpF0aT.jpeg',
-    title:
-      'Build a Landing Page, Boost Visibility && create your first web pages for businesses',
     description:
       'Master the modern utility-first CSS framework and streamline your web development workflow.',
-
-    feedback:
-      'This hackathon was an amazing experience! The organization, support, and community were top-notch.',
   },
   {
     id: 5,
@@ -113,15 +83,8 @@ export const displayAllHackathons: DisplayAllHackathons = [
       repositoryUrl: 'https://repository-url.com',
       socialUrl: 'https://social-url.com',
     },
-    profileImage:
-      'https://cdn.hashnode.com/res/hashnode/image/upload/v1677222800340/7FWlpF0aT.jpeg',
-    title:
-      'Build a Landing Page, Boost Visibility && create your first web pages for businesses',
     description:
       'Discover React, a popular JavaScript library for building user interfaces, and create dynamic web applications.',
-
-    feedback:
-      'This hackathon was an amazing experience! The organization, support, and community were top-notch.',
   },
   {
     id: 6,
@@ -134,15 +97,8 @@ export const displayAllHackathons: DisplayAllHackathons = [
       repositoryUrl: 'https://repository-url.com',
       socialUrl: 'https://social-url.com',
     },
-    profileImage:
-      'https://cdn.hashnode.com/res/hashnode/image/upload/v1677222800340/7FWlpF0aT.jpeg',
-    title:
-      'Build a Landing Page, Boost Visibility && create your first web pages for businesses',
     description:
       'Explore Next.js, a powerful React framework for building server-side rendered web applications.',
-
-    feedback:
-      'This hackathon was an amazing experience! The organization, support, and community were top-notch.',
   },
   {
     id: 7,
@@ -155,15 +111,8 @@ export const displayAllHackathons: DisplayAllHackathons = [
       repositoryUrl: 'https://repository-url.com',
       socialUrl: 'https://social-url.com',
     },
-    profileImage:
-      'https://cdn.hashnode.com/res/hashnode/image/upload/v1677222800340/7FWlpF0aT.jpeg',
-    title:
-      'Build a Landing Page, Boost Visibility && create your first web pages for businesses',
     description:
       'Learn the fundamentals of HTML, the building block of the web, and create your first web pages.',
-
-    feedback:
-      'This hackathon was an amazing experience! The organization, support, and community were top-notch.',
   },
   {
     id: 8,
@@ -176,15 +125,8 @@ export const displayAllHackathons: DisplayAllHackathons = [
       repositoryUrl: 'https://repository-url.com',
       socialUrl: 'https://social-url.com',
     },
-    profileImage:
-      'https://cdn.hashnode.com/res/hashnode/image/upload/v1677222800340/7FWlpF0aT.jpeg',
-    title:
-      'Build a Landing Page, Boost Visibility && create your first web pages for businesses',
     description:
       'Dive into CSS and learn how to style your web pages to make them visually appealing.',
-
-    feedback:
-      'This hackathon was an amazing experience! The organization, support, and community were top-notch.',
   },
   {
     id: 9,
@@ -197,15 +139,8 @@ export const displayAllHackathons: DisplayAllHackathons = [
       repositoryUrl: 'https://repository-url.com',
       socialUrl: 'https://social-url.com',
     },
-    profileImage:
-      'https://cdn.hashnode.com/res/hashnode/image/upload/v1677222800340/7FWlpF0aT.jpeg',
-    title:
-      'Build a Landing Page, Boost Visibility && create your first web pages for businesses',
     description:
       'Learn the fundamentals of HTML, the building block of the web, and create your first web pages.',
-
-    feedback:
-      'This hackathon was an amazing experience! The organization, support, and community were top-notch.',
   },
   {
     id: 10,
@@ -218,15 +153,8 @@ export const displayAllHackathons: DisplayAllHackathons = [
       repositoryUrl: 'https://repository-url.com',
       socialUrl: 'https://social-url.com',
     },
-    profileImage:
-      'https://cdn.hashnode.com/res/hashnode/image/upload/v1677222800340/7FWlpF0aT.jpeg',
-    title:
-      'Build a Landing Page, Boost Visibility && create your first web pages for businesses',
     description:
       'Dive into CSS and learn how to style your web pages to make them visually appealing.',
-
-    feedback:
-      'This hackathon was an amazing experience! The organization, support, and community were top-notch.',
   },
   {
     id: 11,
@@ -239,15 +167,8 @@ export const displayAllHackathons: DisplayAllHackathons = [
       repositoryUrl: 'https://repository-url.com',
       socialUrl: 'https://social-url.com',
     },
-    profileImage:
-      'https://cdn.hashnode.com/res/hashnode/image/upload/v1677222800340/7FWlpF0aT.jpeg',
-    title:
-      'Build a Landing Page, Boost Visibility && create your first web pages for businesses',
     description:
       'Learn the fundamentals of HTML, the building block of the web, and create your first web pages.the building block of the web',
-
-    feedback:
-      'This hackathon was an amazing experience! The organization, support, and community were top-notch.',
   },
   {
     id: 12,
@@ -260,15 +181,8 @@ export const displayAllHackathons: DisplayAllHackathons = [
       repositoryUrl: 'https://repository-url.com',
       socialUrl: 'https://social-url.com',
     },
-    profileImage:
-      'https://cdn.hashnode.com/res/hashnode/image/upload/v1677222800340/7FWlpF0aT.jpeg',
-    title:
-      'Build a Landing Page, Boost Visibility && create your first web pages for businesses',
     description:
       'Dive into CSS and learn how to style your web pages to make them visually appealing.',
-
-    feedback:
-      'This hackathon was an amazing experience! The organization, support, and community were top-notch.',
   },
   {
     id: 13,
@@ -281,15 +195,8 @@ export const displayAllHackathons: DisplayAllHackathons = [
       repositoryUrl: 'https://repository-url.com',
       socialUrl: 'https://social-url.com',
     },
-    profileImage:
-      'https://cdn.hashnode.com/res/hashnode/image/upload/v1677222800340/7FWlpF0aT.jpeg',
-    title:
-      'Build a Landing Page, Boost Visibility && create your first web pages for businesses',
     description:
       'Learn the fundamentals of HTML, the building block of the web, and create your first web pages. the building block of the web',
-
-    feedback:
-      'This hackathon was an amazing experience! The organization, support, and community were top-notch.',
   },
   {
     id: 14,
@@ -302,15 +209,8 @@ export const displayAllHackathons: DisplayAllHackathons = [
       repositoryUrl: 'https://repository-url.com',
       socialUrl: 'https://social-url.com',
     },
-    profileImage:
-      'https://cdn.hashnode.com/res/hashnode/image/upload/v1677222800340/7FWlpF0aT.jpeg',
-    title:
-      'Build a Landing Page, Boost Visibility && create your first web pages for businesses',
     description:
       'Dive into CSS and learn how to style your web pages to make them visually appealing.',
-
-    feedback:
-      'This hackathon was an amazing experience! The organization, support, and community were top-notch.',
   },
   {
     id: 15,
@@ -323,15 +223,8 @@ export const displayAllHackathons: DisplayAllHackathons = [
       repositoryUrl: 'https://repository-url.com',
       socialUrl: 'https://social-url.com',
     },
-    profileImage:
-      'https://cdn.hashnode.com/res/hashnode/image/upload/v1677222800340/7FWlpF0aT.jpeg',
-    title:
-      'Build a Landing Page, Boost Visibility && create your first web pages for businesses',
     description:
       'Learn the fundamentals of HTML, the building block of the web, and create your first web pages. the building block of the web',
-
-    feedback:
-      'This hackathon was an amazing experience! The organization, support, and community were top-notch.',
   },
   {
     id: 16,
@@ -344,15 +237,8 @@ export const displayAllHackathons: DisplayAllHackathons = [
       repositoryUrl: 'https://repository-url.com',
       socialUrl: 'https://social-url.com',
     },
-    profileImage:
-      'https://cdn.hashnode.com/res/hashnode/image/upload/v1677222800340/7FWlpF0aT.jpeg',
-    title:
-      'Build a Landing Page, Boost Visibility && create your first web pages for businesses',
     description:
       'Dive into CSS and learn how to style your web pages to make them visually appealing.',
-
-    feedback:
-      'This hackathon was an amazing experience! The organization, support, and community were top-notch.',
   },
   {
     id: 18,
@@ -365,15 +251,8 @@ export const displayAllHackathons: DisplayAllHackathons = [
       repositoryUrl: 'https://repository-url.com',
       socialUrl: 'https://social-url.com',
     },
-    profileImage:
-      'https://cdn.hashnode.com/res/hashnode/image/upload/v1677222800340/7FWlpF0aT.jpeg',
-    title:
-      'Build a Landing Page, Boost Visibility && create your first web pages for businesses',
     description:
       'Learn the fundamentals of HTML, the building block of the web, and create your first web pages.',
-
-    feedback:
-      'This hackathon was an amazing experience! The organization, support, and community were top-notch.',
   },
   {
     id: 19,
@@ -386,15 +265,8 @@ export const displayAllHackathons: DisplayAllHackathons = [
       repositoryUrl: 'https://repository-url.com',
       socialUrl: 'https://social-url.com',
     },
-    profileImage:
-      'https://cdn.hashnode.com/res/hashnode/image/upload/v1677222800340/7FWlpF0aT.jpeg',
-    title:
-      'Build a Landing Page, Boost Visibility && create your first web pages for businesses',
     description:
       'Dive into CSS and learn how to style your web pages to make them visually appealing.',
-
-    feedback:
-      'This hackathon was an amazing experience! The organization, support, and community were top-notch.',
   },
   {
     id: 19,
@@ -407,15 +279,8 @@ export const displayAllHackathons: DisplayAllHackathons = [
       repositoryUrl: 'https://repository-url.com',
       socialUrl: 'https://social-url.com',
     },
-    profileImage:
-      'https://cdn.hashnode.com/res/hashnode/image/upload/v1677222800340/7FWlpF0aT.jpeg',
-    title:
-      'Build a Landing Page, Boost Visibility && create your first web pages for businesses',
     description:
       'Learn the fundamentals of HTML, the building block of the web, and create your first web pages. the building block of the web',
-
-    feedback:
-      'This hackathon was an amazing experience! The organization, support, and community were top-notch.',
   },
   {
     id: 20,
@@ -428,14 +293,7 @@ export const displayAllHackathons: DisplayAllHackathons = [
       repositoryUrl: 'https://repository-url.com',
       socialUrl: 'https://social-url.com',
     },
-    profileImage:
-      'https://cdn.hashnode.com/res/hashnode/image/upload/v1677222800340/7FWlpF0aT.jpeg',
-    title:
-      'Build a Landing Page, Boost Visibility && create your first web pages for businesses',
     description:
       'Dive into CSS and learn how to style your web pages to make them visually appealing.',
-
-    feedback:
-      'This hackathon was an amazing experience! The organization, support, and community were top-notch.',
   },
 ];

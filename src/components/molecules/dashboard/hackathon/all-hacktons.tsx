@@ -1,8 +1,8 @@
 'use client';
 
 import {
-  ProjectDetails,
-  displayAllHackathons,
+  HackathonProjectDetails,
+  submittedHackathons,
 } from '@/utils/consts/all-hackathons';
 import { useState } from 'react';
 import Link from 'next/link';
@@ -15,19 +15,17 @@ import {
 } from '@hashnode/matrix-ui';
 import { YTVideo } from '@/components/atoms/YTVideo';
 import { DashboardSubheading } from '../dashboard-subheading';
+import { EmptyState } from '../empty-state';
 
 interface HackathonType {
   id: number;
   name: string;
-  title: string;
   description: string;
-  profileImage: string;
-  project: ProjectDetails;
-  feedback: string;
+  project: HackathonProjectDetails;
 }
-export default function DisplayHackathons() {
+export default function HackathonSubmissionProjects() {
   const [hackathons, setHackathons] =
-    useState<HackathonType[]>(displayAllHackathons);
+    useState<HackathonType[]>(submittedHackathons);
 
   return (
     <section className="flex flex-col gap-5">
@@ -47,7 +45,7 @@ export default function DisplayHackathons() {
           hackathons.map(({ id, name, description, project }) => (
             <Link
               key={id}
-              href={`/dashboard/hackathons/1/submissions/${id}`}
+              href={`/dashboard/hackathons/1/hackathon-submission-projects/${id}`}
               className="border rounded-xl overflow-hidden transition-colors duration-200 ease-in-out hover:border-slate-300"
             >
               <div className="relative">
@@ -82,7 +80,7 @@ export default function DisplayHackathons() {
           ))
         ) : (
           <div className="text-xl text-center text-slate-600">
-            no submission for this hackathon yet
+            <EmptyState label="   no submission for this hackathon yet." />
           </div>
         )}
       </div>
