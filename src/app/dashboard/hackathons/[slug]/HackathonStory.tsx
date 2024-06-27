@@ -241,21 +241,24 @@ export const HackathonStory = ({
             <section className="flex flex-col gap-4">
               <h3 className={sectionHeadingStyle}>Judges</h3>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-y-8">
-                {judges.map(({ name, photo, socialLink, title }) => (
-                  <div
+                {judges.map(({ _id, name, photo, socialLink, title }) => (
+                  <a
+                    href={socialLink}
+                    target="_blank"
+                    rel="noopener"
                     className="flex gap-3 items-center"
-                    key={`judges-${name}`}
+                    key={`judges-${_id}`}
                   >
                     <div>
                       <div className="relative w-14 h-14 sm:w-16 sm:h-16 md:w-24 md:h-24 rounded-full overflow-hidden">
                         <Image src={photo} alt="" fill />
                       </div>
                     </div>
-                    <a href={socialLink} target="_blank" rel="noopener">
+                    <div>
                       <p className="text-lg font-semibold text-black">{name}</p>
                       <p className="text-slate-500">{title}</p>
-                    </a>
-                  </div>
+                    </div>
+                  </a>
                 ))}
               </div>
             </section>
