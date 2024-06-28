@@ -1,5 +1,6 @@
 'use client';
-import HackathonProjectPreview from '@/components/molecules/dashboard/hackathon/hackathonProjectPreviewrojectPreview';
+
+import HackathonProjectPreview from '@/components/molecules/dashboard/hackathon/hackathonProjectPreview';
 
 const PreviewedHackathonProject = () => {
   return (

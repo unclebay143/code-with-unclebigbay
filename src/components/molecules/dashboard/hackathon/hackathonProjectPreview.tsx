@@ -6,4 +6,4 @@ const HackathonProjectPreview = () => {
   return <div>Hello{id}</div>;
 };
 
-export default HackathonPreview;
+export default HackathonProjectPreview;
