@@ -40,12 +40,12 @@ export default function HackathonSubmissionProjects() {
         </Button>
         <DashboardSubheading title="Project Submissions for 'Build for Business Hackathon'" />
       </div>
-      <div className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 justify-start">
+      <div className="grid sm:grid-cols-2 xl:grid-cols-3 gap-4 justify-start">
         {hackathons && hackathons.length > 0 ? (
           hackathons.map(({ id, name, description, project }) => (
             <Link
               key={id}
-              href={`/dashboard/hackathons/1/hackathon-submission-projects/${id}`}
+              href={`/dashboard/hackathons/1/submissions/${id}`}
               className="border rounded-xl overflow-hidden transition-colors duration-200 ease-in-out hover:border-slate-300"
             >
               <div className="relative">
