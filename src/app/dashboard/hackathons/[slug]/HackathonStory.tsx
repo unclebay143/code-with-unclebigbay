@@ -193,7 +193,7 @@ export const HackathonStory = ({
             )}
             {isClosed && (
               <div className="dark flex justify-center">
-                <Button size="xs" appearance="primary-slate" asChild>
+                <Button size="sm" appearance="primary-slate" asChild>
                   <Link href="/submissions" className="font-normal text-xs">
                     View Hackathon Submissions
                   </Link>
