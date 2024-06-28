@@ -1,12 +1,12 @@
 'use client';
-import HackathonPreview from '@/components/molecules/dashboard/hackathon/hackathon-preview';
+import HackathonProjectPreview from '@/components/molecules/dashboard/hackathon/hackathonProjectPreview';
 
-const PreviewedHackathon = () => {
+const PreviewedHackathonProject = () => {
   return (
     <div>
-      <HackathonPreview />
+      <HackathonProjectPreview />
     </div>
   );
 };
 
-export default PreviewedHackathon;
+export default PreviewedHackathonProject;
