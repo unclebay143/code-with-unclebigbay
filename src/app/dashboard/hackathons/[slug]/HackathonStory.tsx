@@ -60,6 +60,7 @@ export const HackathonStory = ({
   } = hackathon;
 
   const hackathonUrl = typeof window !== 'undefined' && window.location.href;
+  const hackathonSubmissionHref = `/hackathons/${slug}/submissions`;
 
   const { data: currentStudent } = useCurrentStudent();
   const [hasSubmittedEntry, setHasSubmittedEntry] = useState(hasSubmitted);
@@ -194,7 +195,10 @@ export const HackathonStory = ({
             {isClosed && (
               <div className="dark flex justify-center">
                 <Button size="sm" appearance="primary-slate" asChild>
-                  <Link href="/submissions" className="font-normal text-xs">
+                  <Link
+                    href={hackathonSubmissionHref}
+                    className="font-normal text-xs"
+                  >
                     View Hackathon Submissions
                   </Link>
                 </Button>
@@ -400,7 +404,7 @@ export const HackathonStory = ({
                 <AnimatedTooltip items={animatedTooltipParticipants} />
               </section>
               <Link
-                href="/"
+                href={hackathonSubmissionHref}
                 className="inline text-sm text-slate-500 underline hover:text-slate-600"
               >
                 View hackathon submissions

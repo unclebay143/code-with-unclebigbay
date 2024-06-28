@@ -10,6 +10,7 @@ import HackathonProjectCard from './hackathonProjectCard';
 
 export default function HackathonProjects() {
   const [hackathonProject, setHackathonProject] = useState(submittedHackathons);
+  const hackathonUrl = ''; // construct using slug from hackathon details
 
   return (
     <section className="flex flex-col gap-5">
@@ -20,7 +21,7 @@ export default function HackathonProjects() {
           startIcon={ArrowLeft}
           asChild
         >
-          <Link href="/dashboard/courses">Back to hackathon</Link>
+          <Link href={hackathonUrl || ''}>Back to hackathon</Link>
         </Button>
         <DashboardSubheading title="Project Submissions for 'Build for Business Hackathon'" />
       </div>
@@ -37,7 +38,7 @@ export default function HackathonProjects() {
           ))
         ) : (
           <div className="text-xl text-center text-slate-600">
-            <EmptyState label="   no submission for this hackathon yet." />
+            <EmptyState label="no submission for this hackathon yet." />
           </div>
         )}
       </div>
