@@ -28,6 +28,7 @@ export default function HackathonProjects() {
         {hackathonProject && hackathonProject.length > 0 ? (
           hackathonProject.map(({ id, name, description, project }) => (
             <HackathonProjectCard
+              key={id}
               id={id}
               name={name}
               description={description}
