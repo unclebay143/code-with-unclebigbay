@@ -11,6 +11,12 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const res = await fetch(url);
   const { course } = await res.json();
 
+  if (!course) {
+    return {
+      title: 'Course not found',
+    };
+  }
+
   return {
     title: course.title,
     description: course.brief,

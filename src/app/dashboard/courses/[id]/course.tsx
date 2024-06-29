@@ -13,6 +13,8 @@ import {
   ChevronUp,
   ArrowRefresh,
   ArrowLeft,
+  EmptyState,
+  BookDocument,
 } from '@hashnode/matrix-ui';
 import { YTVideo } from '@/components/atoms/YTVideo';
 import Link from 'next/link';
@@ -24,6 +26,7 @@ import { formatDate, formatTime } from '@/utils';
 import { Tooltip } from '@/components/atoms/Tooltip';
 import { handleAuthentication } from '@/utils/auth';
 import { ShareButton } from '@/components/molecules/dashboard/share-button';
+import { EmptyStateContainer } from '@/components/molecules/dashboard/EmptyStateContainer';
 
 const Course = ({ currentStudent }: { currentStudent?: Student }) => {
   const [showMore, setShowMore] = useState(false);
@@ -54,6 +57,8 @@ const Course = ({ currentStudent }: { currentStudent?: Student }) => {
   const handleShowMoreVisibility = () => {
     setShowMore((prevVisibility) => !prevVisibility);
   };
+
+  const showCourseNotFound = !isFetching && !course;
   const showCourse = (isRefetching && !!course) || (!isFetching && !!course);
   const tags = course?.tags as Tags;
 
@@ -68,275 +73,304 @@ const Course = ({ currentStudent }: { currentStudent?: Student }) => {
 
   return (
     <>
-      <WhiteArea border>
-        {showCourse ? (
-          <div className="flex flex-col gap-5">
-            <div className="flex justify-start lg:hidden">
-              <Button
-                size="xs"
-                appearance="secondary-slate"
-                startIcon={ArrowLeft}
-                asChild
-              >
-                <Link href="/dashboard/courses">All courses</Link>
+      {showCourseNotFound ? (
+        <EmptyStateContainer>
+          <EmptyState
+            icon={BookDocument}
+            title="Course Not Found"
+            copy={
+              <>
+                <p>
+                  Oops! The course you&apos;re looking for doesn&apos;t seem to
+                  exist.
+                </p>
+                <p>
+                  Please check the course url or explore our other available
+                  courses.
+                </p>
+                <p>
+                  If you need assistance, feel free to use the help centers.
+                </p>
+              </>
+            }
+            ctaElement={
+              <Button size="xs" appearance="primary-slate">
+                <Link href="/courses">Explore courses</Link>
               </Button>
-            </div>
-            <div className="flex items-start justify-between gap-1 text-xl text-slate-600">
-              <div className="max-w-[90%]">
-                <DashboardSubheading title={course.title} />
+            }
+          />
+        </EmptyStateContainer>
+      ) : (
+        <WhiteArea border>
+          {showCourse ? (
+            <div className="flex flex-col gap-5">
+              <div className="flex justify-start lg:hidden">
+                <Button
+                  size="xs"
+                  appearance="secondary-slate"
+                  startIcon={ArrowLeft}
+                  asChild
+                >
+                  <Link href="/dashboard/courses">All courses</Link>
+                </Button>
               </div>
-              <Tooltip tooltip="Need help? Click me" asChild>
-                <a target="_blank" href="/dashboard/help-centers">
-                  <IconButton Icon={HelpCircle} size="lg" />
-                </a>
-              </Tooltip>
-            </div>
-            {playableMode ? (
-              <section className="flex flex-col gap-2">
-                <section className="rounded overflow-hidden">
-                  <YTVideo ytVideoId={course?.ytVideoId} />
-                </section>
-                {!isLoggedIn && (
-                  <div className="flex  justify-between items-center flex-wrap gap-2">
-                    <span className="text-sm text-orange-500">
-                      {renderStartCourseCTA}
-                    </span>
-                    <div>
-                      <Button
-                        appearance="primary-slate"
-                        size="xs"
-                        onClick={() =>
-                          handleAuthentication({
-                            nextUrl: window.location.href,
-                          })
-                        }
-                      >
-                        Sign in to enroll
-                      </Button>
-                    </div>
-                  </div>
-                )}
-              </section>
-            ) : (
-              <section
-                className="relative flex justify-center items-center rounded overflow-hidden aspect-video bg-slate-5 bg-no-repeat bg-center bg-cover"
-                style={{ backgroundImage: `url(${course?.coverImageUrl})` }}
-              >
-                <div className="absolute bg-black/60 inset-0 w-full" />
-                <div className="z-[1] dark">
-                  <Button
-                    onClick={handleEnroll}
-                    appearance="primary-slate"
-                    disabled={isEnrollingPending || isRefetching}
-                    startIcon={ArrowRefresh}
-                    startIconClassName={
-                      isEnrollingPending || isRefetching
-                        ? 'animate-spin'
-                        : 'hidden'
-                    }
-                  >
-                    Start Learning
-                  </Button>
+              <div className="flex items-start justify-between gap-1 text-xl text-slate-600">
+                <div className="max-w-[90%]">
+                  <DashboardSubheading title={course.title} />
                 </div>
-              </section>
-            )}
-            <WhiteArea border>
-              <div
-                className="group flex w-full items-center justify-between cursor-pointer"
-                onClick={handleShowMoreVisibility}
-              >
-                <span className="text-slate-600 font-medium group-hover:text-slate-800">
-                  Course Details
-                </span>
-                <span className="group-hover:animate-pulse">
-                  <IconButton Icon={showMore ? ChevronUp : ChevronDown} />
-                </span>
+                <Tooltip tooltip="Need help? Click me" asChild>
+                  <a target="_blank" href="/dashboard/help-centers">
+                    <IconButton Icon={HelpCircle} size="lg" />
+                  </a>
+                </Tooltip>
               </div>
-              {showMore && (
-                <section className="flex flex-col items-start gap-5 py-4 px-1">
-                  <div className="w-full flex flex-col gap-5 sm:gap-7 flex-wrap">
-                    <div className="w-full flex flex-col items-start justify-between lg:flex-row lg:items-end gap-4">
-                      {course?.description && (
-                        <div>
-                          <h3 className="font-medium text-lg text-slate-700">
-                            Description:
-                          </h3>
-                          <div
-                            className="text-slate-600 flex flex-col gap-4 [&>a]:underline [&>ul]:list-disc [&>ul]:list-outside [&>ul]:ml-5 [&>ul>li]:mb-2"
-                            dangerouslySetInnerHTML={{
-                              __html: course?.description,
-                            }}
-                          />
-                        </div>
-                      )}
-                    </div>
-                    <div className="flex flex-col gap-5 sm:gap-7">
-                      <div className="flex flex-col gap-6 md:flex-row md:flex-wrap md:items-center">
-                        <div>
-                          <h3 className="font-medium text-lg text-slate-700">
-                            Date Published:
-                          </h3>
-                          <p className="text-slate-600">
-                            {formatDate(course.createdAt!)}
-                          </p>
-                        </div>
-                        {isEnrolled && (
-                          <hr className="hidden md:block h-10 border" />
-                        )}
-                        {isEnrolled && (
-                          <div>
-                            <h3 className="font-medium text-lg text-slate-700">
-                              Date Enrolled:
-                            </h3>
-                            <p className="text-slate-600">
-                              {formatDate(enrolledDate!)}
-                            </p>
-                          </div>
-                        )}
-                        <hr className="hidden md:block h-10 border" />
-                        <div>
-                          <h3 className="font-medium text-lg text-slate-700">
-                            Duration:
-                          </h3>
-                          <p className="text-slate-600">
-                            {formatTime(course.viewTime)}
-                          </p>
-                        </div>
-                        <hr className="hidden md:block h-10 border" />
-                        <div>
-                          <h3 className="font-medium text-lg text-slate-700">
-                            Status:
-                          </h3>
-                          <Badge
-                            theme={`${isCompleted ? 'green' : isEnrolled ? 'yellow' : 'slate'}`}
-                          >
-                            {isCompleted
-                              ? 'Completed'
-                              : isEnrolled
-                                ? 'Enrolled'
-                                : 'Not enrolled'}
-                          </Badge>
-                        </div>
-                        {isCompleted && (
-                          <hr className="hidden md:block h-10 border" />
-                        )}
-                        {isEnrolled && isCompleted && (
-                          <div>
-                            <h3 className="font-medium text-lg text-slate-700">
-                              Date Completed:
-                            </h3>
-                            <p className="text-slate-600">
-                              {formatDate(completionDate!)}
-                            </p>
-                          </div>
-                        )}
-                      </div>
-
-                      {enrolledStudentsCount !== 0 && (
-                        <div className="flex items-center gap-2">
-                          <Users size="md" solid />
-                          <h3 className="font-medium text-lg text-slate-700">
-                            Enrolled:
-                          </h3>
-                          <p className="text-slate-600 font-semibold text-sm">
-                            {enrolledStudentsCount}
-                          </p>
-                        </div>
-                      )}
-
-                      <div className="flex flex-col items-start gap-5 justify-between sm:flex-row sm:items-center">
-                        <ShareButton
-                          slug={course.slug}
-                          isEnrolled={!!isEnrolled}
-                          title={course.title}
-                        />
-                        {hasAssignment && (
-                          <>
-                            {isEnrolled ? (
-                              <>
-                                <Button
-                                  size="sm"
-                                  appearance="primary-slate"
-                                  asChild
-                                >
-                                  <Link
-                                    href={
-                                      hasAttemptedAssignment
-                                        ? `${assignmentBaseUrl}/result`
-                                        : assignmentBaseUrl
-                                    }
-                                  >
-                                    {hasAttemptedAssignment
-                                      ? 'View assignment score'
-                                      : 'Attempt assignment'}
-                                  </Link>
-                                </Button>
-                              </>
-                            ) : (
-                              <Tooltip tooltip="Start course to attempt assignment">
-                                <Button
-                                  size="sm"
-                                  appearance="primary-slate"
-                                  disabled
-                                >
-                                  Attempt assignment
-                                </Button>
-                              </Tooltip>
-                            )}
-                          </>
-                        )}
-                      </div>
-
-                      <div className="flex flex-col-reverse items-start sm:flex-row gap-5 w-full justify-between sm:items-center">
-                        {!(tags.length === 0) && (
-                          <div className="flex flex-wrap gap-1 self-start">
-                            {tags?.map(({ name, _id }) => (
-                              <Badge key={_id} size="md">
-                                <span className="capitalize">{name}</span>
-                              </Badge>
-                            ))}
-                          </div>
-                        )}
-                        <div>
-                          <Button
-                            size="xs"
-                            appearance="link-slate"
-                            endIcon={ArrowExternalLink01}
-                            asChild
-                          >
-                            <Link
-                              href={`https://www.youtube.com/watch?v=${course?.ytVideoId}`}
-                              target="_blank"
-                              rel="noopener"
-                            >
-                              <span className="hidden sm:inline">
-                                Like and comment on YouTube
-                              </span>
-                              <span className="sm:hidden">
-                                Comment on YouTube
-                              </span>
-                            </Link>
-                          </Button>
-                        </div>
+              {playableMode ? (
+                <section className="flex flex-col gap-2">
+                  <section className="rounded overflow-hidden">
+                    <YTVideo ytVideoId={course?.ytVideoId} />
+                  </section>
+                  {!isLoggedIn && (
+                    <div className="flex  justify-between items-center flex-wrap gap-2">
+                      <span className="text-sm text-orange-500">
+                        {renderStartCourseCTA}
+                      </span>
+                      <div>
+                        <Button
+                          appearance="primary-slate"
+                          size="xs"
+                          onClick={() =>
+                            handleAuthentication({
+                              nextUrl: window.location.href,
+                            })
+                          }
+                        >
+                          Sign in to enroll
+                        </Button>
                       </div>
                     </div>
+                  )}
+                </section>
+              ) : (
+                <section
+                  className="relative flex justify-center items-center rounded overflow-hidden aspect-video bg-slate-5 bg-no-repeat bg-center bg-cover"
+                  style={{ backgroundImage: `url(${course?.coverImageUrl})` }}
+                >
+                  <div className="absolute bg-black/60 inset-0 w-full" />
+                  <div className="z-[1] dark">
+                    <Button
+                      onClick={handleEnroll}
+                      appearance="primary-slate"
+                      disabled={isEnrollingPending || isRefetching}
+                      startIcon={ArrowRefresh}
+                      startIconClassName={
+                        isEnrollingPending || isRefetching
+                          ? 'animate-spin'
+                          : 'hidden'
+                      }
+                    >
+                      Start Learning
+                    </Button>
                   </div>
                 </section>
               )}
-            </WhiteArea>
-          </div>
-        ) : (
-          <div className="flex flex-col gap-5 animate-pulse">
-            <div className="flex items-center justify-between gap-52">
-              <div className="bg-slate-50 w-full h-8 rounded" />
-              <div className="bg-slate-50 w-1 h-1 p-5 rounded-full" />
-            </div>
+              <WhiteArea border>
+                <div
+                  className="group flex w-full items-center justify-between cursor-pointer"
+                  onClick={handleShowMoreVisibility}
+                >
+                  <span className="text-slate-600 font-medium group-hover:text-slate-800">
+                    Course Details
+                  </span>
+                  <span className="group-hover:animate-pulse">
+                    <IconButton Icon={showMore ? ChevronUp : ChevronDown} />
+                  </span>
+                </div>
+                {showMore && (
+                  <section className="flex flex-col items-start gap-5 py-4 px-1">
+                    <div className="w-full flex flex-col gap-5 sm:gap-7 flex-wrap">
+                      <div className="w-full flex flex-col items-start justify-between lg:flex-row lg:items-end gap-4">
+                        {course?.description && (
+                          <div>
+                            <h3 className="font-medium text-lg text-slate-700">
+                              Description:
+                            </h3>
+                            <div
+                              className="text-slate-600 flex flex-col gap-4 [&>a]:underline [&>ul]:list-disc [&>ul]:list-outside [&>ul]:ml-5 [&>ul>li]:mb-2"
+                              dangerouslySetInnerHTML={{
+                                __html: course?.description,
+                              }}
+                            />
+                          </div>
+                        )}
+                      </div>
+                      <div className="flex flex-col gap-5 sm:gap-7">
+                        <div className="flex flex-col gap-6 md:flex-row md:flex-wrap md:items-center">
+                          <div>
+                            <h3 className="font-medium text-lg text-slate-700">
+                              Date Published:
+                            </h3>
+                            <p className="text-slate-600">
+                              {formatDate(course.createdAt!)}
+                            </p>
+                          </div>
+                          {isEnrolled && (
+                            <hr className="hidden md:block h-10 border" />
+                          )}
+                          {isEnrolled && (
+                            <div>
+                              <h3 className="font-medium text-lg text-slate-700">
+                                Date Enrolled:
+                              </h3>
+                              <p className="text-slate-600">
+                                {formatDate(enrolledDate!)}
+                              </p>
+                            </div>
+                          )}
+                          <hr className="hidden md:block h-10 border" />
+                          <div>
+                            <h3 className="font-medium text-lg text-slate-700">
+                              Duration:
+                            </h3>
+                            <p className="text-slate-600">
+                              {formatTime(course.viewTime)}
+                            </p>
+                          </div>
+                          <hr className="hidden md:block h-10 border" />
+                          <div>
+                            <h3 className="font-medium text-lg text-slate-700">
+                              Status:
+                            </h3>
+                            <Badge
+                              theme={`${isCompleted ? 'green' : isEnrolled ? 'yellow' : 'slate'}`}
+                            >
+                              {isCompleted
+                                ? 'Completed'
+                                : isEnrolled
+                                  ? 'Enrolled'
+                                  : 'Not enrolled'}
+                            </Badge>
+                          </div>
+                          {isCompleted && (
+                            <hr className="hidden md:block h-10 border" />
+                          )}
+                          {isEnrolled && isCompleted && (
+                            <div>
+                              <h3 className="font-medium text-lg text-slate-700">
+                                Date Completed:
+                              </h3>
+                              <p className="text-slate-600">
+                                {formatDate(completionDate!)}
+                              </p>
+                            </div>
+                          )}
+                        </div>
 
-            <section className="rounded aspect-video bg-slate-50" />
-            <section className="rounded-lg h-20 bg-slate-50" />
-          </div>
-        )}
-      </WhiteArea>
+                        {enrolledStudentsCount !== 0 && (
+                          <div className="flex items-center gap-2">
+                            <Users size="md" solid />
+                            <h3 className="font-medium text-lg text-slate-700">
+                              Enrolled:
+                            </h3>
+                            <p className="text-slate-600 font-semibold text-sm">
+                              {enrolledStudentsCount}
+                            </p>
+                          </div>
+                        )}
+
+                        <div className="flex flex-col items-start gap-5 justify-between sm:flex-row sm:items-center">
+                          <ShareButton
+                            slug={course.slug}
+                            isEnrolled={!!isEnrolled}
+                            title={course.title}
+                          />
+                          {hasAssignment && (
+                            <>
+                              {isEnrolled ? (
+                                <>
+                                  <Button
+                                    size="sm"
+                                    appearance="primary-slate"
+                                    asChild
+                                  >
+                                    <Link
+                                      href={
+                                        hasAttemptedAssignment
+                                          ? `${assignmentBaseUrl}/result`
+                                          : assignmentBaseUrl
+                                      }
+                                    >
+                                      {hasAttemptedAssignment
+                                        ? 'View assignment score'
+                                        : 'Attempt assignment'}
+                                    </Link>
+                                  </Button>
+                                </>
+                              ) : (
+                                <Tooltip tooltip="Start course to attempt assignment">
+                                  <Button
+                                    size="sm"
+                                    appearance="primary-slate"
+                                    disabled
+                                  >
+                                    Attempt assignment
+                                  </Button>
+                                </Tooltip>
+                              )}
+                            </>
+                          )}
+                        </div>
+
+                        <div className="flex flex-col-reverse items-start sm:flex-row gap-5 w-full justify-between sm:items-center">
+                          {!(tags.length === 0) && (
+                            <div className="flex flex-wrap gap-1 self-start">
+                              {tags?.map(({ name, _id }) => (
+                                <Badge key={_id} size="md">
+                                  <span className="capitalize">{name}</span>
+                                </Badge>
+                              ))}
+                            </div>
+                          )}
+                          <div>
+                            <Button
+                              size="xs"
+                              appearance="link-slate"
+                              endIcon={ArrowExternalLink01}
+                              asChild
+                            >
+                              <Link
+                                href={`https://www.youtube.com/watch?v=${course?.ytVideoId}`}
+                                target="_blank"
+                                rel="noopener"
+                              >
+                                <span className="hidden sm:inline">
+                                  Like and comment on YouTube
+                                </span>
+                                <span className="sm:hidden">
+                                  Comment on YouTube
+                                </span>
+                              </Link>
+                            </Button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </section>
+                )}
+              </WhiteArea>
+            </div>
+          ) : (
+            <div className="flex flex-col gap-5 animate-pulse">
+              <div className="flex items-center justify-between gap-52">
+                <div className="bg-slate-50 w-full h-8 rounded" />
+                <div className="bg-slate-50 w-1 h-1 p-5 rounded-full" />
+              </div>
+
+              <section className="rounded aspect-video bg-slate-50" />
+              <section className="rounded-lg h-20 bg-slate-50" />
+            </div>
+          )}
+        </WhiteArea>
+      )}
     </>
   );
 };
