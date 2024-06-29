@@ -23,6 +23,10 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     openGraph: {
       images: [course.coverImageUrl],
     },
+    keywords: [...course.tags],
+    alternates: {
+      canonical: `/courses/${courseSlug}`,
+    },
   };
 }
 
