@@ -116,7 +116,7 @@ const Course = ({ currentStudent }: { currentStudent?: Student }) => {
               </div>
               <div className="flex items-start justify-between gap-1 text-xl text-slate-600">
                 <div className="max-w-[90%]">
-                  <DashboardSubheading title={course.title} />
+                  <DashboardSubheading as="h1" title={course.title} />
                 </div>
                 <Tooltip tooltip="Need help? Click me" asChild>
                   <a target="_blank" href="/dashboard/help-centers">

@@ -17,6 +17,25 @@ export const metadata: Metadata = {
       'https://cdn.hashnode.com/res/hashnode/image/upload/v1717620330883/b93fbecd-a595-4d35-81a3-265e92d50c26.png?auto=compress',
     ],
   },
+  generator: 'Next.js',
+  keywords: [
+    'code',
+    'unclebigbay',
+    'codewithunclebigbay',
+    'web development',
+    'javascript',
+    'react',
+    'node.js',
+    'next.js',
+    'web dev',
+    'html',
+    'css',
+    'python',
+  ],
+  referrer: 'origin-when-cross-origin',
+  creator: 'Unclebigbay',
+  publisher: 'Unclebigbay',
+  metadataBase: new URL('https://www.codewithunclebigbay.com/'),
 };
 
 export default function RootLayout({
