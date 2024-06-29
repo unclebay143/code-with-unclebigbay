@@ -6,6 +6,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { formatTime } from '@/utils';
 import { Badge } from '@hashnode/matrix-ui';
+import dayjs from 'dayjs';
 
 type CourseCardProps = {
   course: Course;
@@ -14,7 +15,7 @@ type CourseCardProps = {
 
 export const CourseCard = ({ layout = 'grid', course }: CourseCardProps) => {
   const {
-    _id,
+    createdAt,
     type,
     slug,
     title,
@@ -22,7 +23,6 @@ export const CourseCard = ({ layout = 'grid', course }: CourseCardProps) => {
     coverImageUrl,
     viewTime,
     isEnrolled,
-    tags,
   } = course;
 
   const mapTypeToIcon: { [key: string]: LucideIcon } = {
@@ -30,6 +30,11 @@ export const CourseCard = ({ layout = 'grid', course }: CourseCardProps) => {
   };
   const Icon = mapTypeToIcon[type!];
   const courseLink = `/dashboard/courses/${slug}`;
+
+  const today = dayjs();
+  const createdAtSevenDaysLater = dayjs(createdAt).add(7, 'day');
+  const hasPassedSevenDays = createdAtSevenDaysLater.isBefore(today);
+  const showNewBadge = !hasPassedSevenDays;
 
   return (
     <>
@@ -69,22 +74,14 @@ export const CourseCard = ({ layout = 'grid', course }: CourseCardProps) => {
           <section className="p-5 flex flex-col gap-3 justify-between">
             <div className="flex flex-col gap-3">
               <div className="flex flex-col gap-2 items-start justify-between">
-                <div>
+                <div className="">
                   <h3
                     title={title}
                     className="inline text-gray-700 font-medium hover:text-slate-800 text-lg"
                   >
                     {title}
                   </h3>{' '}
-                  {tags && tags.length > 0
-                    ? tags
-                        .map((tag) => tag?.name?.toLowerCase())
-                        .includes('css') && (
-                        <span className="px-1 text-[12px] font-medium border border-green-100 text-green-500 bg-green-100 rounded-full">
-                          New
-                        </span>
-                      )
-                    : null}
+                  {showNewBadge && <Badge theme="green">New</Badge>}
                 </div>
                 {viewTime ? (
                   <span className="py-1 px-2 whitespace-nowrap rounded-full bg-slate-100 text-xs font-semibold">
