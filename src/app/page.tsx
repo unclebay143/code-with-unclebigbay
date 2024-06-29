@@ -14,8 +14,6 @@ import { getCurrentHackathon, getStudents } from '@/utils/server.service';
 import { Features } from '@/components/molecules/home/Features';
 
 export const metadata: Metadata = {
-  title: 'Code with Unclebigbay',
-  description: 'Learn to Code and Build Your Career',
   alternates: {
     canonical: `/`,
   },

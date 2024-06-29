@@ -9,8 +9,9 @@ import { Analytics } from '@vercel/analytics/react';
 const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
-  title: 'Code with Unclebigbay',
-  description: 'Learn to Code and Build Your Career',
+  title: 'Learn to Code & Build a Career | Code with Unclebigbay',
+  description:
+    "Master in-demand coding skills & launch your tech career with Unclebigbay's online courses. Beginner-friendly, project-based learning. Enroll today!",
   authors: [{ name: 'Unclebigbay', url: 'https://x.com/@Unclebigbay143' }],
   openGraph: {
     images: [
