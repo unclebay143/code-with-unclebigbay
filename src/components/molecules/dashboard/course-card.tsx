@@ -96,12 +96,14 @@ export const CourseCard = ({ layout = 'grid', course }: CourseCardProps) => {
                 dangerouslySetInnerHTML={{ __html: brief }}
               />
             </div>
-
-            {isEnrolled && (
-              <span className="w-fit text-xs rounded px-3 py-1 bg-slate-100 text-slate-600 font-medium">
-                Enrolled
-              </span>
-            )}
+            <div className="w-full flex justify-between">
+              {viewTime ? <Badge>{formatTime(viewTime)}</Badge> : null}
+              {showNewBadge && (
+                <Badge size="xs" theme="green">
+                  New
+                </Badge>
+              )}
+            </div>
           </section>
         </Link>
       )}
