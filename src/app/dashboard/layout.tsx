@@ -1,16 +1,10 @@
 import { Inter } from 'next/font/google';
 import { DashboardIndex } from '.';
-import { Metadata } from 'next';
 import { baseURL } from '../../../frontend.config';
 import { getServerSessionWithAuthOptions } from '@/utils/auth-options';
 import { Student } from '@/utils/types';
 
 const inter = Inter({ subsets: ['latin'] });
-
-export const metadata: Metadata = {
-  title: 'Dashboard | Code with Unclebigbay',
-  description: 'Learn to Code and Build Your Career',
-};
 
 async function getCurrentStudent() {
   const session = await getServerSessionWithAuthOptions();
