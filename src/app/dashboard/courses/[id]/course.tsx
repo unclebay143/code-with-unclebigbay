@@ -178,9 +178,9 @@ const Course = ({ currentStudent }: { currentStudent?: Student }) => {
                   className="group flex w-full items-center justify-between cursor-pointer"
                   onClick={handleShowMoreVisibility}
                 >
-                  <span className="text-slate-600 font-medium group-hover:text-slate-800">
+                  <h2 className="text-slate-600 font-medium group-hover:text-slate-800">
                     Course Details
-                  </span>
+                  </h2>
                   <span className="group-hover:animate-pulse">
                     <IconButton Icon={showMore ? ChevronUp : ChevronDown} />
                   </span>
