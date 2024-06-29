@@ -73,7 +73,8 @@ export async function getStudents(): Promise<GetStudentsResponse | undefined> {
   try {
     const url = `${baseURL}/api/students`;
     const result = await fetch(url, {
-      cache: 'no-cache',
+      // cache: 'no-cache',
+      cache: 'force-cache',
       headers: {
         'Content-Type': 'application/json',
       },

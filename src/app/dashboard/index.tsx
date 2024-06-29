@@ -29,16 +29,19 @@ export const DashboardIndex = ({
 
   const requireAdminAccess = !isAdmin && adminRoute;
   const canAccessWithoutAuth = unAuthenticatedRoutes.includes(currentPageName);
+  const isHackathonRoute = pathname.split('/').includes('hackathons'); // temporary access
   const requireAuth = !session && !canAccessWithoutAuth;
 
-  if (requireAuth) {
-    handleAuthentication({ nextUrl: window.location.href });
+  if (requireAuth && !isHackathonRoute) {
+    if (typeof window !== 'undefined') {
+      handleAuthentication({ nextUrl: window.location.href });
+    }
     return null;
   }
 
   const redirectToOnboard =
     !canAccessWithoutAuth && !currentStudent?.stack && !pathIsOnboarding;
-  if (redirectToOnboard) {
+  if (redirectToOnboard && !isHackathonRoute) {
     return redirect('/dashboard/onboard');
   }
   const blockOnboardPage =
@@ -48,7 +51,7 @@ export const DashboardIndex = ({
   }
 
   if (requireAdminAccess) {
-    return redirect('/dashboard/overview');
+    return redirect('/dashboard');
   }
 
   return (
