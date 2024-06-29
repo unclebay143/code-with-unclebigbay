@@ -20,6 +20,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     openGraph: {
       images: [hackathonRes.hackathon.coverImage],
     },
+    alternates: {
+      canonical: `/hackathon/${hackathonSlug}`,
+    },
   };
 }
 
