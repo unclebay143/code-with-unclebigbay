@@ -132,9 +132,9 @@ export const HackathonStory = ({
           <div className="absolute inset-0 w-full h-full bg-slate-900 z-20 [mask-image:radial-gradient(transparent,white)] pointer-events-none" />
           <Boxes />
           <section className="flex flex-col items-center gap-3 relative z-20 p-4">
-            <h2 className="md:text-4xl text-xl text-white px-4 text-center">
+            <h1 className="md:text-4xl text-xl text-white px-4 text-center">
               {title}
-            </h2>
+            </h1>
             <span
               className={`${isClosed ? 'text-red-500' : 'text-blue-500'} text-sm font-bold flex items-center gap-1`}
             >
