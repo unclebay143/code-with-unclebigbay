@@ -36,6 +36,9 @@ export const metadata: Metadata = {
   creator: 'Unclebigbay',
   publisher: 'Unclebigbay',
   metadataBase: new URL('https://www.codewithunclebigbay.com/'),
+  verification: {
+    google: 'jghWH5GFsXvnkFMtanhXklakUXw_OxkHc2WOSH_K9tM',
+  },
 };
 
 export default function RootLayout({
