@@ -72,36 +72,27 @@ export const CourseCard = ({ layout = 'grid', course }: CourseCardProps) => {
             </div>
           </div>
           <section className="p-5 flex flex-col gap-3 justify-between">
-            <div className="w-full flex justify-between">
-              {viewTime ? (
-                <span className="py-1 px-2 whitespace-nowrap rounded-full bg-slate-100 text-xs font-semibold">
-                  {formatTime(viewTime)}
-                </span>
-              ) : null}
-              {showNewBadge && <Badge theme="green">New</Badge>}
-            </div>
+            {isEnrolled && <Badge>Enrolled</Badge>}
             <div className="flex flex-col gap-3">
-              <div className="flex flex-col gap-2 items-start justify-between">
-                <div>
-                  <h3
-                    title={title}
-                    className="inline text-gray-700 font-medium hover:text-slate-800 text-lg"
-                  >
-                    {title}
-                  </h3>
-                </div>
-              </div>
+              <h3
+                title={title}
+                className="inline text-gray-700 font-medium hover:text-slate-800 text-lg"
+              >
+                {title}
+              </h3>
               <p
                 className="text-slate-500 line-clamp-3"
                 dangerouslySetInnerHTML={{ __html: brief }}
               />
             </div>
-
-            {isEnrolled && (
-              <span className="w-fit text-xs rounded px-3 py-1 bg-slate-100 text-slate-600 font-medium">
-                Enrolled
-              </span>
-            )}
+            <div className="w-full flex justify-between">
+              {viewTime ? <Badge>{formatTime(viewTime)}</Badge> : null}
+              {showNewBadge && (
+                <Badge size="xs" theme="green">
+                  New
+                </Badge>
+              )}
+            </div>
           </section>
         </Link>
       )}
