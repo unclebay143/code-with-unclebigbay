@@ -94,9 +94,9 @@ export const Profile = ({ student, canUpdateProfile }: ProfileProps) => {
             ) : null}
             <div className="flex justify-center flex-col gap-4">
               <div className="flex flex-col gap-1">
-                <h2 className="font-semibold text-3xl capitalize">
+                <h1 className="font-semibold text-3xl capitalize">
                   {student?.fullName || student?.username}
-                </h2>
+                </h1>
                 <p className="text-slate-600 capitalize">
                   {student?.stack} Developer
                 </p>
@@ -162,7 +162,7 @@ export const Profile = ({ student, canUpdateProfile }: ProfileProps) => {
       {student?.bio && (
         <WhiteArea border>
           <div className="flex flex-col">
-            <h1 className="font-semibold text-slate-700 mb-3">About me</h1>
+            <h2 className="font-semibold text-slate-700 mb-3">About me</h2>
             <p>{student?.bio}</p>
           </div>
         </WhiteArea>
@@ -213,7 +213,7 @@ export const Profile = ({ student, canUpdateProfile }: ProfileProps) => {
         </WhiteArea>
       )}
       <WhiteArea border twClass="hidden">
-        <h1 className="font-semibold text-slate-700">Badges</h1>
+        <h2 className="font-semibold text-slate-700">Badges</h2>
         <div className="flex flex-col items-center gap-8 text-slate-700 sm:items-start mt-3">
           <div className="flex flex-col sm:flex-row items-center gap-2">
             <div className="rounded-full w-20 h-20 relative overflow-hidden">
