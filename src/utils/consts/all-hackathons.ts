@@ -1,10 +1,6 @@
 export type HackathonProjectDetails = {
   name: string;
-  url: string;
   demoUrl: string;
-  articleUrl: string;
-  repositoryUrl: string;
-  socialUrl: string;
 };
 
 export type SubmittedHackathonsDetails = {
@@ -21,11 +17,7 @@ export const submittedHackathons: SubmittedHacktons = [
     name: 'Idris Haruna',
     project: {
       name: 'Landing Page Project',
-      url: 'https://project-url.com',
       demoUrl: '4wblm-X0rEc',
-      articleUrl: 'https://article-url.com',
-      repositoryUrl: 'https://repository-url.com',
-      socialUrl: 'https://social-url.com',
     },
     description:
       'Learn the fundamentals of HTML, the building block of the web, and create your first web pages.the building block of the web',
@@ -35,11 +27,7 @@ export const submittedHackathons: SubmittedHacktons = [
     name: 'Idris Haruna',
     project: {
       name: 'Build a Landing Page, Boost Visibility && create your first web pages for businesses.  the building block of the web',
-      url: 'https://project-url.com',
       demoUrl: '4wblm-X0rEc',
-      articleUrl: 'https://article-url.com',
-      repositoryUrl: 'https://repository-url.com',
-      socialUrl: 'https://social-url.com',
     },
     description:
       'Learn the fundamentals of HTML, the building block of the web, and create your first web pages.the building block of the web',
@@ -49,11 +37,7 @@ export const submittedHackathons: SubmittedHacktons = [
     name: 'Idris Haruna',
     project: {
       name: 'Landing Page Project',
-      url: 'https://project-url.com',
       demoUrl: '4wblm-X0rEc',
-      articleUrl: 'https://article-url.com',
-      repositoryUrl: 'https://repository-url.com',
-      socialUrl: 'https://social-url.com',
     },
     description:
       'Master JavaScript basics and add interactivity to your websites with dynamic scripting.',
@@ -63,11 +47,7 @@ export const submittedHackathons: SubmittedHacktons = [
     name: 'Samuel Ayodele',
     project: {
       name: 'Build a Landing Page, Boost Visibility && create your first web pages for businesses.  the building block of the web',
-      url: 'https://project-url.com',
       demoUrl: '4wblm-X0rEc',
-      articleUrl: 'https://article-url.com',
-      repositoryUrl: 'https://repository-url.com',
-      socialUrl: 'https://social-url.com',
     },
     description:
       'Master the modern utility-first CSS framework and streamline your web development workflow.',
@@ -77,11 +57,7 @@ export const submittedHackathons: SubmittedHacktons = [
     name: 'Samuel Ayodele',
     project: {
       name: 'Landing Page Project',
-      url: 'https://project-url.com',
       demoUrl: '4wblm-X0rEc',
-      articleUrl: 'https://article-url.com',
-      repositoryUrl: 'https://repository-url.com',
-      socialUrl: 'https://social-url.com',
     },
     description:
       'Discover React, a popular JavaScript library for building user interfaces, and create dynamic web applications.',
@@ -91,11 +67,7 @@ export const submittedHackathons: SubmittedHacktons = [
     name: 'Samuel Ayodele',
     project: {
       name: 'Build a Landing Page, Boost Visibility && create your first web pages for businesses.  the building block of the web',
-      url: 'https://project-url.com',
       demoUrl: '4wblm-X0rEc',
-      articleUrl: 'https://article-url.com',
-      repositoryUrl: 'https://repository-url.com',
-      socialUrl: 'https://social-url.com',
     },
     description:
       'Explore Next.js, a powerful React framework for building server-side rendered web applications.',
@@ -105,11 +77,7 @@ export const submittedHackathons: SubmittedHacktons = [
     name: 'Idris Haruna',
     project: {
       name: 'Landing Page Project',
-      url: 'https://project-url.com',
       demoUrl: '4wblm-X0rEc',
-      articleUrl: 'https://article-url.com',
-      repositoryUrl: 'https://repository-url.com',
-      socialUrl: 'https://social-url.com',
     },
     description:
       'Learn the fundamentals of HTML, the building block of the web, and create your first web pages.',
@@ -119,11 +87,7 @@ export const submittedHackathons: SubmittedHacktons = [
     name: 'Idris Haruna',
     project: {
       name: 'Build a Landing Page, Boost Visibility && create your first web pages for businesses.  the building block of the web',
-      url: 'https://project-url.com',
       demoUrl: '4wblm-X0rEc',
-      articleUrl: 'https://article-url.com',
-      repositoryUrl: 'https://repository-url.com',
-      socialUrl: 'https://social-url.com',
     },
     description:
       'Dive into CSS and learn how to style your web pages to make them visually appealing.',
@@ -133,11 +97,7 @@ export const submittedHackathons: SubmittedHacktons = [
     name: 'Idris Haruna',
     project: {
       name: 'Build a Landing Page, Boost Visibility && create your first web pages for businesses.  the building block of the web',
-      url: 'https://project-url.com',
       demoUrl: '4wblm-X0rEc',
-      articleUrl: 'https://article-url.com',
-      repositoryUrl: 'https://repository-url.com',
-      socialUrl: 'https://social-url.com',
     },
     description:
       'Learn the fundamentals of HTML, the building block of the web, and create your first web pages.',
@@ -147,11 +107,7 @@ export const submittedHackathons: SubmittedHacktons = [
     name: 'Idris Haruna',
     project: {
       name: 'Landing Page Project',
-      url: 'https://project-url.com',
       demoUrl: '4wblm-X0rEc',
-      articleUrl: 'https://article-url.com',
-      repositoryUrl: 'https://repository-url.com',
-      socialUrl: 'https://social-url.com',
     },
     description:
       'Dive into CSS and learn how to style your web pages to make them visually appealing.',
@@ -161,11 +117,7 @@ export const submittedHackathons: SubmittedHacktons = [
     name: 'Idris Haruna',
     project: {
       name: 'Build a Landing Page, Boost Visibility && create your first web pages for businesses.  the building block of the web',
-      url: 'https://project-url.com',
       demoUrl: '4wblm-X0rEc',
-      articleUrl: 'https://article-url.com',
-      repositoryUrl: 'https://repository-url.com',
-      socialUrl: 'https://social-url.com',
     },
     description:
       'Learn the fundamentals of HTML, the building block of the web, and create your first web pages.the building block of the web',
@@ -175,11 +127,7 @@ export const submittedHackathons: SubmittedHacktons = [
     name: 'Idris Haruna',
     project: {
       name: 'Landing Page Project',
-      url: 'https://project-url.com',
       demoUrl: '4wblm-X0rEc',
-      articleUrl: 'https://article-url.com',
-      repositoryUrl: 'https://repository-url.com',
-      socialUrl: 'https://social-url.com',
     },
     description:
       'Dive into CSS and learn how to style your web pages to make them visually appealing.',
@@ -189,11 +137,7 @@ export const submittedHackathons: SubmittedHacktons = [
     name: 'Idris Haruna',
     project: {
       name: 'Build a Landing Page, Boost Visibility && create your first web pages for businesses.  the building block of the web',
-      url: 'https://project-url.com',
       demoUrl: '4wblm-X0rEc',
-      articleUrl: 'https://article-url.com',
-      repositoryUrl: 'https://repository-url.com',
-      socialUrl: 'https://social-url.com',
     },
     description:
       'Learn the fundamentals of HTML, the building block of the web, and create your first web pages. the building block of the web',
@@ -203,11 +147,7 @@ export const submittedHackathons: SubmittedHacktons = [
     name: 'Idris Haruna',
     project: {
       name: 'Landing Page Project',
-      url: 'https://project-url.com',
       demoUrl: '4wblm-X0rEc',
-      articleUrl: 'https://article-url.com',
-      repositoryUrl: 'https://repository-url.com',
-      socialUrl: 'https://social-url.com',
     },
     description:
       'Dive into CSS and learn how to style your web pages to make them visually appealing.',
@@ -217,11 +157,7 @@ export const submittedHackathons: SubmittedHacktons = [
     name: 'Idris Haruna',
     project: {
       name: 'Landing Page Project',
-      url: 'https://project-url.com',
       demoUrl: '4wblm-X0rEc',
-      articleUrl: 'https://article-url.com',
-      repositoryUrl: 'https://repository-url.com',
-      socialUrl: 'https://social-url.com',
     },
     description:
       'Learn the fundamentals of HTML, the building block of the web, and create your first web pages. the building block of the web',
@@ -231,11 +167,7 @@ export const submittedHackathons: SubmittedHacktons = [
     name: 'Idris Haruna',
     project: {
       name: 'Landing Page Project',
-      url: 'https://project-url.com',
       demoUrl: '4wblm-X0rEc',
-      articleUrl: 'https://article-url.com',
-      repositoryUrl: 'https://repository-url.com',
-      socialUrl: 'https://social-url.com',
     },
     description:
       'Dive into CSS and learn how to style your web pages to make them visually appealing.',
@@ -245,11 +177,7 @@ export const submittedHackathons: SubmittedHacktons = [
     name: 'Idris Haruna',
     project: {
       name: 'Landing Page Project',
-      url: 'https://project-url.com',
       demoUrl: '4wblm-X0rEc',
-      articleUrl: 'https://article-url.com',
-      repositoryUrl: 'https://repository-url.com',
-      socialUrl: 'https://social-url.com',
     },
     description:
       'Learn the fundamentals of HTML, the building block of the web, and create your first web pages.',
@@ -259,11 +187,7 @@ export const submittedHackathons: SubmittedHacktons = [
     name: 'Idris Haruna',
     project: {
       name: 'Landing Page Project',
-      url: 'https://project-url.com',
       demoUrl: '4wblm-X0rEc',
-      articleUrl: 'https://article-url.com',
-      repositoryUrl: 'https://repository-url.com',
-      socialUrl: 'https://social-url.com',
     },
     description:
       'Dive into CSS and learn how to style your web pages to make them visually appealing.',
@@ -273,11 +197,7 @@ export const submittedHackathons: SubmittedHacktons = [
     name: 'Idris Haruna',
     project: {
       name: 'Landing Page Project',
-      url: 'https://project-url.com',
       demoUrl: '4wblm-X0rEc',
-      articleUrl: 'https://article-url.com',
-      repositoryUrl: 'https://repository-url.com',
-      socialUrl: 'https://social-url.com',
     },
     description:
       'Learn the fundamentals of HTML, the building block of the web, and create your first web pages. the building block of the web',
@@ -287,11 +207,7 @@ export const submittedHackathons: SubmittedHacktons = [
     name: 'Idris Haruna',
     project: {
       name: 'Landing Page Project',
-      url: 'https://project-url.com',
       demoUrl: '4wblm-X0rEc',
-      articleUrl: 'https://article-url.com',
-      repositoryUrl: 'https://repository-url.com',
-      socialUrl: 'https://social-url.com',
     },
     description:
       'Dive into CSS and learn how to style your web pages to make them visually appealing.',
