@@ -176,6 +176,7 @@ export type Hackathon = {
   participantCount: number;
   coverImage: string;
   desktopCoverImage: string;
+  ogImage: string;
   title: string;
   brief: string;
   slug: string;
