@@ -9,8 +9,11 @@ import { EmptyState } from '../empty-state';
 import HackathonProjectCard from './hackathonProjectCard';
 
 export default function HackathonProjects() {
-  const [hackathonProject, setHackathonProject] = useState(submittedHackathons);
+  const [hackathonProjects, setHackathonProjects] =
+    useState(submittedHackathons);
   const hackathonUrl = ''; // construct using slug from hackathon details
+  const showHackathonProjects =
+    hackathonProjects && hackathonProjects.length > 0;
 
   return (
     <section className="flex flex-col gap-5">
@@ -26,8 +29,8 @@ export default function HackathonProjects() {
         <DashboardSubheading title="Project Submissions for 'Build for Business Hackathon'" />
       </div>
       <div className="grid sm:grid-cols-2 xl:grid-cols-3 gap-4 justify-start">
-        {hackathonProject && hackathonProject.length > 0 ? (
-          hackathonProject.map(({ id, name, description, project }) => (
+        {showHackathonProjects ? (
+          hackathonProjects.map(({ id, name, description, project }) => (
             <HackathonProjectCard
               key={id}
               id={id}
