@@ -21,7 +21,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       images: [hackathonRes.hackathon.ogImage],
     },
     alternates: {
-      canonical: `/hackathon/${hackathonSlug}`,
+      canonical: `/hackathons/${hackathonSlug}`,
     },
   };
 }
