@@ -23,6 +23,7 @@ export const HackathonCard = ({
   const {
     _id: hackathonId,
     coverImage,
+    desktopCoverImage,
     brief,
     title,
     tags,
@@ -74,7 +75,13 @@ export const HackathonCard = ({
           href={`hackathons/${slug}`}
           className="relative min-h-[150px] sm:min-h-[100px] sm:w-[300px] md:w-[270px] xl:w-[190px] h-full border-r overflow-hidden"
         >
-          <Image src={coverImage} alt="" fill />
+          <Image src={coverImage} alt="" fill className="sm:hidden" />
+          <Image
+            src={desktopCoverImage}
+            alt=""
+            fill
+            className="hidden sm:block"
+          />
         </Link>
         <section className="p-5 flex flex-col justify-between gap-2">
           <section className="flex flex-col gap-1.5">
