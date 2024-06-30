@@ -113,7 +113,7 @@ export const HackathonCard = ({
               {brief}
             </p>
           </section>
-          <div className="flex flex-col min-[340px]:flex-row gap-2 sm:items-center">
+          <div className="flex flex-col w-fit min-[340px]:flex-row gap-2 sm:items-center">
             <Button
               size="xs"
               disabled={disableJoinBtn}
