@@ -207,6 +207,7 @@ export type Hackathon = {
     username: string;
     photo: string;
     isAnonymous: boolean;
+    isAdmin: boolean;
   }[];
 };
 

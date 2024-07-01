@@ -30,7 +30,7 @@ const GET = async (_: Request, { params }: { params: { slug: string } }) => {
 
     const students = await Student.find({
       _id: { $in: studentIds },
-    }).select('_id fullName photo stack username isAnonymous');
+    }).select('_id fullName photo stack username isAnonymous isAdmin');
 
     hackathon = { ...hackathon._doc, participants: students };
 
