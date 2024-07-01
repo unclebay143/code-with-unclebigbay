@@ -25,6 +25,7 @@ export type SidebarLink = {
   disabled?: boolean;
   showOnBoard?: boolean;
   hideAfterOnboard?: boolean;
+  isNew?: boolean;
 };
 
 export type SidebarLinks = SidebarLink[];
@@ -91,6 +92,7 @@ const hackathons: SidebarLink = {
   label: 'Hackathons',
   slug: 'hackathons',
   Icon: Box,
+  isNew: true,
 };
 
 const tags: SidebarLink = {
