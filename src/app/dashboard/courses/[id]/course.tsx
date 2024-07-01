@@ -24,12 +24,13 @@ import { useCourseBySlug } from '@/components/hooks/useCourse';
 import { Student, Tags } from '@/utils/types';
 import { formatDate, formatTime } from '@/utils';
 import { Tooltip } from '@/components/atoms/Tooltip';
-import { handleAuthentication } from '@/utils/auth';
 import { ShareButton } from '@/components/molecules/dashboard/share-button';
 import { EmptyStateContainer } from '@/components/molecules/dashboard/EmptyStateContainer';
+import { AuthModal } from '@/components/atoms/AuthModal';
 
 const Course = ({ currentStudent }: { currentStudent?: Student }) => {
   const [showMore, setShowMore] = useState(false);
+  const [showAuthModal, setShowAuthModal] = useState(false);
 
   const studentId = currentStudent?._id;
 
@@ -138,11 +139,7 @@ const Course = ({ currentStudent }: { currentStudent?: Student }) => {
                         <Button
                           appearance="primary-slate"
                           size="xs"
-                          onClick={() =>
-                            handleAuthentication({
-                              nextUrl: window.location.href,
-                            })
-                          }
+                          onClick={() => setShowAuthModal(true)}
                         >
                           Sign in to enroll
                         </Button>
@@ -370,6 +367,14 @@ const Course = ({ currentStudent }: { currentStudent?: Student }) => {
             </div>
           )}
         </WhiteArea>
+      )}
+      {showAuthModal && (
+        <AuthModal
+          isOpen={showAuthModal}
+          close={() => setShowAuthModal(false)}
+          type="login"
+          nextUrl={window.location.href}
+        />
       )}
     </>
   );
