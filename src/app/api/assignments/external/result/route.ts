@@ -18,8 +18,6 @@ const POST = async (req: Request) => {
         '_id title',
       );
 
-      console.log(course.title);
-
       if (!course) {
         return NextResponse.json(
           {
@@ -36,15 +34,14 @@ const POST = async (req: Request) => {
         invalidUsername: true,
       }));
 
-      console.log(userNames);
-
       const studentsByUsername = await Student.find({
         username: { $in: userNames },
       }).select('username');
 
       for (const student of studentsByUsername) {
         const existingStudent = arrayOfuserNamesObj.find(
-          (user) => user.username === student.username,
+          (user) =>
+            user.username.toLowerCase() === student.username.toLowerCase(),
         );
         if (existingStudent) {
           existingStudent.invalidUsername = false;
