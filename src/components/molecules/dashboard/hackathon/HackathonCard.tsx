@@ -44,6 +44,8 @@ export const HackathonCard = ({
   const hackathonUrl =
     typeof window !== 'undefined' && `${window.location.href}/${slug}`;
 
+  console.log({ registered, isRegistered });
+
   const disableJoinBtn = registered || isJoinHackathonPending || isClosed;
 
   const handleJoinHackathon = () => {
