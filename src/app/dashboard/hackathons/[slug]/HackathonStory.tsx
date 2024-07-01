@@ -80,7 +80,7 @@ export const HackathonStory = ({
   const disableRegisterBtn = registered || isClosed || isJoinHackathonPending;
 
   const animatedTooltipParticipants = participants
-    .filter((participant) => !participant.isAnonymous)
+    .filter((participant) => !participant.isAnonymous && !participant.isAdmin)
     .map((participant) => {
       return {
         id: participant._id,
@@ -114,7 +114,7 @@ export const HackathonStory = ({
     animatedTooltipParticipants && animatedTooltipParticipants.length > 0;
 
   const socialShare = `https://twitter.com/intent/tweet?url=
-            ${hackathonUrl}&text=I'm excited to publicly announce that I'm participating in the ${name}! %0A%0AJoin in this creative problem-solving. This is going to be epic!`;
+            ${hackathonUrl}&text=I'm excited to publicly announce that I'm participating in the ${name}! by @unclebigbay143 %0A%0AJoin in this creative problem-solving. This is going to be epic! #BuildforBusinessHackathon #CodeWithUnclebigbay`;
   return (
     <WhiteArea border>
       <div className="flex items-center justify-between mb-5 lg:hidden">
