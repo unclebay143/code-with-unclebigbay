@@ -10,8 +10,9 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useState } from 'react';
 import Countdown from 'react-countdown';
-import { handleAuthentication } from '@/utils/auth';
 import { hasHackathonEnded } from '@/utils';
+import { AuthModal } from '@/components/atoms/AuthModal';
+import { baseURL } from '../../../../../frontend.config';
 
 export const HackathonCard = ({
   hackathon,
@@ -20,6 +21,8 @@ export const HackathonCard = ({
   hackathon: Hackathon;
   isRegistered: boolean;
 }) => {
+  const [showAuthModal, setShowAuthModal] = useState(false);
+
   const {
     _id: hackathonId,
     coverImage,
@@ -41,14 +44,13 @@ export const HackathonCard = ({
   const isClosed = hasHackathonEnded(endDate);
 
   const [registered, setRegistered] = useState(isRegistered);
-  const hackathonUrl =
-    typeof window !== 'undefined' && `${window.location.href}/${slug}`;
+  const hackathonUrl = `${baseURL}/hackathons/${slug}`;
 
   const disableJoinBtn = registered || isJoinHackathonPending || isClosed;
 
   const handleJoinHackathon = () => {
     if (!studentId && hackathonUrl) {
-      return handleAuthentication({ nextUrl: hackathonUrl });
+      return setShowAuthModal(true);
     }
 
     joinHackathon({
@@ -145,6 +147,15 @@ export const HackathonCard = ({
           </div>
         )}
       </section>
+
+      {showAuthModal && (
+        <AuthModal
+          isOpen={showAuthModal}
+          close={() => setShowAuthModal(false)}
+          type="login"
+          nextUrl={hackathonUrl}
+        />
+      )}
     </section>
   );
 };
