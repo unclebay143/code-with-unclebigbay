@@ -3,6 +3,7 @@
 import {
   ArrowDownloadSave,
   ArrowResetRefreshRight,
+  Banner,
   Button,
   CloudCheck,
   FormFieldLabel,
@@ -28,7 +29,7 @@ function getUsernameURL(url: string) {
 
 const Page = () => {
   const [courseSlug, setCourseSlug] = useState('');
-  const [gitHubUsernames, setGitHubUsernames] = useState<any[]>();
+  const [userNames, setUserNames] = useState<any[]>();
   const [extractedResult, setExtractedResult] = useState<{}[]>();
   const [fileName, setFileName] = useState<string>('');
   const [isLoading, setIsLoading] = useState(false);
@@ -44,13 +45,13 @@ const Page = () => {
       setIsLoading(false);
       return toast.error('course slug is required');
     }
-    if (!gitHubUsernames || gitHubUsernames?.length === 0) {
+    if (!userNames || userNames?.length === 0) {
       setIsLoading(false);
       return toast.error('csv file cannot be empty');
     }
     const res = await fetch('/api/assignments/external/result', {
       method: 'post',
-      body: JSON.stringify({ gitHubUsernames, courseSlug }),
+      body: JSON.stringify({ userNames, courseSlug }),
     });
 
     const result = await res.json();
@@ -68,12 +69,17 @@ const Page = () => {
     <div className="max-w-lg px-5 mx-auto flex flex-col justify-center items-center min-h-screen">
       {showDefaultState && (
         <section className="w-full flex flex-col gap-3">
+          <Banner
+            title="CSV Guideline"
+            description="Ensure the heading for the usernames is 'cwubbUsername'"
+            color="neutral"
+          />
           <FormFieldLabel id="file">Upload .csv File</FormFieldLabel>
           <InputField
             onChange={(e) => setCourseSlug(e.target.value)}
             value={courseSlug}
             id="file"
-            placeholder="Enter course slug i.e introduction to css"
+            placeholder="Enter course slug i.e introduction-to-css"
             size="sm"
           />
 
@@ -81,9 +87,9 @@ const Page = () => {
             parserOptions={{ header: true }}
             onFileLoaded={(data, fileInfo) => {
               const ghUsernames = data.map((datum) =>
-                getUsernameURL(datum['Your GitHub Username']),
+                getUsernameURL(datum['cwubbUsername']),
               );
-              setGitHubUsernames(ghUsernames);
+              setUserNames(ghUsernames);
             }}
           />
           <Button
@@ -127,7 +133,7 @@ const Page = () => {
               Download
             </CSVLink>
           </Button>
-          {fileName}
+
           <Button
             onClick={restToDefault}
             appearance="link-slate"
