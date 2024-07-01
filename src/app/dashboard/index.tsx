@@ -1,8 +1,8 @@
 'use client';
 
+import { AuthModal } from '@/components/atoms/AuthModal';
 import { Navbar } from '@/components/molecules/dashboard/navbar';
 import { Sidebar } from '@/components/molecules/dashboard/sidebar';
-import { handleAuthentication } from '@/utils/auth';
 import { onboardingLinks, publicLinks } from '@/utils/consts/links';
 import { Student } from '@/utils/types';
 import { redirect, usePathname } from 'next/navigation';
@@ -33,8 +33,16 @@ export const DashboardIndex = ({
 
   if (requireAuth) {
     if (typeof window !== 'undefined') {
-      handleAuthentication({ nextUrl: window.location.href });
+      return (
+        <AuthModal
+          isOpen
+          close={() => null}
+          nextUrl={window.location.href}
+          type="login"
+        />
+      );
     }
+
     return null;
   }
 
