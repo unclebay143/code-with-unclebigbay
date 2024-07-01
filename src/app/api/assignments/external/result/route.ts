@@ -2,17 +2,22 @@ import { NextResponse } from 'next/server';
 import { AssignmentResponse } from '@/models/assignmentResponse';
 import { Course } from '@/models/course';
 import { Student } from '@/models/student';
+import connectViaMongoose from '@/utils/mongoose';
 
 const POST = async (req: Request) => {
   try {
+    await connectViaMongoose();
     const body = (await req.json()) as {
-      gitHubUsernames: string[];
+      userNames: string[];
       courseSlug: string;
     };
-    const { gitHubUsernames, courseSlug } = body;
+    const { userNames, courseSlug } = body;
 
     try {
-      const course = await Course.findOne({ slug: courseSlug });
+      const course = await Course.findOne({ slug: courseSlug }).select(
+        '_id title',
+      );
+
       if (!course) {
         return NextResponse.json(
           {
@@ -24,18 +29,19 @@ const POST = async (req: Request) => {
         );
       }
 
-      const arrayOfGitHubUsernamesObj = gitHubUsernames.map((username) => ({
+      const arrayOfuserNamesObj = userNames.map((username) => ({
         username,
         invalidUsername: true,
       }));
 
       const studentsByUsername = await Student.find({
-        username: { $in: gitHubUsernames },
+        username: { $in: userNames },
       }).select('username');
 
       for (const student of studentsByUsername) {
-        const existingStudent = arrayOfGitHubUsernamesObj.find(
-          (user) => user.username === student.username,
+        const existingStudent = arrayOfuserNamesObj.find(
+          (user) =>
+            user.username.toLowerCase() === student.username.toLowerCase(),
         );
         if (existingStudent) {
           existingStudent.invalidUsername = false;
@@ -46,7 +52,8 @@ const POST = async (req: Request) => {
         [username: string]: number;
       }
 
-      const scores: StudentScores = {};
+      let scores: StudentScores = {};
+      let total: number = 0;
 
       for (const student of studentsByUsername) {
         const assignmentResponses = await AssignmentResponse.find({
@@ -54,15 +61,20 @@ const POST = async (req: Request) => {
           student: student._id,
         });
 
+        if (!total) {
+          total = assignmentResponses?.[0].response.length;
+        }
+
         scores[student.username] = assignmentResponses.reduce(
           (acc, assignment) => acc + assignment.score,
           0,
         );
       }
 
-      const mapStudentToResult = arrayOfGitHubUsernamesObj.map((user) => ({
+      const mapStudentToResult = arrayOfuserNamesObj.map((user) => ({
         ...user,
         score: scores[user.username] || 0,
+        total,
       }));
 
       return NextResponse.json(
@@ -76,7 +88,10 @@ const POST = async (req: Request) => {
       );
     } catch (error) {
       console.error('Error fetching user scores:', error);
-      return NextResponse.json({ error }, { status: 500 });
+      return NextResponse.json(
+        { message: 'Error fetching user scores' },
+        { status: 500 },
+      );
     }
   } catch (e: any) {
     return NextResponse.json({ error: e.message }, { status: 500 });
