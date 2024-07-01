@@ -17,9 +17,6 @@ export const HackathonWidget = ({ hackathon }: Props) => {
 
   const hackathonUrl = `/dashboard/hackathons/${slug}`;
 
-  console.log(hasHackathonEnded(endDate));
-  console.log(title);
-
   if (hasHackathonEnded(endDate)) return null;
 
   return (
