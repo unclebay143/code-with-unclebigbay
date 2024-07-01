@@ -6,6 +6,7 @@ const Schema = mongoose.Schema;
 
 // Enums
 const ALLOWED_GENDER = ['male', 'female'];
+const ALLOWED_AUTH_PROVIDER = ['github', 'google'];
 
 const studentSchema = new Schema(
   {
@@ -41,6 +42,7 @@ const studentSchema = new Schema(
     gender: { type: String, enum: ALLOWED_GENDER },
     interests: [{ type: String }],
     betaFeatures: { type: 'Object' },
+    authProvider: { type: String, enum: ALLOWED_AUTH_PROVIDER },
   },
   {
     toJSON: {
