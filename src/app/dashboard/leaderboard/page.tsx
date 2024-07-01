@@ -61,7 +61,8 @@ const LeaderboardCard = ({
             {...(!isAnonymous && LinkAttributes)}
             className={`font-medium text-slate-600 ${isAnonymous ? '' : 'group-hover:underline'}`}
           >
-            {isAnonymous ? 'Anonymous' : fullName} {isCurrentUser && '(you)'}
+            {isAnonymous ? 'Anonymous' : fullName || username}{' '}
+            {isCurrentUser && '(you)'}
           </Comp>
           <div className="flex items-center gap-2">
             {stack && (
@@ -175,7 +176,7 @@ const Page = async () => {
                   <div className="flex flex-col gap-2 text-center capitalize text-slate-800">
                     <div className="flex flex-col">
                       <p className="font-semibold text-slate-900">
-                        {isAnonymous ? 'Anonymous' : fullName}{' '}
+                        {isAnonymous ? 'Anonymous' : fullName || username}{' '}
                         {isCurrentUser && (
                           <span className="lowercase">(you)</span>
                         )}
