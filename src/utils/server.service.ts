@@ -296,6 +296,8 @@ export async function getAllHackathons() {
   });
   const hackathons = await result.json();
 
+  console.log(hackathons);
+
   return hackathons;
 }
 
