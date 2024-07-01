@@ -5,7 +5,6 @@ import React, { useState } from 'react';
 import { ChevronRight } from '../../icons/ChevronRight';
 import { ArrowRight } from '../../icons/ArrowRight';
 import { Button } from '@hashnode/matrix-ui';
-import { handleAuthentication } from '@/utils/auth';
 import { Session } from 'next-auth';
 import { AuthModal } from '@/components/atoms/AuthModal';
 
