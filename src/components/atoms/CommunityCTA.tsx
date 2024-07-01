@@ -3,7 +3,6 @@
 import React, { useState } from 'react';
 import { Button } from '@hashnode/matrix-ui';
 import Link from 'next/link';
-import { handleAuthentication } from '@/utils/auth';
 import { Session } from 'next-auth';
 import { AuthModal } from './AuthModal';
 
