@@ -103,7 +103,7 @@ const tags: SidebarLink = {
 export const onboardingLinks: SidebarLinks = [onboarding, helpCenter];
 export const publicLinks: SidebarLinks = [
   courses,
-  // hackathons,
+  hackathons,
   // leaderboard,
   helpCenter,
 ]; // unauthenticated users
@@ -111,13 +111,13 @@ export const publicLinks: SidebarLinks = [
 const privateLinks: SidebarLinks = [
   overview,
   courses,
-  // hackathons,
+  hackathons,
   // leaderboard,
   activity,
   settings,
   helpCenter,
 ];
-const adminLinks: SidebarLinks = [hackathons, leaderboard, questions, tags];
+const adminLinks: SidebarLinks = [leaderboard, questions, tags];
 
 export const getSidebarLinks = ({
   isAdmin,

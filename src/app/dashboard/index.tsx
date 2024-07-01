@@ -29,10 +29,9 @@ export const DashboardIndex = ({
 
   const requireAdminAccess = !isAdmin && adminRoute;
   const canAccessWithoutAuth = unAuthenticatedRoutes.includes(currentPageName);
-  const isHackathonRoute = pathname.split('/').includes('hackathons'); // temporary access
   const requireAuth = !session && !canAccessWithoutAuth;
 
-  if (requireAuth && !isHackathonRoute) {
+  if (requireAuth) {
     if (typeof window !== 'undefined') {
       handleAuthentication({ nextUrl: window.location.href });
     }
@@ -41,7 +40,7 @@ export const DashboardIndex = ({
 
   const redirectToOnboard =
     !canAccessWithoutAuth && !currentStudent?.stack && !pathIsOnboarding;
-  if (redirectToOnboard && !isHackathonRoute) {
+  if (redirectToOnboard) {
     return redirect('/dashboard/onboard');
   }
   const blockOnboardPage =
