@@ -5,6 +5,8 @@ const Schema = mongoose.Schema;
 const hackathonSchema = new Schema(
   {
     coverImage: { type: String },
+    desktopCoverImage: { type: String },
+    ogImage: { type: String },
     hashTag: { type: String, required: true, unique: true, index: true },
     title: { type: String, required: true, unique: true },
     name: { type: String, required: true, unique: true },

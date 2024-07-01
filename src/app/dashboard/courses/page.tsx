@@ -3,7 +3,7 @@ import CoursesPage from './courses';
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'Courses - Dashboard',
+  title: 'Courses',
 };
 
 const Page = async () => {
