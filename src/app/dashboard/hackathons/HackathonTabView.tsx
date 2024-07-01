@@ -54,6 +54,9 @@ export const HackathonTabView = ({ hackathons }: HackathonTabViewProps) => {
     hasHackathonEnded(hackathon.endDate),
   );
 
+  console.log(hackathons);
+  console.log(activeHackathons);
+
   return (
     <Tabs
       defaultValue={currentView}
