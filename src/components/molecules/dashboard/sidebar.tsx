@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { SlideOver } from '../../atoms/SlideOver';
 import { CodeWithUnclebigbayLogo } from '../../atoms/CodeWithUnclebigbayLogo';
 import { SidebarLinks, getSidebarLinks } from '@/utils/consts/links';
+import { Badge } from '@hashnode/matrix-ui';
 
 const SidebarLink = ({
   label,
@@ -12,11 +13,13 @@ const SidebarLink = ({
   slug,
   onClick,
   disabled,
+  showNewBadge,
 }: any) => {
   const Component = disabled ? 'button' : Link;
   const componentProps = disabled
     ? {}
     : { onClick: onClick, href: `/dashboard/${slug}` };
+
   return (
     <>
       {/* @ts-ignore */}
@@ -28,6 +31,11 @@ const SidebarLink = ({
           <Icon size="18" />
         </span>
         <span>{label}</span>
+        {showNewBadge && (
+          <Badge theme="green" size="xs">
+            new
+          </Badge>
+        )}
       </Component>
     </>
   );
@@ -42,7 +50,7 @@ const RenderNavItems = ({
 }) => {
   return (
     <>
-      {sidebarLinks.map(({ key, label, Icon, slug }) => {
+      {sidebarLinks.map(({ key, label, Icon, slug, isNew }) => {
         const isCurrentPage = currentPageName === key.toLowerCase();
 
         return (
@@ -52,6 +60,7 @@ const RenderNavItems = ({
             Icon={Icon}
             slug={slug}
             isActive={isCurrentPage}
+            showNewBadge={isNew}
           />
         );
       })}
