@@ -175,6 +175,8 @@ export type Hackathon = {
   hashTag: string;
   participantCount: number;
   coverImage: string;
+  desktopCoverImage: string;
+  ogImage: string;
   title: string;
   brief: string;
   slug: string;
@@ -205,6 +207,7 @@ export type Hackathon = {
     username: string;
     photo: string;
     isAnonymous: boolean;
+    isAdmin: boolean;
   }[];
 };
 

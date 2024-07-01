@@ -68,6 +68,7 @@ const GET = async () => {
           startDate: 1,
           endDate: 1,
           coverImage: 1,
+          desktopCoverImage: 1,
           tags: 1,
           brief: 1,
           isActive: 1,
@@ -80,6 +81,8 @@ const GET = async () => {
         },
       },
     ]);
+
+    console.log(hackathons);
 
     return NextResponse.json(
       { message: 'Hackathons fetched successfully', hackathons },

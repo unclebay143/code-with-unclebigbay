@@ -25,6 +25,7 @@ export type SidebarLink = {
   disabled?: boolean;
   showOnBoard?: boolean;
   hideAfterOnboard?: boolean;
+  isNew?: boolean;
 };
 
 export type SidebarLinks = SidebarLink[];
@@ -91,6 +92,7 @@ const hackathons: SidebarLink = {
   label: 'Hackathons',
   slug: 'hackathons',
   Icon: Box,
+  isNew: true,
 };
 
 const tags: SidebarLink = {
@@ -103,7 +105,7 @@ const tags: SidebarLink = {
 export const onboardingLinks: SidebarLinks = [onboarding, helpCenter];
 export const publicLinks: SidebarLinks = [
   courses,
-  // hackathons,
+  hackathons,
   // leaderboard,
   helpCenter,
 ]; // unauthenticated users
@@ -111,13 +113,13 @@ export const publicLinks: SidebarLinks = [
 const privateLinks: SidebarLinks = [
   overview,
   courses,
-  // hackathons,
+  hackathons,
   // leaderboard,
   activity,
   settings,
   helpCenter,
 ];
-const adminLinks: SidebarLinks = [hackathons, leaderboard, questions, tags];
+const adminLinks: SidebarLinks = [leaderboard, questions, tags];
 
 export const getSidebarLinks = ({
   isAdmin,

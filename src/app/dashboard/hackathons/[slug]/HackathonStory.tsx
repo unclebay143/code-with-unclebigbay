@@ -80,11 +80,11 @@ export const HackathonStory = ({
   const disableRegisterBtn = registered || isClosed || isJoinHackathonPending;
 
   const animatedTooltipParticipants = participants
-    .filter((participant) => !participant.isAnonymous)
+    .filter((participant) => !participant.isAnonymous && !participant.isAdmin)
     .map((participant) => {
       return {
         id: participant._id,
-        name: participant.fullName,
+        name: participant.fullName || participant.username,
         designation: participant.stack,
         image: participant.photo,
       };
@@ -114,7 +114,7 @@ export const HackathonStory = ({
     animatedTooltipParticipants && animatedTooltipParticipants.length > 0;
 
   const socialShare = `https://twitter.com/intent/tweet?url=
-            ${hackathonUrl}&text=I'm excited to publicly announce that I'm participating in the ${name}! %0A%0AJoin in this creative problem-solving. This is going to be epic!`;
+            ${hackathonUrl}&text=I'm excited to publicly announce that I'm participating in the ${name}! by @unclebigbay143 %0A%0AJoin in this creative problem-solving. This is going to be epic! #BuildforBusinessHackathon #CodeWithUnclebigbay`;
   return (
     <WhiteArea border>
       <div className="flex items-center justify-between mb-5 lg:hidden">
@@ -132,9 +132,9 @@ export const HackathonStory = ({
           <div className="absolute inset-0 w-full h-full bg-slate-900 z-20 [mask-image:radial-gradient(transparent,white)] pointer-events-none" />
           <Boxes />
           <section className="flex flex-col items-center gap-3 relative z-20 p-4">
-            <h2 className="md:text-4xl text-xl text-white px-4 text-center">
+            <h1 className="md:text-4xl text-xl text-white px-4 text-center">
               {title}
-            </h2>
+            </h1>
             <span
               className={`${isClosed ? 'text-red-500' : 'text-blue-500'} text-sm font-bold flex items-center gap-1`}
             >
