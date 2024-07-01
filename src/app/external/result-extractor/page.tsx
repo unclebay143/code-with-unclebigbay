@@ -50,7 +50,7 @@ const Page = () => {
       return toast.error('csv file cannot be empty');
     }
     const res = await fetch('/api/assignments/external/result-extractor', {
-      method: 'post',
+      method: 'POST',
       body: JSON.stringify({ userNames, courseSlug }),
     });
 
