@@ -23,11 +23,11 @@ import { Hackathon } from '@/utils/types';
 import { useHackathonById } from '@/components/hooks/useHackathon';
 import useCurrentStudent from '@/components/hooks/useCurrentStudent';
 import { formatStartAndEndDate } from '@/utils/date';
-import { handleAuthentication } from '@/utils/auth';
 import dayjs from 'dayjs';
 import { HackathonFaqs } from './HackathonFaq';
 import { hasHackathonEnded } from '@/utils';
 import { baseURL } from '../../../../../frontend.config';
+import { AuthModal } from '@/components/atoms/AuthModal';
 
 type HackathonStoryProps = {
   hackathon: Hackathon;
@@ -66,6 +66,8 @@ export const HackathonStory = ({
   const [hasSubmittedEntry, setHasSubmittedEntry] = useState(hasSubmitted);
   const studentId = currentStudent?._id!;
   const [openSubmitEntryModal, setOpenSubmitEntryModal] = useState(false);
+  const [showAuthModal, setShowAuthModal] = useState(false);
+
   const {
     joinHackathon,
     isJoinHackathonPending,
@@ -92,7 +94,7 @@ export const HackathonStory = ({
 
   const handleJoinHackathon = () => {
     if (!studentId && hackathonUrl) {
-      return handleAuthentication({ nextUrl: hackathonUrl });
+      return setShowAuthModal(true);
     }
 
     joinHackathon({
@@ -387,7 +389,9 @@ export const HackathonStory = ({
           </section>
           {showParticipantSection && (
             <section className="flex flex-col gap-4">
-              <h3 className={sectionHeadingStyle}>Participants</h3>
+              <h3 className={sectionHeadingStyle}>
+                Participants ({animatedTooltipParticipants.length})
+              </h3>
               <section className="flex flex-row flex-wrap gap-y-3">
                 <AnimatedTooltip items={animatedTooltipParticipants} />
               </section>
@@ -483,6 +487,14 @@ export const HackathonStory = ({
         isSubmitEntryPending={isSubmitEntryPending}
         onSubmitEntry={() => setHasSubmittedEntry(true)}
       />
+      {showAuthModal && (
+        <AuthModal
+          isOpen={showAuthModal}
+          close={() => setShowAuthModal(false)}
+          type="login"
+          nextUrl={hackathonUrl}
+        />
+      )}
     </WhiteArea>
   );
 };
