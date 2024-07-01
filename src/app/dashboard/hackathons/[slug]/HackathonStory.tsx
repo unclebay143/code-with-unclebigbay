@@ -387,7 +387,9 @@ export const HackathonStory = ({
           </section>
           {showParticipantSection && (
             <section className="flex flex-col gap-4">
-              <h3 className={sectionHeadingStyle}>Participants</h3>
+              <h3 className={sectionHeadingStyle}>
+                Participants ({animatedTooltipParticipants.length})
+              </h3>
               <section className="flex flex-row flex-wrap gap-y-3">
                 <AnimatedTooltip items={animatedTooltipParticipants} />
               </section>
