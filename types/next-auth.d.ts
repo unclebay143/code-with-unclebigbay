@@ -13,9 +13,15 @@ declare module 'next-auth' {
 
   interface Profile {
     id: string;
+
+    // github
     bio: string;
     login: string;
     location: string;
     avatar_url: string;
+
+    // Google
+    given_name: string;
+    picture: string;
   }
 }
