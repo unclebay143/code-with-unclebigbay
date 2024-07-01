@@ -84,7 +84,7 @@ export const HackathonStory = ({
     .map((participant) => {
       return {
         id: participant._id,
-        name: participant.fullName,
+        name: participant.fullName || participant.username,
         designation: participant.stack,
         image: participant.photo,
       };
