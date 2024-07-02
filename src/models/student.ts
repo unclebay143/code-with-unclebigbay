@@ -12,7 +12,10 @@ const studentSchema = new Schema(
   {
     fullName: { type: String },
     email: { type: String, required: true },
-    username: { type: String },
+    username: {
+      type: String,
+      collation: { locale: 'en', strength: 2 }, // Case-insensitive collation
+    },
     bio: { type: String },
     socials: {
       portfolio: { type: String },
