@@ -44,8 +44,6 @@ const POST = async (req: Request) => {
         },
       });
 
-      console.log(studentsByUsername);
-
       for (const student of studentsByUsername) {
         const existingStudent = arrayOfUserNamesObj.find(
           (user) =>

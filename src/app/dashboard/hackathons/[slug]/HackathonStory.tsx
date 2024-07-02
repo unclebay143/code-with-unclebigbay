@@ -95,9 +95,6 @@ export const HackathonStory = ({
   const anonymousCounts =
     participants.length - animatedTooltipParticipants.length;
 
-  console.log(participants.length);
-  console.log(animatedTooltipParticipants.length);
-
   const handleJoinHackathon = () => {
     if (!studentId && hackathonUrl) {
       return setShowAuthModal(true);
@@ -120,9 +117,6 @@ export const HackathonStory = ({
   const showJudgesSection = judges && judges.length > 0;
   const showParticipantSection =
     animatedTooltipParticipants && animatedTooltipParticipants.length > 0;
-
-  console.log(anonymousCounts);
-  console.log(anonymousCounts > 0);
 
   const socialShare = `https://twitter.com/intent/tweet?url=
             ${hackathonUrl}&text=I'm excited to publicly announce that I'm participating in the ${name}! by @unclebigbay143 %0A%0AJoin in this creative problem-solving. This is going to be epic! #BuildforBusinessHackathon #CodeWithUnclebigbay`;
@@ -404,11 +398,11 @@ export const HackathonStory = ({
               <section className="flex flex-row flex-wrap gap-y-3">
                 <AnimatedTooltip items={animatedTooltipParticipants} />
               </section>
-              <span className="inline text-sm text-slate-500 hover:text-slate-600">
-                {anonymousCounts > 0
-                  ? `+${anonymousCounts} anonymous participant${anonymousCounts > 1 ? 's.' : '.'}`
-                  : null}
-              </span>
+              {anonymousCounts > 0 ? (
+                <span className="inline text-sm text-slate-500 hover:text-slate-600">
+                  {`+${anonymousCounts} anonymous participant${anonymousCounts > 1 ? 's.' : '.'}`}
+                </span>
+              ) : null}
             </section>
           )}
         </section>
