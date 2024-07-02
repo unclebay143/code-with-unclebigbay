@@ -65,11 +65,6 @@ const Page = () => {
       return toast.error(result.message);
     }
 
-    console.dir(result.extractedStudentResult.filter((r) => r.invalidUsername));
-    console.dir(
-      result.extractedStudentResult.filter((r) => !r.invalidUsername),
-    );
-
     setExtractedResult(result.extractedStudentResult);
     toast.success('Assignment results extracted successfully.');
     setIsLoading(false);
