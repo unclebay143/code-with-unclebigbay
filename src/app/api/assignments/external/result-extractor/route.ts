@@ -31,17 +31,23 @@ const POST = async (req: Request) => {
         username.trim().toLowerCase(),
       );
 
-      const arrayOfuserNamesObj = trimmedUserNames.map((username) => ({
+      const arrayOfUserNamesObj = trimmedUserNames.map((username) => ({
         username: username.trim(),
         invalidUsername: true,
       }));
 
       const studentsByUsername = await Student.find({
-        username: { $in: trimmedUserNames },
-      }).select('username');
+        username: {
+          $in: trimmedUserNames.map(
+            (username) => new RegExp(`^${username}$`, 'i'),
+          ),
+        },
+      });
+
+      console.log(studentsByUsername);
 
       for (const student of studentsByUsername) {
-        const existingStudent = arrayOfuserNamesObj.find(
+        const existingStudent = arrayOfUserNamesObj.find(
           (user) =>
             user.username.toLowerCase() === student.username.toLowerCase(),
         );
@@ -73,7 +79,7 @@ const POST = async (req: Request) => {
         );
       }
 
-      const mapStudentToResult = arrayOfuserNamesObj.map((user) => ({
+      const mapStudentToResult = arrayOfUserNamesObj.map((user) => ({
         ...user,
         score: scores[user.username] || 0,
         total,

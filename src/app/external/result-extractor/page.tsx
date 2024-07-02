@@ -65,6 +65,8 @@ const Page = () => {
       return toast.error(result.message);
     }
 
+    console.dir(result);
+
     setExtractedResult(result.extractedStudentResult);
     toast.success('Assignment results extracted successfully.');
     setIsLoading(false);
