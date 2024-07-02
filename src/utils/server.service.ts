@@ -95,36 +95,14 @@ export async function getAllActivityAudits(): Promise<
   GetAllActivityAuditsResponse | undefined
 > {
   try {
-    // const url = `${baseURL}/api/audits`;
-    // const result = await fetch(url, {
-    //   headers: {
-    //     Cookie: await getCookie(),
-    //   },
-    //   cache: 'force-cache',
-    // });
-
-    // if (!result.ok) return { audits: [] };
-    // const audits = await result.json();
-
     const session = await getServerSessionWithAuthOptions();
 
-    // if (!session) {
-    //   return NextResponse.json(
-    //     { message: 'Session required' },
-    //     { status: 403 },
-    //   );
-    // }
     await connectViaMongoose();
     const student = await StudentModel.findOne({ email: session?.user.email });
 
     const audits = await AuditTrail.find({ student: student.id }).sort({
       createdAt: -1,
     });
-
-    // return NextResponse.json(
-    //   { message: 'Student audits fetched', audits },
-    //   { status: 200 },
-    // );
 
     return { audits: JSON.parse(JSON.stringify(audits)) };
   } catch (error) {
@@ -173,21 +151,6 @@ export async function getLeaderBoard(): Promise<
 }
 
 export async function getCourses(): Promise<{ courses: Courses } | undefined> {
-  // const url = `${baseURL}/api/courses`;
-  // const result = await fetch(url, {
-  //   cache: 'force-cache',
-  //   headers: {
-  //     Cookie: await getCookie(),
-  //   },
-  // });
-
-  // if (!result.ok) {
-  //   console.log(result.statusText);
-  // }
-
-  // const { courses } = await result.json();
-  // return { courses };
-
   let courses;
   await connectViaMongoose();
 
@@ -252,21 +215,6 @@ export async function getCourses(): Promise<{ courses: Courses } | undefined> {
 export async function getEnrolledCourses(): Promise<
   { enrolledCourses: any } | undefined
 > {
-  // const url = `${baseURL}/api/courses/enroll`;
-  // const result = await fetch(url, {
-  //   cache: 'force-cache',
-  //   headers: {
-  //     Cookie: await getCookie(),
-  //   },
-  // });
-
-  // if (!result.ok) {
-  //   console.log(result.statusText);
-  // }
-
-  // const { enrolledCourses } = await result.json();
-  // return { enrolledCourses };
-
   const session = await getServerSessionWithAuthOptions();
 
   if (!session) return undefined;
@@ -288,14 +236,6 @@ export async function getEnrolledCourses(): Promise<
 }
 
 export async function getAllHackathons() {
-  // const url = `${baseURL}/api/hackathons`; // isRegistered is derived from server
-  // const result = await fetch(url, {
-  //   headers: {
-  //     Cookie: await getCookie(),
-  //   },
-  //   cache: 'no-store',
-  // });
-  // const hackathons = await result.json();
   const session = await getServerSessionWithAuthOptions();
   await connectViaMongoose();
 
