@@ -27,7 +27,9 @@ const POST = async (req: Request) => {
         );
       }
 
-      const trimmedUserNames = userNames.map((username) => username.trim());
+      const trimmedUserNames = userNames.map((username) =>
+        username.trim().toLowerCase(),
+      );
 
       const arrayOfuserNamesObj = trimmedUserNames.map((username) => ({
         username: username.trim(),
