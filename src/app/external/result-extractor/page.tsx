@@ -18,6 +18,8 @@ function getUsernameURL(url: string) {
   if (!url || typeof url !== 'string') {
     return null;
   }
+  // Remove trailing slashes and dots (optional for specific needs)
+  url = url.replace(/\/+$|\.$/, '');
 
   const username = url.split('/').pop();
 
