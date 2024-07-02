@@ -30,7 +30,7 @@ const POST = async (req: Request) => {
       }
 
       const arrayOfuserNamesObj = userNames.map((username) => ({
-        username,
+        username: username.trim(),
         invalidUsername: true,
       }));
 
