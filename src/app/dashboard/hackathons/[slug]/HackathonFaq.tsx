@@ -1,12 +1,6 @@
 'use client';
 
-import {
-  ChevronUp,
-  IconButton,
-  MinusCircle,
-  Plus,
-  PlusCircle,
-} from '@hashnode/matrix-ui';
+import { IconButton, MinusCircle, PlusCircle } from '@hashnode/matrix-ui';
 import React, { useState } from 'react';
 
 const faqs = [
@@ -16,7 +10,7 @@ const faqs = [
   },
   {
     q: 'Do I need a team?',
-    a: "You can participate as an individual or a team of up to X people (with only one submission per team).  Working in a team can be a great way to learn from each other and share the workload, but it's not mandatory.",
+    a: "You can participate as an individual or a team of up to 5 people (with only one submission per team).  Working in a team can be a great way to learn from each other and share the workload, but it's not mandatory.",
   },
   {
     q: 'Need help?',
@@ -32,7 +26,15 @@ const faqs = [
           Discord Server
         </a>{' '}
         and join the hackathon channel! And if you&apos;re more of a Twitter
-        person, come say hi to @codewithunclebigbay!
+        person, come say hi to{' '}
+        <a
+          href="https://x.com/unclebigbay143"
+          target="_blank"
+          rel="noopener"
+          className="underline"
+        >
+          @codewithunclebigbay!
+        </a>
       </>
     ),
   },

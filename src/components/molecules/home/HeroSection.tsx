@@ -5,7 +5,6 @@ import React, { useState } from 'react';
 import { ChevronRight } from '../../icons/ChevronRight';
 import { ArrowRight } from '../../icons/ArrowRight';
 import { Button } from '@hashnode/matrix-ui';
-import { handleAuthentication } from '@/utils/auth';
 import { Session } from 'next-auth';
 import { AuthModal } from '@/components/atoms/AuthModal';
 
@@ -34,9 +33,9 @@ export const HeroSection = ({ session }: { session?: Session | null }) => {
             </div>
           </div>
         </Link>
-        <h1 className="text-center text-4xl leading-[48px] max-w-[379px] md:text-5xl md:leading-[60px] font-medium text-slate-900 mx-auto md:max-w-lg">
+        <h2 className="text-center text-4xl leading-[48px] max-w-[379px] md:text-5xl md:leading-[60px] font-medium text-slate-900 mx-auto md:max-w-lg">
           Learn to Code and Build Your Career
-        </h1>
+        </h2>
         {session ? null : (
           <Button
             size="sm"
