@@ -27,28 +27,28 @@ const POST = async (req: Request) => {
         );
       }
 
-      const trimmedUserNames = userNames.map((username) =>
-        username.trim().toLowerCase(),
-      );
+      const trimmedUserNames = userNames.map((username) => username.trim());
 
       const arrayOfUserNamesObj = trimmedUserNames.map((username) => ({
-        username: username.trim(),
+        username: username,
+        lowercaseUsername: username.toLowerCase(),
         invalidUsername: true,
       }));
 
+      const regexArray = arrayOfUserNamesObj.map(
+        (username) => new RegExp(`^${username.lowercaseUsername}$`, 'i'),
+      );
+
       const studentsByUsername = await Student.find({
         username: {
-          $in: trimmedUserNames.map(
-            (username) => new RegExp(`^${username}$`, 'i'),
-          ),
+          $in: regexArray,
         },
       });
 
       for (const student of studentsByUsername) {
-        const existingStudent = arrayOfUserNamesObj.find(
-          (user) =>
-            user.username.toLowerCase() === student.username.toLowerCase(),
-        );
+        const existingStudent = arrayOfUserNamesObj.find((user) => {
+          return user.username.toLowerCase() === student.username.toLowerCase();
+        });
         if (existingStudent) {
           existingStudent.invalidUsername = false;
         }
