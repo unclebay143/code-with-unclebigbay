@@ -312,12 +312,6 @@ export async function getAllHackathons() {
         localField: '_id',
         foreignField: 'hackathon',
         as: 'participants',
-        ...(student && {
-          pipeline: [
-            { $match: { student: student._id } }, // Filter registrations by student ID
-            { $project: { _id: 0, fullName: 1, status: 1 } },
-          ],
-        }),
       },
     },
     {
@@ -348,8 +342,6 @@ export async function getAllHackathons() {
       },
     },
   ]);
-
-  // console.log(hackathons);
 
   return { hackathons: JSON.parse(JSON.stringify(hackathons)) };
 }
