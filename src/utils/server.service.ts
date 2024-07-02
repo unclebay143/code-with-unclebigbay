@@ -349,6 +349,8 @@ export async function getAllHackathons() {
     },
   ]);
 
+  // console.log(hackathons);
+
   return { hackathons: JSON.parse(JSON.stringify(hackathons)) };
 }
 

@@ -14,9 +14,7 @@ const POST = async (req: Request) => {
     const { userNames, courseSlug } = body;
 
     try {
-      const course = await Course.findOne({ slug: courseSlug }).select(
-        '_id title',
-      );
+      const course = await Course.findOne({ slug: courseSlug }).select('_id');
 
       if (!course) {
         return NextResponse.json(
@@ -29,13 +27,15 @@ const POST = async (req: Request) => {
         );
       }
 
-      const arrayOfuserNamesObj = userNames.map((username) => ({
+      const trimmedUserNames = userNames.map((username) => username.trim());
+
+      const arrayOfuserNamesObj = trimmedUserNames.map((username) => ({
         username: username.trim(),
         invalidUsername: true,
       }));
 
       const studentsByUsername = await Student.find({
-        username: { $in: userNames },
+        username: { $in: trimmedUserNames },
       }).select('username');
 
       for (const student of studentsByUsername) {
@@ -62,7 +62,7 @@ const POST = async (req: Request) => {
         });
 
         if (!total) {
-          total = assignmentResponses?.[0].response.length;
+          total = assignmentResponses?.[0]?.response?.length;
         }
 
         scores[student.username] = assignmentResponses.reduce(
