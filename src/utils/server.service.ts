@@ -13,6 +13,7 @@ import { HackathonSubmission as HackathonSubmissionModel } from '@/models/hackat
 import { Enroll as EnrollModel } from '@/models/enroll';
 import { Course as CourseModel } from '@/models/course';
 import { Tag as TagModel } from '@/models/tag';
+import { Hackathon as HackathonModel } from '@/models/hackathon';
 
 // https://www.reddit.com/r/nextjs/comments/16hzdsr/i_have_a_question_using_headers/
 // export const getCustomHeaders = () => {
@@ -73,7 +74,8 @@ export async function getStudents(): Promise<GetStudentsResponse | undefined> {
   try {
     const url = `${baseURL}/api/students`;
     const result = await fetch(url, {
-      cache: 'no-cache',
+      // cache: 'no-cache',
+      cache: 'force-cache',
       headers: {
         'Content-Type': 'application/json',
       },
@@ -286,16 +288,68 @@ export async function getEnrolledCourses(): Promise<
 }
 
 export async function getAllHackathons() {
-  const url = `${baseURL}/api/hackathons`; // isRegistered is derived from server
-  const result = await fetch(url, {
-    headers: {
-      Cookie: await getCookie(),
-    },
-    cache: 'no-store',
-  });
-  const hackathons = await result.json();
+  // const url = `${baseURL}/api/hackathons`; // isRegistered is derived from server
+  // const result = await fetch(url, {
+  //   headers: {
+  //     Cookie: await getCookie(),
+  //   },
+  //   cache: 'no-store',
+  // });
+  // const hackathons = await result.json();
+  const session = await getServerSessionWithAuthOptions();
+  await connectViaMongoose();
 
-  return hackathons;
+  let student;
+
+  if (session) {
+    student = await StudentModel.findOne({ email: session.user.email });
+  }
+
+  const hackathons = await HackathonModel.aggregate([
+    {
+      $lookup: {
+        from: 'hackathonRegistrations',
+        localField: '_id',
+        foreignField: 'hackathon',
+        as: 'participants',
+        ...(student && {
+          pipeline: [
+            { $match: { student: student._id } }, // Filter registrations by student ID
+            { $project: { _id: 0, fullName: 1, status: 1 } },
+          ],
+        }),
+      },
+    },
+    {
+      $addFields: {
+        participantCount: { $size: '$participants' },
+      },
+    },
+    {
+      $sort: { createdAt: -1 }, // Sort by createdAt in descending order (newest first)
+    },
+    {
+      $project: {
+        _id: 1,
+        title: 1,
+        startDate: 1,
+        endDate: 1,
+        coverImage: 1,
+        desktopCoverImage: 1,
+        tags: 1,
+        brief: 1,
+        isActive: 1,
+        status: 1,
+        slug: 1,
+        participantCount: 1,
+        ...(student && {
+          isRegistered: { $gt: [{ $size: '$participants' }, 0] },
+        }), // Check if participants exist
+      },
+    },
+  ]);
+
+  return { hackathons: JSON.parse(JSON.stringify(hackathons)) };
 }
 
 export async function isRegisteredForHackathon(hackathonId: string) {

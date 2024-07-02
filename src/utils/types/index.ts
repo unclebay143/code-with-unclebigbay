@@ -175,6 +175,8 @@ export type Hackathon = {
   hashTag: string;
   participantCount: number;
   coverImage: string;
+  desktopCoverImage: string;
+  ogImage: string;
   title: string;
   brief: string;
   slug: string;
@@ -183,7 +185,13 @@ export type Hackathon = {
   about: string;
   whatToBuild: string;
   howToParticipate: string[];
-  judges: { name: string; title: string; photo: string; socialLink: string }[];
+  judges: {
+    _id: string;
+    name: string;
+    title: string;
+    photo: string;
+    socialLink: string;
+  }[];
   judgingCriteria: { heading: string; copy: string }[];
   prizes: { _id: string; label: string; prizes: string[] }[];
   sponsors: { _id: string; name: string; photo: string; link: string }[];
@@ -199,6 +207,7 @@ export type Hackathon = {
     username: string;
     photo: string;
     isAnonymous: boolean;
+    isAdmin: boolean;
   }[];
 };
 

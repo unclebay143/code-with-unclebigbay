@@ -23,10 +23,11 @@ import { Hackathon } from '@/utils/types';
 import { useHackathonById } from '@/components/hooks/useHackathon';
 import useCurrentStudent from '@/components/hooks/useCurrentStudent';
 import { formatStartAndEndDate } from '@/utils/date';
-import { handleAuthentication } from '@/utils/auth';
 import dayjs from 'dayjs';
 import { HackathonFaqs } from './HackathonFaq';
 import { hasHackathonEnded } from '@/utils';
+import { baseURL } from '../../../../../frontend.config';
+import { AuthModal } from '@/components/atoms/AuthModal';
 
 type HackathonStoryProps = {
   hackathon: Hackathon;
@@ -59,13 +60,15 @@ export const HackathonStory = ({
     resources,
   } = hackathon;
 
-  const hackathonUrl = typeof window !== 'undefined' && window.location.href;
+  const hackathonUrl = `${baseURL}/hackathons/${slug}`;
   const hackathonSubmissionHref = `/hackathons/${slug}/submissions`;
 
   const { data: currentStudent } = useCurrentStudent();
   const [hasSubmittedEntry, setHasSubmittedEntry] = useState(hasSubmitted);
   const studentId = currentStudent?._id!;
   const [openSubmitEntryModal, setOpenSubmitEntryModal] = useState(false);
+  const [showAuthModal, setShowAuthModal] = useState(false);
+
   const {
     joinHackathon,
     isJoinHackathonPending,
@@ -80,11 +83,11 @@ export const HackathonStory = ({
   const disableRegisterBtn = registered || isClosed || isJoinHackathonPending;
 
   const animatedTooltipParticipants = participants
-    .filter((participant) => !participant.isAnonymous)
+    .filter((participant) => !participant.isAnonymous && !participant.isAdmin)
     .map((participant) => {
       return {
         id: participant._id,
-        name: participant.fullName,
+        name: participant.fullName || participant.username,
         designation: participant.stack,
         image: participant.photo,
       };
@@ -92,7 +95,7 @@ export const HackathonStory = ({
 
   const handleJoinHackathon = () => {
     if (!studentId && hackathonUrl) {
-      return handleAuthentication({ nextUrl: hackathonUrl });
+      return setShowAuthModal(true);
     }
 
     joinHackathon({
@@ -114,10 +117,10 @@ export const HackathonStory = ({
     animatedTooltipParticipants && animatedTooltipParticipants.length > 0;
 
   const socialShare = `https://twitter.com/intent/tweet?url=
-            ${hackathonUrl}&text=I'm excited to publicly announce that I'm participating in the ${name}! %0A%0AJoin in this creative problem-solving. This is going to be epic!`;
+            ${hackathonUrl}&text=I'm excited to publicly announce that I'm participating in the ${name}! by @unclebigbay143 %0A%0AJoin in this creative problem-solving. This is going to be epic! #BuildforBusinessHackathon #CodeWithUnclebigbay`;
   return (
     <WhiteArea border>
-      <div className="flex items-center justify-between mb-5">
+      <div className="flex items-center justify-between mb-5 lg:hidden">
         <Button
           size="xs"
           appearance="secondary-slate"
@@ -132,9 +135,9 @@ export const HackathonStory = ({
           <div className="absolute inset-0 w-full h-full bg-slate-900 z-20 [mask-image:radial-gradient(transparent,white)] pointer-events-none" />
           <Boxes />
           <section className="flex flex-col items-center gap-3 relative z-20 p-4">
-            <h2 className="md:text-4xl text-xl text-white px-4 text-center">
+            <h1 className="md:text-4xl text-xl text-white px-4 text-center">
               {title}
-            </h2>
+            </h1>
             <span
               className={`${isClosed ? 'text-red-500' : 'text-blue-500'} text-sm font-bold flex items-center gap-1`}
             >
@@ -242,7 +245,9 @@ export const HackathonStory = ({
                   <li className="mb-3" key={`howToParticipate-${label}`}>
                     <div className="flex">
                       <Button appearance="link" asChild>
-                        <Link href={url}>{label}</Link>
+                        <Link href={url} target="_blank" rel="noopener">
+                          {label}
+                        </Link>
                       </Button>
                     </div>
                   </li>
@@ -256,21 +261,24 @@ export const HackathonStory = ({
             <section className="flex flex-col gap-4">
               <h3 className={sectionHeadingStyle}>Judges</h3>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-y-8">
-                {judges.map(({ name, photo, socialLink, title }) => (
-                  <div
+                {judges.map(({ _id, name, photo, socialLink, title }) => (
+                  <a
+                    href={socialLink}
+                    target="_blank"
+                    rel="noopener"
                     className="flex gap-3 items-center"
-                    key={`judges-${name}`}
+                    key={`judges-${_id}`}
                   >
                     <div>
                       <div className="relative w-14 h-14 sm:w-16 sm:h-16 md:w-24 md:h-24 rounded-full overflow-hidden">
                         <Image src={photo} alt="" fill />
                       </div>
                     </div>
-                    <a href={socialLink} target="_blank" className="">
+                    <div>
                       <p className="text-lg font-semibold text-black">{name}</p>
                       <p className="text-slate-500">{title}</p>
-                    </a>
-                  </div>
+                    </div>
+                  </a>
                 ))}
               </div>
             </section>
@@ -298,7 +306,7 @@ export const HackathonStory = ({
               <ul className={uLStyle}>
                 {schedules.map(({ heading, date }) => (
                   <li className="mb-3" key={`judgingCriteria-${heading}`}>
-                    <div className="flex items-center gap-1">
+                    <div className="flex flex-col sm:flex-row sm:items-center gap-1">
                       <span className="text-slate-600 font-semibold">
                         {heading}:
                       </span>
@@ -381,7 +389,7 @@ export const HackathonStory = ({
             <div className="flex flex-wrap gap-5">
               {sponsors.map(({ _id, name, photo, link }) => (
                 <a key={_id} href={link} target="_blank" rel="noopener">
-                  <Avatar size="3xl">
+                  <Avatar size="4xl" title={name}>
                     <Image src={photo} alt={name} fill />
                   </Avatar>
                 </a>
@@ -399,7 +407,9 @@ export const HackathonStory = ({
           </section>
           {showParticipantSection && (
             <section className="flex flex-col gap-4">
-              <h3 className={sectionHeadingStyle}>Participants</h3>
+              <h3 className={sectionHeadingStyle}>
+                Participants ({animatedTooltipParticipants.length})
+              </h3>
               <section className="flex flex-row flex-wrap gap-y-3">
                 <AnimatedTooltip items={animatedTooltipParticipants} />
               </section>
@@ -474,6 +484,7 @@ export const HackathonStory = ({
         <a
           href={socialShare}
           target="_blank"
+          rel="noopener"
           className="hover:text-slate-600 text-sm text-center text-slate-500 flex items-center gap-1 justify-center"
         >
           <BrandXTwitter size="sm" />
@@ -483,6 +494,7 @@ export const HackathonStory = ({
         <a
           href="https://www.youtube.com/@unclebigbay"
           target="_blank"
+          rel="noopener"
           className="hover:text-slate-600 text-sm text-center text-slate-500 flex items-center gap-1 justify-center"
         >
           <BrandYoutube size="sm" />
@@ -499,6 +511,14 @@ export const HackathonStory = ({
         isSubmitEntryPending={isSubmitEntryPending}
         onSubmitEntry={() => setHasSubmittedEntry(true)}
       />
+      {showAuthModal && (
+        <AuthModal
+          isOpen={showAuthModal}
+          close={() => setShowAuthModal(false)}
+          type="login"
+          nextUrl={hackathonUrl}
+        />
+      )}
     </WhiteArea>
   );
 };

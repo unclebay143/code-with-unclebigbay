@@ -9,13 +9,14 @@ import { HeroSection } from '@/components/molecules/home/HeroSection';
 import { SectionWrapper } from '@/components/molecules/home';
 import { Meteors } from '@/components/atoms/meteors';
 import { CommunityCTA } from '@/components/atoms/CommunityCTA';
-// import { HackathonWidget } from '@/components/molecules/home/HackathonWidget';
+import { HackathonWidget } from '@/components/molecules/home/HackathonWidget';
 import { getCurrentHackathon, getStudents } from '@/utils/server.service';
 import { Features } from '@/components/molecules/home/Features';
 
 export const metadata: Metadata = {
-  title: 'Code with Unclebigbay',
-  description: 'Learn to Code and Build Your Career',
+  alternates: {
+    canonical: `/`,
+  },
 };
 
 const Page = async () => {
@@ -24,11 +25,11 @@ const Page = async () => {
     getCurrentHackathon(),
   ]);
   const students = studentsRes?.students;
-  // const hackathon = currentHackathonRes?.hackathon;
+  const hackathon = currentHackathonRes?.hackathon;
   const session = currentHackathonRes?.session;
 
   const showStudentCommunity = students && students.length > 0;
-  // const hasHackathon = !!hackathon;
+  const hasHackathon = !!hackathon;
 
   return (
     <main>
@@ -36,7 +37,7 @@ const Page = async () => {
       <section className="flex flex-col gap-10 overflow-hidden">
         <div>
           <Navbar session={session} />
-          {/* {hasHackathon && <HackathonWidget hackathon={hackathon} />} */}
+          {hasHackathon && <HackathonWidget hackathon={hackathon} />}
         </div>
 
         <SectionWrapper>

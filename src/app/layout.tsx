@@ -9,13 +9,36 @@ import { Analytics } from '@vercel/analytics/react';
 const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
-  title: 'Code with Unclebigbay',
-  description: 'Learn to Code and Build Your Career',
+  title: 'Learn to Code & Build a Career | Code with Unclebigbay',
+  description:
+    "Master in-demand coding skills & launch your tech career with Unclebigbay's online courses. Beginner-friendly, project-based learning. Enroll today!",
   authors: [{ name: 'Unclebigbay', url: 'https://x.com/@Unclebigbay143' }],
   openGraph: {
     images: [
       'https://cdn.hashnode.com/res/hashnode/image/upload/v1717620330883/b93fbecd-a595-4d35-81a3-265e92d50c26.png?auto=compress',
     ],
+  },
+  generator: 'Next.js',
+  keywords: [
+    'code',
+    'unclebigbay',
+    'codewithunclebigbay',
+    'web development',
+    'javascript',
+    'react',
+    'node.js',
+    'next.js',
+    'web dev',
+    'html',
+    'css',
+    'python',
+  ],
+  referrer: 'origin-when-cross-origin',
+  creator: 'Unclebigbay',
+  publisher: 'Unclebigbay',
+  metadataBase: new URL('https://www.codewithunclebigbay.com/'),
+  verification: {
+    google: 'jghWH5GFsXvnkFMtanhXklakUXw_OxkHc2WOSH_K9tM',
   },
 };
 
