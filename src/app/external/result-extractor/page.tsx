@@ -19,13 +19,15 @@ function getUsernameURL(url: string) {
     return null;
   }
 
-  const parts = url.split('/');
-  if (parts.length < 1) {
+  const username = url.split('/').pop();
+
+  if (!username) {
     return null;
   }
 
-  const username = parts[0].replace(/^@/, '');
-  return username;
+  const cleanedUsername = username?.replace(/^@/, '');
+
+  return cleanedUsername;
 }
 
 const Page = () => {
