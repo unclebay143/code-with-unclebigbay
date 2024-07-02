@@ -16,15 +16,16 @@ import { toast } from 'sonner';
 
 function getUsernameURL(url: string) {
   if (!url || typeof url !== 'string') {
-    return null; // Handle invalid input
+    return null;
   }
 
   const parts = url.split('/');
   if (parts.length < 1) {
-    return null; // Handle empty email or missing "@" symbol
+    return null;
   }
 
-  return parts[0]; // Return the entire username before "@"
+  const username = parts[0].replace(/^@/, '');
+  return username;
 }
 
 const Page = () => {
