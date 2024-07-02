@@ -82,8 +82,6 @@ const GET = async () => {
       },
     ]);
 
-    console.log(hackathons);
-
     return NextResponse.json(
       { message: 'Hackathons fetched successfully', hackathons },
       {
