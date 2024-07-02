@@ -62,9 +62,11 @@ export async function getCurrentStudentByUsername(
   });
   const { student } = await result.json();
 
-  const canUpdateProfile = session?.user.email === student.email;
+  if (!student || !result.ok) {
+    return undefined;
+  }
 
-  if (!result.ok) return undefined;
+  const canUpdateProfile = session?.user.email === student.email;
 
   return { student, canUpdateProfile, session };
 }
