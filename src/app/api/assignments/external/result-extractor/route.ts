@@ -27,21 +27,15 @@ const POST = async (req: Request) => {
         );
       }
 
-      const trimmedUserNames = userNames.map((username) => username.trim());
-
-      const arrayOfUserNamesObj = trimmedUserNames.map((username) => ({
+      const arrayOfUserNamesObj = userNames.map((username) => ({
         username: username,
         lowercaseUsername: username.toLowerCase(),
         invalidUsername: true,
       }));
 
-      const regexArray = arrayOfUserNamesObj.map(
-        (username) => new RegExp(`^${username.lowercaseUsername}$`, 'i'),
-      );
-
       const studentsByUsername = await Student.find({
         username: {
-          $in: regexArray,
+          $in: userNames,
         },
       });
 

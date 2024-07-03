@@ -66,3 +66,6 @@ export const showUpMotion = {
     },
   },
 };
+
+export const removeArrayDuplicates = <T>(array: T[]): T[] =>
+  Array.from(new Set(array));
