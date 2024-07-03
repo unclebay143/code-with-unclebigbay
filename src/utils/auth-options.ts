@@ -55,7 +55,7 @@ export const authOptions = {
           newStudentData = {
             fullName: studentUserProfile?.name,
             email: studentUserProfile?.email,
-            username: studentUserProfile?.login,
+            username: studentUserProfile?.login.toLowerCase(),
             bio: studentUserProfile?.bio,
             photo: studentUserProfile?.avatar_url,
             authProvider: 'github',
@@ -67,7 +67,9 @@ export const authOptions = {
             fullName:
               studentUserProfile?.name || studentUserProfile?.given_name,
             email: studentUserProfile?.email,
-            username: getUsernameFromEmail(studentUserProfile?.email!),
+            username: getUsernameFromEmail(
+              studentUserProfile?.email!,
+            )?.toLowerCase(),
             bio: '',
             photo: studentUserProfile?.picture,
             authProvider: 'google',
