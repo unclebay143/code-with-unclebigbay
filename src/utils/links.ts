@@ -7,7 +7,7 @@
 
 export const navLinks = [
   { label: 'Courses', url: '/dashboard/courses' },
-  // { label: 'Hackathons', url: '/dashboard/hackathons' },
+  { label: 'Hackathons', url: '/dashboard/hackathons' },
   {
     label: 'YT Channel',
     url: 'https://www.youtube.com/@unclebigbay',
