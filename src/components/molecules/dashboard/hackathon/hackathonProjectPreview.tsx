@@ -1,9 +1,13 @@
+'use client';
+
 import { useParams } from 'next/navigation';
 import { YTVideo } from '@/components/atoms/YTVideo';
 import Link from 'next/link';
 import { ArrowLeft, Button } from '@hashnode/matrix-ui';
 import { DashboardSubheading } from '../dashboard-subheading';
 import { Github, IconButton } from '@hashnode/matrix-ui';
+import Image from 'next/image';
+import { ShareHackathonButton } from '../share-hackathon-project';
 
 const HackathonProjectPreview = () => {
   const { id } = useParams();
@@ -13,7 +17,7 @@ const HackathonProjectPreview = () => {
   return (
     <section className="flex flex-col gap-6">
       <div className="flex flex-col items-start gap-4 justify-between md:flex-row-reverse md:items-center">
-        <div className="flex items-center gap-5">
+        <div className="flex flex-row-reverse items-center gap-5 lg:flex-row">
           <Link
             target="_blank"
             rel="noopener"
@@ -36,7 +40,7 @@ const HackathonProjectPreview = () => {
         <YTVideo ytVideoId="4wblm-X0rEc" removeRounded />
         <div className="absolute z-10 inset-0 w-full h-full" />
       </div>
-      <div className="flex flex-col gap-2">
+      <div className="flex flex-col items-start gap-2">
         <h1 className="text-gray-700 text-lg font-medium">
           About FashionWave
           {/* the name fashionwave represent the project name which will be fectch from DB  */}
@@ -50,13 +54,8 @@ const HackathonProjectPreview = () => {
           seamless connection enhances the convenience and accessibility of
           quality grooming services for everyone involved.
         </p>
-        <Button size="sm" appearance="secondary-slate">
-          <a target="_blank" rel="noopener" href="https://dub.sh/GmBzY6T">
-            Visit My Project
-          </a>
-        </Button>
       </div>
-      <div className="flex flex-col gap-2">
+      <div className="flex flex-col items-start gap-2">
         <h1 className="text-gray-700 text-lg  font-medium">Feedback</h1>
         <p>
           It was an incredible experience. The event was well-organized, with
@@ -64,11 +63,43 @@ const HackathonProjectPreview = () => {
           range of workshops and mentorship sessions provided valuable insights
           and guidance
         </p>
-        <Button size="sm" appearance="secondary-slate">
-          <a target="_blank" rel="noopener" href="https://dub.sh/GmBzY6T">
-            Checkout my article about FashionWave
-          </a>
-        </Button>
+      </div>
+
+      <div className="flex items-start gap-2">
+        <div className="h-16 w-16 overflow-hidden rounded-full">
+          <Image
+            src="https://cdn.hashnode.com/res/hashnode/image/upload/v1677222800340/7FWlpF0aT.jpeg"
+            alt="Unclebigbay"
+            width={100}
+            height={100}
+          />
+        </div>
+        <div>
+          <Link
+            href="https://idris.com"
+            className="text-gray-700 text-lg font-medium hover:underline"
+          >
+            Idris Haruna
+            {/* the name fashionwave represent the project name which will be fectch from DB  */}
+          </Link>
+          <p className="text-gray-600 text-sm">Frontend developer</p>
+          <p className="text-gray-400 text-xs">Project Submitted: 2024-30-07</p>
+        </div>
+      </div>
+      <div className="flex flex-col-reverse justify-between gap-3 lg:flex-row lg:items-center">
+        <div className="flex gap-2">
+          <Button size="sm" appearance="primary-slate">
+            <a target="_blank" rel="noopener" href="https://dub.sh/GmBzY6T">
+              Live demo
+            </a>
+          </Button>
+          <Button size="sm" appearance="secondary-slate">
+            <a target="_blank" rel="noopener" href="https://dub.sh/GmBzY6T">
+              Read launch article
+            </a>
+          </Button>
+        </div>
+        <ShareHackathonButton />
       </div>
     </section>
   );
