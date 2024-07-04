@@ -22,7 +22,6 @@ const Page = async () => {
   const { hackathons } = (await getAllHackathons()) as {
     hackathons: (Hackathon & { isRegistered: boolean })[];
   };
-
   return (
     <WhiteArea border>
       <section className="flex flex-col gap-3">
