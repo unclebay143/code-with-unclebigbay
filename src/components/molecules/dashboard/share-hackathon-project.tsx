@@ -21,7 +21,7 @@ type Props = {
 };
 
 export const ShareHackathonButton = () => {
-  const hackathonUrl = `https://www.codewithunclebigbay.com/dashboard/hackathon}`;
+  const hackathonUrl = `https://www.codewithunclebigbay.com/dashboard/hackathon`;
 
   const socialMessage = `🎉 I am glad to share my just conclude project at , '${hackathonUrl}', hackathon. #codewithunclebigbay`;
   //   const notEnrolledMessage = `📚 Excited to share this fantastic course, '${title}' by @unclebigbay143, I found on CodeWithUnclebigbay! It's packed with valuable insights and knowledge.\nCheck it out! ${courseUrl} #codewithunclebigbay`;
