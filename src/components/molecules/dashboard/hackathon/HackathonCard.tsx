@@ -43,10 +43,14 @@ export const HackathonCard = ({
 
   const isClosed = hasHackathonEnded(endDate);
 
+  console.log(isClosed);
+
   const [registered, setRegistered] = useState(isRegistered);
   const hackathonUrl = `${baseURL}/hackathons/${slug}`;
 
   const disableJoinBtn = registered || isJoinHackathonPending || isClosed;
+
+  console.log({ isRegistered, isJoinHackathonPending, isClosed });
 
   const handleJoinHackathon = () => {
     if (!studentId && hackathonUrl) {
