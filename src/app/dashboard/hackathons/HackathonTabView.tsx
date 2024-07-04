@@ -17,7 +17,6 @@ import { HackathonCard } from '@/components/molecules/dashboard/hackathon/Hackat
 import { Hackathon } from '@/utils/types';
 import Link from 'next/link';
 import { hasHackathonEnded } from '@/utils';
-import { EmptyStateContainer } from '@/components/molecules/dashboard/EmptyStateContainer';
 
 const VIEW = {
   ALL: 'all',
