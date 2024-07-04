@@ -14,9 +14,7 @@ const POST = async (req: Request) => {
     const { userNames, courseSlug } = body;
 
     try {
-      const course = await Course.findOne({ slug: courseSlug }).select(
-        '_id title',
-      );
+      const course = await Course.findOne({ slug: courseSlug }).select('_id');
 
       if (!course) {
         return NextResponse.json(
@@ -29,20 +27,22 @@ const POST = async (req: Request) => {
         );
       }
 
-      const arrayOfuserNamesObj = userNames.map((username) => ({
-        username,
+      const arrayOfUserNamesObj = userNames.map((username) => ({
+        username: username,
+        lowercaseUsername: username.toLowerCase(),
         invalidUsername: true,
       }));
 
       const studentsByUsername = await Student.find({
-        username: { $in: userNames },
-      }).select('username');
+        username: {
+          $in: userNames,
+        },
+      });
 
       for (const student of studentsByUsername) {
-        const existingStudent = arrayOfuserNamesObj.find(
-          (user) =>
-            user.username.toLowerCase() === student.username.toLowerCase(),
-        );
+        const existingStudent = arrayOfUserNamesObj.find((user) => {
+          return user.username.toLowerCase() === student.username.toLowerCase();
+        });
         if (existingStudent) {
           existingStudent.invalidUsername = false;
         }
@@ -62,7 +62,7 @@ const POST = async (req: Request) => {
         });
 
         if (!total) {
-          total = assignmentResponses?.[0].response.length;
+          total = assignmentResponses?.[0]?.response?.length;
         }
 
         scores[student.username] = assignmentResponses.reduce(
@@ -71,7 +71,7 @@ const POST = async (req: Request) => {
         );
       }
 
-      const mapStudentToResult = arrayOfuserNamesObj.map((user) => ({
+      const mapStudentToResult = arrayOfUserNamesObj.map((user) => ({
         ...user,
         score: scores[user.username] || 0,
         total,
