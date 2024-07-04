@@ -31,29 +31,33 @@ export const DashboardIndex = ({
   const canAccessWithoutAuth = unAuthenticatedRoutes.includes(currentPageName);
   const requireAuth = !session && !canAccessWithoutAuth;
 
-  if (requireAuth) {
-    if (typeof window !== 'undefined') {
-      return (
-        <AuthModal
-          isOpen
-          close={() => null}
-          nextUrl={window.location.href}
-          type="login"
-        />
-      );
-    }
+  // if (requireAuth) {
+  //   if (typeof window !== 'undefined') {
+  //     return (
+  //       <AuthModal
+  //         isOpen
+  //         close={() => null}
+  //         nextUrl={window.location.href}
+  //         type="login"
+  //       />
+  //     );
+  //   }
 
-    return null;
-  }
+  //   return null;
+  // }
 
   const redirectToOnboard =
-    !canAccessWithoutAuth && !currentStudent?.stack && !pathIsOnboarding;
+    session && !currentStudent?.stack && !pathIsOnboarding;
   if (redirectToOnboard) {
     return redirect('/dashboard/onboard');
   }
+
+  // prevent already onboard and unauthenticated users
   const blockOnboardPage =
-    currentStudent?.stack && currentPageName === 'onboard';
+    (!session || currentStudent?.stack) && currentPageName === 'onboard';
+
   if (blockOnboardPage) {
+    if (!session) return redirect('/');
     return redirect('/dashboard');
   }
 
