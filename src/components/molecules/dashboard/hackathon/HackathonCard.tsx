@@ -91,15 +91,11 @@ export const HackathonCard = ({
           <section className="flex flex-col gap-1.5">
             <div className="flex flex-col gap-1 items-start">
               <div className="flex flex-col lg:flex-row gap-1 lg:items-center">
-                {participantCount > 5 ? (
-                  <>
-                    <span className="text-sm text-slate-600 flex items-center gap-1">
-                      <Users size={14} />
-                      Participants {participantCount}
-                    </span>
-                    <span className="mx-1 hidden lg:inline">&middot;</span>
-                  </>
-                ) : null}
+                <span className="text-sm text-slate-600 flex items-center gap-1">
+                  <Users size={14} />
+                  Participants {participantCount}
+                </span>
+                <span className="mx-1 hidden lg:inline">&middot;</span>
                 <span className="text-blue-500 text-sm font-medium flex items-center gap-1">
                   <Calendar size={14} />
                   {formatStartAndEndDate(startDate, endDate)}
