@@ -92,6 +92,9 @@ export const HackathonStory = ({
       };
     });
 
+  const anonymousCounts =
+    participants.length - animatedTooltipParticipants.length;
+
   const handleJoinHackathon = () => {
     if (!studentId && hackathonUrl) {
       return setShowAuthModal(true);
@@ -395,6 +398,11 @@ export const HackathonStory = ({
               <section className="flex flex-row flex-wrap gap-y-3">
                 <AnimatedTooltip items={animatedTooltipParticipants} />
               </section>
+              {anonymousCounts > 0 ? (
+                <span className="inline text-sm text-slate-500 hover:text-slate-600">
+                  {`+${anonymousCounts} anonymous participant${anonymousCounts > 1 ? 's.' : '.'}`}
+                </span>
+              ) : null}
             </section>
           )}
         </section>

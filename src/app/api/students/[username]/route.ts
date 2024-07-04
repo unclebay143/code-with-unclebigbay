@@ -11,7 +11,9 @@ const GET = async (
     const username = params.username;
 
     await connectViaMongoose();
-    let student = await Student.findOne({ username: username });
+    let student = await Student.findOne({
+      username: new RegExp(`^${username.toLowerCase()}$`, 'i'),
+    });
     if (!student) {
       return NextResponse.json(
         { message: 'Student record not found', student },
