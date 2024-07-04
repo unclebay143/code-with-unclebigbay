@@ -289,14 +289,6 @@ export async function getEnrolledCourses(): Promise<
 // }
 
 export async function getAllHackathons() {
-  // const url = `${baseURL}/api/hackathons`; // isRegistered is derived from server
-  // const result = await fetch(url, {
-  //   headers: {
-  //     Cookie: await getCookie(),
-  //   },
-  //   cache: 'no-store',
-  // });
-  // const hackathons = await result.json();
   const session = await getServerSessionWithAuthOptions();
   await connectViaMongoose();
 

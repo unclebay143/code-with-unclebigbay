@@ -48,7 +48,7 @@ export const HackathonCard = ({
 
   const disableJoinBtn = registered || isJoinHackathonPending || isClosed;
 
-  console.log({ isRegistered, isJoinHackathonPending, isClosed });
+  console.log(participantCount);
 
   const handleJoinHackathon = () => {
     if (!studentId && hackathonUrl) {
