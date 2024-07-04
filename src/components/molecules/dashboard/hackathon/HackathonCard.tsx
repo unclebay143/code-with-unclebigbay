@@ -43,8 +43,6 @@ export const HackathonCard = ({
 
   const isClosed = hasHackathonEnded(endDate);
 
-  console.log(isClosed);
-
   const [registered, setRegistered] = useState(isRegistered);
   const hackathonUrl = `${baseURL}/hackathons/${slug}`;
 
