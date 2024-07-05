@@ -297,9 +297,10 @@ export const HackathonStory = ({
                   {schedules.map(({ heading, date }) => (
                     <li className="mb-3" key={`judgingCriteria-${heading}`}>
                       <div className="flex flex-col sm:flex-row sm:items-center gap-1">
-                        <p className="text-slate-600 font-semibold [&>a]:underline">
-                          <span dangerouslySetInnerHTML={{ __html: heading }} />
-                        </p>
+                        <span
+                          className="text-slate-600 font-semibold [&>a]:underline"
+                          dangerouslySetInnerHTML={{ __html: heading }}
+                        />
                         <p className="text-slate-500">{date}</p>
                       </div>
                     </li>
