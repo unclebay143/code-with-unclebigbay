@@ -17,24 +17,6 @@ import { CSVLink } from 'react-csv';
 import { toast } from 'sonner';
 import { removeArrayDuplicates } from '@/utils';
 
-// function cleanUsernames(url: string) {
-//   if (!url || typeof url !== 'string') {
-//     return null;
-//   }
-//   // Remove trailing slashes and dots (optional for specific needs)
-//   url = url.replace(/\/+$|\.$/, '');
-
-//   const username = url.split('/').pop();
-
-//   if (!username) {
-//     return null;
-//   }
-
-//   const cleanedUsername = username?.replace(/^@/, '');
-
-//   return cleanedUsername;
-// }
-
 function cleanUsernames(usernameString: string): string | null {
   if (!usernameString || typeof usernameString !== 'string') {
     return null;
@@ -71,6 +53,8 @@ const Page = () => {
   const showDefaultState = !showExtractedResults;
 
   const resetToDefaultState = () => setExtractedResult([]);
+
+  // const [showDuplicates, setShowDuplicate]
 
   const handleExtract = async () => {
     try {
