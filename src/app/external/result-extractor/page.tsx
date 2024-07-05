@@ -17,22 +17,29 @@ import { CSVLink } from 'react-csv';
 import { toast } from 'sonner';
 import { removeArrayDuplicates } from '@/utils';
 
-function cleanUsernames(url: string) {
-  if (!url || typeof url !== 'string') {
-    return null;
-  }
-  // Remove trailing slashes and dots (optional for specific needs)
-  url = url.replace(/\/+$|\.$/, '');
-
-  const username = url.split('/').pop();
-
-  if (!username) {
+function cleanUsernames(usernameString: string): string | null {
+  if (!usernameString || typeof usernameString !== 'string') {
     return null;
   }
 
-  const cleanedUsername = username?.replace(/^@/, '');
+  try {
+    // Remove trailing slashes and dots (optional for specific needs)
+    usernameString = usernameString.replace(/\/+$|\.$/, '');
 
-  return cleanedUsername;
+    // Use a regular expression to extract the username from repo url or github profile url
+    const match = usernameString.match(
+      /^https?:\/\/github\.com\/([^\/]+)(\/[^\/]+)?$/,
+    );
+    if (match && match[1]) {
+      const username = match[1].replace(/^@/, '');
+      return username;
+    }
+
+    return usernameString;
+  } catch (error) {
+    console.log(error);
+    return usernameString;
+  }
 }
 
 const Page = () => {
@@ -45,7 +52,9 @@ const Page = () => {
   const showExtractedResults = extractedResult && extractedResult.length > 0;
   const showDefaultState = !showExtractedResults;
 
-  const restToDefault = () => setExtractedResult([]);
+  const resetToDefaultState = () => setExtractedResult([]);
+
+  // const [showDuplicates, setShowDuplicate]
 
   const handleExtract = async () => {
     try {
@@ -140,7 +149,7 @@ const Page = () => {
         <section className="max-w-5xl w-full mx-auto flex flex-col gap-10 py-10">
           <section className="w-full flex items-start justify-start">
             <Button
-              onClick={restToDefault}
+              onClick={resetToDefaultState}
               appearance="link-slate"
               startIcon={ArrowResetRefreshRight}
               size="xs"
