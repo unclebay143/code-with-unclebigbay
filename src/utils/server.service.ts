@@ -305,17 +305,27 @@ export async function getAllHackathons() {
         localField: '_id',
         foreignField: 'hackathon',
         as: 'participants',
-        ...(student && {
-          pipeline: [
-            { $match: { student: student._id } }, // Filter registrations by student ID
-            { $project: { _id: 0, fullName: 1, status: 1 } },
-          ],
-        }),
       },
     },
     {
       $addFields: {
         participantCount: { $size: '$participants' },
+        isRegistered: student
+          ? {
+              $gt: [
+                {
+                  $size: {
+                    $filter: {
+                      input: '$participants',
+                      as: 'p',
+                      cond: { $eq: ['$$p.student', student._id] },
+                    },
+                  },
+                },
+                0,
+              ],
+            }
+          : false,
       },
     },
     {
@@ -335,9 +345,7 @@ export async function getAllHackathons() {
         status: 1,
         slug: 1,
         participantCount: 1,
-        ...(student && {
-          isRegistered: { $gt: [{ $size: '$participants' }, 0] },
-        }), // Check if participants exist
+        isRegistered: 1,
       },
     },
   ]);
@@ -362,6 +370,7 @@ export async function isRegisteredForHackathon(hackathonId: string) {
 
   return isRegistered;
 }
+
 export async function hasSubmittedHackathonEntry(hackathonId: string) {
   const session = await getServerSessionWithAuthOptions();
   await connectViaMongoose();
