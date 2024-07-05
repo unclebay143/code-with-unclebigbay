@@ -44,7 +44,7 @@ function cleanUsernames(usernameString: string): string | null {
     // Remove trailing slashes and dots (optional for specific needs)
     usernameString = usernameString.replace(/\/+$|\.$/, '');
 
-    // Use a regular expression to extract the username
+    // Use a regular expression to extract the username from repo url or github profile url
     const match = usernameString.match(
       /^https?:\/\/github\.com\/([^\/]+)(\/[^\/]+)?$/,
     );
@@ -138,8 +138,11 @@ const Page = () => {
               const usernames = data.map((datum) =>
                 cleanUsernames(datum['cwubbUsername']),
               );
+<<<<<<< HEAD
 
               console.log(usernames);
+=======
+>>>>>>> development
               const isInValidHeading = usernames.includes(null);
               if (isInValidHeading) {
                 return toast.error('Username headings must be cwubbUsername');
@@ -167,7 +170,11 @@ const Page = () => {
         <section className="max-w-5xl w-full mx-auto flex flex-col gap-10 py-10">
           <section className="w-full flex items-start justify-start">
             <Button
+<<<<<<< HEAD
               onClick={resetToDefaultState}
+=======
+              onClick={restToDefault}
+>>>>>>> development
               appearance="link-slate"
               startIcon={ArrowResetRefreshRight}
               size="xs"
