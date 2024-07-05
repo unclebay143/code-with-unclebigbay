@@ -48,4 +48,46 @@ const POST = async (req: Request, _res: Response) => {
   }
 };
 
-export { POST };
+const GET = async () => {
+  try {
+    await connectViaMongoose();
+    const submittedProjects = await Hackathon.aggregate([
+      {
+        $lookup: {
+          from: 'hackathonsubmissions',
+          localField: '_id',
+          foreignField: 'hackathon',
+          as: 'submissions',
+        },
+      },
+      {
+        $project: {
+          _id: 1,
+          name: 1,
+          submissions: 1,
+        },
+      },
+    ]);
+    if (!submittedProjects) {
+      return NextResponse.json(
+        { message: 'Submission not found' },
+        { status: 404 },
+      );
+    }
+    return NextResponse.json(
+      { message: 'Hackathon project fetched successfully', submittedProjects },
+      {
+        status: 200,
+      },
+    );
+  } catch (e: any) {
+    return NextResponse.json(
+      { error: e.message },
+      {
+        status: 500,
+      },
+    );
+  }
+};
+
+export { POST, GET };
