@@ -163,7 +163,7 @@ export const Profile = ({ student, canUpdateProfile }: ProfileProps) => {
         <WhiteArea border>
           <div className="flex flex-col">
             <h2 className="font-semibold text-slate-700 mb-3">About me</h2>
-            <p>{student?.bio}</p>
+            <p className="text-slate-600">{student?.bio}</p>
           </div>
         </WhiteArea>
       )}
