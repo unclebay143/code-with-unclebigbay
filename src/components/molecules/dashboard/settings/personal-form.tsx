@@ -27,6 +27,7 @@ const UserPersonalSettings = ({
   const { update } = useCurrentStudent();
   const fullName = currentStudent?.fullName;
   const email = currentStudent?.email;
+  const username = currentStudent?.username;
   const photo = currentStudent?.photo;
   const bio = currentStudent?.bio;
   const location = currentStudent?.location;
@@ -69,7 +70,9 @@ const UserPersonalSettings = ({
           <section className="border-b pb-3 flex items-center justify-between">
             <label htmlFor="photo" className="">
               <DashboardSubheading title="Profile Picture" />
-              <p className="text-slate-500 text-sm">Sourced from GitHub.</p>
+              <p className="text-slate-500 text-sm">
+                Sourced from your auth provider.
+              </p>
             </label>
             <Button size="xs" appearance="secondary-slate" asChild>
               <Link
@@ -98,6 +101,21 @@ const UserPersonalSettings = ({
               ) : null}
               <input disabled id="photo" type="file" className="hidden" />
             </label>
+          </div>
+          <div className="flex flex-col gap-3">
+            <label htmlFor="username">
+              <DashboardSubheading title="Username" />
+              <p className="text-slate-500 text-sm">
+                We retrieved this information from the profile associated with
+                your login.
+              </p>
+            </label>
+            <input
+              type="text"
+              className="disabled:cursor-not-allowed text-sm text-slate-600 p-2 outline-none focus:ring-2 focus:ring-slate-500 focus:border-slate-300 border rounded-md"
+              value={username}
+              disabled
+            />
           </div>
         </section>
       </WhiteArea>
@@ -129,8 +147,8 @@ const UserPersonalSettings = ({
               <label htmlFor="email">
                 <DashboardSubheading title="Email" />
                 <p className="text-slate-500 text-sm">
-                  This is sourced from your GitHub profile and will be used for
-                  sending you notifications.
+                  This is sourced from your auth provider profile and will be
+                  used for sending you notifications.
                 </p>
               </label>
               <input

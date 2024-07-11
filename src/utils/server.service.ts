@@ -237,6 +237,57 @@ export async function getEnrolledCourses(): Promise<
   return { enrolledCourses: JSON.parse(JSON.stringify(enrolledCourses)) };
 }
 
+// export async function getAllHackathons() {
+//   const session = await getServerSessionWithAuthOptions();
+//   await connectViaMongoose();
+
+//   let student;
+
+//   if (session) {
+//     student = await StudentModel.findOne({ email: session.user.email });
+//   }
+
+//   const hackathons = await HackathonModel.aggregate([
+//     {
+//       $lookup: {
+//         from: 'hackathonRegistrations',
+//         localField: '_id',
+//         foreignField: 'hackathon',
+//         as: 'participants',
+//       },
+//     },
+//     {
+//       $addFields: {
+//         participantCount: { $size: '$participants' },
+//       },
+//     },
+//     {
+//       $sort: { createdAt: -1 }, // Sort by createdAt in descending order (newest first)
+//     },
+//     {
+//       $project: {
+//         _id: 1,
+//         title: 1,
+//         startDate: 1,
+//         endDate: 1,
+//         coverImage: 1,
+//         desktopCoverImage: 1,
+//         tags: 1,
+//         brief: 1,
+//         isActive: 1,
+//         status: 1,
+//         slug: 1,
+//         participantCount: 1,
+//         ...(student && {
+//           isRegistered: { $gt: [{ $size: '$participants' }, 0] },
+//         }), // Check if participants exist
+//       },
+//     },
+//   ]);
+
+//   return { hackathons: JSON.parse(JSON.stringify(hackathons)) };
+// }
+
 export async function getAllHackathons() {
   const session = await getServerSessionWithAuthOptions();
   await connectViaMongoose();
