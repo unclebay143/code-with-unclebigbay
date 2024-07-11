@@ -48,34 +48,24 @@ const POST = async (req: Request, _res: Response) => {
   }
 };
 
-const GET = async () => {
+const GET = async (request: any, { params }: { params: { slug: string } }) => {
   try {
+    const hackathonSlug = params.slug;
     await connectViaMongoose();
-    const submittedProjects = await Hackathon.aggregate([
-      {
-        $lookup: {
-          from: 'hackathonsubmissions',
-          localField: '_id',
-          foreignField: 'hackathon',
-          as: 'submissions',
-        },
-      },
-      {
-        $project: {
-          _id: 1,
-          name: 1,
-          submissions: 1,
-        },
-      },
-    ]);
-    if (!submittedProjects) {
+    const hackathon = await Hackathon.findOne({ slug: hackathonSlug });
+
+    if (!hackathon) {
       return NextResponse.json(
-        { message: 'Submission not found' },
+        { message: 'Hackathon Slug does not exist' },
         { status: 404 },
       );
     }
+    const hackathonSubmittedProjects = await HackathonSubmission.find();
     return NextResponse.json(
-      { message: 'Hackathon project fetched successfully', submittedProjects },
+      {
+        message: 'Hackathon project fetched successfully',
+        hackathonSubmittedProjects,
+      },
       {
         status: 200,
       },

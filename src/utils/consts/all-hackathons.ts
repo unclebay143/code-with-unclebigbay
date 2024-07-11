@@ -1,12 +1,16 @@
 export type HackathonProjectDetails = {
   name: string;
   demoUrl: string;
+  repositoryUrl: string;
+  url: string;
 };
 
 export type SubmittedHackathonsDetails = {
   id: number;
   name: string;
   description: string;
+  createdAt: string;
+  feedback: string;
   project: HackathonProjectDetails;
 };
 

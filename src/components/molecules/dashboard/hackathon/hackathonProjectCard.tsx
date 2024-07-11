@@ -6,21 +6,21 @@ import { YTVideo } from '@/components/atoms/YTVideo';
 import { HackathonProjectDetails } from '@/utils/consts/all-hackathons';
 
 interface Props {
-  id: number;
+  _id: number;
   name: string;
   description: string;
   project: HackathonProjectDetails;
 }
 export default function HackathonProjectCard({
-  id,
+  _id,
   name,
   project,
   description,
 }: Props) {
   return (
     <Link
-      key={id}
-      href={`/dashboard/hackathons/build-for-business-hackathon/submissions/${id}`}
+      key={_id}
+      href={`/dashboard/hackathons/build-for-business-hackathon/submissions/${_id}`}
       className="border rounded-xl overflow-hidden transition-colors duration-200 ease-in-out hover:border-slate-300"
     >
       <div className="relative">
@@ -37,7 +37,7 @@ export default function HackathonProjectCard({
         <div className="flex flex-col gap-1">
           <div className="flex items-center text-slate-500 text-xs">
             <p>by</p>&nbsp;
-            <p className="truncate max-w-[200px]">{name}</p>
+            <p className="truncate max-w-[200px]">{project.name}</p>
           </div>
           <div className="flex items-end justify-between">
             <Badge theme="slate" size="xs">
