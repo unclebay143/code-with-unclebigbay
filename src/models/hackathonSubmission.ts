@@ -12,6 +12,7 @@ const hackathonSubmissionSchema = new Schema(
     },
     project: {
       name: { type: String },
+      description: { type: String },
       url: { type: String },
       demoUrl: { type: String },
       articleUrl: { type: String },
