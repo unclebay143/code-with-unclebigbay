@@ -137,12 +137,12 @@ export const Features = () => {
                 />
               </svg>
             </div>
-            <section className="flex flex-col items-center gap-1">
-              <h3 className="mt-8 text-lg font-semibold text-black">
-                Level Up with Hackathons
-              </h3>
-              <Badge>Coming soon</Badge>
-            </section>
+            {/* <section className="flex flex-col items-center gap-1"> */}
+            <h3 className="mt-8 text-lg font-semibold text-black">
+              Level Up with Hackathons
+            </h3>
+            {/* <Badge>Coming soon</Badge> */}
+            {/* </section> */}
             <p className="mt-4 text-base text-gray-600">
               Push your limits, test your skills, and collaborate with
               like-minded individuals at upcoming hackathons. Get ready to
