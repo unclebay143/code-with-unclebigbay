@@ -321,7 +321,8 @@ export const SubmitEntryModal = ({
             <p className="text-sm text-slate-500">
               Thank you for participating in the{' '}
               <span className="font-semibold">{hackathonName}</span>!
-              <br /> The winners will be evaluated and announced soon.
+              <br /> Your submission will be evaluated and winners announced
+              soon.
             </p>
             <Button
               size="xs"
