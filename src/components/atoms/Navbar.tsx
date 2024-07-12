@@ -6,7 +6,13 @@ import { CodeWithUnclebigbayLogo } from './CodeWithUnclebigbayLogo';
 import { navLinks } from '@/utils/links';
 import { SidebarSlideOver } from './SidebarSlideOver';
 import { SectionWrapper } from '../molecules/home';
-import { Badge, BarsHamburger, Button, IconButton } from '@hashnode/matrix-ui';
+import {
+  Badge,
+  BarsHamburger,
+  Button,
+  HeaderNavigationButton,
+  IconButton,
+} from '@hashnode/matrix-ui';
 import { Session } from 'next-auth';
 import { AuthModal } from './AuthModal';
 
@@ -23,25 +29,22 @@ export const Navbar = ({ session }: { session?: Session | null }) => {
         <SectionWrapper>
           <section className="flex w-full items-center justify-between">
             <CodeWithUnclebigbayLogo />
-            <section className="hidden lg:flex items-center gap-3 text-slate-600">
+            <section className="hidden lg:flex items-center gap-3 text-slate-700">
               {navLinks.map(({ label, url, target, showNewBadge }, index) => (
-                <Button
-                  size="sm"
-                  appearance="link-secondary"
+                <HeaderNavigationButton
+                  size="lg"
                   key={`big-screen-nav-links-${index}`}
                   asChild
                 >
-                  <div>
-                    <Link href={url} target={target}>
-                      {label}
-                    </Link>
+                  <Link href={url} target={target}>
+                    <span>{label}</span>
                     {showNewBadge && (
                       <Badge size="xs" theme="green">
                         New
                       </Badge>
                     )}
-                  </div>
-                </Button>
+                  </Link>
+                </HeaderNavigationButton>
               ))}
             </section>
 
