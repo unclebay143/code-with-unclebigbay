@@ -8,6 +8,7 @@ import { Session } from 'next-auth';
 import {
   Button,
   IconButton,
+  MobileMenuNavLink,
   SlideoverPanel,
   SlideoverPanelBody,
   X,
@@ -34,15 +35,15 @@ export const SidebarSlideOver = ({ isOpen, close, session }: Props) => {
             <CodeWithUnclebigbayLogo />
             <IconButton Icon={X} onClick={close} />
           </div>
-          <div className="flex flex-col gap-10 mt-10">
+          <div className="flex flex-col gap-5 mt-10">
             {session ? (
-              <Button size="md" appearance="link-slate" asChild>
+              <MobileMenuNavLink size="sm" appearance="link-slate" asChild>
                 <Link href="/dashboard/overview">Dashboard</Link>
-              </Button>
+              </MobileMenuNavLink>
             ) : (
-              <section className="flex flex-col gap-10">
-                <Button
-                  size="md"
+              <section className="flex flex-col gap-5">
+                <MobileMenuNavLink
+                  size="sm"
                   onClick={() => {
                     close();
                     setOpenAuthModal(true);
@@ -51,9 +52,9 @@ export const SidebarSlideOver = ({ isOpen, close, session }: Props) => {
                   appearance="link-slate"
                 >
                   Sign in
-                </Button>
-                <Button
-                  size="md"
+                </MobileMenuNavLink>
+                <MobileMenuNavLink
+                  size="sm"
                   onClick={() => {
                     close();
                     setOpenAuthModal(true);
@@ -62,15 +63,15 @@ export const SidebarSlideOver = ({ isOpen, close, session }: Props) => {
                   appearance="link-slate"
                 >
                   Sign up
-                </Button>
+                </MobileMenuNavLink>
               </section>
             )}
 
             {navLinks.map(({ label, url }, index) => (
               <div key={`big-screen-nav-links-${index}`}>
-                <Button size="md" appearance="link-slate" asChild>
+                <MobileMenuNavLink size="sm" appearance="link-slate" asChild>
                   <Link href={url}>{label}</Link>
-                </Button>
+                </MobileMenuNavLink>
               </div>
             ))}
           </div>
