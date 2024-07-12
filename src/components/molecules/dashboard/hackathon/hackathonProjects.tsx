@@ -1,9 +1,6 @@
 'use client';
 
-import {
-  submittedHackathons,
-  HackathonProjectDetails,
-} from '@/utils/consts/all-hackathons';
+import { HackathonProjectDetails } from '@/utils/consts/all-hackathons';
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { ArrowLeft, Button } from '@hashnode/matrix-ui';
@@ -21,17 +18,22 @@ interface SubmittedHackathonsProjectsType {
 
 export default function HackathonProjects() {
   const { slug } = useParams<{ slug: string }>();
-  const [hackathonProjects, setHackathonProjects] = useState<SubmittedHackathonsProjectsType[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [hackathonProjects, setHackathonProjects] = useState<
+    SubmittedHackathonsProjectsType[]
+  >([]);
 
   const fetchHackathonProjects = () => {
     fetch(`/api/hackathons/${slug}/submission`)
       .then((response) => response.json())
       .then((data) => {
-        console.log(data)
+        console.log(data);
         setHackathonProjects(data.hackathonSubmittedProjects);
+        setLoading(false);
       })
       .catch((error) => {
         console.error('Error fetching hackathon projects:', error);
+        setLoading(false);
       });
   };
 
@@ -39,41 +41,52 @@ export default function HackathonProjects() {
     fetchHackathonProjects();
   }, []);
 
-  const hackathonUrl = ''; 
-  const showHackathonProjects = hackathonProjects && hackathonProjects.length > 0;
+  const hackathonUrl = '';
+  const showHackathonProjects =
+    hackathonProjects && hackathonProjects.length > 0;
+
+  const PageLoader = () => (
+    <div className="min-h-[70vh] flex justify-center items-center">
+      <div className="mx-auto w-12 h-12 border-4 border-slate-500 border-b-transparent rounded-full inline-block box-border animate-spin"></div>
+    </div>
+  );
 
   return (
     <>
-      <section className="flex flex-col gap-5">
-      <div className="flex flex-col items-start gap-4 justify-between md:flex-row-reverse md:items-center">
-        <Button
-          size="xs"
-          appearance="secondary-slate"
-          startIcon={ArrowLeft}
-          asChild
-        >
-          <Link href={hackathonUrl || ''}>Back to hackathon</Link>
-        </Button>
-        <DashboardSubheading title={`Project Submissions for ${slug}`} />
-      </div>
-      <div className="grid sm:grid-cols-2 xl:grid-cols-3 gap-4 justify-start">
-        {showHackathonProjects ? (
-          hackathonProjects.map(({ _id, name, description, project }) => (
-            <HackathonProjectCard
-              key={_id}
-              _id={_id}
-              name={name}
-              description={description}
-              project={project}
-            />
-          ))
-        ) : (
-          <div className="text-xl text-center text-slate-600 mx-auto">
-            <EmptyState label="No submission for this hackathon yet." />
+      {loading ? (
+        <PageLoader />
+      ) : (
+        <section className="flex flex-col gap-5">
+          <div className="flex flex-col items-start gap-4 justify-between md:flex-row-reverse md:items-center">
+            <Button
+              size="xs"
+              appearance="secondary-slate"
+              startIcon={ArrowLeft}
+              asChild
+            >
+              <Link href={hackathonUrl || ''}>Back to hackathon</Link>
+            </Button>
+            <DashboardSubheading title={`Project Submissions for ${slug}`} />
           </div>
-        )}
-      </div>
-      </section>
+          <div className="grid sm:grid-cols-2 xl:grid-cols-3 gap-4 justify-start">
+            {showHackathonProjects ? (
+              hackathonProjects.map(({ _id, name, description, project }) => (
+                <HackathonProjectCard
+                  key={_id}
+                  _id={_id}
+                  name={name}
+                  description={description}
+                  project={project}
+                />
+              ))
+            ) : (
+              <div className="text-xl text-center text-slate-600 mx-auto">
+                <EmptyState label="No submission for this hackathon yet." />
+              </div>
+            )}
+          </div>
+        </section>
+      )}
     </>
   );
 }

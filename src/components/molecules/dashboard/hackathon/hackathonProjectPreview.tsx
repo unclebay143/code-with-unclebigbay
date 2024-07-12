@@ -14,7 +14,7 @@ import relativeTime from 'dayjs/plugin/relativeTime';
 const HackathonProjectPreview = () => {
   const { id } = useParams();
   dayjs.extend(relativeTime);
-  const submittedDate = Date.now()
+  const submittedDate = Date.now();
 
   console.log(id);
   const hackathonUrl = '';
@@ -87,7 +87,6 @@ const HackathonProjectPreview = () => {
             {/* the name fashionwave represent the project name which will be fectch from DB  */}
           </Link>
           <p className="text-gray-600 text-sm">Frontend developer</p>
-        
         </div>
       </div>
       <div className="flex flex-col-reverse justify-between gap-3 lg:flex-row lg:items-center">
@@ -105,8 +104,9 @@ const HackathonProjectPreview = () => {
         </div>
         <ShareHackathonButton />
       </div>
-        <p className="text-gray-400 text-xs">Project Submitted: {dayjs(submittedDate).fromNow()} </p>
-
+      <p className="text-gray-400 text-xs">
+        Project Submitted: {dayjs(submittedDate).fromNow()}{' '}
+      </p>
     </section>
   );
 };
