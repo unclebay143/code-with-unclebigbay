@@ -218,6 +218,7 @@ export type HackathonSubmission = {
   student: string;
   project: {
     name: string;
+    description: string;
     url: string;
     demoUrl: string;
     articleUrl: string;
