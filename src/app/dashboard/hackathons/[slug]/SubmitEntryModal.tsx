@@ -76,6 +76,7 @@ export const SubmitEntryModal = ({
   const onSubmit = (formData: HackathonProjectSubmissionSchema) => {
     const {
       name,
+      description,
       url,
       demoUrl,
       repositoryUrl,
@@ -89,6 +90,7 @@ export const SubmitEntryModal = ({
       student: studentId,
       project: {
         name,
+        description,
         url,
         demoUrl,
         articleUrl,
