@@ -250,6 +250,13 @@ export type HackathonProjectDetails = {
   articleUrl: string;
 };
 
+
+export type HackathonStudentDetails = {
+  fullName: string;
+  stack: string;
+  photo: string;
+};
+
 export type SubmittedHackathonsDetails = {
   _id: string;
   name: string;

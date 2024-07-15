@@ -1,7 +1,6 @@
 import { HackathonSubmission } from '@/models/hackathonSubmission';
 import connectViaMongoose from '@/utils/mongoose';
 import { NextResponse } from 'next/server';
-// import { Hackathon } from '@/models/hackathon';
 
 const GET = async (request: any, { params }: { params: { _id: string } }) => {
   try {
@@ -9,7 +8,7 @@ const GET = async (request: any, { params }: { params: { _id: string } }) => {
     await connectViaMongoose();
     const submittedHackathonProject = await HackathonSubmission.findOne({
       _id: id,
-    });
+    }).populate('student');
     if (!submittedHackathonProject) {
       return NextResponse.json(
         { message: 'Project id not found!!' },

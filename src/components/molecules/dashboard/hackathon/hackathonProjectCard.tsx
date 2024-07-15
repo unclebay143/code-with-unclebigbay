@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import { ArrowExternalLink01, Badge, IconButton } from '@hashnode/matrix-ui';
 import { YTVideo } from '@/components/atoms/YTVideo';
-import { HackathonProjectDetails } from '@/utils/types';
+import { HackathonProjectDetails, HackathonStudentDetails } from '@/utils/types';
 
 interface Props {
   _id: string;
@@ -11,12 +11,12 @@ interface Props {
   description: string;
   slug: string;
   project: HackathonProjectDetails;
+  student: HackathonStudentDetails;
 }
 export default function HackathonProjectCard({
   _id,
-  name,
   project,
-  description,
+  student,
   slug,
 }: Props) {
   return (
@@ -41,7 +41,7 @@ export default function HackathonProjectCard({
         <div className="flex flex-col gap-1">
           <div className="flex items-center text-slate-500 text-xs">
             <p>by</p>&nbsp;
-            <p className="truncate max-w-[200px]">{project.name}</p>
+            <p className="truncate max-w-[200px]">{student.fullName}</p>
           </div>
           <div className="flex items-end justify-between">
             <Badge theme="slate" size="xs">

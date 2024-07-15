@@ -11,7 +11,10 @@ import { ShareHackathonButton } from '../share-hackathon-project';
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import { useState, useEffect } from 'react';
-import { HackathonProjectDetails } from '@/utils/types';
+import {
+  HackathonProjectDetails,
+  HackathonStudentDetails,
+} from '@/utils/types';
 
 interface PreviewProjectsType {
   _id: string;
@@ -19,6 +22,7 @@ interface PreviewProjectsType {
   feedback: string;
   createdAt: string;
   project: HackathonProjectDetails;
+  student: HackathonStudentDetails;
 }
 
 const HackathonProjectPreview = () => {
@@ -47,6 +51,7 @@ const HackathonProjectPreview = () => {
     try {
       const data = await getHackathonProjectById(_id as string);
       if (data) {
+        console.log(data);
         setProjectPreview(data.submittedHackathonProject);
       }
     } catch (error) {
@@ -81,7 +86,9 @@ const HackathonProjectPreview = () => {
             <Link href={hackathonUrl || ''}>View All Projects</Link>
           </Button>
         </div>
-        <DashboardSubheading title="Idris Haruna Hackathon Project Overview" />
+        <DashboardSubheading
+          title={`${projectPreview?.student?.fullName || ''}  Hackathon Project Overview`}
+        />
       </div>
       <div className="relative">
         <YTVideo
@@ -92,34 +99,32 @@ const HackathonProjectPreview = () => {
       </div>
       <div className="flex flex-col items-start gap-2">
         <h1 className="text-gray-700 text-lg font-medium">
-          About {projectPreview?.project?.name || '...'}
+          About {projectPreview?.project?.name || ''}
         </h1>
-        <p>{projectPreview?.project?.description || 'Loading'}</p>
+        <p>{projectPreview?.project?.description || ''}</p>
       </div>
       {projectPreview?.feedback && (
-      <div className="flex flex-col items-start gap-2">
-        <h1 className="text-gray-700 text-lg  font-medium">Feedback</h1>
-        <p>{projectPreview?.feedback || 'Loading'}</p>
-      </div>
-        )}
+        <div className="flex flex-col items-start gap-2">
+          <h1 className="text-gray-700 text-lg  font-medium">Feedback</h1>
+          <p>{projectPreview?.feedback || ''}</p>
+        </div>
+      )}
       <div className="flex items-start gap-2">
         <div className="h-16 w-16 overflow-hidden rounded-full">
           <Image
-            src="https://cdn.hashnode.com/res/hashnode/image/upload/v1677222800340/7FWlpF0aT.jpeg"
-            alt="Unclebigbay"
+            src={projectPreview?.student?.photo}
+            alt={projectPreview?.student?.fullName}
             width={100}
             height={100}
           />
         </div>
         <div>
-          <Link
-            href="https://idris.com"
-            className="text-gray-700 text-lg font-medium hover:underline"
-          >
-            Idris Haruna
-            {/* the name fashionwave represent the project name which will be fectch from DB  */}
-          </Link>
-          <p className="text-gray-600 text-sm">Frontend developer</p>
+          <p className="text-gray-700 text-lg font-medium">
+            {projectPreview?.student?.fullName}
+          </p>
+          <p className="text-gray-600 text-sm">
+            {projectPreview?.student?.stack}
+          </p>
         </div>
       </div>
       <div className="flex flex-col-reverse justify-between gap-3 lg:flex-row lg:items-center">
