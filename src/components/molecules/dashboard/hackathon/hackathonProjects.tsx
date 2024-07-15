@@ -1,6 +1,5 @@
 'use client';
 
-import { HackathonProjectDetails } from '@/utils/consts/all-hackathons';
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { ArrowLeft, Button } from '@hashnode/matrix-ui';
@@ -8,9 +7,10 @@ import { DashboardSubheading } from '../dashboard-subheading';
 import { EmptyState } from '../empty-state';
 import HackathonProjectCard from './hackathonProjectCard';
 import { useParams } from 'next/navigation';
+import { HackathonProjectDetails } from '@/utils/types';
 
 interface SubmittedHackathonsProjectsType {
-  _id: number;
+  _id: string;
   name: string;
   description: string;
   project: HackathonProjectDetails;
@@ -27,7 +27,6 @@ export default function HackathonProjects() {
     fetch(`/api/hackathons/${slug}/submission`)
       .then((response) => response.json())
       .then((data) => {
-        console.log(data);
         setHackathonProjects(data.hackathonSubmittedProjects);
         setLoading(false);
       })
@@ -41,7 +40,7 @@ export default function HackathonProjects() {
     fetchHackathonProjects();
   }, []);
 
-  const hackathonUrl = '';
+  const hackathonUrl = `/dashboard/hackathons/${slug}`;
   const showHackathonProjects =
     hackathonProjects && hackathonProjects.length > 0;
 
@@ -77,6 +76,7 @@ export default function HackathonProjects() {
                   name={name}
                   description={description}
                   project={project}
+                  slug={slug}
                 />
               ))
             ) : (
