@@ -10,6 +10,7 @@ import {
   CalendarBlank,
   Award02,
   BrandYoutube,
+  Link03,
 } from '@hashnode/matrix-ui';
 import { WhiteArea } from '@/components/molecules/dashboard/white-area';
 import { AnimatedTooltip } from '@/components/ui/animated-tooltip';
@@ -61,6 +62,7 @@ export const HackathonStory = ({
   } = hackathon;
 
   const hackathonUrl = `${baseURL}/hackathons/${slug}`;
+  const hackathonSubmissionHref = `/hackathons/${slug}/submissions`;
 
   const { data: currentStudent } = useCurrentStudent();
   const [hasSubmittedEntry, setHasSubmittedEntry] = useState(hasSubmitted);
@@ -120,6 +122,12 @@ export const HackathonStory = ({
 
   const socialShare = `https://twitter.com/intent/tweet?url=
             ${hackathonUrl}&text=I'm excited to publicly announce that I'm participating in the ${name}! by @unclebigbay143 %0A%0AJoin in this creative problem-solving. This is going to be epic! #BuildforBusinessHackathon #CodeWithUnclebigbay`;
+
+  const hackathonSubmissionBtn = (
+    <Button appearance="link-slate" size="xs" startIcon={Link03} asChild>
+      <Link href={hackathonSubmissionHref}>View hackathon submissions</Link>
+    </Button>
+  );
   return (
     <WhiteArea border>
       <div className="flex flex-col gap-5">
@@ -148,53 +156,71 @@ export const HackathonStory = ({
                 {formatStartAndEndDate(startDate, endDate)}
                 {isClosed ? ' (ended)' : null}
               </span>
+              {!isClosed && (
+                <div className="dark">
+                  {registered ? (
+                    <>
+                      {hasSubmittedEntry ? (
+                        <Button size="xs" appearance="primary-slate" disabled>
+                          <span className="font-normal text-xs">
+                            Entry submitted
+                          </span>
+                        </Button>
+                      ) : (
+                        <Button
+                          size="xs"
+                          appearance="primary-slate"
+                          disabled={disableSubmitEntryBtn}
+                          onClick={() => setOpenSubmitEntryModal(true)}
+                        >
+                          <span className="font-normal text-xs">
+                            Submit entry
+                          </span>
+                        </Button>
+                      )}
+                    </>
+                  ) : (
+                    <Button
+                      size="xs"
+                      appearance="primary-slate"
+                      disabled={disableRegisterBtn}
+                      onClick={handleJoinHackathon}
+                    >
+                      <span className="font-normal text-xs">
+                        Join hackathon
+                      </span>
+                    </Button>
+                  )}
+                </div>
+              )}
+              {!isClosed && (
+                <section className="max-w-sm text-center">
+                  {registered ? (
+                    <p className="text-[12px] text-slate-400">
+                      By submitting your entry, you grant us permission to
+                      showcase your project on our platform.
+                    </p>
+                  ) : (
+                    <p className="text-[12px] text-slate-400">
+                      By registering for this hackathon, you grant us permission
+                      to contact you regarding the hackathon.
+                    </p>
+                  )}
+                </section>
+              )}
 
-              <div className="dark">
-                {registered ? (
-                  <>
-                    {hasSubmittedEntry ? (
-                      <Button size="xs" appearance="primary-slate" disabled>
-                        <span className="font-normal text-xs">
-                          Entry submitted
-                        </span>
-                      </Button>
-                    ) : (
-                      <Button
-                        size="xs"
-                        appearance="primary-slate"
-                        disabled={disableSubmitEntryBtn}
-                        onClick={() => setOpenSubmitEntryModal(true)}
-                      >
-                        <span className="font-normal text-xs">
-                          Submit entry
-                        </span>
-                      </Button>
-                    )}
-                  </>
-                ) : (
-                  <Button
-                    size="xs"
-                    appearance="primary-slate"
-                    disabled={disableRegisterBtn}
-                    onClick={handleJoinHackathon}
-                  >
-                    <span className="font-normal text-xs">Join hackathon</span>
+              {isClosed && (
+                <div className="dark flex justify-center">
+                  <Button size="sm" appearance="primary-slate" asChild>
+                    <Link
+                      href={hackathonSubmissionHref}
+                      className="font-normal text-xs"
+                    >
+                      View Hackathon Submissions
+                    </Link>
                   </Button>
-                )}
-              </div>
-              <section className="max-w-sm text-center">
-                {registered ? (
-                  <p className="text-[12px] text-slate-400">
-                    By submitting your entry, you grant us permission to
-                    showcase your project on our platform.
-                  </p>
-                ) : (
-                  <p className="text-[12px] text-slate-400">
-                    By registering for this hackathon, you grant us permission
-                    to contact you regarding the hackathon.
-                  </p>
-                )}
-              </section>
+                </div>
+              )}
             </section>
           </div>
 
@@ -209,6 +235,9 @@ export const HackathonStory = ({
             <section className="flex flex-col gap-2">
               <h3 className={sectionHeadingStyle}>What to build</h3>
               <p className="text-slate-500">{whatToBuild}</p>
+              <div className="flex justify-start mt-2">
+                {hackathonSubmissionBtn}
+              </div>
             </section>
             <section className="flex flex-col gap-2">
               <h3 className={sectionHeadingStyle}>How to Participate</h3>
@@ -401,14 +430,18 @@ export const HackathonStory = ({
                 <h3 className={sectionHeadingStyle}>
                   Participants ({animatedTooltipParticipants.length})
                 </h3>
+
                 <section className="flex flex-row flex-wrap gap-y-3">
                   <AnimatedTooltip items={animatedTooltipParticipants} />
                 </section>
+
                 {anonymousCounts > 0 ? (
                   <span className="inline text-sm text-slate-500 hover:text-slate-600">
                     {`+${anonymousCounts} anonymous participant${anonymousCounts > 1 ? 's.' : '.'}`}
                   </span>
                 ) : null}
+
+                {hackathonSubmissionBtn}
               </section>
             )}
           </section>
