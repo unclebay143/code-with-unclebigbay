@@ -112,8 +112,8 @@ const HackathonProjectPreview = () => {
       <div className="flex items-start gap-2">
         <div className="h-16 w-16 overflow-hidden rounded-full">
           <Image
-            src={projectPreview?.student?.photo}
-            alt={projectPreview?.student?.fullName}
+            src={projectPreview?.student?.photo ?? ''}
+            alt="Student photo"
             width={100}
             height={100}
           />
