@@ -13,6 +13,7 @@ import { HackathonSubmission as HackathonSubmissionModel } from '@/models/hackat
 import { Enroll as EnrollModel } from '@/models/enroll';
 import { Course as CourseModel } from '@/models/course';
 import { Tag as TagModel } from '@/models/tag';
+import { Hackathon as HackathonModel } from '@/models/hackathon';
 
 // https://www.reddit.com/r/nextjs/comments/16hzdsr/i_have_a_question_using_headers/
 // export const getCustomHeaders = () => {
@@ -61,9 +62,11 @@ export async function getCurrentStudentByUsername(
   });
   const { student } = await result.json();
 
-  const canUpdateProfile = session?.user.email === student.email;
+  if (!student || !result.ok) {
+    return undefined;
+  }
 
-  if (!result.ok) return undefined;
+  const canUpdateProfile = session?.user.email === student.email;
 
   return { student, canUpdateProfile, session };
 }
@@ -73,7 +76,8 @@ export async function getStudents(): Promise<GetStudentsResponse | undefined> {
   try {
     const url = `${baseURL}/api/students`;
     const result = await fetch(url, {
-      cache: 'no-cache',
+      // cache: 'no-cache',
+      cache: 'force-cache',
       headers: {
         'Content-Type': 'application/json',
       },
@@ -93,36 +97,14 @@ export async function getAllActivityAudits(): Promise<
   GetAllActivityAuditsResponse | undefined
 > {
   try {
-    // const url = `${baseURL}/api/audits`;
-    // const result = await fetch(url, {
-    //   headers: {
-    //     Cookie: await getCookie(),
-    //   },
-    //   cache: 'force-cache',
-    // });
-
-    // if (!result.ok) return { audits: [] };
-    // const audits = await result.json();
-
     const session = await getServerSessionWithAuthOptions();
 
-    // if (!session) {
-    //   return NextResponse.json(
-    //     { message: 'Session required' },
-    //     { status: 403 },
-    //   );
-    // }
     await connectViaMongoose();
     const student = await StudentModel.findOne({ email: session?.user.email });
 
     const audits = await AuditTrail.find({ student: student.id }).sort({
       createdAt: -1,
     });
-
-    // return NextResponse.json(
-    //   { message: 'Student audits fetched', audits },
-    //   { status: 200 },
-    // );
 
     return { audits: JSON.parse(JSON.stringify(audits)) };
   } catch (error) {
@@ -171,21 +153,6 @@ export async function getLeaderBoard(): Promise<
 }
 
 export async function getCourses(): Promise<{ courses: Courses } | undefined> {
-  // const url = `${baseURL}/api/courses`;
-  // const result = await fetch(url, {
-  //   cache: 'force-cache',
-  //   headers: {
-  //     Cookie: await getCookie(),
-  //   },
-  // });
-
-  // if (!result.ok) {
-  //   console.log(result.statusText);
-  // }
-
-  // const { courses } = await result.json();
-  // return { courses };
-
   let courses;
   await connectViaMongoose();
 
@@ -250,21 +217,6 @@ export async function getCourses(): Promise<{ courses: Courses } | undefined> {
 export async function getEnrolledCourses(): Promise<
   { enrolledCourses: any } | undefined
 > {
-  // const url = `${baseURL}/api/courses/enroll`;
-  // const result = await fetch(url, {
-  //   cache: 'force-cache',
-  //   headers: {
-  //     Cookie: await getCookie(),
-  //   },
-  // });
-
-  // if (!result.ok) {
-  //   console.log(result.statusText);
-  // }
-
-  // const { enrolledCourses } = await result.json();
-  // return { enrolledCourses };
-
   const session = await getServerSessionWithAuthOptions();
 
   if (!session) return undefined;
@@ -285,17 +237,120 @@ export async function getEnrolledCourses(): Promise<
   return { enrolledCourses: JSON.parse(JSON.stringify(enrolledCourses)) };
 }
 
-export async function getAllHackathons() {
-  const url = `${baseURL}/api/hackathons`; // isRegistered is derived from server
-  const result = await fetch(url, {
-    headers: {
-      Cookie: await getCookie(),
-    },
-    cache: 'no-store',
-  });
-  const hackathons = await result.json();
+// export async function getAllHackathons() {
+//   const session = await getServerSessionWithAuthOptions();
+//   await connectViaMongoose();
 
-  return hackathons;
+//   let student;
+
+//   if (session) {
+//     student = await StudentModel.findOne({ email: session.user.email });
+//   }
+
+//   const hackathons = await HackathonModel.aggregate([
+//     {
+//       $lookup: {
+//         from: 'hackathonRegistrations',
+//         localField: '_id',
+//         foreignField: 'hackathon',
+//         as: 'participants',
+//       },
+//     },
+//     {
+//       $addFields: {
+//         participantCount: { $size: '$participants' },
+//       },
+//     },
+//     {
+//       $sort: { createdAt: -1 }, // Sort by createdAt in descending order (newest first)
+//     },
+//     {
+//       $project: {
+//         _id: 1,
+//         title: 1,
+//         startDate: 1,
+//         endDate: 1,
+//         coverImage: 1,
+//         desktopCoverImage: 1,
+//         tags: 1,
+//         brief: 1,
+//         isActive: 1,
+//         status: 1,
+//         slug: 1,
+//         participantCount: 1,
+//         ...(student && {
+//           isRegistered: { $gt: [{ $size: '$participants' }, 0] },
+//         }), // Check if participants exist
+//       },
+//     },
+//   ]);
+
+//   return { hackathons: JSON.parse(JSON.stringify(hackathons)) };
+// }
+
+export async function getAllHackathons() {
+  const session = await getServerSessionWithAuthOptions();
+  await connectViaMongoose();
+
+  let student;
+
+  if (session) {
+    student = await StudentModel.findOne({ email: session.user.email });
+  }
+
+  const hackathons = await HackathonModel.aggregate([
+    {
+      $lookup: {
+        from: 'hackathonRegistrations',
+        localField: '_id',
+        foreignField: 'hackathon',
+        as: 'participants',
+      },
+    },
+    {
+      $addFields: {
+        participantCount: { $size: '$participants' },
+        isRegistered: student
+          ? {
+              $gt: [
+                {
+                  $size: {
+                    $filter: {
+                      input: '$participants',
+                      as: 'p',
+                      cond: { $eq: ['$$p.student', student._id] },
+                    },
+                  },
+                },
+                0,
+              ],
+            }
+          : false,
+      },
+    },
+    {
+      $sort: { createdAt: -1 }, // Sort by createdAt in descending order (newest first)
+    },
+    {
+      $project: {
+        _id: 1,
+        title: 1,
+        startDate: 1,
+        endDate: 1,
+        coverImage: 1,
+        desktopCoverImage: 1,
+        tags: 1,
+        brief: 1,
+        isActive: 1,
+        status: 1,
+        slug: 1,
+        participantCount: 1,
+        isRegistered: 1,
+      },
+    },
+  ]);
+
+  return { hackathons: JSON.parse(JSON.stringify(hackathons)) };
 }
 
 export async function isRegisteredForHackathon(hackathonId: string) {
@@ -315,6 +370,7 @@ export async function isRegisteredForHackathon(hackathonId: string) {
 
   return isRegistered;
 }
+
 export async function hasSubmittedHackathonEntry(hackathonId: string) {
   const session = await getServerSessionWithAuthOptions();
   await connectViaMongoose();

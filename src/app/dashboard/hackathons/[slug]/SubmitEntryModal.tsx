@@ -28,6 +28,7 @@ type SubmitEntryModalProps = {
 
 const hackathonProjectSubmissionSchema = z.object({
   name: z.string(),
+  description: z.string(),
   url: z.string(),
   demoUrl: z.string(),
   socialUrl: z.string(),
@@ -58,6 +59,7 @@ export const SubmitEntryModal = ({
   } = useForm<HackathonProjectSubmissionSchema>({
     defaultValues: {
       name: '',
+      description: '',
       url: '',
       demoUrl: '',
       socialUrl: '',
@@ -74,6 +76,7 @@ export const SubmitEntryModal = ({
   const onSubmit = (formData: HackathonProjectSubmissionSchema) => {
     const {
       name,
+      description,
       url,
       demoUrl,
       repositoryUrl,
@@ -87,6 +90,7 @@ export const SubmitEntryModal = ({
       student: studentId,
       project: {
         name,
+        description,
         url,
         demoUrl,
         articleUrl,
@@ -115,7 +119,7 @@ export const SubmitEntryModal = ({
           <section className="flex flex-col gap-3">
             <section className="flex justify-between items-center">
               <h3 className="text-slate-700 font-semibold">
-                Entry Submission for Codathon
+                Entry Submission for {hackathonName}
               </h3>
               <IconButton
                 Icon={X}
@@ -141,7 +145,7 @@ export const SubmitEntryModal = ({
                         rel="noopener"
                         className="hover:underline text-blue-600"
                       >
-                        Click here for project 60s demo sample
+                        Click here for project demo sample
                       </a>
                     </li>
                     <li>
@@ -180,8 +184,22 @@ export const SubmitEntryModal = ({
                         />
                       </div>
                       <div className="flex flex-col gap-2">
+                        <label
+                          htmlFor="description"
+                          className="text-sm flex justify-between items-end"
+                        >
+                          <DashboardSubheading title="Description" />
+                        </label>
+                        <textarea
+                          id="description"
+                          placeholder="Tell us a little bit about your project..."
+                          className={`min-h-[100px] text-sm text-slate-600 p-2 outline-none focus:ring-2 focus:ring-slate-500 focus:border-slate-300 border rounded-md ${urlErrorMessage && 'ring-2 ring-red-500'}`}
+                          {...register('description', { required: true })}
+                        />
+                      </div>
+                      <div className="flex flex-col gap-2">
                         <label htmlFor="demoUrl" className="text-sm">
-                          <DashboardSubheading title="Project 60s Demo Embed ID" />
+                          <DashboardSubheading title="Project Demo (YouTube Embed ID)" />
                         </label>
                         <input
                           id="demoUrl"

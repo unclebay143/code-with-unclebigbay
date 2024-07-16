@@ -8,6 +8,8 @@ import {
   TabsTrigger,
   ScrollArea,
   Button,
+  EmptyState,
+  AwardTrophy,
 } from '@hashnode/matrix-ui';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { WhiteArea } from '@/components/molecules/dashboard/white-area';
@@ -79,15 +81,43 @@ export const HackathonTabView = ({ hackathons }: HackathonTabViewProps) => {
           forceMount
         >
           <section className="flex flex-col gap-3">
-            {activeHackathons?.map((hackathon) => {
-              return (
-                <HackathonCard
-                  key={hackathon._id}
-                  hackathon={hackathon}
-                  isRegistered={hackathon.isRegistered}
+            {activeHackathons.length > 0 ? (
+              <>
+                {activeHackathons?.map((hackathon) => {
+                  return (
+                    <HackathonCard
+                      key={hackathon._id}
+                      hackathon={hackathon}
+                      isRegistered={hackathon.isRegistered}
+                    />
+                  );
+                })}
+              </>
+            ) : (
+              <WhiteArea
+                border
+                twClass="border-dashed h-[200px] flex flex-col gap-2 justify-center items-center"
+              >
+                <EmptyState
+                  title="There are no active hackathons at the moment."
+                  copy={
+                    <div className="max-w-[317px] mx-auto">
+                      Stay tuned for announcements on{' '}
+                      <a
+                        href="https://x.com/unclebigbay143"
+                        target="_blank"
+                        rel="noopener"
+                        className="underline"
+                      >
+                        Twitter
+                      </a>
+                      .{' '}
+                    </div>
+                  }
+                  icon={AwardTrophy}
                 />
-              );
-            })}
+              </WhiteArea>
+            )}
           </section>
         </TabsContent>
         <TabsContent
@@ -113,14 +143,18 @@ export const HackathonTabView = ({ hackathons }: HackathonTabViewProps) => {
                 border
                 twClass="border-dashed h-[200px] flex flex-col gap-2 justify-center items-center"
               >
-                <h3 className="text-slate-600">
-                  We&apos;re currently running our first hackathon 🎉
-                </h3>
-                <Button size="xs" appearance="primary-slate" asChild>
-                  <Link href="/hackathons/build-for-business-hackathon?source=closed-hackathon-cta">
-                    View hackathon
-                  </Link>
-                </Button>
+                <EmptyState
+                  title="No closed hackathon"
+                  copy="We're currently running our first hackathon 🎉"
+                  icon={AwardTrophy}
+                  ctaElement={
+                    <Button size="xs" appearance="primary-slate" asChild>
+                      <Link href="/hackathons/build-for-business-hackathon?source=closed-hackathon-cta">
+                        Take me there
+                      </Link>
+                    </Button>
+                  }
+                />
               </WhiteArea>
             )}
           </section>

@@ -10,8 +10,9 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useState } from 'react';
 import Countdown from 'react-countdown';
-import { handleAuthentication } from '@/utils/auth';
 import { hasHackathonEnded } from '@/utils';
+import { AuthModal } from '@/components/atoms/AuthModal';
+import { baseURL } from '../../../../../frontend.config';
 
 export const HackathonCard = ({
   hackathon,
@@ -20,9 +21,12 @@ export const HackathonCard = ({
   hackathon: Hackathon;
   isRegistered: boolean;
 }) => {
+  const [showAuthModal, setShowAuthModal] = useState(false);
+
   const {
     _id: hackathonId,
     coverImage,
+    desktopCoverImage,
     brief,
     title,
     tags,
@@ -40,14 +44,15 @@ export const HackathonCard = ({
   const isClosed = hasHackathonEnded(endDate);
 
   const [registered, setRegistered] = useState(isRegistered);
-  const hackathonUrl =
-    typeof window !== 'undefined' && `${window.location.href}/${slug}`;
+  const hackathonUrl = `${baseURL}/hackathons/${slug}`;
 
   const disableJoinBtn = registered || isJoinHackathonPending || isClosed;
 
+  console.log(participantCount);
+
   const handleJoinHackathon = () => {
     if (!studentId && hackathonUrl) {
-      return handleAuthentication({ nextUrl: hackathonUrl });
+      return setShowAuthModal(true);
     }
 
     joinHackathon({
@@ -74,21 +79,23 @@ export const HackathonCard = ({
           href={`hackathons/${slug}`}
           className="relative min-h-[150px] sm:min-h-[100px] sm:w-[300px] md:w-[270px] xl:w-[190px] h-full border-r overflow-hidden"
         >
-          <Image src={coverImage} alt="" fill />
+          <Image src={coverImage} alt="" fill className="sm:hidden" />
+          <Image
+            src={desktopCoverImage}
+            alt=""
+            fill
+            className="hidden sm:block"
+          />
         </Link>
         <section className="p-5 flex flex-col justify-between gap-2">
           <section className="flex flex-col gap-1.5">
             <div className="flex flex-col gap-1 items-start">
               <div className="flex flex-col lg:flex-row gap-1 lg:items-center">
-                {participantCount > 5 ? (
-                  <>
-                    <span className="text-sm text-slate-600 flex items-center gap-1">
-                      <Users size={14} />
-                      Participants {participantCount}
-                    </span>
-                    <span className="mx-1 hidden lg:inline">&middot;</span>
-                  </>
-                ) : null}
+                <span className="text-sm text-slate-600 flex items-center gap-1">
+                  <Users size={14} />
+                  Participants {participantCount}
+                </span>
+                <span className="mx-1 hidden lg:inline">&middot;</span>
                 <span className="text-blue-500 text-sm font-medium flex items-center gap-1">
                   <Calendar size={14} />
                   {formatStartAndEndDate(startDate, endDate)}
@@ -106,7 +113,7 @@ export const HackathonCard = ({
               {brief}
             </p>
           </section>
-          <div className="flex flex-col min-[340px]:flex-row gap-2 sm:items-center">
+          <div className="flex flex-col w-fit min-[340px]:flex-row gap-2 sm:items-center">
             <Button
               size="xs"
               disabled={disableJoinBtn}
@@ -138,6 +145,15 @@ export const HackathonCard = ({
           </div>
         )}
       </section>
+
+      {showAuthModal && (
+        <AuthModal
+          isOpen={showAuthModal}
+          close={() => setShowAuthModal(false)}
+          type="login"
+          nextUrl={hackathonUrl}
+        />
+      )}
     </section>
   );
 };

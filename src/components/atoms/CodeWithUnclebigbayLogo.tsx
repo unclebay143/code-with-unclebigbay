@@ -16,7 +16,7 @@ export const CodeWithUnclebigbayLogo = () => (
     </div>
     <div className="flex flex-col">
       <div className="flex items-center gap-1">
-        <h1 className="text-sm font-semibold">Code with Unclebigbay</h1>
+        <h2 className="text-sm font-semibold">Code with Unclebigbay</h2>
         <Badge>Beta</Badge>
       </div>
       <span className="text-xs font-medium text-slate-600">

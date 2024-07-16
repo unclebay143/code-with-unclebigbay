@@ -6,12 +6,16 @@ const Schema = mongoose.Schema;
 
 // Enums
 const ALLOWED_GENDER = ['male', 'female'];
+const ALLOWED_AUTH_PROVIDER = ['github', 'google'];
 
 const studentSchema = new Schema(
   {
     fullName: { type: String },
     email: { type: String, required: true },
-    username: { type: String },
+    username: {
+      type: String,
+      collation: { locale: 'en', strength: 2 }, // Case-insensitive collation
+    },
     bio: { type: String },
     socials: {
       portfolio: { type: String },
@@ -41,6 +45,7 @@ const studentSchema = new Schema(
     gender: { type: String, enum: ALLOWED_GENDER },
     interests: [{ type: String }],
     betaFeatures: { type: 'Object' },
+    authProvider: { type: String, enum: ALLOWED_AUTH_PROVIDER },
   },
   {
     toJSON: {

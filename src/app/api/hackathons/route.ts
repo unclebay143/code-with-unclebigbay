@@ -41,7 +41,7 @@ const GET = async () => {
     const hackathons = await Hackathon.aggregate([
       {
         $lookup: {
-          from: 'hackathonRegistrations',
+          from: 'HackathonRegistration',
           localField: '_id',
           foreignField: 'hackathon',
           as: 'participants',
@@ -68,6 +68,7 @@ const GET = async () => {
           startDate: 1,
           endDate: 1,
           coverImage: 1,
+          desktopCoverImage: 1,
           tags: 1,
           brief: 1,
           isActive: 1,
