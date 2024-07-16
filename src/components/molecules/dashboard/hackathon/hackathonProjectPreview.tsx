@@ -113,7 +113,7 @@ const HackathonProjectPreview = () => {
         <div className="h-16 w-16 overflow-hidden rounded-full">
           <Image
             src={projectPreview?.student?.photo ?? ''}
-            alt="Student photo"
+            alt="student photo"
             width={100}
             height={100}
           />
