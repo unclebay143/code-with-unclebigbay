@@ -3,24 +3,26 @@
 import Link from 'next/link';
 import { ArrowExternalLink01, Badge, IconButton } from '@hashnode/matrix-ui';
 import { YTVideo } from '@/components/atoms/YTVideo';
-import { HackathonProjectDetails } from '@/utils/consts/all-hackathons';
+import { HackathonProjectDetails, HackathonStudentDetails } from '@/utils/types';
 
 interface Props {
-  id: number;
+  _id: string;
   name: string;
   description: string;
+  slug: string;
   project: HackathonProjectDetails;
+  student: HackathonStudentDetails;
 }
 export default function HackathonProjectCard({
-  id,
-  name,
+  _id,
   project,
-  description,
+  student,
+  slug,
 }: Props) {
   return (
     <Link
-      key={id}
-      href={`/dashboard/hackathons/build-for-business-hackathon/submissions/${id}`}
+      key={_id}
+      href={`/dashboard/hackathons/${slug}/submissions/${_id}`}
       className="border rounded-xl overflow-hidden transition-colors duration-200 ease-in-out hover:border-slate-300"
     >
       <div className="relative">
@@ -32,17 +34,19 @@ export default function HackathonProjectCard({
           <h1 className="text-gray-700 text-md line-clamp-2 font-medium">
             {project.name}
           </h1>
-          <p className="text-slate-500 text-sm line-clamp-3 ">{description}</p>
+          <p className="text-slate-500 text-sm line-clamp-3 ">
+            {project.description}
+          </p>
         </div>
         <div className="flex flex-col gap-1">
           <div className="flex items-center text-slate-500 text-xs">
             <p>by</p>&nbsp;
-            <p className="truncate max-w-[200px]">{name}</p>
+            <p className="truncate max-w-[200px]">{student.fullName}</p>
           </div>
           <div className="flex items-end justify-between">
             <Badge theme="slate" size="xs">
               <span className="truncate max-w-[150px] xl:max-w-[200px]">
-                Build for Business Hackathon
+                {slug}
               </span>
             </Badge>
             <IconButton Icon={ArrowExternalLink01} size="xs" />

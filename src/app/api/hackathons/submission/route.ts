@@ -31,6 +31,7 @@ const POST = async (req: Request, _res: Response) => {
       title: `Hackathon submission`,
       description: `Submitted project for ${hackathon.name}`,
     });
+    
 
     return NextResponse.json(
       { message: 'Hackathon project submitted.', submission },
@@ -47,5 +48,6 @@ const POST = async (req: Request, _res: Response) => {
     );
   }
 };
+
 
 export { POST };

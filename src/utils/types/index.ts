@@ -240,3 +240,27 @@ export type Quote = {
   isReleased: boolean;
   releasedDate: Date;
 };
+
+export type HackathonProjectDetails = {
+  name: string;
+  demoUrl: string;
+  repositoryUrl: string;
+  url: string;
+  description: string;
+  articleUrl: string;
+};
+
+
+export type HackathonStudentDetails = {
+  fullName: string;
+  stack: string;
+  photo: string;
+};
+
+export type SubmittedHackathonsDetails = {
+  _id: string;
+  name: string;
+  createdAt: string;
+  feedback: string;
+  project: HackathonProjectDetails;
+};
