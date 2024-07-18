@@ -14,9 +14,11 @@ const GET = async (request: any, { params }: { params: { slug: string } }) => {
         { status: 404 },
       );
     }
+
     const hackathonSubmittedProjects = await HackathonSubmission.find({
       hackathon: hackathon._id,
     }).populate('student');
+
     return NextResponse.json(
       {
         message: 'Hackathon project fetched successfully',

@@ -39,7 +39,7 @@ export const ShareHackathonButton = () => {
         <div>
           <DropdownMenuTrigger asChild>
             <Button size="sm" appearance="secondary-slate" startIcon={Share}>
-              Share Project
+              Share project
             </Button>
           </DropdownMenuTrigger>
         </div>

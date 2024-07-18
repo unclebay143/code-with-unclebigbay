@@ -1,9 +1,19 @@
 'use client';
 
 import Link from 'next/link';
-import { ArrowExternalLink01, Badge, IconButton } from '@hashnode/matrix-ui';
+import {
+  ArrowExternalLink01,
+  Avatar,
+  Badge,
+  IconButton,
+} from '@hashnode/matrix-ui';
 import { YTVideo } from '@/components/atoms/YTVideo';
-import { HackathonProjectDetails, HackathonStudentDetails } from '@/utils/types';
+import {
+  HackathonProjectDetails,
+  HackathonStudentDetails,
+} from '@/utils/types';
+import Image from 'next/image';
+import { DEFAULT_PROFILE_PHOTO } from '@/utils';
 
 interface Props {
   _id: string;
@@ -39,9 +49,20 @@ export default function HackathonProjectCard({
           </p>
         </div>
         <div className="flex flex-col gap-1">
-          <div className="flex items-center text-slate-500 text-xs">
-            <p>by</p>&nbsp;
-            <p className="truncate max-w-[200px]">{student.fullName}</p>
+          <div className="flex items-center gap-1 text-slate-500 text-xs">
+            <Avatar size="xs">
+              <Image
+                className="object-cover rounded-full h-5 w-5"
+                src={student.photo || DEFAULT_PROFILE_PHOTO}
+                alt="participant"
+                width={24}
+                height={24}
+              />
+            </Avatar>
+            <div className="flex items-center">
+              <p>by</p>&nbsp;
+              <p className="truncate max-w-[200px]">{student.fullName}</p>
+            </div>
           </div>
           <div className="flex items-end justify-between">
             <Badge theme="slate" size="xs">

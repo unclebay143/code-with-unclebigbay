@@ -29,6 +29,7 @@ import { HackathonFaqs } from './HackathonFaq';
 import { hasHackathonEnded } from '@/utils';
 import { baseURL } from '../../../../../frontend.config';
 import { AuthModal } from '@/components/atoms/AuthModal';
+import { oLStyle, sectionHeadingStyle, uLStyle } from '@/utils/style';
 
 type HackathonStoryProps = {
   hackathon: Hackathon;
@@ -109,10 +110,6 @@ export const HackathonStory = ({
       setRegistered(true);
     });
   };
-
-  const sectionHeadingStyle = 'font-semibold text-slate-700 text-xl';
-  const uLStyle = 'list-decimal list-outside ml-5 text-slate-600';
-  const oLStyle = 'list-disc list-outside ml-5 text-slate-600';
 
   const showScheduleSection = schedules && schedules.length > 0;
   const showResourceSection = resources && resources.length > 0;
