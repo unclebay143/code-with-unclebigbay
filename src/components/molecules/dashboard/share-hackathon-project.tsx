@@ -24,9 +24,7 @@ export const ShareHackathonButton = () => {
   const hackathonUrl = `https://www.codewithunclebigbay.com/dashboard/hackathons`;
 
   const socialMessage = `🎉 I am glad to share my just conclude project at , ${hackathonUrl}, hackathon. #codewithunclebigbay`;
-  //   const notEnrolledMessage = `📚 Excited to share this fantastic course, '${title}' by @unclebigbay143, I found on CodeWithUnclebigbay! It's packed with valuable insights and knowledge.\nCheck it out! ${courseUrl} #codewithunclebigbay`;
-  //   const detailsToCopy = isEnrolled ? enrolledMessage : notEnrolledMessage;
-
+ 
   const handleCopy = useCallback(() => {
     navigator.clipboard.writeText(socialMessage).then(() => {
       toast.success('Link copied to clipboard.');

@@ -241,7 +241,7 @@ export type Quote = {
   releasedDate: Date;
 };
 
-export type HackathonProjectDetails = {
+export type HackathonProject = {
   name: string;
   demoUrl: string;
   repositoryUrl: string;
@@ -250,17 +250,16 @@ export type HackathonProjectDetails = {
   articleUrl: string;
 };
 
-
-export type HackathonStudentDetails = {
+export type HackathonParticipant = {
   fullName: string;
   stack: string;
   photo: string;
 };
 
-export type SubmittedHackathonsDetails = {
+export type HackathonSubmissions = {
   _id: string;
   name: string;
   createdAt: string;
   feedback: string;
-  project: HackathonProjectDetails;
+  project: HackathonProject;
 };

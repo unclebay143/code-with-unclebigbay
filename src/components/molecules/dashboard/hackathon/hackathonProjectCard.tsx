@@ -8,10 +8,7 @@ import {
   IconButton,
 } from '@hashnode/matrix-ui';
 import { YTVideo } from '@/components/atoms/YTVideo';
-import {
-  HackathonProjectDetails,
-  HackathonStudentDetails,
-} from '@/utils/types';
+import { HackathonProject, HackathonParticipant } from '@/utils/types';
 import Image from 'next/image';
 import { DEFAULT_PROFILE_PHOTO } from '@/utils';
 
@@ -20,32 +17,29 @@ interface Props {
   name: string;
   description: string;
   slug: string;
-  project: HackathonProjectDetails;
-  student: HackathonStudentDetails;
+  project: HackathonProject;
+  student: HackathonParticipant;
 }
-export default function HackathonProjectCard({
-  _id,
-  project,
-  student,
-  slug,
-}: Props) {
+export default function HackathonProjectCard(props: Props) {
+  const { _id, project, slug, student } = props;
+
   return (
     <Link
       key={_id}
       href={`/dashboard/hackathons/${slug}/submissions/${_id}`}
-      className="border rounded-xl overflow-hidden transition-colors duration-200 ease-in-out hover:border-slate-300"
+      className="border  rounded-xl overflow-hidden transition-colors duration-200 ease-in-out hover:border-slate-300"
     >
       <div className="relative">
-        <YTVideo ytVideoId={project.demoUrl} removeRounded />
+        <YTVideo ytVideoId={project?.demoUrl ?? ''} removeRounded />
         <div className="absolute z-10 inset-0 w-full h-full" />
       </div>
       <div className="flex flex-col gap-5 p-4 pb-[14px]">
         <div className="flex flex-col gap-3">
           <h1 className="text-gray-700 text-md line-clamp-2 font-medium">
-            {project.name}
+            {project?.name}
           </h1>
           <p className="text-slate-500 text-sm line-clamp-3 ">
-            {project.description}
+            {project?.description}
           </p>
         </div>
         <div className="flex flex-col gap-1">
@@ -53,7 +47,7 @@ export default function HackathonProjectCard({
             <Avatar size="xs">
               <Image
                 className="object-cover rounded-full h-5 w-5"
-                src={student.photo || DEFAULT_PROFILE_PHOTO}
+                src={student?.photo || DEFAULT_PROFILE_PHOTO}
                 alt="participant"
                 width={24}
                 height={24}
@@ -61,7 +55,7 @@ export default function HackathonProjectCard({
             </Avatar>
             <div className="flex items-center">
               <p>by</p>&nbsp;
-              <p className="truncate max-w-[200px]">{student.fullName}</p>
+              <p className="truncate max-w-[200px]">{student?.fullName}</p>
             </div>
           </div>
           <div className="flex items-end justify-between">

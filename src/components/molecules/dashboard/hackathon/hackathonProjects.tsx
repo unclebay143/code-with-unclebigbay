@@ -6,23 +6,20 @@ import { ArrowLeft, Button, EmptyState, Stack } from '@hashnode/matrix-ui';
 import { DashboardSubheading } from '../dashboard-subheading';
 import HackathonProjectCard from './hackathonProjectCard';
 import { useParams } from 'next/navigation';
-import {
-  HackathonProjectDetails,
-  HackathonStudentDetails,
-} from '@/utils/types';
+import { HackathonProject, HackathonParticipant } from '@/utils/types';
 import { EmptyStateContainer } from '../EmptyStateContainer';
 
 interface SubmittedHackathonsProjectsType {
   _id: string;
   name: string;
+  slug: string;
   description: string;
-  project: HackathonProjectDetails;
-  student: HackathonStudentDetails;
+  project: HackathonProject;
+  student: HackathonParticipant;
 }
 
 export default function HackathonProjects() {
   const { slug } = useParams<{ slug: string }>();
-  const [loading, setLoading] = useState(true);
   const [hackathonProjects, setHackathonProjects] = useState<
     SubmittedHackathonsProjectsType[]
   >([]);
@@ -32,11 +29,9 @@ export default function HackathonProjects() {
       .then((response) => response.json())
       .then((data) => {
         setHackathonProjects(data.hackathonSubmittedProjects);
-        setLoading(false);
       })
       .catch((error) => {
         console.error('Error fetching hackathon projects:', error);
-        setLoading(false);
       });
   };
 
@@ -60,24 +55,17 @@ export default function HackathonProjects() {
           <Link href={hackathonUrl || ''}>Overview</Link>
         </Button>
         <div className="text-xl text-slate-600">
-          <DashboardSubheading title={`Project Submissions for ${slug}`} />
+          <DashboardSubheading title={`Project submissions for ${slug}`} />
         </div>
       </div>
       {showHackathonProjects ? (
         <div className="grid sm:grid-cols-2 xl:grid-cols-3 gap-4 justify-start">
-          {hackathonProjects.map(
-            ({ _id, name, description, project, student }) => (
-              <HackathonProjectCard
-                key={_id}
-                _id={_id}
-                name={name}
-                description={description}
-                project={project}
-                slug={slug}
-                student={student}
-              />
-            ),
-          )}
+          {hackathonProjects.map((hackathonProject) => (
+            <HackathonProjectCard
+              key={hackathonProject._id}
+              {...hackathonProject}
+            />
+          ))}
         </div>
       ) : (
         <EmptyStateContainer className="max-h-[400px]">

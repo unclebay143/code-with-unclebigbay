@@ -11,7 +11,7 @@ const GET = async (request: any, { params }: { params: { _id: string } }) => {
     const submittedHackathonProject = await HackathonSubmission.findOne({
       _id: id,
     })
-      .populate('student', '', Student)
+      .populate('student', '_id fullName stack photo username', Student)
       .populate('hackathon', 'name hashTag slug', Hackathon);
 
     if (!submittedHackathonProject) {

@@ -1,6 +1,5 @@
 'use client';
 
-import { useParams } from 'next/navigation';
 import { YTVideo } from '@/components/atoms/YTVideo';
 import Link from 'next/link';
 import {
@@ -15,64 +14,33 @@ import Image from 'next/image';
 import { ShareHackathonButton } from '../share-hackathon-project';
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
-import { useState, useEffect } from 'react';
-import {
-  HackathonProjectDetails,
-  HackathonStudentDetails,
-} from '@/utils/types';
+import { HackathonProject, HackathonParticipant } from '@/utils/types';
 import { sectionHeadingStyle } from '@/utils/style';
+import { DEFAULT_PROFILE_PHOTO } from '@/utils';
 
 interface PreviewProjectsType {
-  _id: string;
-  name: string;
-  feedback: string;
-  createdAt: string;
-  project: HackathonProjectDetails;
-  student: HackathonStudentDetails;
-  hackathon: { name: string; hashTag: string; slug: string };
+  submittedHackathonProject: {
+    _id: string;
+    name: string;
+    feedback: string;
+    createdAt: string;
+    project: HackathonProject;
+    student: HackathonParticipant;
+    hackathon: { name: string; hashTag: string; slug: string };
+  };
 }
 
-const HackathonProjectPreview = () => {
-  const { _id, slug } = useParams<{ slug: string; _id: string }>();
-  dayjs.extend(relativeTime);
-  const [loading, setLoading] = useState(true);
-  const [projectPreview, setProjectPreview] =
-    useState<PreviewProjectsType | null>(null);
+interface HackathonProjectPreviewProps {
+  gethackathonRes: PreviewProjectsType;
+}
 
-  const getHackathonProjectById = async (_id: string) => {
-    try {
-      const res = await fetch(`/api/hackathons/${slug}/submission/${_id}`, {
-        cache: 'no-store',
-      });
-      if (!res.ok) {
-        throw new Error('Error found while fetching');
-      }
-      return res.json();
-    } catch (error) {
-      console.error('Error loading data', error);
-      return null;
-    }
-  };
+dayjs.extend(relativeTime);
 
-  const fetchData = async () => {
-    try {
-      const data = await getHackathonProjectById(_id as string);
-      if (data) {
-        console.log(data);
-        setProjectPreview(data.submittedHackathonProject);
-      }
-    } catch (error) {
-      console.error('Error loading data', error);
-    }
-  };
-
-  useEffect(() => {
-    if (_id) {
-      fetchData();
-    }
-  }, [_id]);
-
-  const hackathonUrl = `/dashboard/hackathons/${slug}/submissions`;
+const HackathonProjectPreview = ({
+  gethackathonRes,
+}: HackathonProjectPreviewProps) => {
+  const projectPreview = gethackathonRes.submittedHackathonProject;
+  const hackathonSubmissionsUrl = `/dashboard/hackathons/${projectPreview.hackathon.slug}/submissions`;
   return (
     <section className="flex flex-col gap-6">
       <div className="flex flex-col items-start gap-4 justify-between xl:flex-row-reverse">
@@ -83,7 +51,7 @@ const HackathonProjectPreview = () => {
             startIcon={ArrowLeft}
             asChild
           >
-            <Link href={hackathonUrl || ''}>View all projects</Link>
+            <Link href={hackathonSubmissionsUrl || ''}>View all projects</Link>
           </Button>
           <a
             target="_blank"
@@ -116,10 +84,7 @@ const HackathonProjectPreview = () => {
         </div>
       </div>
       <div className="flex flex-col items-start gap-2">
-        <h3 className={sectionHeadingStyle}>
-          {/* About {projectPreview?.project?.name || ''} */}
-          Project Description
-        </h3>
+        <h3 className={sectionHeadingStyle}>Project Description</h3>
         <p className="text-slate-500">
           {projectPreview?.project?.description || ''}
         </p>
@@ -130,8 +95,8 @@ const HackathonProjectPreview = () => {
         <div className="flex items-center gap-2">
           <div className="h-16 w-16 overflow-hidden rounded-full">
             <Image
-              src={projectPreview?.student?.photo}
-              alt={projectPreview?.student?.fullName}
+              src={projectPreview?.student?.photo || DEFAULT_PROFILE_PHOTO}
+              alt="participant"
               width={100}
               height={100}
             />
@@ -192,7 +157,7 @@ const HackathonProjectPreview = () => {
       <section className="flex flex-col gap-2 sm:flex-row sm:items-center justify-between">
         <div className="flex items-center gap-1">
           <span className="text-sm text-slate-700">Hackathon:</span>
-          <Badge>{projectPreview?.hackathon.hashTag}</Badge>
+          <Badge>{projectPreview?.hackathon?.hashTag}</Badge>
         </div>
         <p className="text-slate-600 text-xs">
           Project submitted: {dayjs(projectPreview?.createdAt).fromNow()}{' '}
