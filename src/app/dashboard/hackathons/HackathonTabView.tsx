@@ -101,20 +101,23 @@ export const HackathonTabView = ({ hackathons }: HackathonTabViewProps) => {
                 <EmptyState
                   title="There are no active hackathons at the moment."
                   copy={
-                    <div className="max-w-[317px] mx-auto">
-                      Stay tuned for announcements on{' '}
+                    <div className="max-w-[500px] mx-auto">
+                      Don&apos;t miss out! Follow us on social media for
+                      announcements.
+                    </div>
+                  }
+                  icon={AwardTrophy}
+                  ctaElement={
+                    <Button size="xs" appearance="primary-slate" asChild>
                       <a
                         href="https://x.com/unclebigbay143"
                         target="_blank"
                         rel="noopener"
-                        className="underline"
                       >
-                        Twitter
+                        Follow on X (Twitter)
                       </a>
-                      .{' '}
-                    </div>
+                    </Button>
                   }
-                  icon={AwardTrophy}
                 />
               </WhiteArea>
             )}
