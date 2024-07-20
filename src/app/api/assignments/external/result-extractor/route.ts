@@ -12,7 +12,6 @@ const POST = async (req: Request) => {
       courseSlug: string;
     };
     const { userNames, courseSlug } = body;
-    console.log(userNames);
     try {
       const course = await Course.findOne({ slug: courseSlug }).select('_id');
       if (!course) {
