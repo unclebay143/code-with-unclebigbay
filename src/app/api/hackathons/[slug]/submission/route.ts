@@ -18,7 +18,9 @@ const GET = async (request: any, { params }: { params: { slug: string } }) => {
 
     const hackathonSubmittedProjects = await HackathonSubmission.find({
       hackathon: hackathon._id,
-    }).populate('student', '_id fullName stack photo username', Student).populate('hackathon', 'name', Hackathon);
+    })
+      .populate('student', '_id fullName stack photo username', Student)
+      .populate('hackathon', 'name slug hashTag', Hackathon);
 
     return NextResponse.json(
       {

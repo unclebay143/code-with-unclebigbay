@@ -21,7 +21,8 @@ interface Props {
   student: HackathonParticipant;
 }
 export default function HackathonProjectCard(props: Props) {
-  const { _id, project, slug, student } = props;
+  const { _id, project, hackathon, student } = props;
+  const { slug, hashTag } = hackathon;
 
   return (
     <Link
@@ -61,7 +62,7 @@ export default function HackathonProjectCard(props: Props) {
           <div className="flex items-end justify-between">
             <Badge theme="slate" size="xs">
               <span className="truncate max-w-[150px] xl:max-w-[200px]">
-                {slug}
+                {hashTag}
               </span>
             </Badge>
             <IconButton Icon={ArrowExternalLink01} size="xs" />
