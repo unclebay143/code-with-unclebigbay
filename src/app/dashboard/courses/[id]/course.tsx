@@ -192,7 +192,7 @@ const Course = ({ currentStudent }: { currentStudent?: Student }) => {
                               Description:
                             </h3>
                             <div
-                              className="text-slate-600 flex flex-col gap-4 [&>a]:underline [&>ul]:list-disc [&>ul]:list-outside [&>ul]:ml-5 [&>ul>li]:mb-2"
+                              className="text-slate-600 flex flex-col gap-4 [&_a]:underline [&_ul]:list-disc [&_ul]:list-outside [&_ul]:ml-5 [&_ul>li]:mb-2"
                               dangerouslySetInnerHTML={{
                                 __html: course?.description,
                               }}
