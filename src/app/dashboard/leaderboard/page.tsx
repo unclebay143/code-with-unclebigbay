@@ -147,7 +147,7 @@ const Page = async () => {
                 <Comp
                   {...(!isAnonymous && LinkAttributes)}
                   key={_id}
-                  className="relative flex flex-col items-center justify-center gap-3 border rounded-lg p-5 hover:bg-slate-5"
+                  className="relative flex flex-col items-center justify-center gap-3 border border-slate-200 rounded-lg p-5 hover:bg-slate-5 hover:border-slate-300/80"
                 >
                   <div className="absolute left-3 top-3">
                     {rank === 1 ? (
