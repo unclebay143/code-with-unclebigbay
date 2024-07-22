@@ -1,4 +1,10 @@
-import { Button, IconButton, X } from '@hashnode/matrix-ui';
+import {
+  Avatar,
+  Button,
+  IconButton,
+  SearchContentField,
+  X,
+} from '@hashnode/matrix-ui';
 import { ShowConfetti } from '@/components/molecules/Confetti';
 import { DashboardSubheading } from '@/components/molecules/dashboard/dashboard-subheading';
 import { ModalWrapper } from '@/components/molecules/dashboard/modal-wrapper';
@@ -9,6 +15,9 @@ import { z } from 'zod';
 import { HackathonSubmission } from '@/utils/types';
 import { UseMutateAsyncFunction } from '@tanstack/react-query';
 import { AxiosResponse } from 'axios';
+import { DEFAULT_PROFILE_PHOTO } from '@/utils';
+import Image from 'next/image';
+import { StudentSearchField } from '@/components/ui/StudentSearchField';
 
 type SubmitEntryModalProps = {
   isOpen: boolean;
@@ -263,6 +272,82 @@ export const SubmitEntryModal = ({
                           placeholder="https://twitter.com/unclebigbay143/status/1650807730267889664"
                           className={`text-sm text-slate-600 p-2 outline-none focus:ring-2 focus:ring-slate-500 focus:border-slate-300 border rounded-md ${urlErrorMessage && 'ring-2 ring-red-500'}`}
                           {...register('socialUrl', { required: true })}
+                        />
+                      </div>
+                      <div className="flex flex-col gap-2">
+                        <label
+                          htmlFor="coStudents"
+                          className="text-sm flex justify-between items-end"
+                        >
+                          <DashboardSubheading title="Members" />
+                          <span className="text-xs text-slate-400">
+                            (for teams)
+                          </span>
+                        </label>
+
+                        {/* <section
+                          className={`relative text-sm text-slate-600 outline-none focus:ring-2 focus:ring-slate-500 focus:border-slate-300 border rounded-md ${urlErrorMessage && 'ring-2 ring-red-500'}`}
+                        >
+                          <SearchContentField
+                            size="sm"
+                            appearance="inline"
+                            placeholder="Enter team username"
+                          />
+
+                          <section className="w-full absolute top-10 z-10 bg-white shadow-xl py-2 border rounded-xl">
+                            <section className="flex flex-col justify-between items-center gap-3">
+                              <button
+                                type="button"
+                                className="w-full text-left cursor-pointer flex items-center py-2 h-8 pl-2 gap-3 hover:bg-slate-50"
+                              >
+                                <Avatar size="sm">
+                                  <Image
+                                    src={DEFAULT_PROFILE_PHOTO}
+                                    alt="Default profile photo"
+                                    fill
+                                  />
+                                </Avatar>
+                                <h3 className="text-sm text-slate-500 dark:text-slate-400">
+                                  unclebigbay
+                                </h3>
+                              </button>
+                              <button
+                                type="button"
+                                className="w-full text-left cursor-pointer flex items-center py-2 h-8 pl-2 gap-3 hover:bg-slate-50"
+                              >
+                                <Avatar size="sm">
+                                  <Image
+                                    src={DEFAULT_PROFILE_PHOTO}
+                                    alt="Default profile photo"
+                                    fill
+                                  />
+                                </Avatar>
+                                <h3 className="text-sm text-slate-500 dark:text-slate-400">
+                                  unclebigbay
+                                </h3>
+                              </button>
+                              <button
+                                type="button"
+                                className="w-full text-left cursor-pointer flex items-center py-2 h-8 pl-2 gap-3 hover:bg-slate-50"
+                              >
+                                <Avatar size="sm">
+                                  <Image
+                                    src={DEFAULT_PROFILE_PHOTO}
+                                    alt="Default profile photo"
+                                    fill
+                                  />
+                                </Avatar>
+                                <h3 className="text-sm text-slate-500 dark:text-slate-400">
+                                  unclebigbay
+                                </h3>
+                              </button>
+                            </section>
+                          </section>
+                        </section> */}
+
+                        <StudentSearchField
+                          usersToExclude={[]}
+                          setSelectedUsers={() => null}
                         />
                       </div>
                       <div className="flex flex-col gap-2">
