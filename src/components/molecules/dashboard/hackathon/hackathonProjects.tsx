@@ -1,6 +1,5 @@
 'use client';
 
-import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { ArrowLeft, Button, EmptyState, Stack } from '@hashnode/matrix-ui';
 import { DashboardSubheading } from '../dashboard-subheading';
@@ -9,39 +8,36 @@ import { useParams } from 'next/navigation';
 import { HackathonProject, HackathonParticipant } from '@/utils/types';
 import { EmptyStateContainer } from '../EmptyStateContainer';
 
-interface SubmittedHackathonsProjectsType {
+interface HackathonProjectsType {
   _id: string;
   name: string;
   slug: string;
   description: string;
   project: HackathonProject;
   student: HackathonParticipant;
+  hackathon: {
+    slug: string;
+    hashTag: string;
+    name: string;
+  };
 }
 
-export default function HackathonProjects() {
+interface SubmittedHackathonsProjectsType {
+  hackathonSubmittedProjects: HackathonProjectsType[];
+}
+
+interface HackathonProjectsProps {
+  gethackathonProjectsRes: SubmittedHackathonsProjectsType;
+}
+export default function HackathonProjects({
+  gethackathonProjectsRes,
+}: HackathonProjectsProps) {
   const { slug } = useParams<{ slug: string }>();
-  const [hackathonProjects, setHackathonProjects] = useState<
-    SubmittedHackathonsProjectsType[]
-  >([]);
-
-  const fetchHackathonProjects = () => {
-    fetch(`/api/hackathons/${slug}/submission`)
-      .then((response) => response.json())
-      .then((data) => {
-        setHackathonProjects(data.hackathonSubmittedProjects);
-      })
-      .catch((error) => {
-        console.error('Error fetching hackathon projects:', error);
-      });
-  };
-
-  useEffect(() => {
-    fetchHackathonProjects();
-  }, []);
 
   const hackathonUrl = `/dashboard/hackathons/${slug}`;
   const showHackathonProjects =
-    hackathonProjects && hackathonProjects.length > 0;
+    gethackathonProjectsRes.hackathonSubmittedProjects &&
+    gethackathonProjectsRes.hackathonSubmittedProjects.length > 0;
 
   return (
     <section className="flex flex-col gap-5">
@@ -60,12 +56,14 @@ export default function HackathonProjects() {
       </div>
       {showHackathonProjects ? (
         <div className="grid sm:grid-cols-2 xl:grid-cols-3 gap-4 justify-start">
-          {hackathonProjects.map((hackathonProject) => (
-            <HackathonProjectCard
-              key={hackathonProject._id}
-              {...hackathonProject}
-            />
-          ))}
+          {gethackathonProjectsRes.hackathonSubmittedProjects.map(
+            (hackathonProject: any) => (
+              <HackathonProjectCard
+                key={hackathonProject._id}
+                {...hackathonProject}
+              />
+            ),
+          )}
         </div>
       ) : (
         <EmptyStateContainer className="max-h-[400px]">

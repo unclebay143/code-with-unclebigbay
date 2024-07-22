@@ -22,6 +22,7 @@ interface PreviewProjectsType {
   submittedHackathonProject: {
     _id: string;
     name: string;
+    slug: string;
     feedback: string;
     createdAt: string;
     project: HackathonProject;
@@ -151,7 +152,7 @@ const HackathonProjectPreview = ({
               </a>
             </Button>
           </div>
-          <ShareHackathonButton />
+          <ShareHackathonButton slug={projectPreview.hackathon.slug} />
         </div>
       </div>
       <section className="flex flex-col gap-2 sm:flex-row sm:items-center justify-between">

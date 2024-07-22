@@ -19,6 +19,10 @@ interface Props {
   slug: string;
   project: HackathonProject;
   student: HackathonParticipant;
+  hackathon: {
+    slug: string;
+    hashTag: string;
+  };
 }
 export default function HackathonProjectCard(props: Props) {
   const { _id, project, hackathon, student } = props;

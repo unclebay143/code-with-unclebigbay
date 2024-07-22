@@ -16,15 +16,13 @@ import { toast } from 'sonner';
 
 type Props = {
   slug: String;
-  isEnrolled: Boolean;
-  title: String;
 };
 
-export const ShareHackathonButton = () => {
-  const hackathonUrl = `https://www.codewithunclebigbay.com/dashboard/hackathons`;
+export const ShareHackathonButton = ({ slug }: Props) => {
+  const hackathonUrl = `https://www.codewithunclebigbay.com/dashboard/hackathons/${slug}/submissions`;
 
   const socialMessage = `🎉 I am glad to share my just conclude project at , ${hackathonUrl}, hackathon. #codewithunclebigbay`;
- 
+
   const handleCopy = useCallback(() => {
     navigator.clipboard.writeText(socialMessage).then(() => {
       toast.success('Link copied to clipboard.');

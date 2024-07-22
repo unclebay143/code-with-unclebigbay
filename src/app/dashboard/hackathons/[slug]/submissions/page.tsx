@@ -1,11 +1,16 @@
 import HackathonProjects from '@/components/molecules/dashboard/hackathon/hackathonProjects';
 import { WhiteArea } from '@/components/molecules/dashboard/white-area';
 import React from 'react';
+import { getHackathonProjects } from '@/utils/server.service';
 
-const Page = () => {
+type Props = { params: {  slug: string } };
+
+const Page = async ({ params }: Props) => {
+  const { slug } = params;
+  const gethackathonProjectsRes = await getHackathonProjects(slug);
   return (
     <WhiteArea border>
-      <HackathonProjects />
+      <HackathonProjects gethackathonProjectsRes={gethackathonProjectsRes} />
     </WhiteArea>
   );
 };
