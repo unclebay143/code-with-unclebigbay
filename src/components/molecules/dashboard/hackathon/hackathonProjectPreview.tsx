@@ -14,21 +14,23 @@ import Image from 'next/image';
 import { ShareHackathonButton } from '../share-hackathon-project';
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
-import { HackathonProject, HackathonParticipant } from '@/utils/types';
+import {
+  HackathonProject,
+  HackathonParticipant,
+  HackathonType,
+} from '@/utils/types';
 import { sectionHeadingStyle } from '@/utils/style';
 import { DEFAULT_PROFILE_PHOTO } from '@/utils';
 
 interface PreviewProjectsType {
-  submittedHackathonProject: {
-    _id: string;
-    name: string;
-    slug: string;
-    feedback: string;
-    createdAt: string;
-    project: HackathonProject;
-    student: HackathonParticipant;
-    hackathon: { name: string; hashTag: string; slug: string };
-  };
+  _id: string;
+  name: string;
+  slug: string;
+  feedback: string;
+  createdAt: string;
+  project: HackathonProject;
+  student: HackathonParticipant;
+  hackathon: HackathonType;
 }
 
 interface HackathonProjectPreviewProps {
@@ -40,7 +42,7 @@ dayjs.extend(relativeTime);
 const HackathonProjectPreview = ({
   gethackathonRes,
 }: HackathonProjectPreviewProps) => {
-  const projectPreview = gethackathonRes.submittedHackathonProject;
+  const projectPreview = gethackathonRes;
   const hackathonSubmissionsUrl = `/dashboard/hackathons/${projectPreview.hackathon.slug}/submissions`;
   return (
     <section className="flex flex-col gap-6">
@@ -128,7 +130,7 @@ const HackathonProjectPreview = ({
         <h3 className={sectionHeadingStyle}>Links</h3>
         <div className="flex flex-col justify-between gap-3 lg:flex-row lg:items-center">
           <div className="flex gap-3 md:gap-2 flex-wrap">
-            <Button size="sm" appearance="primary-slate">
+            <Button size="sm" appearance="primary-slate" asChild>
               <a
                 target="_blank"
                 rel="noopener"

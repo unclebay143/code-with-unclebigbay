@@ -5,7 +5,7 @@ import { ArrowLeft, Button, EmptyState, Stack } from '@hashnode/matrix-ui';
 import { DashboardSubheading } from '../dashboard-subheading';
 import HackathonProjectCard from './hackathonProjectCard';
 import { useParams } from 'next/navigation';
-import { HackathonProject, HackathonParticipant } from '@/utils/types';
+import { HackathonProject, HackathonParticipant,HackathonType } from '@/utils/types';
 import { EmptyStateContainer } from '../EmptyStateContainer';
 
 interface HackathonProjectsType {
@@ -15,11 +15,7 @@ interface HackathonProjectsType {
   description: string;
   project: HackathonProject;
   student: HackathonParticipant;
-  hackathon: {
-    slug: string;
-    hashTag: string;
-    name: string;
-  };
+  hackathon:HackathonType
 }
 
 interface SubmittedHackathonsProjectsType {

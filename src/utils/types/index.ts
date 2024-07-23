@@ -256,6 +256,12 @@ export type HackathonParticipant = {
   photo: string;
 };
 
+export type HackathonType = {
+  name: string;
+  hashTag: string;
+  slug: string;
+};
+
 export type HackathonSubmissions = {
   _id: string;
   name: string;

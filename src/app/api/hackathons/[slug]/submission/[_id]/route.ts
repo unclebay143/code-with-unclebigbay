@@ -20,7 +20,7 @@ const GET = async (request: any, { params }: { params: { _id: string } }) => {
         { status: 404 },
       );
     }
-    return NextResponse.json({ submittedHackathonProject }, { status: 200 });
+    return NextResponse.json(submittedHackathonProject, { status: 200 });
   } catch (error) {
     return NextResponse.json(
       { message: 'Error fetching project by id ' },
