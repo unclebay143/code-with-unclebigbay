@@ -252,6 +252,7 @@ export type HackathonProject = {
 
 export type HackathonParticipant = {
   fullName: string;
+  username: string;
   stack: string;
   photo: string;
 };

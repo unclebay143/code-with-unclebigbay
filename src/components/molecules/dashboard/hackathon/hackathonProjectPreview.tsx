@@ -35,15 +35,20 @@ interface PreviewProjectsType {
 
 interface HackathonProjectPreviewProps {
   gethackathonRes: PreviewProjectsType;
+  getCurrentStudentRes: { student: HackathonParticipant } | undefined;
 }
 
 dayjs.extend(relativeTime);
 
 const HackathonProjectPreview = ({
   gethackathonRes,
+  getCurrentStudentRes,
 }: HackathonProjectPreviewProps) => {
   const projectPreview = gethackathonRes;
   const hackathonSubmissionsUrl = `/dashboard/hackathons/${projectPreview.hackathon.slug}/submissions`;
+  const authorUserName = projectPreview.student.username;
+  const currentLoggedInUserName = getCurrentStudentRes?.student.username;
+
   return (
     <section className="flex flex-col gap-6">
       <div className="flex flex-col items-start gap-4 justify-between xl:flex-row-reverse">
@@ -154,7 +159,11 @@ const HackathonProjectPreview = ({
               </a>
             </Button>
           </div>
-          <ShareHackathonButton slug={projectPreview.hackathon.slug} />
+          <ShareHackathonButton
+            slug={projectPreview.hackathon.slug}
+            authorUserName={authorUserName}
+            currentLoggedInUserName={currentLoggedInUserName}
+          />
         </div>
       </div>
       <section className="flex flex-col gap-2 sm:flex-row sm:items-center justify-between">
