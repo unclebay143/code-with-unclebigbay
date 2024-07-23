@@ -11,7 +11,7 @@ const GET = async (request: any, { params }: { params: { slug: string } }) => {
     const hackathon = await Hackathon.findOne({ slug: hackathonSlug });
     if (!hackathon) {
       return NextResponse.json(
-        { message: 'Hackathon Slug does not exist' },
+        { message: 'Hackathon does not exist' },
         { status: 404 },
       );
     }

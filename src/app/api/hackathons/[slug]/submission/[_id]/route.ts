@@ -7,6 +7,7 @@ import { NextResponse } from 'next/server';
 const GET = async (request: any, { params }: { params: { _id: string } }) => {
   try {
     const id = params._id;
+
     await connectViaMongoose();
     const submittedHackathonProject = await HackathonSubmission.findOne({
       _id: id,
@@ -16,7 +17,7 @@ const GET = async (request: any, { params }: { params: { _id: string } }) => {
 
     if (!submittedHackathonProject) {
       return NextResponse.json(
-        { message: 'Project id not found!!' },
+        { message: 'Project not found!!' },
         { status: 404 },
       );
     }
