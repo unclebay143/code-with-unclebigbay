@@ -34,6 +34,7 @@
     "dayjs": "^1.11.11",
     "framer-motion": "^11.3.2",
     "joi": "^17.13.3",
+    "lodash": "^4.17.21",
     "lucide-react": "^0.338.0",
     "mongodb": "^6.8.0",
     "mongoose": "^8.5.1",
@@ -58,6 +59,7 @@
   "devDependencies": {
     "@tanstack/eslint-plugin-query": "^5.51.1",
     "@tanstack/react-query-devtools": "^5.51.1",
+    "@types/lodash": "^4.17.7",
     "@types/node": "^20.14.10",
     "@types/react": "^18.3.3",
     "@types/react-csv": "^1.1.10",
