@@ -16,6 +16,8 @@ import { toast } from 'sonner';
 
 type Props = {
   slug: String;
+  projectId: String;
+  projectHashTag: String;
   authorUserName: String;
   currentLoggedInUserName: String | undefined;
 };
@@ -24,13 +26,15 @@ export const ShareHackathonButton = ({
   slug,
   authorUserName,
   currentLoggedInUserName,
+  projectId,
+  projectHashTag,
 }: Props) => {
-  const hackathonUrl = `https://www.codewithunclebigbay.com/dashboard/hackathons/${slug}/submissions`;
+  const hackathonUrl = `https://www.codewithunclebigbay.com/dashboard/hackathons/${slug}/submissions/${projectId}`;
 
   const socialMessage =
     authorUserName === currentLoggedInUserName
-      ? `🎉 I am glad to share my just concluded project at ${hackathonUrl}, hackathon... #codewithunclebigbay`
-      : `Check out this awesome project from the hackathon at ${hackathonUrl} #codewithunclebigbay`;
+      ? `Yay 🎉 Checkout my submission for the ${projectHashTag} hackathon. ${hackathonUrl} #codewithunclebigbay`
+      : `Check out this project submission from the ${projectHashTag} hackathon✨. ${hackathonUrl} #codewithunclebigbay`;
 
   const handleCopy = useCallback(() => {
     navigator.clipboard.writeText(socialMessage).then(() => {
