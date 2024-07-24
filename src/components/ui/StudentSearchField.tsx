@@ -153,7 +153,7 @@ export const StudentSearchField = ({
               onClick={() => {
                 if (hasReachedMaxSelection)
                   return toast.error('Maximum number of members reached.');
-                reset();
+                reset({ searchTerm: '' });
                 setSelection((prevSelection: any) => [
                   ...prevSelection,
                   searchResult,
