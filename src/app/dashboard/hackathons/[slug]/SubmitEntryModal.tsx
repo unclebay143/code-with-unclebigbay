@@ -287,7 +287,7 @@ export const SubmitEntryModal = ({
                           <StudentSearchField
                             exclusion={[currentStudent!, ...members]}
                             setSelection={setMembers}
-                            maxSelection={4}
+                            maxSelection={5}
                           />
                         </div>
                         <section className="grid grid-cols-1 sm:grid-cols-2 gap-5">
