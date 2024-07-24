@@ -102,9 +102,6 @@ export const StudentSearchField = ({
     !searchTermChanged && hasSearchTerm && hasSearchResults; // when search term hasn't change and there's input value and search result
   const showLoadMoreLoader = isSearchingUser;
 
-  console.log(hasSearchTerm);
-  console.log(searchTerm);
-
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const handleSearchTermChange = useCallback(
     debounce((e: ChangeEvent<HTMLInputElement>) => {
@@ -137,6 +134,7 @@ export const StudentSearchField = ({
           placeholder="Enter team username"
           {...register('searchTerm')}
           onChange={handleSearchTermChange}
+          onCancel={clearSearchTermInput}
         />
       </section>
 
