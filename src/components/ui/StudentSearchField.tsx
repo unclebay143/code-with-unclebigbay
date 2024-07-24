@@ -138,7 +138,7 @@ export const StudentSearchField = ({
         <section className={absoluteWrapper}>
           <p className="text-center text-sm text-slate-500">
             <span className="font-medium">&apos;{searchTerm}&apos;</span> is
-            already added as member.
+            already a member.
           </p>
         </section>
       )}
