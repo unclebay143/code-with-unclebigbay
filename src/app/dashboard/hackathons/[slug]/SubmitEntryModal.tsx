@@ -1,6 +1,7 @@
 import {
   Avatar,
   Button,
+  Delete,
   IconButton,
   SearchContentField,
   X,
@@ -12,7 +13,7 @@ import * as ScrollArea from '@radix-ui/react-scroll-area';
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
-import { HackathonSubmission } from '@/utils/types';
+import { HackathonSubmission, Student, Students } from '@/utils/types';
 import { UseMutateAsyncFunction } from '@tanstack/react-query';
 import { AxiosResponse } from 'axios';
 import { DEFAULT_PROFILE_PHOTO } from '@/utils';
@@ -61,6 +62,8 @@ export const SubmitEntryModal = ({
   onSubmitEntry,
 }: SubmitEntryModalProps) => {
   const [submitted, setSubmitted] = useState(false);
+  const [members, setMembers] = useState<Students>([]);
+
   const {
     register,
     handleSubmit,
@@ -115,6 +118,8 @@ export const SubmitEntryModal = ({
       },
     });
   };
+
+  console.log(members);
 
   return (
     <div>
@@ -274,82 +279,66 @@ export const SubmitEntryModal = ({
                           {...register('socialUrl', { required: true })}
                         />
                       </div>
-                      <div className="flex flex-col gap-2">
-                        <label
-                          htmlFor="coStudents"
-                          className="text-sm flex justify-between items-end"
-                        >
-                          <DashboardSubheading title="Members" />
-                          <span className="text-xs text-slate-400">
-                            (for teams)
-                          </span>
-                        </label>
+                      <section className="space-y-4">
+                        <div className="flex flex-col gap-2">
+                          <label
+                            htmlFor="members"
+                            className="text-sm flex justify-between items-end"
+                          >
+                            <DashboardSubheading title="Members" />
+                            <span className="text-xs text-slate-400">
+                              (for teams)
+                            </span>
+                          </label>
 
-                        {/* <section
-                          className={`relative text-sm text-slate-600 outline-none focus:ring-2 focus:ring-slate-500 focus:border-slate-300 border rounded-md ${urlErrorMessage && 'ring-2 ring-red-500'}`}
-                        >
-                          <SearchContentField
-                            size="sm"
-                            appearance="inline"
-                            placeholder="Enter team username"
+                          <StudentSearchField
+                            exclusion={members}
+                            setSelection={setMembers}
                           />
+                        </div>
+                        <section className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                          {Array(4)
+                            .fill(true)
+                            .map((index) => (
+                              <section
+                                key={index}
+                                className="group flex items-center gap-2"
+                              >
+                                <div className="relative flex justify-center items-center">
+                                  <div className="hidden group-hover:flex absolute z-10 bg-slate-50/80 h-8 w-8 rounded-full overflow-hidden items-center justify-center">
+                                    <IconButton
+                                      type="button"
+                                      size="lg"
+                                      Icon={() => (
+                                        <span className="text-red-500">
+                                          <Delete size="sm" />
+                                        </span>
+                                      )}
+                                    />
+                                  </div>
 
-                          <section className="w-full absolute top-10 z-10 bg-white shadow-xl py-2 border rounded-xl">
-                            <section className="flex flex-col justify-between items-center gap-3">
-                              <button
-                                type="button"
-                                className="w-full text-left cursor-pointer flex items-center py-2 h-8 pl-2 gap-3 hover:bg-slate-50"
-                              >
-                                <Avatar size="sm">
-                                  <Image
-                                    src={DEFAULT_PROFILE_PHOTO}
-                                    alt="Default profile photo"
-                                    fill
-                                  />
-                                </Avatar>
-                                <h3 className="text-sm text-slate-500 dark:text-slate-400">
-                                  unclebigbay
-                                </h3>
-                              </button>
-                              <button
-                                type="button"
-                                className="w-full text-left cursor-pointer flex items-center py-2 h-8 pl-2 gap-3 hover:bg-slate-50"
-                              >
-                                <Avatar size="sm">
-                                  <Image
-                                    src={DEFAULT_PROFILE_PHOTO}
-                                    alt="Default profile photo"
-                                    fill
-                                  />
-                                </Avatar>
-                                <h3 className="text-sm text-slate-500 dark:text-slate-400">
-                                  unclebigbay
-                                </h3>
-                              </button>
-                              <button
-                                type="button"
-                                className="w-full text-left cursor-pointer flex items-center py-2 h-8 pl-2 gap-3 hover:bg-slate-50"
-                              >
-                                <Avatar size="sm">
-                                  <Image
-                                    src={DEFAULT_PROFILE_PHOTO}
-                                    alt="Default profile photo"
-                                    fill
-                                  />
-                                </Avatar>
-                                <h3 className="text-sm text-slate-500 dark:text-slate-400">
-                                  unclebigbay
-                                </h3>
-                              </button>
-                            </section>
-                          </section>
-                        </section> */}
+                                  <Avatar size="sm">
+                                    <Image
+                                      src={DEFAULT_PROFILE_PHOTO}
+                                      alt=""
+                                      width={32}
+                                      height={32}
+                                    />
+                                  </Avatar>
+                                </div>
+                                <div className="flex flex-col">
+                                  <p className="text-xs font-medium text-slate-700">
+                                    Ayodele Samuel Adebayo
+                                  </p>
 
-                        <StudentSearchField
-                          usersToExclude={[]}
-                          setSelectedUsers={() => null}
-                        />
-                      </div>
+                                  <span className="text-xs text-slate-500">
+                                    @unclebay143
+                                  </span>
+                                </div>
+                              </section>
+                            ))}
+                        </section>
+                      </section>
                       <div className="flex flex-col gap-2">
                         <label
                           htmlFor="feedback"
