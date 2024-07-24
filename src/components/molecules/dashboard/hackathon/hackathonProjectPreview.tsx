@@ -86,9 +86,12 @@ const HackathonProjectPreview = ({
       </div>
       <div className="flex flex-col items-start gap-2">
         <h3 className={sectionHeadingStyle}>Project Description</h3>
-        <p className="text-slate-500">
-          {projectPreview?.project?.description || ''}
-        </p>
+        <p
+          className="text-slate-500"
+          dangerouslySetInnerHTML={{
+            __html: projectPreview?.project?.description,
+          }}
+        />
       </div>
 
       <div className="flex flex-col items-start gap-4">

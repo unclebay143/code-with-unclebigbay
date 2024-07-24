@@ -43,9 +43,12 @@ export default function HackathonProjectCard(props: Props) {
           <h1 className="text-gray-700 text-md line-clamp-2 font-medium">
             {project?.name}
           </h1>
-          <p className="text-slate-500 text-sm line-clamp-3 ">
-            {project?.description}
-          </p>
+          <p
+            className="text-slate-500 text-sm line-clamp-3"
+            dangerouslySetInnerHTML={{
+              __html: project?.description,
+            }}
+          />
         </div>
         <div className="flex flex-col gap-1">
           <div className="flex items-center gap-1 text-slate-500 text-xs">
