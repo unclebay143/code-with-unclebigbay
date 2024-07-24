@@ -39,11 +39,11 @@ const searchTermSchema = z.object({
 });
 
 export const StudentSearchField = ({
-  setSelectedUsers,
-  usersToExclude, // i.e already selected users
+  setSelection,
+  exclusion, // i.e already selected users
 }: {
-  setSelectedUsers: Function;
-  usersToExclude: Pick<
+  setSelection: Function;
+  exclusion: Pick<
     Student,
     '_id' | 'fullName' | 'photo' | 'username' | 'email'
   >[];
@@ -83,17 +83,14 @@ export const StudentSearchField = ({
   const isNotSearchingHashnodeUsers = !isSearchingUser;
 
   // Exclude already selected users from result if email or id matches
-  const excludedAlreadySelectedUsers = searchResults?.filter(
+  const filteredResult = searchResults?.filter(
     (result) =>
-      !usersToExclude?.some(
-        (user) =>
-          (user?._id ?? '') === result._id ||
-          (user?.email ?? '') === result.email,
-      ),
+      !exclusion?.some((user) => (user?.username ?? '') === result.username),
   );
 
-  const hasSearchResults =
-    excludedAlreadySelectedUsers && excludedAlreadySelectedUsers.length > 0;
+  console.log(filteredResult);
+
+  const hasSearchResults = filteredResult && filteredResult.length > 0;
   const hasNoSearchResult =
     hasSearchTerm && isNotSearchingHashnodeUsers && !hasSearchResults;
 
@@ -157,33 +154,35 @@ export const StudentSearchField = ({
         <section className="w-full absolute top-90 z-10 bg-white shadow-xl py-2 border rounded-lg">
           {/* user search result  */}
           <div className="max-h-[400px]">
-            {excludedAlreadySelectedUsers?.map((user) => (
+            {filteredResult?.map((student) => (
               <button
-                key={`StudentSearch-${user.username}`}
+                key={`StudentSearch-${student.username}`}
                 type="button"
                 onClick={() => {
                   clearSearchTermInput();
-                  setSelectedUsers((prevSelectedUsersToInvite: any) => [
-                    ...prevSelectedUsersToInvite,
-                    user,
+                  setSelection((prevSelection: any) => [
+                    ...prevSelection,
+                    student,
                   ]);
                 }}
                 className="w-full text-left cursor-pointer flex justify-between items-center py-1 h-10 px-3 gap-3 hover:bg-slate-50"
-                disabled={!!user}
+                disabled={!!student}
               >
                 <section className="flex justify-between items-center gap-3">
                   <Avatar size="sm">
                     <Image
-                      src={user?.photo || DEFAULT_PROFILE_PHOTO}
-                      alt={user?.fullName || 'Default profile photo'}
+                      src={student?.photo || DEFAULT_PROFILE_PHOTO}
+                      alt={student?.fullName || 'Default profile photo'}
                       fill
                     />
                   </Avatar>
                   <section>
                     <h3 className="text-sm font-semibold text-slate-700 dark:text-slate-200">
-                      {user.fullName}
+                      {student.fullName}
                     </h3>
-                    <p className="text-sm text-slate-500">@{user.username}</p>
+                    <p className="text-sm text-slate-500">
+                      @{student.username}
+                    </p>
                   </section>
                 </section>
               </button>
