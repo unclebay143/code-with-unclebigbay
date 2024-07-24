@@ -1,3 +1,5 @@
+'use client';
+
 import { Button, IconButton, X } from '@hashnode/matrix-ui';
 import { ShowConfetti } from '@/components/molecules/Confetti';
 import { DashboardSubheading } from '@/components/molecules/dashboard/dashboard-subheading';
@@ -13,6 +15,7 @@ import Image from 'next/image';
 import { StudentSearchField } from '@/components/ui/StudentSearchField';
 import { toast } from 'sonner';
 import { MemberSelectionList } from './MemberSelectionList';
+import useCurrentStudent from '@/components/hooks/useCurrentStudent';
 
 type SubmitEntryModalProps = {
   isOpen: boolean;
@@ -57,6 +60,7 @@ export const SubmitEntryModal = ({
 }: SubmitEntryModalProps) => {
   const [submitted, setSubmitted] = useState(false);
   const [members, setMembers] = useState<Students>([]);
+  const { data: currentStudent } = useCurrentStudent();
 
   const {
     register,
@@ -281,7 +285,7 @@ export const SubmitEntryModal = ({
                           </label>
 
                           <StudentSearchField
-                            exclusion={members}
+                            exclusion={[currentStudent!, ...members]}
                             setSelection={setMembers}
                             maxSelection={4}
                           />
