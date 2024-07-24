@@ -69,8 +69,8 @@ const HackathonProjectPreview = ({
                   doesn&apos;t seem to exist.
                 </p>
                 <p>
-                  Please check out the hackathon url or explore our other
-                  available hackathons.
+                  Please check out the hackathon url or explore other available
+                  hackathons.
                 </p>
                 <p>
                   If you need assistance, feel free to use the help centers.
