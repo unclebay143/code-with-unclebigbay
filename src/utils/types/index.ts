@@ -226,6 +226,7 @@ export type HackathonSubmission = {
     socialUrl: string;
   };
   feedback: string;
+  members: string[];
 };
 
 export type Country = {

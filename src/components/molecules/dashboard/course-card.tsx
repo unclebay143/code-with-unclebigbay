@@ -25,8 +25,6 @@ export const CourseCard = ({ layout = 'grid', course }: CourseCardProps) => {
     isEnrolled,
   } = course;
 
-  console.log(course);
-
   const mapTypeToIcon: { [key: string]: LucideIcon } = {
     video: PlayCircle,
   };
@@ -77,8 +75,8 @@ export const CourseCard = ({ layout = 'grid', course }: CourseCardProps) => {
             </div>
           </div>
           <section className="p-5 flex flex-col gap-3 justify-between">
-            {/* {isEnrolled && <Badge>Enrolled</Badge>} */}
-            <div className="flex flex-col gap-2">
+            {isEnrolled && <Badge>Enrolled</Badge>}
+            <div className="flex flex-col gap-3">
               <h3
                 title={title}
                 className="inline text-gray-700 font-medium hover:text-slate-800 text-lg"
@@ -92,12 +90,11 @@ export const CourseCard = ({ layout = 'grid', course }: CourseCardProps) => {
             </div>
             <div className="w-full flex justify-between">
               {viewTime ? <Badge>{formatTime(viewTime)}</Badge> : null}
-              {!isEnrolled && showNewBadge && (
+              {showNewBadge && (
                 <Badge size="xs" theme="green">
                   New
                 </Badge>
               )}
-              {isEnrolled && <Badge>Enrolled</Badge>}
             </div>
           </section>
         </Link>

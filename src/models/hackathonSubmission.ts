@@ -10,6 +10,12 @@ const hackathonSubmissionSchema = new Schema(
       ref: 'Student',
       required: true,
     },
+    members: [
+      {
+        type: Schema.ObjectId,
+        ref: 'Student',
+      },
+    ],
     project: {
       name: { type: String },
       description: { type: String },
