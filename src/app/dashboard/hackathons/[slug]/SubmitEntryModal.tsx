@@ -1,11 +1,4 @@
-import {
-  Avatar,
-  Button,
-  Delete,
-  IconButton,
-  SearchContentField,
-  X,
-} from '@hashnode/matrix-ui';
+import { Button, IconButton, X } from '@hashnode/matrix-ui';
 import { ShowConfetti } from '@/components/molecules/Confetti';
 import { DashboardSubheading } from '@/components/molecules/dashboard/dashboard-subheading';
 import { ModalWrapper } from '@/components/molecules/dashboard/modal-wrapper';
@@ -16,9 +9,10 @@ import { z } from 'zod';
 import { HackathonSubmission, Student, Students } from '@/utils/types';
 import { UseMutateAsyncFunction } from '@tanstack/react-query';
 import { AxiosResponse } from 'axios';
-import { DEFAULT_PROFILE_PHOTO } from '@/utils';
 import Image from 'next/image';
 import { StudentSearchField } from '@/components/ui/StudentSearchField';
+import { toast } from 'sonner';
+import { MemberSelectionList } from './MemberSelectionList';
 
 type SubmitEntryModalProps = {
   isOpen: boolean;
@@ -86,30 +80,18 @@ export const SubmitEntryModal = ({
   const urlErrorMessage = errors.url?.message;
 
   const onSubmit = (formData: HackathonProjectSubmissionSchema) => {
-    const {
-      name,
-      description,
-      url,
-      demoUrl,
-      repositoryUrl,
-      socialUrl,
-      articleUrl,
-      feedback,
-    } = formData;
+    const { feedback, ...otherFormData } = formData;
+
+    const membersId = members.map((member) => member._id);
 
     const payload: HackathonSubmission = {
       hackathon: hackathonId,
       student: studentId,
       project: {
-        name,
-        description,
-        url,
-        demoUrl,
-        articleUrl,
-        repositoryUrl,
-        socialUrl,
+        ...otherFormData,
       },
       feedback,
+      members: membersId,
     };
     submitEntry(payload, {
       onSuccess() {
@@ -119,7 +101,14 @@ export const SubmitEntryModal = ({
     });
   };
 
-  console.log(members);
+  const removeFromSelection = ({ username }: { username: string }) => {
+    const membersCopy = members.slice(0);
+    const updatedInviteList = membersCopy.filter(
+      (student) => student.username !== username,
+    );
+    setMembers(updatedInviteList);
+    toast.success('member removed.');
+  };
 
   return (
     <div>
@@ -287,56 +276,24 @@ export const SubmitEntryModal = ({
                           >
                             <DashboardSubheading title="Members" />
                             <span className="text-xs text-slate-400">
-                              (for teams)
+                              Optional
                             </span>
                           </label>
 
                           <StudentSearchField
                             exclusion={members}
                             setSelection={setMembers}
+                            maxSelection={4}
                           />
                         </div>
                         <section className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-                          {Array(4)
-                            .fill(true)
-                            .map((index) => (
-                              <section
-                                key={index}
-                                className="group flex items-center gap-2"
-                              >
-                                <div className="relative flex justify-center items-center">
-                                  <div className="hidden group-hover:flex absolute z-10 bg-slate-50/80 h-8 w-8 rounded-full overflow-hidden items-center justify-center">
-                                    <IconButton
-                                      type="button"
-                                      size="lg"
-                                      Icon={() => (
-                                        <span className="text-red-500">
-                                          <Delete size="sm" />
-                                        </span>
-                                      )}
-                                    />
-                                  </div>
-
-                                  <Avatar size="sm">
-                                    <Image
-                                      src={DEFAULT_PROFILE_PHOTO}
-                                      alt=""
-                                      width={32}
-                                      height={32}
-                                    />
-                                  </Avatar>
-                                </div>
-                                <div className="flex flex-col">
-                                  <p className="text-xs font-medium text-slate-700">
-                                    Ayodele Samuel Adebayo
-                                  </p>
-
-                                  <span className="text-xs text-slate-500">
-                                    @unclebay143
-                                  </span>
-                                </div>
-                              </section>
-                            ))}
+                          {members.map((member) => (
+                            <MemberSelectionList
+                              key={member._id}
+                              member={member}
+                              removeFromSelection={removeFromSelection}
+                            />
+                          ))}
                         </section>
                       </section>
                       <div className="flex flex-col gap-2">
