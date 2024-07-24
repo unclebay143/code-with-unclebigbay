@@ -39,7 +39,7 @@ export const StudentSearchField = ({
 }) => {
   const [searchTermChanged, setSearchTermChanged] = useState<boolean>(false);
 
-  const { register, control, setValue } = useForm<SearchTermSchema>({
+  const { register, control, setValue, reset } = useForm<SearchTermSchema>({
     resolver: zodResolver(searchTermSchema),
     defaultValues: {
       searchTerm: '',
@@ -153,8 +153,7 @@ export const StudentSearchField = ({
               onClick={() => {
                 if (hasReachedMaxSelection)
                   return toast.error('Maximum number of members reached.');
-
-                clearSearchTermInput();
+                reset();
                 setSelection((prevSelection: any) => [
                   ...prevSelection,
                   searchResult,
