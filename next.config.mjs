@@ -63,6 +63,10 @@ const nextConfig = {
         source: '/help-centers',
         destination: '/dashboard/help-centers',
       },
+      {
+        source: '/leaderboard',
+        destination: '/dashboard/leaderboard',
+      },
     ];
   },
 };

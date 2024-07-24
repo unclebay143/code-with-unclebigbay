@@ -61,6 +61,9 @@ export const CourseCard = ({ layout = 'grid', course }: CourseCardProps) => {
           prefetch={true}
         >
           <div className="h-[180px] relative">
+            {/* <div className="absolute z-10 bottom-2 left-5">
+              {isEnrolled && <Badge size="xs">Enrolled</Badge>}
+            </div> */}
             <div className="h-full w-full inline-block relative">
               <Image
                 src={coverImageUrl}
