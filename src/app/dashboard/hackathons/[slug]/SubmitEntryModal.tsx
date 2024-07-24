@@ -6,9 +6,13 @@ import * as ScrollArea from '@radix-ui/react-scroll-area';
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
-import { HackathonSubmission } from '@/utils/types';
+import { HackathonSubmission, Student, Students } from '@/utils/types';
 import { UseMutateAsyncFunction } from '@tanstack/react-query';
 import { AxiosResponse } from 'axios';
+import Image from 'next/image';
+import { StudentSearchField } from '@/components/ui/StudentSearchField';
+import { toast } from 'sonner';
+import { MemberSelectionList } from './MemberSelectionList';
 
 type SubmitEntryModalProps = {
   isOpen: boolean;
@@ -52,6 +56,8 @@ export const SubmitEntryModal = ({
   onSubmitEntry,
 }: SubmitEntryModalProps) => {
   const [submitted, setSubmitted] = useState(false);
+  const [members, setMembers] = useState<Students>([]);
+
   const {
     register,
     handleSubmit,
@@ -74,30 +80,18 @@ export const SubmitEntryModal = ({
   const urlErrorMessage = errors.url?.message;
 
   const onSubmit = (formData: HackathonProjectSubmissionSchema) => {
-    const {
-      name,
-      description,
-      url,
-      demoUrl,
-      repositoryUrl,
-      socialUrl,
-      articleUrl,
-      feedback,
-    } = formData;
+    const { feedback, ...otherFormData } = formData;
+
+    const membersId = members.map((member) => member._id);
 
     const payload: HackathonSubmission = {
       hackathon: hackathonId,
       student: studentId,
       project: {
-        name,
-        description,
-        url,
-        demoUrl,
-        articleUrl,
-        repositoryUrl,
-        socialUrl,
+        ...otherFormData,
       },
       feedback,
+      members: membersId,
     };
     submitEntry(payload, {
       onSuccess() {
@@ -105,6 +99,15 @@ export const SubmitEntryModal = ({
         onSubmitEntry();
       },
     });
+  };
+
+  const removeFromSelection = ({ username }: { username: string }) => {
+    const membersCopy = members.slice(0);
+    const updatedInviteList = membersCopy.filter(
+      (student) => student.username !== username,
+    );
+    setMembers(updatedInviteList);
+    toast.success('member removed.');
   };
 
   return (
@@ -265,6 +268,34 @@ export const SubmitEntryModal = ({
                           {...register('socialUrl', { required: true })}
                         />
                       </div>
+                      <section className="space-y-4">
+                        <div className="flex flex-col gap-2">
+                          <label
+                            htmlFor="members"
+                            className="text-sm flex justify-between items-end"
+                          >
+                            <DashboardSubheading title="Members" />
+                            <span className="text-xs text-slate-400">
+                              Optional
+                            </span>
+                          </label>
+
+                          <StudentSearchField
+                            exclusion={members}
+                            setSelection={setMembers}
+                            maxSelection={4}
+                          />
+                        </div>
+                        <section className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                          {members.map((member) => (
+                            <MemberSelectionList
+                              key={member._id}
+                              member={member}
+                              removeFromSelection={removeFromSelection}
+                            />
+                          ))}
+                        </section>
+                      </section>
                       <div className="flex flex-col gap-2">
                         <label
                           htmlFor="feedback"
