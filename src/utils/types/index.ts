@@ -252,8 +252,15 @@ export type HackathonProject = {
 
 export type HackathonParticipant = {
   fullName: string;
+  username: string;
   stack: string;
   photo: string;
+};
+
+export type HackathonType = {
+  name: string;
+  hashTag: string;
+  slug: string;
 };
 
 export type HackathonSubmissions = {

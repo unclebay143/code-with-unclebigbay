@@ -8,7 +8,11 @@ import {
   IconButton,
 } from '@hashnode/matrix-ui';
 import { YTVideo } from '@/components/atoms/YTVideo';
-import { HackathonProject, HackathonParticipant } from '@/utils/types';
+import {
+  HackathonProject,
+  HackathonParticipant,
+  HackathonType,
+} from '@/utils/types';
 import Image from 'next/image';
 import { DEFAULT_PROFILE_PHOTO } from '@/utils';
 
@@ -19,10 +23,7 @@ interface Props {
   slug: string;
   project: HackathonProject;
   student: HackathonParticipant;
-  hackathon: {
-    slug: string;
-    hashTag: string;
-  };
+  hackathon: HackathonType;
 }
 export default function HackathonProjectCard(props: Props) {
   const { _id, project, hackathon, student } = props;
