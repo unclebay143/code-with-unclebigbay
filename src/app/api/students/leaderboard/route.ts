@@ -60,23 +60,22 @@ const GET = async () => {
       .limit(20)
       .populate({
         path: 'student',
-        select: '_id fullName stack photo username isAdmin',
+        select: '_id fullName stack photo username isAdmin isAnonymous',
         model: Student,
       });
-
-    // Todo: type
-    const excludeAdmin = (leaderboard: any) =>
+    // exclude admin and anonymous students
+    // Todo: type leaderboard
+    const exclusion = (leaderboard: any) =>
       leaderboard.filter(
-        (l: { student: { isAdmin: boolean } }) => !l.student.isAdmin,
+        (l: { student: { isAdmin: boolean; isAnonymous: boolean } }) =>
+          !l.student.isAdmin && !l.student.isAnonymous,
       );
 
     // leaderboard with rank
-    leaderboard = excludeAdmin(leaderboard).map(
-      (entry: any, index: number) => ({
-        ...entry.toJSON(),
-        rank: index + 1,
-      }),
-    );
+    leaderboard = exclusion(leaderboard).map((entry: any, index: number) => ({
+      ...entry.toJSON(),
+      rank: index + 1,
+    }));
 
     if (session) {
       const currentStudent = await Student.findOne({
