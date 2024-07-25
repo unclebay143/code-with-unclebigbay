@@ -21,6 +21,7 @@ import {
   HackathonProject,
   HackathonParticipant,
   HackathonType,
+  HackathonProjectMembers,
 } from '@/utils/types';
 import { sectionHeadingStyle } from '@/utils/style';
 import { DEFAULT_PROFILE_PHOTO } from '@/utils';
@@ -34,6 +35,7 @@ interface PreviewProjectsType {
   project: HackathonProject;
   student: HackathonParticipant;
   hackathon: HackathonType;
+  members : HackathonProjectMembers
 }
 
 interface HackathonProjectPreviewProps {
@@ -52,10 +54,13 @@ const HackathonProjectPreview = ({
   const projectHashTag = projectPreview?.hackathon.hashTag;
   const authorUserName = projectPreview?.student.username;
   const currentLoggedInUserName = getCurrentStudentRes?.student.username;
+
+  const hasMembers = projectPreview?.members && projectPreview?.members.length > 0;
+  const membersCount = hasMembers ? projectPreview.members.length : 0;
+
   const showUrlNotFound = !projectPreview && !projectId;
 
- 
-
+  console.log(projectPreview)
   const hackathonSubmissionsUrl = `/dashboard/hackathons/${projectPreview?.hackathon.slug}/submissions`;
   return (
     <>
@@ -141,7 +146,9 @@ const HackathonProjectPreview = ({
           </div>
 
           <div className="flex flex-col items-start gap-4">
-            <h3 className={sectionHeadingStyle}>Collaborators (2)</h3>
+            <h3 className={sectionHeadingStyle}> {hasMembers ? `Collaborators (${membersCount + 1})` : 'Collaborator'}</h3>
+
+          <div className="flex items-center gap-6">
             <div className="flex items-center gap-2">
               <div className="h-16 w-16 overflow-hidden rounded-full">
                 <Image
@@ -164,7 +171,36 @@ const HackathonProjectPreview = ({
                 </p>
               </div>
             </div>
+       
+          <div>
+            {hasMembers
+              ?  ( <div className="flex gap-4"> 
+                  {projectPreview.members.map((member) => (
+                  <div key={member._id} className="flex items-center gap-2">
+                    <div className="h-16 w-16 overflow-hidden rounded-full">
+                    <Image
+                      src={member?.photo || DEFAULT_PROFILE_PHOTO}
+                      alt="participant"
+                      width={100}
+                      height={100}
+                    />
+                  </div>
+                  <div className="capitalize flex flex-col gap-0.5">
+                    <div className="flex flex-col">
+                      <p className="text-slate-700 text-md font-medium">{member?.fullName}</p>
+                       <span className="text-xs text-slate-500">Member</span>
+                    </div>
+                    <p className="text-slate-600 text-xs">
+                      {member?.stack}
+                    </p>
+                  </div>
+                  </div>
+                ))}
+              </div>)
+              : null}
+            </div>
           </div>
+        </div>
 
           {projectPreview?.feedback && (
             <div className="flex flex-col items-start gap-2">

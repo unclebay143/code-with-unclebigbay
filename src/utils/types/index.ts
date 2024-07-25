@@ -271,3 +271,12 @@ export type HackathonSubmissions = {
   feedback: string;
   project: HackathonProject;
 };
+
+export type HackathonProjectMembers = {
+  _id : string,
+  fullName: string;
+  username: string;
+  stack: string;
+  photo: string;
+};
+

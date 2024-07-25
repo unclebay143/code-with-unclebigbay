@@ -13,7 +13,7 @@ const GET = async (request: any, { params }: { params: { _id: string } }) => {
       _id: id,
     })
       .populate('student', '_id fullName stack photo username', Student)
-      .populate('hackathon', 'name hashTag slug', Hackathon);
+      .populate('hackathon', 'name hashTag slug', Hackathon).populate('members', '_id fullName stack photo username', Student);
 
     if (!submittedHackathonProject) {
       return NextResponse.json(
