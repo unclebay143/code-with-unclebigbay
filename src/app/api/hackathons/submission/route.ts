@@ -23,15 +23,31 @@ const POST = async (req: Request, _res: Response) => {
     const hackathonId = body.hackathon;
     const studentId = body.student;
 
+    const members = body.members;
+    const hasMembers = members.length > 0;
+
     const hackathon = await Hackathon.findOne({ _id: hackathonId });
 
     await AuditTrail.create({
       student: studentId,
       type: 'hackathon',
-      title: `Hackathon submission`,
-      description: `Submitted project for ${hackathon.name}`,
+      title: `Hackathon project submission 🎉`,
+      description: `Submitted a project for an hackathon: ${hackathon.name}.`,
     });
     
+
+    if (hasMembers) {
+      const membersAudit = members.map((member: string) => {
+        return {
+          student: member,
+          type: 'hackathon',
+          title: `Hackathon project member 🤝`,
+          description: `Included as a team member of a submitted project for an hackathon: ${hackathon.name}.`,
+        };
+      });
+
+      await AuditTrail.insertMany(membersAudit);
+    }
 
     return NextResponse.json(
       { message: 'Hackathon project submitted.', submission },
