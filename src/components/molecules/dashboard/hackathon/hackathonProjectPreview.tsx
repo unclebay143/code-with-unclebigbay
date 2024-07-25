@@ -123,12 +123,7 @@ const HackathonProjectPreview = ({
               className="text-2xl xl:max-w-[600px]"
               title={projectPreview?.project.name}
             >
-              <DashboardSubheading
-                title={
-                  'Introducing the best app in the world to be the first one ahead of time' ??
-                  ''
-                }
-              />
+              <DashboardSubheading title={projectPreview.project.name ?? ''} />
             </section>
           </div>
 
@@ -185,7 +180,6 @@ const HackathonProjectPreview = ({
                 </div>
               </div>
 
-              {/* <div> */}
               {hasMembers ? (
                 <>
                   {projectPreview.members.map((member) => (
@@ -214,7 +208,6 @@ const HackathonProjectPreview = ({
                 </>
               ) : null}
             </div>
-            {/* </div> */}
           </div>
 
           {projectPreview?.feedback && (
