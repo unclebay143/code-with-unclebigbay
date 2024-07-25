@@ -72,7 +72,7 @@ export default function HackathonProjects({
             ctaElement={
               <Button size="xs" appearance="primary-slate">
                 <Link href="/dashboard/hackathons">
-                  Checkout other hackathons
+                  Checkout other hackathons projects
                 </Link>
               </Button>
             }
