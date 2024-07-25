@@ -273,10 +273,9 @@ export type HackathonSubmissions = {
 };
 
 export type HackathonProjectMembers = {
-  _id : string,
+  _id: string;
   fullName: string;
   username: string;
   stack: string;
   photo: string;
 };
-
