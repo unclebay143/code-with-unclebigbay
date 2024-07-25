@@ -71,8 +71,8 @@ const HackathonProjectPreview = ({
                   doesn&apos;t seem to exist.
                 </p>
                 <p>
-                  Please check out the hackathon url or explore our other
-                  available hackathons.
+                  Please check out the hackathon url or explore other available
+                  hackathons.
                 </p>
                 <p>
                   If you need assistance, feel free to use the help centers.
@@ -132,9 +132,12 @@ const HackathonProjectPreview = ({
           </div>
           <div className="flex flex-col items-start gap-2">
             <h3 className={sectionHeadingStyle}>Project Description</h3>
-            <p className="text-slate-500">
-              {projectPreview?.project?.description || ''}
-            </p>
+            <p
+              className="text-slate-500"
+              dangerouslySetInnerHTML={{
+                __html: projectPreview?.project?.description,
+              }}
+            />
           </div>
 
           <div className="flex flex-col items-start gap-4">
