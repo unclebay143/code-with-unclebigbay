@@ -52,7 +52,9 @@ const HackathonProjectPreview = ({
   const projectHashTag = projectPreview?.hackathon.hashTag;
   const authorUserName = projectPreview?.student.username;
   const currentLoggedInUserName = getCurrentStudentRes?.student.username;
-  const showUrlNotFound = !projectPreview;
+  const showUrlNotFound = !projectPreview && !projectId;
+
+ 
 
   const hackathonSubmissionsUrl = `/dashboard/hackathons/${projectPreview?.hackathon.slug}/submissions`;
   return (
@@ -79,7 +81,7 @@ const HackathonProjectPreview = ({
             }
             ctaElement={
               <Button size="xs" appearance="primary-slate">
-                <Link href="/hackathon">Explore hackathons</Link>
+                <Link href="/dashboard/hackathons">Explore hackathons</Link>
               </Button>
             }
           />
@@ -199,7 +201,7 @@ const HackathonProjectPreview = ({
                 </Button>
               </div>
               <ShareHackathonButton
-                slug={projectPreview.hackathon.slug}
+                slug={projectPreview?.hackathon.slug}
                 authorUserName={authorUserName}
                 currentLoggedInUserName={currentLoggedInUserName}
                 projectId={projectId}
