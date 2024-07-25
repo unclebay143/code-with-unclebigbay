@@ -57,12 +57,12 @@ export default function HackathonProjects({
             copy={
               <>
                 <p>
-                  Oops! The hackathon submissions you&apos;re looking for
+                  Oops! The hackathon projects you&apos;re looking for
                   doesn&apos;t seem to exist.
                 </p>
                 <p>
-                  Please check out the hackathon url or explore other available
-                  hackathon projects.
+                  Please check out the hackathon url or explore our other
+                  available hackathon projects.
                 </p>
                 <p>
                   If you need assistance, feel free to use the help centers.
@@ -72,7 +72,7 @@ export default function HackathonProjects({
             ctaElement={
               <Button size="xs" appearance="primary-slate">
                 <Link href="/dashboard/hackathons">
-                  Checkout other hackathonsj
+                  Checkout other hackathons
                 </Link>
               </Button>
             }
