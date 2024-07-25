@@ -54,9 +54,13 @@ const HackathonProjectPreview = ({
   const currentLoggedInUserName = getCurrentStudentRes?.student.username;
   const showUrlNotFound = !projectPreview && !projectId;
 
- 
-
+  const hackathonUrl = `/dashboard/hackathons/${projectPreview?.hackathon.slug}`;
   const hackathonSubmissionsUrl = `/dashboard/hackathons/${projectPreview?.hackathon.slug}/submissions`;
+
+  // show links section when there's at least 1 link
+  const showLinkSection =
+    projectPreview?.project?.url || projectPreview?.project?.articleUrl;
+
   return (
     <>
       {showUrlNotFound ? (
@@ -174,48 +178,55 @@ const HackathonProjectPreview = ({
               <p className="text-slate-500">{projectPreview?.feedback || ''}</p>
             </div>
           )}
-
-          <div className="flex flex-col gap-2">
-            <h3 className={sectionHeadingStyle}>Links</h3>
-            <div className="flex flex-col justify-between gap-3 lg:flex-row lg:items-center">
-              <div className="flex gap-3 md:gap-2 flex-wrap">
-                <Button size="sm" appearance="primary-slate" asChild>
-                  <a
-                    target="_blank"
-                    rel="noopener"
-                    href={projectPreview?.project?.url}
-                  >
-                    Live demo
-                  </a>
-                </Button>
-                <Button
-                  size="sm"
-                  appearance="secondary-slate"
-                  endIcon={ArrowExternalLink01}
-                  asChild
-                >
-                  <a
-                    target="_blank"
-                    rel="noopener"
-                    href={projectPreview?.project?.articleUrl}
-                  >
-                    Read launch article
-                  </a>
-                </Button>
+          {showLinkSection && (
+            <div className="flex flex-col gap-2">
+              <h3 className={sectionHeadingStyle}>Links</h3>
+              <div className="flex flex-col justify-between gap-3 lg:flex-row lg:items-center">
+                <div className="flex gap-3 md:gap-2 flex-wrap">
+                  {projectPreview?.project?.url && (
+                    <Button size="sm" appearance="primary-slate" asChild>
+                      <a
+                        target="_blank"
+                        rel="noopener"
+                        href={projectPreview?.project?.url}
+                      >
+                        Live demo
+                      </a>
+                    </Button>
+                  )}
+                  {projectPreview?.project?.articleUrl && (
+                    <Button
+                      size="sm"
+                      appearance="secondary-slate"
+                      endIcon={ArrowExternalLink01}
+                      asChild
+                    >
+                      <a
+                        target="_blank"
+                        rel="noopener"
+                        href={projectPreview?.project?.articleUrl}
+                      >
+                        Read launch article
+                      </a>
+                    </Button>
+                  )}
+                </div>
+                <ShareHackathonButton
+                  slug={projectPreview?.hackathon.slug}
+                  authorUserName={authorUserName}
+                  currentLoggedInUserName={currentLoggedInUserName}
+                  projectId={projectId}
+                  projectHashTag={projectHashTag}
+                />
               </div>
-              <ShareHackathonButton
-                slug={projectPreview?.hackathon.slug}
-                authorUserName={authorUserName}
-                currentLoggedInUserName={currentLoggedInUserName}
-                projectId={projectId}
-                projectHashTag={projectHashTag}
-              />
             </div>
-          </div>
+          )}
           <section className="flex flex-col gap-2 sm:flex-row sm:items-center justify-between">
             <div className="flex items-center gap-1">
               <span className="text-sm text-slate-700">Hackathon:</span>
-              <Badge>{projectPreview?.hackathon?.hashTag}</Badge>
+              <Link href={hackathonUrl}>
+                <Badge>{projectPreview?.hackathon?.hashTag}</Badge>
+              </Link>
             </div>
             <p className="text-slate-600 text-xs">
               Project submitted: {dayjs(projectPreview?.createdAt).fromNow()}{' '}
