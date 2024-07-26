@@ -34,6 +34,7 @@ const POST = async (req: Request, _res: Response) => {
       title: `Hackathon project submission 🎉`,
       description: `Submitted a project for an hackathon: ${hackathon.name}.`,
     });
+    
 
     if (hasMembers) {
       const membersAudit = members.map((member: string) => {
@@ -63,5 +64,6 @@ const POST = async (req: Request, _res: Response) => {
     );
   }
 };
+
 
 export { POST };
