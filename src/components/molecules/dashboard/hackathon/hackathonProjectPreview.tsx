@@ -223,7 +223,11 @@ const HackathonProjectPreview = ({
               <h3 className={sectionHeadingStyle}>
                 Collaborator&apos;s Feedback
               </h3>
-              <p className="text-slate-500">{projectPreview?.feedback || ''}</p>
+              <p className="text-slate-500">
+                {projectPreview?.feedback.toLowerCase() === 'null'
+                  ? 'thank you for hosting this hackathon'
+                  : projectPreview?.feedback || ''}
+              </p>
             </div>
           )}
           {showLinkSection && (
