@@ -89,4 +89,16 @@ export const testimonials = [
       'https://www.youtube.com/watch?v=fS1lArPOHOU&lc=UgwPtBmnkCPbPQdn1_Z4AaABAg',
     src: 'YouTube',
   },
+  // {
+  //   author: {
+  //     name: 'YouTube User',
+  //     img: '',
+  //     title: 'Student',
+  //   },
+  //   quote:
+  //     "Thank you Sam (unclebigbay) you make CSS easy. Ur explanations on each section is awesome. Thank you very much 🔥💯",
+  //   srcUrl:
+  //     'https://www.youtube.com/watch?v=fS1lArPOHOU&lc=UgwPtBmnkCPbPQdn1_Z4AaABAg',
+  //   src: 'YouTube',
+  // },
 ];
