@@ -241,3 +241,43 @@ export type Quote = {
   isReleased: boolean;
   releasedDate: Date;
 };
+
+export type HackathonProject = {
+  name: string;
+  demoUrl: string;
+  repositoryUrl: string;
+  url: string;
+  description: string;
+  articleUrl: string;
+};
+
+export type HackathonParticipant = {
+  fullName: string;
+  username: string;
+  stack: string;
+  photo: string;
+};
+
+export type HackathonType = {
+  name: string;
+  hashTag: string;
+  slug: string;
+};
+
+export type HackathonSubmissions = {
+  _id: string;
+  name: string;
+  createdAt: string;
+  feedback: string;
+  project: HackathonProject;
+};
+
+export type HackathonProjectMember = {
+  _id: string;
+  fullName: string;
+  username: string;
+  stack: string;
+  photo: string;
+};
+
+export type HackathonProjectMembers = HackathonProjectMember[];
