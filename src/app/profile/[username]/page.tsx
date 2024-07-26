@@ -8,6 +8,7 @@ import { Metadata } from 'next';
 
 import { getCurrentStudentByUsername } from '@/utils/server.service';
 import { Profile } from './profile';
+import { convertToTitleCase } from '@/utils';
 
 type Props = {
   params: { username: string };
@@ -16,15 +17,16 @@ type Props = {
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const username = params.username;
-
   const data = await getCurrentStudentByUsername(username);
+
   const student = data?.student;
   const userFullName = student?.fullName;
   const userName = student?.username;
   const bio = student?.bio;
+  const pageTitle = userFullName || userName;
 
   return {
-    title: `${userFullName || userName} - Code with Unclebigbay`,
+    title: `${convertToTitleCase(pageTitle ?? '')} - Code with Unclebigbay`,
     description: `${userFullName}'s profile on Code with Unclebigbay. ${bio || ''}`,
   };
 }
