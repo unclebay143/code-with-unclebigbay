@@ -24,9 +24,9 @@ import { useCourseBySlug } from '@/components/hooks/useCourse';
 import { Student, Tags } from '@/utils/types';
 import { formatDate, formatTime } from '@/utils';
 import { Tooltip } from '@/components/atoms/Tooltip';
-import { ShareButton } from '@/components/molecules/dashboard/share-button';
 import { EmptyStateContainer } from '@/components/molecules/dashboard/EmptyStateContainer';
 import { AuthModal } from '@/components/atoms/AuthModal';
+import { ShareButton } from '@/components/ui/share-button';
 
 const Course = ({ currentStudent }: { currentStudent?: Student }) => {
   const [showMore, setShowMore] = useState(false);
@@ -71,6 +71,14 @@ const Course = ({ currentStudent }: { currentStudent?: Student }) => {
   };
 
   const assignmentBaseUrl = `/dashboard/courses/${courseSlug}/assignment/${assignmentId}`;
+
+  const courseUrl = `https://www.codewithunclebigbay.com/courses/${course?.slug}`;
+
+  const enrolledSharedMessage = `🎉 Just enrolled in an amazing course, '${course?.title}', by @unclebigbay143 on CodeWithUnclebigbay! Can't wait to dive in and start learning.\nJoin me! ${courseUrl} #codewithunclebigbay`;
+  const notEnrolledSharedMessage = `📚 Excited to share this fantastic course, '${course?.title}' by @unclebigbay143, I found on CodeWithUnclebigbay! It's packed with valuable insights and knowledge.\nCheck it out! ${courseUrl} #codewithunclebigbay`;
+  const shareCopy = isEnrolled
+    ? enrolledSharedMessage
+    : notEnrolledSharedMessage;
 
   return (
     <>
@@ -276,9 +284,9 @@ const Course = ({ currentStudent }: { currentStudent?: Student }) => {
 
                         <div className="flex flex-col items-start gap-5 justify-between sm:flex-row sm:items-center">
                           <ShareButton
+                            copy={shareCopy}
                             slug={course.slug}
-                            isEnrolled={!!isEnrolled}
-                            title={course.title}
+                            placeholder="Share course"
                           />
                           {hasAssignment && (
                             <>

@@ -36,20 +36,28 @@ const nextConfig = {
         destination: '/dashboard/courses',
       },
       {
-        source: '/courses/:path',
-        destination: '/dashboard/courses/:path',
+        source: '/courses/:slug',
+        destination: '/dashboard/courses/:slug',
       },
       {
         source: '/hackathons',
         destination: '/dashboard/hackathons',
       },
       {
-        source: '/hackathons/:path',
-        destination: '/dashboard/hackathons/:path',
+        source: '/hackathons/:slug',
+        destination: '/dashboard/hackathons/:slug',
       },
       {
-        source: '/@:path',
-        destination: `/profile/:path`,
+        source: '/hackathons/:slug/submissions',
+        destination: '/dashboard/hackathons/:slug/submissions',
+      },
+      {
+        source: '/hackathons/:slug/submissions/:id',
+        destination: '/dashboard/hackathons/:slug/submissions/:id',
+      },
+      {
+        source: '/@:username',
+        destination: `/profile/:username`,
       },
       {
         source: '/@:path/:slug*',
