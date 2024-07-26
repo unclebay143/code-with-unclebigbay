@@ -57,7 +57,7 @@ export const CourseCard = ({ layout = 'grid', course }: CourseCardProps) => {
       {layout === 'grid' && (
         <Link
           href={courseLink}
-          className="border rounded-xl overflow-hidden transition-colors duration-200 ease-in-out hover:border-slate-300"
+          className="flex flex-col border rounded-xl overflow-hidden transition-colors duration-200 ease-in-out hover:border-slate-300"
           prefetch={true}
         >
           <div className="h-[180px] relative">
@@ -74,20 +74,23 @@ export const CourseCard = ({ layout = 'grid', course }: CourseCardProps) => {
               />
             </div>
           </div>
-          <section className="p-5 flex flex-col gap-3 justify-between">
-            {isEnrolled && <Badge>Enrolled</Badge>}
+          <section className="p-5 flex flex-col gap-3 justify-between flex-1">
             <div className="flex flex-col gap-3">
-              <h3
-                title={title}
-                className="inline text-gray-700 font-medium hover:text-slate-800 text-lg"
-              >
-                {title}
-              </h3>
-              <p
-                className="text-slate-500 line-clamp-3"
-                dangerouslySetInnerHTML={{ __html: brief }}
-              />
+              {isEnrolled && <Badge>Enrolled</Badge>}
+              <div className="flex flex-col gap-3 justify-between">
+                <h3
+                  title={title}
+                  className="inline text-gray-700 font-medium hover:text-slate-800 text-lg"
+                >
+                  {title}
+                </h3>
+                <p
+                  className="text-slate-500 line-clamp-3"
+                  dangerouslySetInnerHTML={{ __html: brief }}
+                />
+              </div>
             </div>
+
             <div className="w-full flex justify-between">
               {viewTime ? <Badge>{formatTime(viewTime)}</Badge> : null}
               {showNewBadge && (
