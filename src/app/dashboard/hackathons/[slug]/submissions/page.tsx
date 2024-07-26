@@ -3,7 +3,7 @@ import { WhiteArea } from '@/components/molecules/dashboard/white-area';
 import React from 'react';
 import { getHackathonProjects } from '@/utils/server.service';
 
-type Props = { params: {  slug: string } };
+type Props = { params: { slug: string } };
 
 const Page = async ({ params }: Props) => {
   const { slug } = params;

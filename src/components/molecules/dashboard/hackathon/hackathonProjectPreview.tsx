@@ -51,6 +51,7 @@ const HackathonProjectPreview = ({
   getCurrentStudentRes,
 }: HackathonProjectPreviewProps) => {
   const projectPreview = gethackathonRes;
+
   const projectId = projectPreview?._id;
   const projectHashTag = projectPreview?.hackathon.hashTag;
   const authorUserName = projectPreview?.student.username;
@@ -222,7 +223,7 @@ const HackathonProjectPreview = ({
               </h3>
               <p className="text-slate-500">
                 {projectPreview?.feedback.toLowerCase() === 'null'
-                  ? 'thank you for hosting this hackathon'
+                  ? 'Thank you for hosting this hackathon 🙌'
                   : projectPreview?.feedback || ''}
               </p>
             </div>
