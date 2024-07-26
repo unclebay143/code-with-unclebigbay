@@ -52,6 +52,10 @@ const nextConfig = {
         destination: '/dashboard/hackathons/:slug/submissions',
       },
       {
+        source: '/hackathons/:slug/submissions/:id',
+        destination: '/dashboard/hackathons/:slug/submissions/:id',
+      },
+      {
         source: '/@:username',
         destination: `/profile/:username`,
       },

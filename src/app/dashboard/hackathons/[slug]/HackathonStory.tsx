@@ -117,7 +117,7 @@ export const HackathonStory = ({
   const showParticipantSection =
     animatedTooltipParticipants && animatedTooltipParticipants.length > 0;
 
-  const socialShare = `https://twitter.com/intent/tweet?url=
+  const xSocialShare = `https://twitter.com/intent/tweet?url=
             ${hackathonUrl}&text=I'm excited to publicly announce that I'm participating in the ${name}! by @unclebigbay143 %0A%0AJoin in this creative problem-solving. This is going to be epic! #BuildforBusinessHackathon #CodeWithUnclebigbay`;
 
   const hackathonSubmissionBtn = (
@@ -461,7 +461,7 @@ export const HackathonStory = ({
                     asChild
                   >
                     <a
-                      href={socialShare}
+                      href={xSocialShare}
                       target="_blank"
                       rel="noopener"
                       className="whitespace-nowrap"
@@ -502,7 +502,7 @@ export const HackathonStory = ({
 
         <section className="flex flex-col sm:flex-row items-center justify-center gap-2">
           <a
-            href={socialShare}
+            href={xSocialShare}
             target="_blank"
             rel="noopener"
             className="hover:text-slate-600 text-sm text-center text-slate-500 flex items-center gap-1 justify-center"
@@ -524,8 +524,7 @@ export const HackathonStory = ({
       </div>
       <SubmitEntryModal
         studentId={studentId}
-        hackathonId={hackathonId}
-        hackathonName={name}
+        hackathon={hackathon}
         isOpen={openSubmitEntryModal}
         close={() => setOpenSubmitEntryModal(false)}
         submitEntry={submitEntry}

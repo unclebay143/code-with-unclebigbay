@@ -13,7 +13,6 @@ import {
 import { DashboardSubheading } from '../dashboard-subheading';
 import { Github, IconButton } from '@hashnode/matrix-ui';
 import Image from 'next/image';
-import { ShareHackathonButton } from '../share-hackathon-project';
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import { EmptyStateContainer } from '@/components/molecules/dashboard/EmptyStateContainer';
@@ -25,6 +24,8 @@ import {
 } from '@/utils/types';
 import { sectionHeadingStyle } from '@/utils/style';
 import { DEFAULT_PROFILE_PHOTO } from '@/utils';
+import { ShareButton } from '@/components/ui/share-button';
+import { baseURL } from '../../../../../frontend.config';
 
 interface PreviewProjectsType {
   _id: string;
@@ -61,12 +62,19 @@ const HackathonProjectPreview = ({
 
   const showUrlNotFound = !projectPreview && !projectId;
 
-  const hackathonUrl = `/dashboard/hackathons/${projectPreview?.hackathon.slug}`;
-  const hackathonSubmissionsUrl = `/dashboard/hackathons/${projectPreview?.hackathon.slug}/submissions`;
+  const hackathonUrl = `${baseURL}/hackathons/${projectPreview?.hackathon.slug}`;
+  const hackathonSubmissionsUrl = `${baseURL}/hackathons/${projectPreview?.hackathon.slug}/submissions`;
 
   // show links section when there's at least 1 link
   const showLinkSection =
     projectPreview?.project?.url || projectPreview?.project?.articleUrl;
+
+  const projectUrl = `https://www.codewithunclebigbay.com/hackathons/${projectPreview?.hackathon.slug}/submissions/${projectId}`;
+
+  const shareMessage =
+    authorUserName === currentLoggedInUserName
+      ? `Yay 🎉 Checkout my submission for the ${projectHashTag} hackathon. ${projectUrl} #codewithunclebigbay`
+      : `Check out this project submission from the ${projectHashTag} hackathon✨. ${projectUrl} #codewithunclebigbay`;
 
   return (
     <>
@@ -251,12 +259,10 @@ const HackathonProjectPreview = ({
                     </Button>
                   )}
                 </div>
-                <ShareHackathonButton
-                  slug={projectPreview?.hackathon.slug}
-                  authorUserName={authorUserName}
-                  currentLoggedInUserName={currentLoggedInUserName}
-                  projectId={projectId}
-                  projectHashTag={projectHashTag}
+                <ShareButton
+                  placeholder="Share project"
+                  copy={shareMessage}
+                  slug={projectUrl}
                 />
               </div>
             </div>
