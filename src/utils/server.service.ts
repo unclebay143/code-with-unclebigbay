@@ -490,3 +490,35 @@ export const widgetVisibility = () => {
 
   return showWidget;
 };
+
+export const getHackathonProjectById = async (_id: string, slug: string) => {
+  const url = `${baseURL}/api/hackathons/${slug}/submission/${_id}`;
+  try {
+    const res = await fetch(url, {
+      cache: 'no-store',
+    });
+    if (!res.ok) {
+      throw new Error('Error found while fetching');
+    }
+    return res.json();
+  } catch (error) {
+    console.error('Error loading data', error);
+    return null;
+  }
+};
+export const getHackathonProjects = async (slug: string) => {
+  const url = `${baseURL}/api/hackathons/${slug}/submission`;
+  try {
+    const res = await fetch(url, {
+      cache: 'no-store',
+    });
+    if (!res.ok) {
+      throw new Error('Error found while fetching');
+    }
+    return res.json();
+  } catch (error) {
+    console.error('Error loading data', error);
+    return null;
+  }
+};
+
