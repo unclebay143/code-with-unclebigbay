@@ -9,6 +9,7 @@ import { ChevronDown } from 'lucide-react';
 import { handleLogout } from '@/utils/auth';
 import { Student } from '@/utils/types';
 import {
+  ArrowExternalLink01,
   ArrowLogout,
   BarsHamburger,
   Button,
@@ -22,6 +23,7 @@ import {
   SettingsGear,
 } from '@hashnode/matrix-ui';
 import { AuthModal } from '@/components/atoms/AuthModal';
+import Link from 'next/link';
 
 type Props = {
   session: Session | null;
@@ -79,14 +81,17 @@ export const Navbar = ({ session, setSidebarOpen, currentStudent }: Props) => {
                       sideOffset={8}
                       align="end"
                     >
-                      <section className="px-4 pb-1 pt-2 flex flex-col">
+                      <Link
+                        href={`/@${currentStudent.username}`}
+                        className="px-4 pb-1 pt-2 flex flex-col hover:bg-slate-50"
+                      >
                         <h3 className="truncate text-sm font-medium text-slate-900">
                           {user?.name}
                         </h3>
                         <span className="truncate text-xs text-slate-500">
                           {user?.email}
                         </span>
-                      </section>
+                      </Link>
                       <DropdownMenuItemLink
                         text="Settings"
                         startIcon={SettingsGear}
