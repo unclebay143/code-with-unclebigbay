@@ -83,7 +83,7 @@ export const Navbar = ({ session, setSidebarOpen, currentStudent }: Props) => {
                     >
                       <Link
                         href={`/@${currentStudent.username}`}
-                        className="px-4 pb-1 pt-2 flex flex-col hover:bg-slate-50"
+                        className="px-4 pb-1 pt-2 flex flex-col hover:bg-slate-100"
                       >
                         <h3 className="truncate text-sm font-medium text-slate-900">
                           {user?.name}
