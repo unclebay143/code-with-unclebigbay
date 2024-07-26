@@ -138,10 +138,7 @@ const HackathonProjectPreview = ({
           <div className="space-y-4 mt-2">
             <h3 className={sectionHeadingStyle}>Project Demo</h3>
             <div>
-              <div className="relative">
-                <YTVideo ytVideoId={projectPreview?.project?.demoUrl ?? ''} />
-                <div className="absolute z-10 inset-0 w-full h-full" />
-              </div>
+              <YTVideo ytVideoId={projectPreview?.project?.demoUrl ?? ''} />
             </div>
           </div>
           <div className="flex flex-col items-start gap-2">
