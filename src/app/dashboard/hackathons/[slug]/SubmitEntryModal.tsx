@@ -50,6 +50,15 @@ type HackathonProjectSubmissionSchema = z.infer<
   typeof hackathonProjectSubmissionSchema
 >;
 
+// to handle case where student submit full url or any other video url
+function getYoutubeVideoId(ytVideoString: string) {
+  const youtubeRegexp =
+    /(?:https?:\/\/)?(?:www\.)?(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))((\w|-){11})(?:\S+)?/;
+  const match = ytVideoString.match(youtubeRegexp);
+  const result = match && match[1];
+  return result || ytVideoString;
+}
+
 export const SubmitEntryModal = ({
   isOpen,
   close,
@@ -93,7 +102,7 @@ export const SubmitEntryModal = ({
   const urlErrorMessage = errors.url?.message;
 
   const onSubmit = (formData: HackathonProjectSubmissionSchema) => {
-    const { feedback, ...otherFormData } = formData;
+    const { feedback, demoUrl, ...otherFormData } = formData;
 
     const membersId = members.map((member) => member._id);
 
@@ -102,6 +111,7 @@ export const SubmitEntryModal = ({
       student: studentId,
       project: {
         ...otherFormData,
+        demoUrl: getYoutubeVideoId(demoUrl),
       },
       feedback,
       members: membersId,
