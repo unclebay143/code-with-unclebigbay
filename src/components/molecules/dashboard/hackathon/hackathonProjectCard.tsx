@@ -35,7 +35,7 @@ export default function HackathonProjectCard(props: Props) {
       href={`/dashboard/hackathons/${slug}/submissions/${_id}`}
       className="flex flex-col border rounded-xl overflow-hidden transition-colors duration-200 ease-in-out hover:border-slate-300"
     >
-      <div className="relative h-[180px]">
+      <div className="relative">
         <YTVideo ytVideoId={project?.demoUrl ?? ''} removeRounded />
         <div className="absolute z-10 inset-0 w-full h-full" />
       </div>
