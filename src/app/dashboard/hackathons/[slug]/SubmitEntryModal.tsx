@@ -8,7 +8,7 @@ import * as ScrollArea from '@radix-ui/react-scroll-area';
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
-import { HackathonSubmission, Student, Students } from '@/utils/types';
+import { Hackathon, HackathonSubmission, Students } from '@/utils/types';
 import { UseMutateAsyncFunction } from '@tanstack/react-query';
 import { AxiosResponse } from 'axios';
 import Image from 'next/image';
@@ -16,12 +16,14 @@ import { StudentSearchField } from '@/components/ui/StudentSearchField';
 import { toast } from 'sonner';
 import { MemberSelectionList } from './MemberSelectionList';
 import useCurrentStudent from '@/components/hooks/useCurrentStudent';
+import { ShareButton } from '@/components/ui/share-button';
+import Link from 'next/link';
+import { baseURL } from '../../../../../frontend.config';
 
 type SubmitEntryModalProps = {
   isOpen: boolean;
   close: () => void;
-  hackathonId: string;
-  hackathonName: string;
+  hackathon: Hackathon;
   studentId: string;
   isSubmitEntryPending: boolean;
   submitEntry: UseMutateAsyncFunction<
@@ -51,16 +53,23 @@ type HackathonProjectSubmissionSchema = z.infer<
 export const SubmitEntryModal = ({
   isOpen,
   close,
-  hackathonId,
-  hackathonName,
+  hackathon,
   studentId,
   submitEntry,
   isSubmitEntryPending,
   onSubmitEntry,
 }: SubmitEntryModalProps) => {
   const [submitted, setSubmitted] = useState(false);
+  const [submissionUrl, setSubmissionUrl] = useState('');
   const [members, setMembers] = useState<Students>([]);
   const { data: currentStudent } = useCurrentStudent();
+
+  const {
+    _id: hackathonId,
+    name: hackathonName,
+    slug: hackathonSlug,
+    hashTag: hackathonHashTag,
+  } = hackathon;
 
   const {
     register,
@@ -98,7 +107,10 @@ export const SubmitEntryModal = ({
       members: membersId,
     };
     submitEntry(payload, {
-      onSuccess() {
+      onSuccess({ data }) {
+        const submissionUrl = `${baseURL}/hackathons/${hackathonSlug}/submissions/${data.submission._id}`;
+
+        setSubmissionUrl(submissionUrl);
         setSubmitted(true);
         onSubmitEntry();
       },
@@ -113,6 +125,8 @@ export const SubmitEntryModal = ({
     setMembers(updatedInviteList);
     toast.success('member removed.');
   };
+
+  const shareMessage = `Hurray 🎉 I just submitted my project entry for the ${hackathonHashTag} hackathon! Excited to see what the judges think. Check it out ${submissionUrl}. #codewithunclebigbay`;
 
   return (
     <div>
@@ -350,24 +364,39 @@ export const SubmitEntryModal = ({
           </section>
         ) : (
           <section className="flex flex-col gap-2 justify-center items-center text-center">
+            <section className="absolute right-2 top-2">
+              <IconButton
+                onClick={() => {
+                  close();
+                  setSubmitted(false);
+                }}
+                Icon={X}
+                size="xs"
+                type="button"
+              />
+            </section>
+
             <h3 className="font-semibold text-slate-600">
               Hackathon Entry Submitted 🎉
             </h3>
+
             <p className="text-sm text-slate-500">
               Thank you for participating in the{' '}
               <span className="font-semibold">{hackathonName}</span>!
               <br /> The winners will be evaluated and announced soon.
             </p>
-            <Button
-              size="xs"
-              appearance="primary-slate"
-              onClick={() => {
-                close();
-                setSubmitted(false);
-              }}
-            >
-              Okay
-            </Button>
+
+            <div className="flex items-center gap-2">
+              <Button size="xs" appearance="primary-slate" asChild>
+                <Link href={submissionUrl}>View project</Link>
+              </Button>
+
+              <ShareButton
+                placeholder="Share project"
+                copy={shareMessage}
+                size="xs"
+              />
+            </div>
           </section>
         )}
       </ModalWrapper>
