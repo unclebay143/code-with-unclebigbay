@@ -33,7 +33,6 @@
     "cookies-next": "^4.2.1",
     "dayjs": "^1.11.12",
     "framer-motion": "^11.3.19",
-    "html-react-parser": "^5.1.12",
     "isomorphic-dompurify": "^2.14.0",
     "joi": "^17.13.3",
     "lodash": "^4.17.21",

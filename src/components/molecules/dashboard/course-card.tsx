@@ -4,7 +4,7 @@ import { PlayCircle } from 'lucide-react';
 import type { LucideIcon } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { formatTime, htmlParser } from '@/utils';
+import { formatTime } from '@/utils';
 import { Badge } from '@hashnode/matrix-ui';
 import dayjs from 'dayjs';
 
@@ -84,9 +84,7 @@ export const CourseCard = ({ layout = 'grid', course }: CourseCardProps) => {
                 >
                   {title}
                 </h3>
-                <p className="text-slate-500 line-clamp-3">
-                  {htmlParser({ html: brief })}
-                </p>
+                <p className="text-slate-500 line-clamp-3">{brief}</p>
               </div>
             </div>
 

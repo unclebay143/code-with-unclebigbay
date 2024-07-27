@@ -26,7 +26,7 @@ import useCurrentStudent from '@/components/hooks/useCurrentStudent';
 import { formatStartAndEndDate } from '@/utils/date';
 import dayjs from 'dayjs';
 import { HackathonFaqs } from './HackathonFaq';
-import { hasHackathonEnded, htmlParser } from '@/utils';
+import { hasHackathonEnded } from '@/utils';
 import { baseURL } from '../../../../../frontend.config';
 import { AuthModal } from '@/components/atoms/AuthModal';
 import { oLStyle, sectionHeadingStyle, uLStyle } from '@/utils/style';
@@ -228,9 +228,10 @@ export const HackathonStory = ({
           <section className="flex flex-col gap-8 mt-5 lg:max-w-[90%]">
             <section className="flex flex-col gap-2">
               <h3 className={sectionHeadingStyle}>About {name}</h3>
-              <div className="text-slate-500 flex flex-col gap-4">
-                {htmlParser({ html: about })}
-              </div>
+              <div
+                className="text-slate-500 flex flex-col gap-4"
+                dangerouslySetInnerHTML={{ __html: about }}
+              />
             </section>
             <section className="flex flex-col gap-2">
               <h3 className={sectionHeadingStyle}>What to build</h3>
@@ -241,9 +242,10 @@ export const HackathonStory = ({
               <ul className={uLStyle}>
                 {howToParticipate.map((how) => (
                   <li className="mb-3" key={`howToParticipate-${how}`}>
-                    <span className="text-slate-500 [&>a]:underline">
-                      {htmlParser({ html: how })}
-                    </span>
+                    <span
+                      className="text-slate-500 [&>a]:underline"
+                      dangerouslySetInnerHTML={{ __html: how }}
+                    />
                   </li>
                 ))}
               </ul>
@@ -322,9 +324,10 @@ export const HackathonStory = ({
                   {schedules.map(({ heading, date }) => (
                     <li className="mb-3" key={`judgingCriteria-${heading}`}>
                       <div className="flex flex-col sm:flex-row sm:items-center gap-1">
-                        <span className="text-slate-600 font-semibold [&>a]:underline">
-                          {htmlParser({ html: heading })}
-                        </span>
+                        <span
+                          className="text-slate-600 font-semibold [&>a]:underline"
+                          dangerouslySetInnerHTML={{ __html: heading }}
+                        />
                         <p className="text-slate-500">{date}</p>
                       </div>
                     </li>

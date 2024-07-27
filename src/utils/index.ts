@@ -1,7 +1,6 @@
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import DOMPurify from 'isomorphic-dompurify';
-import parse from 'html-react-parser';
 import removeMd from 'remove-markdown';
 
 dayjs.extend(relativeTime);
@@ -83,12 +82,6 @@ export const convertToTitleCase = (string: string) => {
 
 const sanitizeHtml = (rawHtml: string) => {
   return DOMPurify.sanitize(rawHtml);
-};
-
-type HtmlParserProps = { html: string };
-export const htmlParser = async ({ html }: HtmlParserProps) => {
-  const sanitizedHtml = sanitizeHtml(html);
-  return parse(sanitizedHtml);
 };
 
 export const removeMarkdown = (markdown: string) => removeMd(markdown);

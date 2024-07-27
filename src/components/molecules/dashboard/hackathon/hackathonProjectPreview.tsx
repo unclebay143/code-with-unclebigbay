@@ -23,7 +23,7 @@ import {
   HackathonProjectMembers,
 } from '@/utils/types';
 import { sectionHeadingStyle } from '@/utils/style';
-import { DEFAULT_PROFILE_PHOTO, htmlParser } from '@/utils';
+import { DEFAULT_PROFILE_PHOTO } from '@/utils';
 import { ShareButton } from '@/components/ui/share-button';
 import { baseURL } from '../../../../../frontend.config';
 import { MarkdownRender } from './MarkdownRender';

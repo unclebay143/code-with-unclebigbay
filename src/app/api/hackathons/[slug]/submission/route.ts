@@ -3,7 +3,6 @@ import { HackathonSubmission } from '@/models/hackathonSubmission';
 import connectViaMongoose from '@/utils/mongoose';
 import { NextResponse } from 'next/server';
 import { Student } from '@/models/student';
-import { htmlParser } from '@/utils';
 
 const GET = async (request: any, { params }: { params: { slug: string } }) => {
   try {
