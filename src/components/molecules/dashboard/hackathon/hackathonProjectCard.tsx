@@ -14,7 +14,7 @@ import {
   HackathonType,
 } from '@/utils/types';
 import Image from 'next/image';
-import { DEFAULT_PROFILE_PHOTO, htmlParser } from '@/utils';
+import { DEFAULT_PROFILE_PHOTO, removeMarkdown } from '@/utils';
 
 interface Props {
   _id: string;
@@ -45,7 +45,7 @@ export default function HackathonProjectCard(props: Props) {
             {project?.name}
           </h1>
           <p className="text-slate-500 text-sm line-clamp-3">
-            {htmlParser({ html: project?.description })}
+            {removeMarkdown(project?.description)}
           </p>
         </div>
         <div className="flex flex-col gap-1">
