@@ -31,7 +31,6 @@ export default function HackathonProjectCard(props: Props) {
 
   return (
     <Link
-      key={_id}
       href={`/dashboard/hackathons/${slug}/submissions/${_id}`}
       className="flex flex-col border rounded-xl overflow-hidden transition-colors duration-200 ease-in-out hover:border-slate-300"
     >
@@ -45,7 +44,7 @@ export default function HackathonProjectCard(props: Props) {
           <h1 className="text-gray-700 text-md line-clamp-2 font-medium">
             {project?.name}
           </h1>
-          <p className="text-slate-500 text-sm line-clamp-3">
+          <p className="text-slate-500 line-clamp-3">
             {htmlParser({ html: project?.description })}
           </p>
         </div>
