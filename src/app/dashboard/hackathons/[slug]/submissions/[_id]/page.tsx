@@ -11,6 +11,7 @@ const PreviewedHackathonProject = async ({ params }: Props) => {
   const { _id, slug } = params;
   const gethackathonRes = await getHackathonProjectById(_id, slug);
   const getCurrentStudentRes = await getCurrentStudent();
+
   return (
     <WhiteArea border>
       <HackathonProjectPreview
