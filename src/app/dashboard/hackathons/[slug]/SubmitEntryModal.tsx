@@ -238,7 +238,7 @@ export const SubmitEntryModal = ({
                         <input
                           id="demoUrl"
                           type="text"
-                          placeholder="JH77WsDH8yY"
+                          placeholder="JH77WsDH8yY or https://youtu.be/JH77WsDH8yY"
                           className={`text-sm text-slate-600 p-2 outline-none focus:ring-2 focus:ring-slate-500 focus:border-slate-300 border rounded-md ${urlErrorMessage && 'ring-2 ring-red-500'}`}
                           {...register('demoUrl', {
                             required: true,
