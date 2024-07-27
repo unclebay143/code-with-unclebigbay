@@ -22,7 +22,7 @@ import React, { useState } from 'react';
 import { usePathname } from 'next/navigation';
 import { useCourseBySlug } from '@/components/hooks/useCourse';
 import { Student, Tags } from '@/utils/types';
-import { formatDate, formatTime } from '@/utils';
+import { formatDate, formatTime, htmlParser } from '@/utils';
 import { Tooltip } from '@/components/atoms/Tooltip';
 import { EmptyStateContainer } from '@/components/molecules/dashboard/EmptyStateContainer';
 import { AuthModal } from '@/components/atoms/AuthModal';
@@ -199,12 +199,9 @@ const Course = ({ currentStudent }: { currentStudent?: Student }) => {
                             <h3 className="font-medium text-lg text-slate-700">
                               Description:
                             </h3>
-                            <div
-                              className="text-slate-600 flex flex-col gap-4 [&_a]:underline [&_ul]:list-disc [&_ul]:list-outside [&_ul]:ml-5 [&_ul>li]:mb-2"
-                              dangerouslySetInnerHTML={{
-                                __html: course?.description,
-                              }}
-                            />
+                            <div className="text-slate-600 flex flex-col gap-4 [&_a]:underline [&_ul]:list-disc [&_ul]:list-outside [&_ul]:ml-5 [&_ul>li]:mb-2">
+                              {htmlParser({ html: course?.description })}
+                            </div>
                           </div>
                         )}
                       </div>
