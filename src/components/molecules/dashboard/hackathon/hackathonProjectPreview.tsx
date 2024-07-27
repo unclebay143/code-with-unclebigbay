@@ -26,6 +26,7 @@ import { sectionHeadingStyle } from '@/utils/style';
 import { DEFAULT_PROFILE_PHOTO, htmlParser } from '@/utils';
 import { ShareButton } from '@/components/ui/share-button';
 import { baseURL } from '../../../../../frontend.config';
+import { MarkdownRender } from './MarkdownRender';
 
 interface PreviewProjectsType {
   _id: string;
@@ -142,11 +143,12 @@ const HackathonProjectPreview = ({
               <YTVideo ytVideoId={projectPreview?.project?.demoUrl ?? ''} />
             </div>
           </div>
-          <div className="flex flex-col items-start gap-2">
+          <div className="flex flex-col items-start gap-2 ">
             <h3 className={sectionHeadingStyle}>Project Description</h3>
-            <p className="text-slate-500">
-              {htmlParser({ html: projectPreview?.project?.description })}
-            </p>
+            <MarkdownRender
+              markdown={projectPreview?.project?.description}
+              styles="text-slate-500 leading-9 [&_h2]:font-semibold [&_h2]:text-slate-700 [&_h2]:text-lg [&_h2]:mt-2 [&_h3]:font-medium [&_h3]:text-slate-700 [&_h3]:text-lg [&_h3]:mt-2"
+            />
           </div>
 
           <div className="flex flex-col items-start gap-4">
