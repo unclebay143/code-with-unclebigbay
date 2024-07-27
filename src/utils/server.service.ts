@@ -512,6 +512,7 @@ export const getHackathonProjects = async (slug: string) => {
     const res = await fetch(url, {
       cache: 'no-store',
     });
+
     if (!res.ok) {
       throw new Error('Error found while fetching');
     }
@@ -521,4 +522,3 @@ export const getHackathonProjects = async (slug: string) => {
     return null;
   }
 };
-

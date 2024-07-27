@@ -221,7 +221,7 @@ export const SubmitEntryModal = ({
                         >
                           <DashboardSubheading title="Description" />
                           <p className="text-xs text-slate-500">
-                            HTML is supported.
+                            Markdown is supported.
                           </p>
                         </label>
                         <textarea

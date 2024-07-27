@@ -29,7 +29,7 @@ interface HackathonProjectsType {
 }
 
 interface SubmittedHackathonsProjectsType {
-  hackathonSubmittedProjects: HackathonProjectsType[];
+  submissions: HackathonProjectsType[];
 }
 
 interface HackathonProjectsProps {
@@ -42,11 +42,10 @@ export default function HackathonProjects({
 
   const hackathonUrl = `/dashboard/hackathons/${slug}`;
   const showHackathonProjects =
-    gethackathonProjectsRes?.hackathonSubmittedProjects &&
-    gethackathonProjectsRes?.hackathonSubmittedProjects.length > 0;
+    gethackathonProjectsRes?.submissions &&
+    gethackathonProjectsRes?.submissions.length > 0;
 
-  const showHackathonNotFound =
-    !gethackathonProjectsRes?.hackathonSubmittedProjects;
+  const showHackathonNotFound = !gethackathonProjectsRes?.submissions;
   const showEmptyState = !showHackathonProjects && !showHackathonNotFound;
   return (
     <>
@@ -67,7 +66,7 @@ export default function HackathonProjects({
 
         {showHackathonProjects && (
           <div className="grid sm:grid-cols-2 xl:grid-cols-3 gap-4 justify-start">
-            {gethackathonProjectsRes.hackathonSubmittedProjects.map(
+            {gethackathonProjectsRes.submissions.map(
               (hackathonProject: any) => (
                 <HackathonProjectCard
                   key={hackathonProject._id}
