@@ -1,5 +1,8 @@
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
+import DOMPurify from 'isomorphic-dompurify';
+import parse from 'html-react-parser';
+// import { JSDOM } from 'jsdom';
 
 dayjs.extend(relativeTime);
 
@@ -76,4 +79,14 @@ export const convertToTitleCase = (string: string) => {
     str[i] = str[i].charAt(0).toUpperCase() + str[i].slice(1);
   }
   return str.join(' ');
+};
+
+const sanitizeHtml = (rawHtml: string) => {
+  return DOMPurify.sanitize(rawHtml);
+};
+
+type HtmlParserProps = { html: string };
+export const htmlParser = ({ html }: HtmlParserProps) => {
+  const sanitizedHtml = sanitizeHtml(html);
+  return parse(sanitizedHtml);
 };

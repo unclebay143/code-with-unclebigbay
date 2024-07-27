@@ -23,7 +23,7 @@ import {
   HackathonProjectMembers,
 } from '@/utils/types';
 import { sectionHeadingStyle } from '@/utils/style';
-import { DEFAULT_PROFILE_PHOTO } from '@/utils';
+import { DEFAULT_PROFILE_PHOTO, htmlParser } from '@/utils';
 import { ShareButton } from '@/components/ui/share-button';
 import { baseURL } from '../../../../../frontend.config';
 
@@ -144,17 +144,13 @@ const HackathonProjectPreview = ({
           </div>
           <div className="flex flex-col items-start gap-2">
             <h3 className={sectionHeadingStyle}>Project Description</h3>
-            <p
-              className="text-slate-500"
-              dangerouslySetInnerHTML={{
-                __html: projectPreview?.project?.description,
-              }}
-            />
+            <p className="text-slate-500">
+              {htmlParser({ html: projectPreview?.project?.description })}
+            </p>
           </div>
 
           <div className="flex flex-col items-start gap-4">
             <h3 className={sectionHeadingStyle}>
-              {' '}
               {hasMembers
                 ? `Collaborators (${membersCount + 1})`
                 : 'Collaborator'}
