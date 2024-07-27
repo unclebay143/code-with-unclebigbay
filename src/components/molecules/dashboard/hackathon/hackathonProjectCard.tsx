@@ -14,7 +14,7 @@ import {
   HackathonType,
 } from '@/utils/types';
 import Image from 'next/image';
-import { DEFAULT_PROFILE_PHOTO } from '@/utils';
+import { DEFAULT_PROFILE_PHOTO, htmlParser } from '@/utils';
 
 interface Props {
   _id: string;
@@ -45,12 +45,9 @@ export default function HackathonProjectCard(props: Props) {
           <h1 className="text-gray-700 text-md line-clamp-2 font-medium">
             {project?.name}
           </h1>
-          <p
-            className="text-slate-500 text-sm line-clamp-3"
-            dangerouslySetInnerHTML={{
-              __html: project?.description,
-            }}
-          />
+          <p className="text-slate-500 text-sm line-clamp-3">
+            {htmlParser({ html: project?.description })}
+          </p>
         </div>
         <div className="flex flex-col gap-1">
           <div className="flex items-center gap-1 text-slate-500 text-xs">

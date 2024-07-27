@@ -217,9 +217,12 @@ export const SubmitEntryModal = ({
                       <div className="flex flex-col gap-2">
                         <label
                           htmlFor="description"
-                          className="text-sm flex justify-between items-end"
+                          className="text-sm flex flex-col gap-1"
                         >
                           <DashboardSubheading title="Description" />
+                          <p className="text-xs text-slate-500">
+                            HTML is supported.
+                          </p>
                         </label>
                         <textarea
                           id="description"
@@ -230,12 +233,12 @@ export const SubmitEntryModal = ({
                       </div>
                       <div className="flex flex-col gap-2">
                         <label htmlFor="demoUrl" className="text-sm">
-                          <DashboardSubheading title="Project Demo (YouTube Embed ID)" />
+                          <DashboardSubheading title="Project Demo (uploaded on YouTube)" />
                         </label>
                         <input
                           id="demoUrl"
                           type="text"
-                          placeholder="JH77WsDH8yY"
+                          placeholder="JH77WsDH8yY or https://youtu.be/JH77WsDH8yY"
                           className={`text-sm text-slate-600 p-2 outline-none focus:ring-2 focus:ring-slate-500 focus:border-slate-300 border rounded-md ${urlErrorMessage && 'ring-2 ring-red-500'}`}
                           {...register('demoUrl', {
                             required: true,
@@ -314,15 +317,17 @@ export const SubmitEntryModal = ({
                             maxSelection={5}
                           />
                         </div>
-                        <section className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-                          {members.map((member) => (
-                            <MemberSelectionList
-                              key={member._id}
-                              member={member}
-                              removeFromSelection={removeFromSelection}
-                            />
-                          ))}
-                        </section>
+                        {members && members.length > 0 && (
+                          <section className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                            {members.map((member) => (
+                              <MemberSelectionList
+                                key={member._id}
+                                member={member}
+                                removeFromSelection={removeFromSelection}
+                              />
+                            ))}
+                          </section>
+                        )}
                       </section>
                       <div className="flex flex-col gap-2">
                         <label

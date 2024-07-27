@@ -8,7 +8,7 @@ import {
   Badge,
   Button,
   EmptyState,
-  BookDocument,
+  MinusCircle,
 } from '@hashnode/matrix-ui';
 import { DashboardSubheading } from '../dashboard-subheading';
 import { Github, IconButton } from '@hashnode/matrix-ui';
@@ -23,7 +23,7 @@ import {
   HackathonProjectMembers,
 } from '@/utils/types';
 import { sectionHeadingStyle } from '@/utils/style';
-import { DEFAULT_PROFILE_PHOTO } from '@/utils';
+import { DEFAULT_PROFILE_PHOTO, htmlParser } from '@/utils';
 import { ShareButton } from '@/components/ui/share-button';
 import { baseURL } from '../../../../../frontend.config';
 
@@ -82,7 +82,7 @@ const HackathonProjectPreview = ({
       {showUrlNotFound ? (
         <EmptyStateContainer>
           <EmptyState
-            icon={BookDocument}
+            icon={MinusCircle}
             title="Hackathon Project Not Found"
             copy={
               <>
@@ -91,8 +91,8 @@ const HackathonProjectPreview = ({
                   doesn&apos;t seem to exist.
                 </p>
                 <p>
-                  Please check out the hackathon url or explore other available
-                  hackathons.
+                  Please check out the url or explore our other available
+                  hackathon projects.
                 </p>
                 <p>
                   If you need assistance, feel free to use the help centers.
@@ -144,17 +144,13 @@ const HackathonProjectPreview = ({
           </div>
           <div className="flex flex-col items-start gap-2">
             <h3 className={sectionHeadingStyle}>Project Description</h3>
-            <p
-              className="text-slate-500"
-              dangerouslySetInnerHTML={{
-                __html: projectPreview?.project?.description,
-              }}
-            />
+            <p className="text-slate-500">
+              {htmlParser({ html: projectPreview?.project?.description })}
+            </p>
           </div>
 
           <div className="flex flex-col items-start gap-4">
             <h3 className={sectionHeadingStyle}>
-              {' '}
               {hasMembers
                 ? `Collaborators (${membersCount + 1})`
                 : 'Collaborator'}
