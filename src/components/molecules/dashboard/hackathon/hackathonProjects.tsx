@@ -17,6 +17,7 @@ import {
   HackathonType,
 } from '@/utils/types';
 import { EmptyStateContainer } from '../EmptyStateContainer';
+import { MarkdownRender } from './MarkdownRender';
 
 interface HackathonProjectsType {
   _id: string;
