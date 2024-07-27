@@ -8,7 +8,7 @@ import {
   Badge,
   Button,
   EmptyState,
-  BookDocument,
+  MinusCircle,
 } from '@hashnode/matrix-ui';
 import { DashboardSubheading } from '../dashboard-subheading';
 import { Github, IconButton } from '@hashnode/matrix-ui';
@@ -82,7 +82,7 @@ const HackathonProjectPreview = ({
       {showUrlNotFound ? (
         <EmptyStateContainer>
           <EmptyState
-            icon={BookDocument}
+            icon={MinusCircle}
             title="Hackathon Project Not Found"
             copy={
               <>
@@ -91,8 +91,8 @@ const HackathonProjectPreview = ({
                   doesn&apos;t seem to exist.
                 </p>
                 <p>
-                  Please check out the hackathon url or explore other available
-                  hackathons.
+                  Please check out the url or explore our other available
+                  hackathon projects.
                 </p>
                 <p>
                   If you need assistance, feel free to use the help centers.

@@ -6,7 +6,7 @@ import {
   Button,
   EmptyState,
   Stack,
-  BookDocument,
+  MinusCircle,
 } from '@hashnode/matrix-ui';
 import { DashboardSubheading } from '../dashboard-subheading';
 import HackathonProjectCard from './hackathonProjectCard';
@@ -52,7 +52,7 @@ export default function HackathonProjects({
       {showUrlNotFound ? (
         <EmptyStateContainer>
           <EmptyState
-            icon={BookDocument}
+            icon={MinusCircle}
             title="Hackathon Not Found"
             copy={
               <>
@@ -62,7 +62,7 @@ export default function HackathonProjects({
                 </p>
                 <p>
                   Please check out the hackathon url or explore our other
-                  available hackathon projects.
+                  hackathons.
                 </p>
                 <p>
                   If you need assistance, feel free to use the help centers.
@@ -72,7 +72,7 @@ export default function HackathonProjects({
             ctaElement={
               <Button size="xs" appearance="primary-slate">
                 <Link href="/dashboard/hackathons">
-                  Checkout other hackathons projects
+                  Checkout other hackathons
                 </Link>
               </Button>
             }
