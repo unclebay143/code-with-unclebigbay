@@ -3,6 +3,7 @@ import { HackathonSubmission } from '@/models/hackathonSubmission';
 import connectViaMongoose from '@/utils/mongoose';
 import { NextResponse } from 'next/server';
 import { Student } from '@/models/student';
+import { htmlParser } from '@/utils';
 
 const GET = async (request: any, { params }: { params: { slug: string } }) => {
   try {
@@ -16,7 +17,7 @@ const GET = async (request: any, { params }: { params: { slug: string } }) => {
       );
     }
 
-    const hackathonSubmittedProjects = await HackathonSubmission.find({
+    const submissions = await HackathonSubmission.find({
       hackathon: hackathon._id,
     })
       .populate('student', '_id fullName stack photo username', Student)
@@ -25,13 +26,14 @@ const GET = async (request: any, { params }: { params: { slug: string } }) => {
     return NextResponse.json(
       {
         message: 'Hackathon projects fetched successfully',
-        hackathonSubmittedProjects,
+        submissions,
       },
       {
         status: 200,
       },
     );
   } catch (e: any) {
+    console.log(e);
     return NextResponse.json(
       { error: e.message },
       {
