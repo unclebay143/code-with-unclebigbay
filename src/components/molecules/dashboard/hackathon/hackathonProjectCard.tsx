@@ -31,7 +31,6 @@ export default function HackathonProjectCard(props: Props) {
 
   return (
     <Link
-      key={_id}
       href={`/dashboard/hackathons/${slug}/submissions/${_id}`}
       className="flex flex-col border rounded-xl overflow-hidden transition-colors duration-200 ease-in-out hover:border-slate-300"
     >
