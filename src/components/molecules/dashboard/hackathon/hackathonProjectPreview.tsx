@@ -184,7 +184,7 @@ const HackathonProjectPreview = ({
                     <span className="text-xs text-slate-500">owner</span>
                   </div>
                   <p className="text-slate-600 text-xs">
-                    {projectPreview?.student?.stack}
+                    {projectPreview?.student?.stack} developer
                   </p>
                 </div>
               </Link>
