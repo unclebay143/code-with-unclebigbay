@@ -161,7 +161,11 @@ const HackathonProjectPreview = ({
             </h3>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6">
-              <div className="flex items-center gap-2">
+              <Link
+                href={`/@${projectPreview?.student?.username}`}
+                target="_blank"
+                className="flex items-center gap-2 group"
+              >
                 <div className="h-16 w-16 overflow-hidden rounded-full">
                   <Image
                     src={
@@ -175,8 +179,9 @@ const HackathonProjectPreview = ({
 
                 <div className="capitalize flex flex-col gap-0.5">
                   <div className="flex flex-col">
-                    <p className="text-slate-700 text-lg font-medium -mb-0.5">
-                      {projectPreview?.student?.fullName}
+                    <p className="text-slate-700 group-hover:text-slate-700/90 text-lg font-medium -mb-0.5">
+                      {projectPreview?.student?.fullName ||
+                        projectPreview?.student?.username}
                     </p>
                     <span className="text-xs text-slate-500">owner</span>
                   </div>
@@ -184,12 +189,17 @@ const HackathonProjectPreview = ({
                     {projectPreview?.student?.stack}
                   </p>
                 </div>
-              </div>
+              </Link>
 
               {hasMembers ? (
                 <>
                   {projectPreview.members.map((member) => (
-                    <div key={member._id} className="flex items-center gap-2">
+                    <Link
+                      href={`/@${member.username}`}
+                      target="_blank"
+                      key={member._id}
+                      className="flex items-center gap-2 group"
+                    >
                       <div className="h-16 w-16 overflow-hidden rounded-full">
                         <Image
                           src={member?.photo || DEFAULT_PROFILE_PHOTO}
@@ -200,7 +210,7 @@ const HackathonProjectPreview = ({
                       </div>
                       <div className="capitalize flex flex-col gap-0.5">
                         <div className="flex flex-col">
-                          <p className="text-slate-700 text-md font-medium">
+                          <p className="text-slate-700 group-hover:text-slate-700/90 text-md font-medium">
                             {member?.fullName}
                           </p>
                           <span className="text-xs text-slate-500">Member</span>
@@ -209,7 +219,7 @@ const HackathonProjectPreview = ({
                           {member?.stack}
                         </p>
                       </div>
-                    </div>
+                    </Link>
                   ))}
                 </>
               ) : null}

@@ -66,7 +66,7 @@ export default function HackathonProjectCard(props: Props) {
                 />
               </Avatar>
               <p className="truncate text-xs max-w-[200px]">
-                {student?.fullName}
+                {student?.fullName || student?.username}
               </p>
             </div>
           </div>
