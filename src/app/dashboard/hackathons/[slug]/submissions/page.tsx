@@ -8,6 +8,7 @@ type Props = { params: { slug: string } };
 const Page = async ({ params }: Props) => {
   const { slug } = params;
   const gethackathonProjectsRes = await getHackathonProjects(slug);
+
   return (
     <WhiteArea border>
       <HackathonProjects gethackathonProjectsRes={gethackathonProjectsRes} />
