@@ -19,7 +19,7 @@ export const Badges = () => {
             </div>
             <div className=" flex flex-col sm:gap-4  items-center sm:items-start text-center">
               <h3 className="text-md font-medium">
-                Build for business hackathon
+                Build for business hackathon.
               </h3>
               <div className="flex flex-col sm:flex-row sm:gap-6 items-center ">
                 <p className="text-sm text-slate-400">
@@ -37,7 +37,7 @@ export const Badges = () => {
             </div>
             <div className=" flex flex-col sm:gap-4  items-center sm:items-start text-center">
               <h3 className="text-md font-medium">
-                Build for business hackathon
+                Build for business hackathon.
               </h3>
               <div className="flex flex-col sm:flex-row sm:gap-6 items-center ">
                 <p className="text-sm text-slate-400">
@@ -55,7 +55,7 @@ export const Badges = () => {
             </div>
             <div className=" flex flex-col sm:gap-4  items-center sm:items-start text-center">
               <h3 className="text-md font-medium">
-                Build for business hackathon
+                Build for business hackathon.
               </h3>
               <div className="flex flex-col sm:flex-row sm:gap-6 items-center ">
                 <p className="text-sm text-slate-400">
