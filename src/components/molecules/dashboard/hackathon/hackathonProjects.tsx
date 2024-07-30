@@ -48,6 +48,12 @@ export default function HackathonProjects({
 
   const showHackathonNotFound = !gethackathonProjectsRes?.submissions;
   const showEmptyState = !showHackathonProjects && !showHackathonNotFound;
+
+  const submissions = gethackathonProjectsRes?.submissions;
+  const hackathonDetails = submissions?.[0].hackathon;
+  const { name: hackathonName } = hackathonDetails || {};
+  const submissionCount = submissions.length;
+  const showSubmissionCount = submissionCount > 0;
   return (
     <>
       <section className="flex flex-col gap-5">
@@ -61,7 +67,9 @@ export default function HackathonProjects({
             <Link href={hackathonUrl || ''}>Overview</Link>
           </Button>
           <div className="text-xl text-slate-600">
-            <DashboardSubheading title={`Project submissions for ${slug}`} />
+            <DashboardSubheading
+              title={`Project submissions for ${hackathonName} ${showSubmissionCount ? `(${submissions.length})` : null}`}
+            />
           </div>
         </div>
 
