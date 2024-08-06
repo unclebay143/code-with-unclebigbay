@@ -14,12 +14,12 @@ export const Badges = () => {
       <div className="grid sm:grid-cols-2 gap-4 justify-start text-slate-700 sm:items-start mt-3">
         <Link href="">
           <div className=" flex flex-col sm:flex-row items-center sm:gap-4 border-slate-200 border p-2 rounded-md hover:bg-slate-100 cursor-pointer">
-            <div className="rounded-full w-20 h-20 relative overflow-hidden">
+            <div className="rounded-full flex items-center justify-center w-20 h-20 relative overflow-hidden">
               <BadgeIcon fill="#020617" />
             </div>
             <div className=" flex flex-col sm:gap-4  items-center sm:items-start text-center">
               <h3 className="text-md font-medium">
-                Build for business hackathon.
+                Build for business hackathon
               </h3>
               <div className="flex flex-col sm:flex-row sm:gap-6 items-center ">
                 <p className="text-sm text-slate-400">
@@ -32,12 +32,12 @@ export const Badges = () => {
         </Link>
         <Link href="">
           <div className=" flex flex-col sm:flex-row items-center sm:gap-4 border-slate-200 border p-2 rounded-md hover:bg-slate-100 cursor-pointer">
-            <div className="rounded-full text-green-600 w-20 h-20 relative overflow-hidden">
-              <BadgeIcon fill="#15b512" />
+            <div className="rounded-full flex items-center justify-center w-20 h-20 relative overflow-hidden">
+              <BadgeIcon />
             </div>
             <div className=" flex flex-col sm:gap-4  items-center sm:items-start text-center">
               <h3 className="text-md font-medium">
-                Build for business hackathon.
+                Build for business hackathon
               </h3>
               <div className="flex flex-col sm:flex-row sm:gap-6 items-center ">
                 <p className="text-sm text-slate-400">
@@ -50,12 +50,12 @@ export const Badges = () => {
         </Link>
         <Link href="">
           <div className=" flex flex-col sm:flex-row items-center sm:gap-4 border-slate-200 border p-2 rounded-md hover:bg-slate-100 cursor-pointer">
-            <div className="rounded-full w-20 h-20 relative overflow-hidden">
-              <BadgeIcon fill="#15b512" />
+            <div className="rounded-full flex items-center justify-center w-20 h-20 relative overflow-hidden">
+              <BadgeIcon />
             </div>
             <div className=" flex flex-col sm:gap-4  items-center sm:items-start text-center">
               <h3 className="text-md font-medium">
-                Build for business hackathon.
+                Build for business hackathon
               </h3>
               <div className="flex flex-col sm:flex-row sm:gap-6 items-center ">
                 <p className="text-sm text-slate-400">
