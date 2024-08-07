@@ -19,7 +19,7 @@ import {
 } from '@hashnode/matrix-ui';
 import { formatDate } from '@/utils/date';
 import { Countries, Student } from '@/utils/types';
-import { Badges } from '@/components/molecules/dashboard/badges';
+import { BadgesSection } from '@/components/molecules/dashboard/badges';
 
 type ProfileProps = {
   student: Student;
@@ -213,7 +213,7 @@ export const Profile = ({ student, canUpdateProfile }: ProfileProps) => {
           </div>
         </WhiteArea>
       )}
-      <Badges />
+      <BadgesSection />
 
       {/* Enable when feature is available */}
       {/* <WhiteArea border>
