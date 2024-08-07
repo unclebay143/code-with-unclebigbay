@@ -16,7 +16,7 @@ export const BadgeCard = (props: Props) => {
   const { href, fill, title, date, badgeTheme, badgeText } = props;
   return (
     <Link href={href}>
-      <div className="flex flex-col sm:flex-row items-center sm:gap-2 border-slate-200 border p-2 rounded-md hover:bg-slate-100 cursor-pointer">
+      <div className="flex flex-col sm:flex-row items-center sm:gap-2 p-2 rounded-md hover:bg-slate-100 cursor-pointer">
         <div className="p-2">
           <BadgeIcon fill={fill} />
         </div>
