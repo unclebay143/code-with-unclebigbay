@@ -11,25 +11,22 @@ export const BadgesSection = () => {
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 justify-start text-slate-700 sm:items-start mt-3">
         <BadgeCard
           href=""
-          fill="#020617"
           title="Build for business hackathon."
-          date="Achieved on Jan 30, 2024."
+          date=" Jan 30, 2024."
           badgeTheme="slateLight"
           badgeText="Participant"
         />
         <BadgeCard
           href=""
-          fill="#15b512"
           title="Build for business hackathon."
-          date="Achieved on Jan 30, 2024."
+          date=" Jan 30, 2024."
           badgeTheme="green"
           badgeText="Winner"
         />
         <BadgeCard
           href=""
-          fill="#15b512"
           title="Build for business hackathon."
-          date="Achieved on Jan 30, 2024."
+          date=" Jan 30, 2024."
           badgeTheme="green"
           badgeText="Winner"
         />
