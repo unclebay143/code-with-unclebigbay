@@ -19,6 +19,7 @@ import {
 } from '@hashnode/matrix-ui';
 import { formatDate } from '@/utils/date';
 import { Countries, Student } from '@/utils/types';
+import { BadgesSection } from '@/components/molecules/dashboard/badges';
 
 type ProfileProps = {
   student: Student;
@@ -212,85 +213,8 @@ export const Profile = ({ student, canUpdateProfile }: ProfileProps) => {
           </div>
         </WhiteArea>
       )}
-      <WhiteArea border twClass="hidden">
-        <h2 className="font-semibold text-slate-700">Badges</h2>
-        <div className="flex flex-col items-center gap-8 text-slate-700 sm:items-start mt-3">
-          <div className="flex flex-col sm:flex-row items-center gap-2">
-            <div className="rounded-full w-20 h-20 relative overflow-hidden">
-              <Image
-                src="https://cdn.hashnode.com/res/hashnode/image/upload/v1713077307741/da39704c-1c4d-43de-b38f-b3c114f7b327.png"
-                alt="badge"
-                fill
-              />
-            </div>
-            <div className="text-center sm:text-left">
-              <h3 className="text-md font-medium">Gold hackathon badge</h3>
-              <p className="text-slate-500">
-                Earn from participating in the January hackathon
-              </p>
-              <p className="text-xs text-slate-400">
-                Achieved on Jan 30, 2024.
-              </p>
-            </div>
-          </div>
-          <div className="flex flex-col sm:flex-row items-center gap-2">
-            <div className="rounded-full w-20 h-20 relative overflow-hidden">
-              <Image
-                src="https://cdn.hashnode.com/res/hashnode/image/upload/v1713080566478/33158274-ce0d-4981-94f1-0011828515d9.png"
-                alt="badge"
-                fill
-              />
-            </div>
-            <div className="text-center sm:text-left">
-              <h3 className="text-md font-medium">Silver hackathon badge</h3>
-              <p className="text-slate-500">
-                Earn from participating in the January hackathon
-              </p>
-              <p className="text-xs text-slate-400">
-                Achieved on Jan 30, 2024.
-              </p>
-            </div>
-          </div>
-          <div className="flex flex-col sm:flex-row items-center gap-2">
-            <div className="rounded-full w-20 h-20 relative overflow-hidden">
-              <Image
-                src="https://cdn.hashnode.com/res/hashnode/image/upload/v1713077307741/da39704c-1c4d-43de-b38f-b3c114f7b327.png"
-                alt="badge"
-                fill
-              />
-            </div>
-            <div className="text-center sm:text-left">
-              <h3 className="text-md font-medium">Bronze hackathon badge</h3>
-              <p className="text-slate-500">
-                Earn from participating in the January hackathon
-              </p>
-              <p className="text-xs text-slate-400">
-                Achieved on Jan 30, 2024.
-              </p>
-            </div>
-          </div>
-          <div className="flex flex-col sm:flex-row items-center gap-2">
-            <div className="rounded-full w-20 h-20 relative overflow-hidden">
-              <Image
-                src="https://cdn.hashnode.com/res/hashnode/image/upload/v1713077307741/da39704c-1c4d-43de-b38f-b3c114f7b327.png"
-                alt="badge"
-                fill
-              />
-            </div>
-            <div className="text-center sm:text-left">
-              <h3 className="text-md font-medium">
-                Hackathon Participation badge
-              </h3>
-              <p className="text-slate-500">
-                Earn from participating in the January hackathon
-              </p>
-              <p className="text-xs text-slate-400">
-                Achieved on Jan 30, 2024.
-              </p>
-            </div>
-          </div>
-        </div>
-      </WhiteArea>
+      <BadgesSection />
+
       {/* Enable when feature is available */}
       {/* <WhiteArea border>
               <h2 className="font-semibold text-slate-700 mb-3">Projects</h2>
