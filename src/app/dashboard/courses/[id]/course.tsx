@@ -364,10 +364,13 @@ const Course = ({ currentStudent }: { currentStudent?: Student }) => {
                             </Button>
                           </div>
                         </div>
-                        <section className="flex flex-col gap-5 border-t p-5">
-                          <h3 className="font-medium text-lg text-slate-700">
-                            Discussions
-                          </h3>
+                        <section className="flex flex-col gap-5 border-t pt-8">
+                          <div className="flex items-center gap-1.5">
+                            <h3 className="font-medium text-lg text-slate-700">
+                              Discussions
+                            </h3>
+                            <Badge theme="green">New</Badge>
+                          </div>
                           <CommentSystem
                             mapping="title"
                             repo={COURSE_REPO}
