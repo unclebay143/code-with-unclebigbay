@@ -27,6 +27,13 @@ import { Tooltip } from '@/components/atoms/Tooltip';
 import { EmptyStateContainer } from '@/components/molecules/dashboard/EmptyStateContainer';
 import { AuthModal } from '@/components/atoms/AuthModal';
 import { ShareButton } from '@/components/ui/share-button';
+import { CommentSystem } from '@/components/ui/comment-system';
+import {
+  CATEGORY,
+  CATEGORY_ID,
+  COURSE_REPO,
+  COURSE_REPO_ID,
+} from '@/utils/consts/courses';
 
 const Course = ({ currentStudent }: { currentStudent?: Student }) => {
   const [showMore, setShowMore] = useState(false);
@@ -357,6 +364,19 @@ const Course = ({ currentStudent }: { currentStudent?: Student }) => {
                             </Button>
                           </div>
                         </div>
+                        <section className="flex flex-col gap-5 border-t p-5">
+                          <h3 className="font-medium text-lg text-slate-700">
+                            Discussions
+                          </h3>
+                          <CommentSystem
+                            mapping="title"
+                            repo={COURSE_REPO}
+                            repoId={COURSE_REPO_ID}
+                            category={CATEGORY}
+                            categoryId={CATEGORY_ID}
+                            term={course.title}
+                          />
+                        </section>
                       </div>
                     </div>
                   </section>
