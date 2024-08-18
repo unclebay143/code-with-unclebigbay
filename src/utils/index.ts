@@ -86,7 +86,7 @@ const sanitizeHtml = (rawHtml: string) => {
 };
 
 type HtmlParserProps = { html: string };
-export const htmlParser = async ({ html }: HtmlParserProps) => {
+export const htmlParser = ({ html }: HtmlParserProps) => {
   const sanitizedHtml = sanitizeHtml(html);
   return parse(sanitizedHtml);
 };

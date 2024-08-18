@@ -7,6 +7,7 @@ import Giscus, {
   Mapping,
   Theme,
 } from '@giscus/react';
+import { isProd } from '@/utils/consts';
 
 export const CommentSystem = ({
   id,
@@ -42,7 +43,7 @@ export const CommentSystem = ({
       id={id}
       repo={repo}
       repoId={repoId}
-      category={category}
+      category={isProd ? category : 'trash'}
       categoryId={categoryId}
       mapping={mapping}
       term={term}
