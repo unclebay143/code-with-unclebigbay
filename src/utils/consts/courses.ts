@@ -1,3 +1,8 @@
+export const COURSE_REPO = 'unclebay143/code-with-unclebigbay';
+export const COURSE_REPO_ID = 'MDQ6VXNlcjU4OTE5NjE5';
+export const CATEGORY = 'Courses';
+export const CATEGORY_ID = 'DIC_kwDOLQhQ_s4Chv7d';
+
 export type Course = {
   latest?: boolean;
   title: string;
