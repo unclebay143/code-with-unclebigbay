@@ -1,10 +1,12 @@
 import { useState } from 'react';
+import { Toaster, toast } from 'sonner';
 
 export const SubscribeNotification = () => {
   const [showConfirm, setShowConfirm] = useState(false);
 
   const handleSubscribe = () => {
     setShowConfirm(true);
+    toast('Subscribing...');
     setTimeout(() => {
       window.open(
         'https://www.youtube.com/@unclebigbay?sub_confirmation=1',
@@ -15,17 +17,16 @@ export const SubscribeNotification = () => {
   };
 
   return (
-    <div className="fixed bottom-6 right-4 p-4 bg-slate-900  rounded-md ">
-      {!showConfirm ? (
+    <div className="fixed bottom-6 right-4 p-4 bg-slate-900 text-white rounded-md">
+      {!showConfirm && (
         <button
           onClick={handleSubscribe}
           className="text-white font-medium hover:underline"
         >
           Hi there! Subscribe to our YouTube channel
         </button>
-      ) : (
-        <p className="text-white font-medium">Subscribing...</p>
       )}
+      <Toaster />
     </div>
   );
 };
