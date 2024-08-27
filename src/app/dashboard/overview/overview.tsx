@@ -12,6 +12,7 @@ import { EmptyStateContainer } from '@/components/molecules/dashboard/EmptyState
 import Link from 'next/link';
 import { showCount } from '@/utils';
 import { Courses } from '@/components/molecules/dashboard/courses';
+import { SubscribeNotification } from '@/components/molecules/dashboard/subscribe-notification';
 
 type Props = {
   audits: any;
@@ -26,15 +27,15 @@ const Overview = ({
   quote,
   quoteWidgetVisibility,
 }: Props) => {
-  const showEmptyState = enrolledCourses.length === 0;
-  const showEnrolledCourses = enrolledCourses.length > 0;
+  const showEmptyState = enrolledCourses?.length === 0;
+  const showEnrolledCourses = enrolledCourses?.length > 0;
 
-  const iterableEnrolledCourses = enrolledCourses.map(
+  const iterableEnrolledCourses = enrolledCourses?.map(
     (enrolledCourse: any) => enrolledCourse.course,
   );
   const enrolledCoursesCount = enrolledCourses?.length;
 
-  const pendingCoursesCount = enrolledCourses.filter(
+  const pendingCoursesCount = enrolledCourses?.filter(
     (enrolledCourse: any) => !enrolledCourse.isCompleted,
   ).length;
   const completedCoursesCount = enrolledCoursesCount - pendingCoursesCount;
@@ -117,6 +118,7 @@ const Overview = ({
         </WhiteArea>
       )}
       <ActivityLogs audits={audits} show={5} />
+      <SubscribeNotification />
     </section>
   );
 };
