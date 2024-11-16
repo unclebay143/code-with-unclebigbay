@@ -26,15 +26,15 @@ const Overview = ({
   quote,
   quoteWidgetVisibility,
 }: Props) => {
-  const showEmptyState = enrolledCourses.length === 0;
-  const showEnrolledCourses = enrolledCourses.length > 0;
+  const showEmptyState = enrolledCourses?.length === 0;
+  const showEnrolledCourses = enrolledCourses?.length > 0;
 
-  const iterableEnrolledCourses = enrolledCourses.map(
+  const iterableEnrolledCourses = enrolledCourses?.map(
     (enrolledCourse: any) => enrolledCourse.course,
   );
   const enrolledCoursesCount = enrolledCourses?.length;
 
-  const pendingCoursesCount = enrolledCourses.filter(
+  const pendingCoursesCount = enrolledCourses?.filter(
     (enrolledCourse: any) => !enrolledCourse.isCompleted,
   ).length;
   const completedCoursesCount = enrolledCoursesCount - pendingCoursesCount;

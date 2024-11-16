@@ -1,4 +1,7 @@
-import { getCourses, getCurrentStudent } from '@/utils/server.service';
+import {
+  getCourses,
+  getCurrentStudent,
+} from '@/utils/services/server/student.server';
 import CoursesPage from './courses';
 import { Metadata } from 'next';
 

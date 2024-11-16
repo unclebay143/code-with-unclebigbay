@@ -2,7 +2,7 @@ import { DashboardSubheading } from '@/components/molecules/dashboard/dashboard-
 import { WhiteArea } from '@/components/molecules/dashboard/white-area';
 import { Hackathon } from '@/utils/types';
 import { HackathonTabView } from './HackathonTabView';
-import { getAllHackathons } from '@/utils/server.service';
+import { getAllHackathons } from '@/utils/services/server/student.server';
 
 import { Metadata } from 'next';
 

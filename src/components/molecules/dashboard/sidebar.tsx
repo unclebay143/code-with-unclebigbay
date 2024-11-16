@@ -5,6 +5,7 @@ import { SlideOver } from '../../atoms/SlideOver';
 import { CodeWithUnclebigbayLogo } from '../../atoms/CodeWithUnclebigbayLogo';
 import { SidebarLinks, getSidebarLinks } from '@/utils/consts/links';
 import { Badge } from '@hashnode/matrix-ui';
+import { SubscribeCTA } from './subscribe-notification';
 
 const SidebarLink = ({
   label,
@@ -89,6 +90,7 @@ export const Sidebar = ({
 
   const pathname = usePathname();
   const currentPageName = pathname.split('/')[2] || pathname.split('/')[1];
+  const showYTCampaign = isOnboardingCompleted;
 
   useEffect(() => {
     if (currentPageName) setSidebarOpen(false);
@@ -104,6 +106,7 @@ export const Sidebar = ({
               sidebarLinks={sidebarLinks}
               currentPageName={currentPageName}
             />
+            {showYTCampaign && <SubscribeCTA />}
           </div>
         </nav>
       </aside>

@@ -2,7 +2,10 @@ import UserPersonalInfoForm from '@/components/molecules/dashboard/settings/pers
 import UserProfessionalsForm from '@/components/molecules/dashboard/settings/professional-form';
 import UserSocialsForm from '@/components/molecules/dashboard/settings/socials-form';
 import AnonymityForm from '@/components/molecules/dashboard/settings/anonimity-form';
-import { getCountries, getCurrentStudent } from '@/utils/server.service';
+import {
+  getCountries,
+  getCurrentStudent,
+} from '@/utils/services/server/student.server';
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {
