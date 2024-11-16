@@ -91,10 +91,10 @@ const Overview = ({
         <EmptyStateContainer className="max-h-[400px]">
           <EmptyState
             icon={BookDocument}
-            title="No enrolled courses"
-            copy="Your recent learning materials will appear here."
+            title=" "
+            copy="Your enrolled courses will appear here."
             ctaElement={
-              <Button appearance="primary-slate" size="sm" asChild>
+              <Button appearance="secondary-slate" size="sm" asChild>
                 <Link href="/dashboard/courses">Explore courses</Link>
               </Button>
             }
