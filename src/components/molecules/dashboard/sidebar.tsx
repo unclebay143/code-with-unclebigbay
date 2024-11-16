@@ -90,6 +90,7 @@ export const Sidebar = ({
 
   const pathname = usePathname();
   const currentPageName = pathname.split('/')[2] || pathname.split('/')[1];
+  const showYTCampaign = isOnboardingCompleted;
 
   useEffect(() => {
     if (currentPageName) setSidebarOpen(false);
@@ -105,7 +106,7 @@ export const Sidebar = ({
               sidebarLinks={sidebarLinks}
               currentPageName={currentPageName}
             />
-            {isOnboardingCompleted && <SubscribeCTA />}
+            {showYTCampaign && <SubscribeCTA />}
           </div>
         </nav>
       </aside>
