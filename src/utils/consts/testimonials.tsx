@@ -102,3 +102,34 @@ export const testimonials = [
   //   src: 'YouTube',
   // },
 ];
+
+export const animatedTestimonialsData = [
+  {
+    name: 'Damilola Oyedunmade',
+    src: 'https://cdn.hashnode.com/res/hashnode/image/upload/v1718174839431/6344b2ba-7e44-4409-a396-38cac51c29a4.jpeg?auto=compress',
+    designation: 'Student',
+    quote:
+      'This is a great Christmas present Unclebigbay. Excited about the journey ahead.',
+  },
+  {
+    name: 'Victor Josiah',
+    src: 'https://cdn.hashnode.com/res/hashnode/image/upload/v1718175294200/4b661b33-abe8-427d-994f-2bd790e0933e.jpeg?auto=compress',
+    designation: 'Student',
+    quote:
+      'My boss, it has been an amazing journey with you and your community, I will be recommending this channel to all my friends that have interest in coding, because this is where I started.',
+  },
+  {
+    name: 'Mba Nnenna',
+    src: 'https://cdn.hashnode.com/res/hashnode/image/upload/v1718175545285/7f458568-a356-4959-847b-49214c19ad36.jpeg?auto=compress',
+    designation: 'Student',
+    quote:
+      'Nice content! You have me onboard! I have subscribed and turn on my notifications cos I can’t miss out on this awesome opportunity. Keep up unclebigbay',
+  },
+  {
+    name: 'YouTube User',
+    src: '',
+    designation: 'Student',
+    quote:
+      "Amazing work Unclebigbay. I came here from x and I've learnt so much already. I've subscribed and turned on notification. Keep up the good work.",
+  },
+];
