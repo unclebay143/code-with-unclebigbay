@@ -9,9 +9,12 @@ import { Analytics } from '@vercel/analytics/react';
 const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
-  title: 'Learn to Code & Build a Career | Code with Unclebigbay',
+  title: 'Learn to Code & Build a Tech Career',
   description:
-    "Master in-demand coding skills & launch your tech career with Unclebigbay's online courses. Beginner-friendly, project-based learning. Enroll today!",
+    'Kickstart your tech journey with expert-led coding tutorials, real-world projects, and career-focused resources. Learn web development, JavaScript, and more with Unclebigbay to build skills that employers love. Perfect for aspiring developers seeking practical skills and career growth!',
+  // 'Learn coding the right way with structured tutorials, hands-on projects, hackathons, and beginner-friendly courses. Master web development, JavaScript, and more with Unclebigbay. Perfect for aspiring developers seeking practical skills and career growth!',
+  // "Master in-demand coding skills & launch your tech career with Unclebigbay's online courses. Beginner-friendly, project-based learning. Enroll today!",
+
   authors: [{ name: 'Unclebigbay', url: 'https://x.com/@Unclebigbay143' }],
   openGraph: {
     images: [
@@ -22,6 +25,8 @@ export const metadata: Metadata = {
   keywords: [
     'code',
     'unclebigbay',
+    'code with',
+    'codewith',
     'codewithunclebigbay',
     'web development',
     'javascript',

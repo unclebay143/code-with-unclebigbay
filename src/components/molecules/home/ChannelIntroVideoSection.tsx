@@ -11,7 +11,7 @@ export const ChannelIntroVideoSection = () => {
           <div className="flex flex-col gap-2 items-center justify-center">
             <h3 className="text-slate-400 text-lg">Hi</h3>
             <span className="text-slate-300 text-xl">
-              I&apos;m Uncle-Big-Bay
+              I&apos;m Uncle&apos;Big&apos;Bay
             </span>
           </div>
           <section className="rounded-lg overflow-hidden ring-1 ring-slate-800">
