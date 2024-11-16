@@ -9,7 +9,7 @@ import { Analytics } from '@vercel/analytics/react';
 const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
-  title: 'Learn to Code & Build a Tech Career',
+  title: 'Learn to Code & Build Skills Employers Love',
   description:
     'Kickstart your tech journey with expert-led coding tutorials, real-world projects, and career-focused resources. Learn web development, JavaScript, and more with Unclebigbay to build skills that employers love. Perfect for aspiring developers seeking practical skills and career growth!',
   // 'Learn coding the right way with structured tutorials, hands-on projects, hackathons, and beginner-friendly courses. Master web development, JavaScript, and more with Unclebigbay. Perfect for aspiring developers seeking practical skills and career growth!',
