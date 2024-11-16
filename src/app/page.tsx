@@ -10,7 +10,10 @@ import { SectionWrapper } from '@/components/molecules/home';
 import { Meteors } from '@/components/atoms/meteors';
 import { CommunityCTA } from '@/components/atoms/CommunityCTA';
 import { HackathonWidget } from '@/components/molecules/home/HackathonWidget';
-import { getCurrentHackathon, getStudents } from '@/utils/server.service';
+import {
+  getCurrentHackathon,
+  getStudents,
+} from '@/utils/services/server/student.server';
 import { Features } from '@/components/molecules/home/Features';
 
 export const metadata: Metadata = {

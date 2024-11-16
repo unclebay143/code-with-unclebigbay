@@ -6,7 +6,7 @@ import { SectionWrapper } from '@/components/molecules/home';
 import { Footer } from '@/components/atoms/Footer';
 import { Metadata } from 'next';
 
-import { getCurrentStudentByUsername } from '@/utils/server.service';
+import { getCurrentStudentByUsername } from '@/utils/services/server/student.server';
 import { Profile } from './profile';
 import { convertToTitleCase } from '@/utils';
 

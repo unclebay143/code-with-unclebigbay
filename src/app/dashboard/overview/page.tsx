@@ -3,7 +3,7 @@ import {
   getEnrolledCourses,
   getQuote,
   widgetVisibility,
-} from '@/utils/server.service';
+} from '@/utils/services/server/student.server';
 import Overview from './overview';
 import { Metadata } from 'next';
 

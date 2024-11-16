@@ -5,6 +5,7 @@ import { SlideOver } from '../../atoms/SlideOver';
 import { CodeWithUnclebigbayLogo } from '../../atoms/CodeWithUnclebigbayLogo';
 import { SidebarLinks, getSidebarLinks } from '@/utils/consts/links';
 import { Badge } from '@hashnode/matrix-ui';
+import { SubscribeCTA } from './subscribe-notification';
 
 const SidebarLink = ({
   label,
@@ -104,6 +105,7 @@ export const Sidebar = ({
               sidebarLinks={sidebarLinks}
               currentPageName={currentPageName}
             />
+            {isOnboardingCompleted && <SubscribeCTA />}
           </div>
         </nav>
       </aside>

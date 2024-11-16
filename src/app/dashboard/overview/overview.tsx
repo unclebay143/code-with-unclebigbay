@@ -12,7 +12,6 @@ import { EmptyStateContainer } from '@/components/molecules/dashboard/EmptyState
 import Link from 'next/link';
 import { showCount } from '@/utils';
 import { Courses } from '@/components/molecules/dashboard/courses';
-import { SubscribeNotification } from '@/components/molecules/dashboard/subscribe-notification';
 
 type Props = {
   audits: any;
@@ -118,7 +117,6 @@ const Overview = ({
         </WhiteArea>
       )}
       <ActivityLogs audits={audits} show={5} />
-      <SubscribeNotification />
     </section>
   );
 };

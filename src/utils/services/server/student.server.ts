@@ -1,13 +1,13 @@
 import { Audits, Courses, LeaderBoard, Quote } from '@/utils/types';
 import { cookies } from 'next/headers';
-import { baseURL } from '../../frontend.config';
-import { getServerSessionWithAuthOptions } from './auth-options';
-import { Countries, Country, Hackathon, Student, Students } from './types';
+import { baseURL } from '../../../../frontend.config';
+import { getServerSessionWithAuthOptions } from '../../auth-options';
+import { Countries, Country, Hackathon, Student, Students } from '../../types';
 import { Session } from 'next-auth';
 import { getCookie as customCookie } from 'cookies-next';
 import { Student as StudentModel } from '@/models/student';
 import { AuditTrail } from '@/models/audit-trail';
-import connectViaMongoose from './mongoose';
+import connectViaMongoose from '../../mongoose';
 import { HackathonRegistration as HackathonRegistrationModel } from '@/models/hackathonRegistration';
 import { HackathonSubmission as HackathonSubmissionModel } from '@/models/hackathonSubmission';
 import { Enroll as EnrollModel } from '@/models/enroll';

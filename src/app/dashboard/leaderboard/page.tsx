@@ -5,7 +5,10 @@ import Link from 'next/link';
 import React from 'react';
 import { LeaderBoardData } from '@/utils/types';
 import { MoreHorizontal, Trophy } from 'lucide-react';
-import { getCurrentStudent, getLeaderBoard } from '@/utils/server.service';
+import {
+  getCurrentStudent,
+  getLeaderBoard,
+} from '@/utils/services/server/student.server';
 // import { DotsHorizontal } from '@hashnode/matrix-ui';
 
 import { Metadata } from 'next';

@@ -2,7 +2,7 @@
 
 import { Hackathon } from '@/utils/types';
 import { HackathonStory } from './HackathonStory';
-import { getHackathonBySlug } from '@/utils/server.service';
+import { getHackathonBySlug } from '@/utils/services/server/student.server';
 import { notFound } from 'next/navigation';
 import { Metadata } from 'next';
 

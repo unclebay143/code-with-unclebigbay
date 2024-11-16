@@ -57,14 +57,14 @@ export const CourseCard = ({ layout = 'grid', course }: CourseCardProps) => {
       {layout === 'grid' && (
         <Link
           href={courseLink}
-          className="flex flex-col border rounded-xl overflow-hidden transition-colors duration-200 ease-in-out hover:border-slate-300"
+          className="flex flex-col border rounded-xl overflow-hidden transition-colors duration-200 ease-in-out hover:border-slate-300/80 group"
           prefetch={true}
         >
           <div className="h-[180px] relative">
             {/* <div className="absolute z-10 bottom-2 left-5">
               {isEnrolled && <Badge size="xs">Enrolled</Badge>}
             </div> */}
-            <div className="h-full w-full inline-block relative">
+            <div className="h-full w-full inline-block relative group-hover:opacity-85">
               <Image
                 src={coverImageUrl}
                 alt=""

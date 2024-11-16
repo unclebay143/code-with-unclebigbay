@@ -5,9 +5,14 @@
 // { label: 'Courses', url: '/dashboard/courses' },
 // ];
 
-export const navLinks = [
+export const navLinks: {
+  label: string;
+  url: string;
+  target?: '_blank';
+  showNewBadge?: boolean;
+}[] = [
   { label: 'Courses', url: '/dashboard/courses' },
-  { label: 'Hackathons', url: '/dashboard/hackathons', showNewBadge: true },
+  { label: 'Hackathons', url: '/dashboard/hackathons' },
   {
     label: 'YT Channel',
     url: 'https://www.youtube.com/@unclebigbay',
