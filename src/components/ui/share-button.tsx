@@ -8,7 +8,7 @@ import {
   BrandXTwitter,
   Linkedin,
   Copy,
-  PhoneMobile,
+  BrandWhatsapp,
   Share,
 } from '@hashnode/matrix-ui';
 import { useCallback } from 'react';
@@ -44,14 +44,6 @@ export const ShareButton = ({
       </div>
       <DropdownMenuContent hideWhenDetached sideOffset={8} align="start">
         <DropdownMenuItemLink
-          startIcon={PhoneMobile}
-          text="WhatsApp"
-          href={`https://wa.me/?text=${encodeURIComponent(copy)}`}
-          target="_blank"
-          rel="noopener"
-        />
-
-        <DropdownMenuItemLink
           startIcon={BrandXTwitter}
           text="Twitter(X)"
           href={`https://x.com/intent/tweet?text=${encodeURIComponent(copy)}`}
@@ -67,6 +59,14 @@ export const ShareButton = ({
             rel="noopener"
           />
         )}
+
+        <DropdownMenuItemLink
+          startIcon={BrandWhatsapp}
+          text="WhatsApp"
+          href={`https://wa.me/?text=${encodeURIComponent(copy)}`}
+          target="_blank"
+          rel="noopener"
+        />
 
         <DropdownMenuItemButton
           startIcon={Copy}
