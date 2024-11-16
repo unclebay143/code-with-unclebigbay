@@ -6,8 +6,15 @@ import { WhiteArea } from '@/components/molecules/dashboard/white-area';
 import { ONBOARDING_YT_VIDEO_ID } from '@/utils';
 import { ArrowExternalLink02 } from '@hashnode/matrix-ui';
 import { Youtube } from 'lucide-react';
+import { Metadata } from 'next';
 import Link from 'next/link';
 import React from 'react';
+
+export const metadata: Metadata = {
+  alternates: {
+    canonical: `/help-centers`,
+  },
+};
 
 const Page = () => {
   return (
