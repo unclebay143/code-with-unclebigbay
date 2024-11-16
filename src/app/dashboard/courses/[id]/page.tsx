@@ -1,7 +1,7 @@
 import { Metadata } from 'next';
 import Course from './course';
 import { baseURL } from '../../../../../frontend.config';
-import { getCurrentStudent } from '@/utils/server.service';
+import { getCurrentStudent } from '@/utils/services/server/student.server';
 
 type Props = { params: { id: string } };
 

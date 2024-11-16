@@ -92,7 +92,6 @@ const hackathons: SidebarLink = {
   label: 'Hackathons',
   slug: 'hackathons',
   Icon: Box,
-  isNew: true,
 };
 
 const tags: SidebarLink = {

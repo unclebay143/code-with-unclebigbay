@@ -1,5 +1,5 @@
 import { ActivityLogs } from '@/components/molecules/dashboard/activity-logs';
-import { getAllActivityAudits } from '@/utils/server.service';
+import { getAllActivityAudits } from '@/utils/services/server/student.server';
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {

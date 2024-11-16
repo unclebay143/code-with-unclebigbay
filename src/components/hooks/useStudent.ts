@@ -1,4 +1,4 @@
-import { fetchStudentByUsername } from '@/utils/services/student';
+import { fetchStudentByUsername } from '@/utils/services/client/student.client';
 import { Student } from '@/utils/types';
 import { useQuery } from '@tanstack/react-query';
 
