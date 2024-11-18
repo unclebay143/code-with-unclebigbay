@@ -64,7 +64,7 @@ export const TestimonialSection = () => {
       <hr className="pb-1 invisible" />
 
       {/* <Testimonials /> */}
-      <AnimatedTestimonials testimonials={animatedTestimonialsData} />
+      <AnimatedTestimonials autoplay testimonials={animatedTestimonialsData} />
     </section>
   );
 };
