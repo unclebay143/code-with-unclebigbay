@@ -1,6 +1,7 @@
 import React from 'react';
 import { PublicLayout } from '../index-layout';
 import { getServerSessionWithAuthOptions } from '@/utils/auth-options';
+
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {
