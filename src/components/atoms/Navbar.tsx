@@ -60,7 +60,7 @@ export const Navbar = ({ session }: { session?: Session | null }) => {
                   <section className="flex gap-1.5 items-center">
                     <div className="hidden min-[374px]:block">
                       <Button
-                        size="sm"
+                        size="xs"
                         onClick={() => {
                           setOpenAuthModal(true);
                           setAuthenticationType('login');
