@@ -52,9 +52,8 @@ export const CommunityMembersSection = ({
               key={`communityMembers-${_id}`}
               className="flex flex-col border rounded overflow-hidden"
             >
-              <a
+              <Link
                 href={`/@${username}`}
-                target="_blank"
                 rel="noopener"
                 className="mx-auto overflow-hidden lg:h-[200px] w-full transition transform duration-500 ease-in-out hover:scale-105 "
               >
@@ -65,26 +64,25 @@ export const CommunityMembersSection = ({
                   className="w-full"
                   alt={`${username}'s profile image`}
                 />
-              </a>
+              </Link>
               <div className="px-4 pb-4 pt-3">
                 <div className="flex items-center justify-between gap-2">
-                  <a
+                  <Link
                     href={`/@${username}`}
-                    target="_blank"
                     rel="noopener"
                     className="font-medium text-slate-950 hover:underline"
                   >
                     {fullName}
-                  </a>
+                  </Link>
                   {showSocial && (
-                    <a href={showSocial.url} target="_blank" rel="noopener">
+                    <Link href={showSocial.url} target="_blank" rel="noopener">
                       <IconButton
                         Icon={showSocial.logo}
                         appearance="secondary"
                         size="sm"
                         iconSolid
                       />
-                    </a>
+                    </Link>
                   )}
                 </div>
                 <p className="text-slate-600 text-sm capitalize">

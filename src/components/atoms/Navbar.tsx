@@ -53,7 +53,7 @@ export const Navbar = ({ session }: { session?: Session | null }) => {
                 {session ? (
                   <div className="hidden sm:flex justify-end">
                     <Button size="xs" appearance="primary-slate" asChild>
-                      <a href="/dashboard/overview">Dashboard</a>
+                      <Link href="/dashboard/overview">Dashboard</Link>
                     </Button>
                   </div>
                 ) : (
