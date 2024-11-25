@@ -107,7 +107,7 @@ export const ActivityLogs = ({
           {!hideShowMore && (
             <div className="relative pl-8 sm:pl-32 py-6 flex items-start">
               <Button size="sm" appearance="secondary-slate" asChild>
-                <Link href="/dashboard/activity">Show more</Link>
+                <Link href="/activity">Show more</Link>
               </Button>
             </div>
           )}

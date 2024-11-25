@@ -95,12 +95,12 @@ export const Navbar = ({ session, setSidebarOpen, currentStudent }: Props) => {
                       <DropdownMenuItemLink
                         text="Settings"
                         startIcon={SettingsGear}
-                        href="/dashboard/settings"
+                        href="/settings"
                       />
                       <DropdownMenuItemLink
                         text="Help Centers"
                         startIcon={HelpCircle}
-                        href="/dashboard/help-centers"
+                        href="/help-centers"
                       />
                       <DropdownMenuItemButton
                         text="Sign out"

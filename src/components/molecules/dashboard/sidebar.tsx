@@ -17,9 +17,7 @@ const SidebarLink = ({
   showNewBadge,
 }: any) => {
   const Component = disabled ? 'button' : Link;
-  const componentProps = disabled
-    ? {}
-    : { onClick: onClick, href: `/dashboard/${slug}` };
+  const componentProps = disabled ? {} : { onClick: onClick, href: `/${slug}` };
 
   return (
     <>

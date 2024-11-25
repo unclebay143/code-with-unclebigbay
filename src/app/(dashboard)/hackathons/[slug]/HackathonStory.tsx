@@ -135,7 +135,7 @@ export const HackathonStory = ({
             startIcon={ArrowLeft}
             asChild
           >
-            <Link href="/dashboard/hackathons">Explore more hackathons</Link>
+            <Link href="/hackathons">Explore more hackathons</Link>
           </Button>
         </div>
         <section className="flex flex-col gap-3">
@@ -471,15 +471,23 @@ export const HackathonStory = ({
                     </a>
                   </Button>
                 ) : (
-                  <div className="whitespace-nowrap">
-                    <Button
-                      appearance="primary-slate"
-                      onClick={handleJoinHackathon}
-                      disabled={registered}
-                    >
-                      {registered ? 'Joined' : 'Join hackathon'}
-                    </Button>
-                  </div>
+                  <>
+                    <div className="whitespace-nowrap">
+                      {isClosed ? (
+                        <Button appearance="primary-slate" disabled>
+                          Closed
+                        </Button>
+                      ) : (
+                        <Button
+                          appearance="primary-slate"
+                          onClick={handleJoinHackathon}
+                          disabled={registered}
+                        >
+                          {registered ? 'Joined' : 'Join hackathon'}
+                        </Button>
+                      )}
+                    </div>
+                  </>
                 )}
               </div>
             </div>

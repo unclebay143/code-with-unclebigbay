@@ -15,7 +15,7 @@ type Props = { hackathon: Hackathon };
 export const HackathonWidget = ({ hackathon }: Props) => {
   const { title, startDate, endDate, slug } = hackathon || {};
 
-  const hackathonUrl = `/dashboard/hackathons/${slug}`;
+  const hackathonUrl = `/hackathons/${slug}`;
 
   if (hasHackathonEnded(endDate)) return null;
 

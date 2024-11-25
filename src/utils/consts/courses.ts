@@ -19,8 +19,7 @@ export const courses: Courses = [
     tag: 'html',
     title: 'HTML',
     copy: 'Learn the fundamentals of HTML, the building block of the web, and create your first web pages.',
-    // url: '/courses/html',
-    url: '/dashboard/courses',
+    url: '/courses',
     color: '#0ea5e9',
   },
   {
@@ -28,8 +27,7 @@ export const courses: Courses = [
     latest: true,
     title: 'CSS',
     copy: 'Dive into CSS and learn how to style your web pages to make them visually appealing.',
-    // url: '/courses/css',
-    url: '/dashboard/courses',
+    url: '/courses',
     color: '#22c55e',
   },
   {

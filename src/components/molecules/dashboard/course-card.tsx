@@ -29,7 +29,7 @@ export const CourseCard = ({ layout = 'grid', course }: CourseCardProps) => {
     video: PlayCircle,
   };
   const Icon = mapTypeToIcon[type!];
-  const courseLink = `/dashboard/courses/${slug}`;
+  const courseLink = `/courses/${slug}`;
 
   const today = dayjs();
   const createdAtSevenDaysLater = dayjs(createdAt).add(7, 'day');

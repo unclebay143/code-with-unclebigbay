@@ -1,5 +1,5 @@
 import { Inter } from 'next/font/google';
-import { LayoutIndex } from './layoutIndex';
+import { Provider } from './provider';
 import './globals.css';
 import './radix.css';
 import { Metadata } from 'next';
@@ -55,7 +55,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <LayoutIndex>{children}</LayoutIndex>
+        <Provider>{children}</Provider>
         <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS_ID!} />
         <Analytics />
       </body>

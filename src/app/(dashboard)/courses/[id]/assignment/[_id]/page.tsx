@@ -72,7 +72,7 @@ const Page = () => {
       // @ts-ignore
       addNewResponse.mutate(payload, {
         onSuccess() {
-          window.location.href = `/dashboard/courses/${courseSlug}/assignment/${assignmentId}/submitted`;
+          window.location.href = `/courses/${courseSlug}/assignment/${assignmentId}/submitted`;
         },
       });
       // window.onbeforeunload = null;
@@ -94,12 +94,12 @@ const Page = () => {
   );
 
   if (!isFetching && alreadyResponded) {
-    window.location.href = `/dashboard/courses/${courseSlug}/assignment/${assignmentId}/result`;
+    window.location.href = `/courses/${courseSlug}/assignment/${assignmentId}/result`;
     return loader;
   }
 
   if (!isFetching && isInvalidAssignment) {
-    window.location.href = `/dashboard/courses`;
+    window.location.href = `/courses`;
     return loader;
   }
 
@@ -118,7 +118,7 @@ const Page = () => {
                   asChild
                 >
                   <Link
-                    href={`/dashboard/courses/${courseSlug}`}
+                    href={`/courses/${courseSlug}`}
                     className="whitespace-nowrap"
                   >
                     Back to course

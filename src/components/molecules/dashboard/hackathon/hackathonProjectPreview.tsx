@@ -102,7 +102,7 @@ const HackathonProjectPreview = ({
             }
             ctaElement={
               <Button size="xs" appearance="primary-slate">
-                <Link href="/dashboard/hackathons">Explore hackathons</Link>
+                <Link href="/hackathons">Explore hackathons</Link>
               </Button>
             }
           />

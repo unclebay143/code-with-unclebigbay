@@ -72,7 +72,7 @@ const POST = async (req: Request) => {
       student: studentId,
       title: 'Course',
       description: `Started "${course.title}"`,
-      url: `/dashboard/courses/${courseId}`,
+      url: `/courses/${courseId}`,
     });
 
     return NextResponse.json({ message: 'Student enrolled.' }, { status: 200 });

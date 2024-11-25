@@ -95,7 +95,7 @@ const Overview = ({
             copy="Your enrolled courses will appear here."
             ctaElement={
               <Button appearance="secondary-slate" size="sm" asChild>
-                <Link href="/dashboard/courses">Explore courses</Link>
+                <Link href="/courses">Explore courses</Link>
               </Button>
             }
           />

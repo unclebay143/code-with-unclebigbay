@@ -58,7 +58,7 @@ export const QuoteOfTheDay = ({
                 <MoreVertical size={16} />
               </button>
             </DropdownMenuTrigger>
-            <DropdownMenuContent>
+            <DropdownMenuContent className="">
               <MenuButton
                 label="Hide until tomorrow"
                 Icon={EyeOff}
