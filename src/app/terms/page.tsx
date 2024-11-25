@@ -4,7 +4,7 @@ import { getServerSessionWithAuthOptions } from '@/utils/auth-options';
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'Terms of use | Code With Unclebigbay',
+  title: 'Terms of use | Code With Unclebigbay'
 };
 
 const TermsOfUse = async () => {
