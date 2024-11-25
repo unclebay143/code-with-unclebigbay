@@ -1,5 +1,5 @@
 import { Inter } from 'next/font/google';
-import { LayoutIndex } from './layoutIndex';
+import { Provider } from './provider';
 import './globals.css';
 import './radix.css';
 import { Metadata } from 'next';
@@ -9,12 +9,12 @@ import { Analytics } from '@vercel/analytics/react';
 const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
-  title: 'Learn to Code & Build Skills Employers Love',
+  title: 'Coding Tutorials and Career-Focused Resources for Developers',
   description:
-    'Kickstart your tech journey with expert-led coding tutorials, real-world projects, and career-focused resources. Learn web development, JavaScript, and more with Unclebigbay to build skills that employers love. Perfect for aspiring developers seeking practical skills and career growth!',
+    'Kickstart your tech journey with expert-led tutorials and projects. Learn web development, JavaScript, and more to build skills employers love.',
+  // 'Kickstart your tech journey with expert-led coding tutorials, real-world projects, and career-focused resources. Learn web development, JavaScript, and more with Unclebigbay to build skills that employers love. Perfect for aspiring developers seeking practical skills and career growth!',
   // 'Learn coding the right way with structured tutorials, hands-on projects, hackathons, and beginner-friendly courses. Master web development, JavaScript, and more with Unclebigbay. Perfect for aspiring developers seeking practical skills and career growth!',
   // "Master in-demand coding skills & launch your tech career with Unclebigbay's online courses. Beginner-friendly, project-based learning. Enroll today!",
-
   authors: [{ name: 'Unclebigbay', url: 'https://x.com/@Unclebigbay143' }],
   openGraph: {
     images: [
@@ -55,7 +55,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <LayoutIndex>{children}</LayoutIndex>
+        <Provider>{children}</Provider>
         <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS_ID!} />
         <Analytics />
       </body>

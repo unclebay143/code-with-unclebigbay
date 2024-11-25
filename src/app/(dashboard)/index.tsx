@@ -1,9 +1,8 @@
 'use client';
 
-import { AuthModal } from '@/components/atoms/AuthModal';
 import { Navbar } from '@/components/molecules/dashboard/navbar';
 import { Sidebar } from '@/components/molecules/dashboard/sidebar';
-import { onboardingLinks, publicLinks } from '@/utils/consts/links';
+import { onboardingLinks } from '@/utils/consts/links';
 import { Student } from '@/utils/types';
 import { redirect, usePathname } from 'next/navigation';
 import { useState } from 'react';
@@ -25,31 +24,12 @@ export const DashboardIndex = ({
   const onboardingRoutes = onboardingLinks.map((link) => link.slug);
   const pathIsOnboarding = onboardingRoutes.includes(currentPageName);
 
-  const unAuthenticatedRoutes = publicLinks.map((link) => link.key);
-
   const requireAdminAccess = !isAdmin && adminRoute;
-  const canAccessWithoutAuth = unAuthenticatedRoutes.includes(currentPageName);
-  const requireAuth = !session && !canAccessWithoutAuth;
-
-  // if (requireAuth) {
-  //   if (typeof window !== 'undefined') {
-  //     return (
-  //       <AuthModal
-  //         isOpen
-  //         close={() => null}
-  //         nextUrl={window.location.href}
-  //         type="login"
-  //       />
-  //     );
-  //   }
-
-  //   return null;
-  // }
 
   const redirectToOnboard =
     session && !currentStudent?.stack && !pathIsOnboarding;
   if (redirectToOnboard) {
-    return redirect('/dashboard/onboard');
+    return redirect('/onboard');
   }
 
   // prevent already onboard and unauthenticated users
@@ -58,11 +38,15 @@ export const DashboardIndex = ({
 
   if (blockOnboardPage) {
     if (!session) return redirect('/');
-    return redirect('/dashboard');
+    return redirect('/overview');
   }
 
   if (requireAdminAccess) {
-    return redirect('/dashboard');
+    return redirect('/overview');
+  }
+
+  if (!session && currentPageName === 'overview') {
+    return redirect('/courses');
   }
 
   return (

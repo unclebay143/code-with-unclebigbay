@@ -54,7 +54,7 @@ export const ShareButton = ({
           <DropdownMenuItemLink
             startIcon={Linkedin}
             text="LinkedIn"
-            href={`https://www.linkedin.com/sharing/share-offsite/?url=https://www.codewithunclebigbay.com/dashboard/courses/${slug}`}
+            href={`https://www.linkedin.com/sharing/share-offsite/?url=https://www.codewithunclebigbay.com/courses/${slug}`}
             target="_blank"
             rel="noopener"
           />

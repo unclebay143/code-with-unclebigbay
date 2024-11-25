@@ -59,7 +59,7 @@ const Page = () => {
 
   useEffect(() => {
     if (update.isSuccess) {
-      window.location.href = '/dashboard/overview';
+      window.location.href = '/overview';
     }
   }, [update.isSuccess]);
 

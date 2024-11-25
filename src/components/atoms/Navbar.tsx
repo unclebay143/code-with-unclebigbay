@@ -26,75 +26,73 @@ export const Navbar = ({ session }: { session?: Session | null }) => {
   return (
     <>
       <nav className="sticky top-0 bg-white z-50 py-5">
-        <SectionWrapper>
-          <section className="flex w-full items-center justify-between">
-            <CodeWithUnclebigbayLogo />
-            <section className="hidden lg:flex items-center gap-3 text-slate-700">
-              {navLinks.map(({ label, url, target, showNewBadge }, index) => (
-                <HeaderNavigationButton
-                  size="lg"
-                  key={`big-screen-nav-links-${index}`}
-                  asChild
-                >
-                  <Link href={url} target={target}>
-                    <span>{label}</span>
-                    {showNewBadge && (
-                      <Badge size="xs" theme="green">
-                        New
-                      </Badge>
-                    )}
-                  </Link>
-                </HeaderNavigationButton>
-              ))}
-            </section>
+        <section className="flex w-full items-center justify-between">
+          <CodeWithUnclebigbayLogo />
+          <section className="hidden lg:flex items-center gap-3 text-slate-700">
+            {navLinks.map(({ label, url, target, showNewBadge }, index) => (
+              <HeaderNavigationButton
+                size="lg"
+                key={`big-screen-nav-links-${index}`}
+                asChild
+              >
+                <Link href={url} target={target}>
+                  <span>{label}</span>
+                  {showNewBadge && (
+                    <Badge size="xs" theme="green">
+                      New
+                    </Badge>
+                  )}
+                </Link>
+              </HeaderNavigationButton>
+            ))}
+          </section>
 
-            <div className="flex sm:gap-4 items-center">
-              <section>
-                {session ? (
-                  <div className="hidden sm:flex justify-end">
-                    <Button size="xs" appearance="primary-slate" asChild>
-                      <a href="/dashboard/overview">Dashboard</a>
+          <div className="flex sm:gap-4 items-center">
+            <section>
+              {session ? (
+                <div className="hidden sm:flex justify-end">
+                  <Button size="xs" appearance="primary-slate" asChild>
+                    <Link href="/overview">Dashboard</Link>
+                  </Button>
+                </div>
+              ) : (
+                <section className="flex gap-1.5 items-center">
+                  <div className="hidden min-[374px]:block">
+                    <Button
+                      size="xs"
+                      onClick={() => {
+                        setOpenAuthModal(true);
+                        setAuthenticationType('login');
+                      }}
+                      appearance="link-secondary"
+                    >
+                      Sign in
                     </Button>
                   </div>
-                ) : (
-                  <section className="flex gap-1.5 items-center">
-                    <div className="hidden min-[374px]:block">
-                      <Button
-                        size="sm"
-                        onClick={() => {
-                          setOpenAuthModal(true);
-                          setAuthenticationType('login');
-                        }}
-                        appearance="link-secondary"
-                      >
-                        Sign in
-                      </Button>
-                    </div>
-                    <div className="hidden sm:block">
-                      <Button
-                        size="xs"
-                        appearance="primary-slate"
-                        onClick={() => {
-                          setOpenAuthModal(true);
-                          setAuthenticationType('signup');
-                        }}
-                      >
-                        Sign up
-                      </Button>
-                    </div>
-                  </section>
-                )}
-              </section>
-              <section className="lg:hidden">
-                <IconButton
-                  size="xs"
-                  onClick={() => setSidebarVisibility(true)}
-                  Icon={BarsHamburger}
-                />
-              </section>
-            </div>
-          </section>
-        </SectionWrapper>
+                  <div className="hidden sm:block">
+                    <Button
+                      size="xs"
+                      appearance="primary-slate"
+                      onClick={() => {
+                        setOpenAuthModal(true);
+                        setAuthenticationType('signup');
+                      }}
+                    >
+                      Sign up
+                    </Button>
+                  </div>
+                </section>
+              )}
+            </section>
+            <section className="lg:hidden">
+              <IconButton
+                size="xs"
+                onClick={() => setSidebarVisibility(true)}
+                Icon={BarsHamburger}
+              />
+            </section>
+          </div>
+        </section>
       </nav>
       <SidebarSlideOver
         isOpen={sidebarVisibility}

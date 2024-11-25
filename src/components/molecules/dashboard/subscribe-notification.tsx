@@ -2,14 +2,12 @@ import useCurrentStudent from '@/components/hooks/useCurrentStudent';
 import { EVENTS } from '@/utils/app-events';
 import { logAppEvent } from '@/utils/services/client/app-audit.client';
 import Image from 'next/image';
-import { useState } from 'react';
-import { Toaster, toast } from 'sonner';
+import { toast } from 'sonner';
 
+// Based on students feedback; implement dismiss functionality
 export const SubscribeCTA = () => {
-  // const [showWidget, setShowWidget] = useState(false); // use this when adding ability for users to cancel it
   const { data: currentStudent } = useCurrentStudent();
   const handleSubscribe = () => {
-    // setShowWidget(true);
     toast(`Thank you! ${currentStudent?.fullName}`, {
       position: 'bottom-left',
     });
@@ -33,23 +31,21 @@ export const SubscribeCTA = () => {
         'https://www.youtube.com/@unclebigbay?sub_confirmation=1',
         '_blank',
       );
-      // setShowWidget(false);
     }, 1500);
   };
 
   return (
     <div className="mt-2">
-      {/* {!showWidget && ( */}
       <button
         onClick={handleSubscribe}
-        className="border border-slate-200 p-2 rounded-lg space-y-2 cursor-pointer text-left hover:bg-slate-50"
+        className="border border-slate-200 bg-slate-50 transition-all hover:bg-slate-100 p-2 rounded-lg space-y-2 cursor-pointer text-left"
       >
         <div className="space-y-1">
           <h3 className="font-semibold text-sm text-slate-950">
-            Support Us on YouTube! 🎥
+            Support Me on YouTube! 🎥
           </h3>
           <p className="text-sm text-slate-600">
-            Your support helps us create more content for learners worldwide.
+            Your support helps me create more content for learners worldwide.
           </p>
         </div>
         <div className="relative w-[234px] h-[110px] overflow-hidden rounded-lg">
@@ -61,8 +57,6 @@ export const SubscribeCTA = () => {
           />
         </div>
       </button>
-      {/* )} */}
-      <Toaster />
     </div>
   );
 };

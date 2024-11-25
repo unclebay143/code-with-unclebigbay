@@ -41,13 +41,19 @@ export default function HackathonProjects({
 }: HackathonProjectsProps) {
   const { slug } = useParams<{ slug: string }>();
 
-  const hackathonUrl = `/dashboard/hackathons/${slug}`;
+  const hackathonUrl = `/hackathons/${slug}`;
   const showHackathonProjects =
     gethackathonProjectsRes?.submissions &&
     gethackathonProjectsRes?.submissions.length > 0;
 
   const showHackathonNotFound = !gethackathonProjectsRes?.submissions;
   const showEmptyState = !showHackathonProjects && !showHackathonNotFound;
+
+  const submissions = gethackathonProjectsRes?.submissions;
+  const hackathonDetails = submissions?.[0].hackathon;
+  const { name: hackathonName } = hackathonDetails || {};
+  const submissionCount = submissions.length;
+  const showSubmissionCount = submissionCount > 0;
   return (
     <>
       <section className="flex flex-col gap-5">
@@ -61,7 +67,9 @@ export default function HackathonProjects({
             <Link href={hackathonUrl || ''}>Overview</Link>
           </Button>
           <div className="text-xl text-slate-600">
-            <DashboardSubheading title={`Project submissions for ${slug}`} />
+            <DashboardSubheading
+              title={`Project submissions for ${hackathonName} ${showSubmissionCount ? `(${submissions.length})` : null}`}
+            />
           </div>
         </div>
 
@@ -109,9 +117,7 @@ export default function HackathonProjects({
               }
               ctaElement={
                 <Button size="xs" appearance="primary-slate">
-                  <Link href="/dashboard/hackathons">
-                    Checkout other hackathons
-                  </Link>
+                  <Link href="/hackathons">Checkout other hackathons</Link>
                 </Button>
               }
             />

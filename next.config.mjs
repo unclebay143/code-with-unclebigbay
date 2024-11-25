@@ -26,52 +26,18 @@ const nextConfig = {
   },
 
   async rewrites() {
-    return [
-      {
-        source: '/dashboard',
-        destination: '/dashboard/overview',
-      },
-      {
-        source: '/courses',
-        destination: '/dashboard/courses',
-      },
-      {
-        source: '/courses/:slug',
-        destination: '/dashboard/courses/:slug',
-      },
-      {
-        source: '/hackathons',
-        destination: '/dashboard/hackathons',
-      },
-      {
-        source: '/hackathons/:slug',
-        destination: '/dashboard/hackathons/:slug',
-      },
-      {
-        source: '/hackathons/:slug/submissions',
-        destination: '/dashboard/hackathons/:slug/submissions',
-      },
-      {
-        source: '/hackathons/:slug/submissions/:id',
-        destination: '/dashboard/hackathons/:slug/submissions/:id',
-      },
-      {
-        source: '/@:username',
-        destination: `/profile/:username`,
-      },
-      {
-        source: '/@:path/:slug*',
-        destination: `/profile/:path/:slug*`,
-      },
-      {
-        source: '/help-centers',
-        destination: '/dashboard/help-centers',
-      },
-      {
-        source: '/leaderboard',
-        destination: '/dashboard/leaderboard',
-      },
-    ];
+    return {
+      afterFiles: [
+        ({
+          source: '/@:username',
+          destination: '/profile/:username',
+        },
+        {
+          source: '/@:path/:slug*',
+          destination: '/profile/:path/:slug*',
+        }),
+      ],
+    };
   },
 };
 

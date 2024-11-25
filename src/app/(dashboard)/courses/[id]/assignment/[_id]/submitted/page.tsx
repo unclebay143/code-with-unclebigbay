@@ -11,7 +11,7 @@ import { usePathname } from 'next/navigation';
 
 const Page = () => {
   const currentPathname = usePathname();
-  const assignmentId = currentPathname.split('/')[5];
+  const assignmentId = currentPathname.split('/')[4];
   const { data } = useAssignmentResponseById(assignmentId);
   const { courses, isFetching } = useCourse();
 
@@ -20,7 +20,10 @@ const Page = () => {
   const courseSlug = assignmentResponse?.course?.slug;
   const courseTitle = assignmentResponse?.course?.title;
   const disableBtn = !courseId || !assignmentId;
-  const assignmentResponseUrl = `/dashboard/courses/${courseSlug}/assignment/${assignmentId}/result`;
+
+  console.table({ courseId, assignmentId });
+
+  const assignmentResponseUrl = `/courses/${courseSlug}/assignment/${assignmentId}/result`;
   const recommendedCourses = courses
     ?.filter((course) => !course.isEnrolled && course._id !== courseId)
     .splice(0, 3); // consider adding enroll field in the course object from BE
@@ -50,11 +53,9 @@ const Page = () => {
                   View score
                 </Button>
               ) : (
-             
-                  <Button size="xs" appearance="secondary-slate" asChild>
-                    <Link href={assignmentResponseUrl}>View score</Link>
-                  </Button>
-           
+                <Button size="xs" appearance="secondary-slate" asChild>
+                  <Link href={assignmentResponseUrl}>View score</Link>
+                </Button>
               )}
             </div>
             {showRecommendedCourses ? (

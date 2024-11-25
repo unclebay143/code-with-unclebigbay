@@ -23,7 +23,7 @@ import {
   HackathonProjectMembers,
 } from '@/utils/types';
 import { sectionHeadingStyle } from '@/utils/style';
-import { DEFAULT_PROFILE_PHOTO, htmlParser } from '@/utils';
+import { DEFAULT_PROFILE_PHOTO } from '@/utils';
 import { ShareButton } from '@/components/ui/share-button';
 import { baseURL } from '../../../../../frontend.config';
 import { MarkdownRender } from './MarkdownRender';
@@ -102,7 +102,7 @@ const HackathonProjectPreview = ({
             }
             ctaElement={
               <Button size="xs" appearance="primary-slate">
-                <Link href="/dashboard/hackathons">Explore hackathons</Link>
+                <Link href="/hackathons">Explore hackathons</Link>
               </Button>
             }
           />
@@ -184,7 +184,7 @@ const HackathonProjectPreview = ({
                     <span className="text-xs text-slate-500">owner</span>
                   </div>
                   <p className="text-slate-600 text-xs">
-                    {projectPreview?.student?.stack}
+                    {projectPreview?.student?.stack} developer
                   </p>
                 </div>
               </Link>

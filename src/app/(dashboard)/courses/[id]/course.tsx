@@ -22,7 +22,7 @@ import React, { useState } from 'react';
 import { usePathname } from 'next/navigation';
 import { useCourseBySlug } from '@/components/hooks/useCourse';
 import { Student, Tags } from '@/utils/types';
-import { formatDate, formatTime, htmlParser } from '@/utils';
+import { formatDate, formatTime } from '@/utils';
 import { Tooltip } from '@/components/atoms/Tooltip';
 import { EmptyStateContainer } from '@/components/molecules/dashboard/EmptyStateContainer';
 import { AuthModal } from '@/components/atoms/AuthModal';
@@ -77,7 +77,7 @@ const Course = ({ currentStudent }: { currentStudent?: Student }) => {
     }
   };
 
-  const assignmentBaseUrl = `/dashboard/courses/${courseSlug}/assignment/${assignmentId}`;
+  const assignmentBaseUrl = `/courses/${courseSlug}/assignment/${assignmentId}`;
 
   const courseUrl = `https://www.codewithunclebigbay.com/courses/${course?.slug}`;
 
@@ -127,7 +127,7 @@ const Course = ({ currentStudent }: { currentStudent?: Student }) => {
                   startIcon={ArrowLeft}
                   asChild
                 >
-                  <Link href="/dashboard/courses">All courses</Link>
+                  <Link href="/courses">All courses</Link>
                 </Button>
               </div>
               <div className="flex items-start justify-between gap-1 text-xl text-slate-600">
@@ -135,7 +135,7 @@ const Course = ({ currentStudent }: { currentStudent?: Student }) => {
                   <DashboardSubheading as="h1" title={course.title} />
                 </div>
                 <Tooltip tooltip="Need help? Click me" asChild>
-                  <a target="_blank" href="/dashboard/help-centers">
+                  <a target="_blank" href="/help-centers">
                     <IconButton Icon={HelpCircle} size="lg" />
                   </a>
                 </Tooltip>
@@ -206,9 +206,12 @@ const Course = ({ currentStudent }: { currentStudent?: Student }) => {
                             <h3 className="font-medium text-lg text-slate-700">
                               Description:
                             </h3>
-                            <div className="text-slate-600 flex flex-col gap-4 [&_a]:underline [&_ul]:list-disc [&_ul]:list-outside [&_ul]:ml-5 [&_ul>li]:mb-2">
-                              {htmlParser({ html: course?.description })}
-                            </div>
+                            <div
+                              className="text-slate-600 flex flex-col gap-4 [&_a]:underline [&_ul]:list-disc [&_ul]:list-outside [&_ul]:ml-5 [&_ul>li]:mb-2"
+                              dangerouslySetInnerHTML={{
+                                __html: course?.description,
+                              }}
+                            />
                           </div>
                         )}
                       </div>
@@ -361,22 +364,25 @@ const Course = ({ currentStudent }: { currentStudent?: Student }) => {
                             </Button>
                           </div>
                         </div>
-                        <section className="flex flex-col gap-5 border-t pt-8">
-                          <div className="flex items-center gap-1.5">
-                            <h3 className="font-medium text-lg text-slate-700">
-                              Discussions
-                            </h3>
-                            <Badge theme="green">New</Badge>
-                          </div>
-                          <CommentSystem
-                            mapping="title"
-                            repo={COURSE_REPO}
-                            repoId={COURSE_REPO_ID}
-                            category={CATEGORY}
-                            categoryId={CATEGORY_ID}
-                            term={course.title}
-                          />
-                        </section>
+
+                        {isLoggedIn && (
+                          <section className="flex flex-col gap-5 border-t pt-8">
+                            <div className="flex items-center gap-1.5">
+                              <h3 className="font-medium text-lg text-slate-700">
+                                Discussions
+                              </h3>
+                              <Badge theme="green">New</Badge>
+                            </div>
+                            <CommentSystem
+                              mapping="title"
+                              repo={COURSE_REPO}
+                              repoId={COURSE_REPO_ID}
+                              category={CATEGORY}
+                              categoryId={CATEGORY_ID}
+                              term={course.title}
+                            />
+                          </section>
+                        )}
                       </div>
                     </div>
                   </section>

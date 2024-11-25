@@ -4,11 +4,11 @@ import { CurlyDraw } from './CurlyDraw';
 import { AnimatedTestimonials } from '@/components/ui/animated-testimonials';
 
 const placeholder =
-  'https://cdn.hashnode.com/res/hashnode/image/upload/v1731780567556/7484be9c-e706-4450-8e81-fa593405796e.png?auto=compress';
+  'https://cdn.hashnode.com/res/hashnode/image/upload/v1731780567556/7484be9c-e706-4450-8e81-fa593405796e.png?auto=compress,format&format=webp';
 export const animatedTestimonialsData = [
   {
     name: 'Damilola Oyedunmade',
-    src: 'https://cdn.hashnode.com/res/hashnode/image/upload/v1731779960897/9376daca-13e9-4881-b01d-146329674238.jpeg?auto=compress',
+    src: 'https://cdn.hashnode.com/res/hashnode/image/upload/v1731779960897/9376daca-13e9-4881-b01d-146329674238.jpeg?auto=compress,format&format=webp',
     designation: 'Student',
     quote:
       'This is a great Christmas present Unclebigbay. Excited about the journey ahead.',
@@ -22,7 +22,7 @@ export const animatedTestimonialsData = [
   },
   {
     name: 'Victor Josiah',
-    src: 'https://cdn.hashnode.com/res/hashnode/image/upload/v1731780038690/39998319-c8be-4010-815d-548468ed5d20.jpeg?auto=compress',
+    src: 'https://cdn.hashnode.com/res/hashnode/image/upload/v1731780038690/39998319-c8be-4010-815d-548468ed5d20.jpeg?auto=compress,format&format=webp',
     designation: 'Student',
     quote:
       'My boss, it has been an amazing journey with you and your community, I will be recommending this channel to all my friends that have interest in coding, because this is where I started.',

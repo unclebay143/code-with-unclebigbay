@@ -1,6 +1,5 @@
 'use client';
 
-import { Badge } from '@hashnode/matrix-ui';
 import Image from 'next/image';
 import Link from 'next/link';
 
@@ -17,7 +16,6 @@ export const CodeWithUnclebigbayLogo = () => (
     <div className="flex flex-col">
       <div className="flex items-center gap-1">
         <h2 className="text-sm font-semibold">Code with Unclebigbay</h2>
-        <Badge>Beta</Badge>
       </div>
       <span className="text-xs font-medium text-slate-600">
         Learn<span className="mx-1">&middot;</span>Practice

@@ -34,7 +34,6 @@ const LeaderboardCard = ({
   const Comp = isAnonymous ? 'div' : Link;
   const LinkAttributes = {
     href: `/@${username}`,
-    target: '_blank',
   };
 
   return (
@@ -142,7 +141,6 @@ const Page = async () => {
               const Comp = isAnonymous ? 'div' : Link;
               const LinkAttributes = {
                 href: `/@${username}`,
-                target: '_blank',
               };
 
               return (

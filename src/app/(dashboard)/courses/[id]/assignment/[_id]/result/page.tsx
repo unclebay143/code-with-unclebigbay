@@ -19,7 +19,7 @@ import { capitalizeFirstLetter } from '@/utils';
 
 const Page = () => {
   const currentPathname = usePathname();
-  const assignmentId = currentPathname.split('/')[5];
+  const assignmentId = currentPathname.split('/')[4];
   const { data, isFetching } = useAssignmentResponseById(assignmentId!);
   const assignmentResponse = data?.assignmentResponse;
   const score = assignmentResponse?.score;
@@ -36,6 +36,8 @@ const Page = () => {
     passed: 'green',
     failed: 'red',
   };
+
+  console.log(assignmentId, courseSlug);
 
   const loader = (
     <WhiteArea twClass="!p-0 bg-slate-50 animate-pulse" border>
@@ -61,7 +63,7 @@ const Page = () => {
                   asChild
                 >
                   <Link
-                    href={`/dashboard/courses/${courseSlug}`}
+                    href={`/courses/${courseSlug}`}
                     className="whitespace-nowrap"
                   >
                     Back to course

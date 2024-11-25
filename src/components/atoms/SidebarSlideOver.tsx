@@ -38,7 +38,7 @@ export const SidebarSlideOver = ({ isOpen, close, session }: Props) => {
           <div className="flex flex-col gap-5 mt-10">
             {session ? (
               <MobileMenuNavLink size="sm" appearance="link-slate" asChild>
-                <Link href="/dashboard/overview">Dashboard</Link>
+                <Link href="/overview">Dashboard</Link>
               </MobileMenuNavLink>
             ) : (
               <section className="flex flex-col gap-5">

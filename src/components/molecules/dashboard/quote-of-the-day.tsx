@@ -54,11 +54,11 @@ export const QuoteOfTheDay = ({
         <section>
           <DropdownMenu>
             <DropdownMenuTrigger>
-              <button className="text-slate-500 p-2 rounded-full hover:bg-slate-100 dark:hover:bg-slate-800">
+              <button className="text-slate-500 p-1.5 rounded-full hover:bg-slate-100 dark:hover:bg-slate-800">
                 <MoreVertical size={16} />
               </button>
             </DropdownMenuTrigger>
-            <DropdownMenuContent alignOffset={-20}>
+            <DropdownMenuContent className="">
               <MenuButton
                 label="Hide until tomorrow"
                 Icon={EyeOff}

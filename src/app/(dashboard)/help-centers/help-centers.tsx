@@ -9,7 +9,7 @@ import { Youtube } from 'lucide-react';
 import Link from 'next/link';
 import React from 'react';
 
-const Page = () => {
+export const HelpCenters = () => {
   return (
     <WhiteArea border>
       <div className="flex flex-col gap-3 text-center py-5">
@@ -114,5 +114,3 @@ const Page = () => {
     </WhiteArea>
   );
 };
-
-export default Page;

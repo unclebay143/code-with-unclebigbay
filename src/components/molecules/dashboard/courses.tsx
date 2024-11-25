@@ -19,6 +19,7 @@ import useTag from '@/components/hooks/useTag';
 import { capitalizeFirstLetter } from '@/utils';
 import { EmptyStateContainer } from './EmptyStateContainer';
 import Link from 'next/link';
+import { Metadata } from 'next';
 
 type Props = {
   courses?: CoursesType;
@@ -31,6 +32,12 @@ type Props = {
   loaderCounter?: number;
   setCourseCount?: Function;
   hideEmptyState?: boolean;
+};
+
+export const metadata: Metadata = {
+  alternates: {
+    canonical: `/courses`,
+  },
 };
 
 export const Courses = ({

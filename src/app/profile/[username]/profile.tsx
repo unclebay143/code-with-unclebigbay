@@ -129,7 +129,7 @@ export const Profile = ({ student, canUpdateProfile }: ProfileProps) => {
             <div className="hidden sm:block">
               {canUpdateProfile && (
                 <Button size="xs" appearance="secondary-slate" asChild>
-                  <Link href="/dashboard/settings">Update</Link>
+                  <Link href="/settings">Update</Link>
                 </Button>
               )}
             </div>
