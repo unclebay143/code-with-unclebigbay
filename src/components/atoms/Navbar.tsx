@@ -25,7 +25,7 @@ export const Navbar = ({ session }: { session?: Session | null }) => {
 
   return (
     <>
-      <nav className="sticky top-0 bg-white z-50 py-5">
+      <nav className="sticky top-0 bg-white py-5">
         <section className="flex w-full items-center justify-between">
           <CodeWithUnclebigbayLogo />
           <section className="hidden lg:flex items-center gap-3 text-slate-700">

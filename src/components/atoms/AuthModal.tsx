@@ -11,6 +11,7 @@ import {
   X,
 } from '@hashnode/matrix-ui';
 import { handleAuthentication } from '@/utils/auth';
+import Link from 'next/link';
 
 type Props = {
   isOpen: boolean;
@@ -25,6 +26,7 @@ export const AuthModal = ({
   type = 'login',
   nextUrl,
 }: Props) => {
+  const isSignup = type === 'signup';
   return (
     <ModalWrapper open={isOpen} onOpenChange={close} maxWidth={480}>
       <section className="flex flex-col gap-4">
@@ -88,6 +90,26 @@ export const AuthModal = ({
               Continue with Google
             </Button>
           </div>
+
+          {isSignup && (
+            <div className="text-xs">
+              By signing up, you agree to our{' '}
+              <Link
+                className="text-blue-500 hover:text-blue-600 hover:underline"
+                href="/terms"
+              >
+                Terms of Use
+              </Link>{' '}
+              and{' '}
+              <Link
+                className="text-blue-500 hover:text-blue-600 hover:underline"
+                href="privacy-policy"
+              >
+                Privacy Policy
+              </Link>
+              .
+            </div>
+          )}
           {/* <div className="flex items-center text-xs gap-1 text-slate-600 font-medium">
             <h3>New to GitHub?</h3>
             <Button
