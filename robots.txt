@@ -1,5 +1,5 @@
 User-Agent: *
 Allow: /
-Disallow: /private/
+Disallow: /dashboard/
 
 Sitemap: 
