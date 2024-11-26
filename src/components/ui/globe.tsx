@@ -36,7 +36,7 @@ export function Globe() {
       markerColor: [251 / 255, 100 / 255, 21 / 255],
       glowColor: [1.2, 1.2, 1.2],
       markers: [],
-      onRender: (state: Record<string, any>) => {
+      onRender: (state: Record<string, number | string>) => {
         // This prevents rotation while dragging
         if (!pointerInteracting.current) {
           // Called on every animation frame.
