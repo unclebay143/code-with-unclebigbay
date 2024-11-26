@@ -400,8 +400,6 @@ export const arcs = [
   },
 ];
 
-extend({ ThreeGlobe });
-
 const RING_PROPAGATION_SPEED = 3;
 const aspect = 1.2;
 const cameraZ = 300;
@@ -486,6 +484,12 @@ export function Globe({ globeConfig, data }: WorldProps) {
       _buildMaterial();
     }
   }, [globeRef.current]);
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      extend({ ThreeGlobe });
+    }
+  }, []);
 
   const _buildMaterial = () => {
     if (!globeRef.current) return;
@@ -624,7 +628,7 @@ export function WebGLRendererConfig() {
 
   useEffect(() => {
     if (typeof window !== 'undefined') {
-      gl.setPixelRatio(window.devicePixelRatio);
+      gl.setPixelRatio(window?.devicePixelRatio);
       gl.setSize(size.width, size.height);
       gl.setClearColor(0xffaaff, 0);
     }
