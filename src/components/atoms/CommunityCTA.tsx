@@ -20,7 +20,7 @@ export const CommunityCTA = ({ session }: Props) => {
         <div className="flex flex-col sm:flex-row items-center gap-4 dark">
           {session ? (
             <Button appearance="primary-slate" asChild>
-              <Link href="/courses">View courses</Link>
+              <Link href="/courses">Browse Courses</Link>
             </Button>
           ) : (
             <Button
