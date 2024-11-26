@@ -22,7 +22,7 @@ export function Globe() {
       canvasRef.current && (width = canvasRef.current.offsetWidth);
     window.addEventListener('resize', onResize);
     onResize();
-    const globe = createGlobe(canvasRef.current, {
+    const globe = createGlobe(canvasRef.current!, {
       devicePixelRatio: 2,
       width: width * 2,
       height: width * 2,
@@ -36,7 +36,7 @@ export function Globe() {
       markerColor: [251 / 255, 100 / 255, 21 / 255],
       glowColor: [1.2, 1.2, 1.2],
       markers: [],
-      onRender: (state: { phi: number; width: number; height: number }) => {
+      onRender: (state: Record<string, any>) => {
         // This prevents rotation while dragging
         if (!pointerInteracting.current) {
           // Called on every animation frame.

@@ -50,15 +50,15 @@ export const Footer = () => {
           </div>
         </div>
         <section className="text-sm flex items-center gap-1 text-slate-600">
+          <Link href="terms" className="hover:text-slate-500 hover:underline">
+            Terms of use
+          </Link>
+          &middot;
           <Link
             href="/privacy-policy"
             className="hover:text-slate-500 hover:underline"
           >
             Privacy policy
-          </Link>
-          &middot;
-          <Link href="terms" className="hover:text-slate-500 hover:underline">
-            Terms of use
           </Link>
         </section>
       </section>
