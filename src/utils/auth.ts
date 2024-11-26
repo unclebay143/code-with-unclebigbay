@@ -8,7 +8,7 @@ export const handleAuthentication = ({
   provider: 'github' | 'google';
 }) => {
   signIn(provider, {
-    callbackUrl: nextUrl || `${window.location.origin}/dashboard`,
+    callbackUrl: nextUrl || `${window.location.origin}/overview`,
   });
 };
 
