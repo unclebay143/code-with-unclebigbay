@@ -12,7 +12,7 @@ const PrivacyPolicy = async () => {
   const session = await getServerSessionWithAuthOptions();
 
   return (
-    <PublicLayout session={session}>
+    <PublicLayout session={session} hideFooter>
       <div className="bg-gray-100 mt-10 rounded-md">
         <div className="mx-auto p-6 sm:p-10">
           <h1 className="text-3xl font-bold text-gray-800 mb-6">

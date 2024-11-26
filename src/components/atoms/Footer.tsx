@@ -20,7 +20,8 @@ export const Footer = () => {
           eye-line.
         </p>
       </section>
-      <section className="py-5 border-t flex flex-col gap-3 justify-center items-center sm:flex-row sm:justify-between sm:items-center">
+
+      <section className="py-5 border-t flex flex-col gap-3 justify-center items-center sm:flex-row flex-wrap sm:justify-between sm:items-center">
         <p className="text-slate-700 text-sm">
           &copy; Walk-In Tech. All rights reserved
         </p>
@@ -48,6 +49,18 @@ export const Footer = () => {
             </Link>
           </div>
         </div>
+        <section className="text-sm flex items-center gap-1 text-slate-600">
+          <Link
+            href="/privacy-policy"
+            className="hover:text-slate-500 hover:underline"
+          >
+            Privacy policy
+          </Link>
+          &middot;
+          <Link href="terms" className="hover:text-slate-500 hover:underline">
+            Terms of use
+          </Link>
+        </section>
       </section>
     </footer>
   );
