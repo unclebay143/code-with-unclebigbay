@@ -58,7 +58,7 @@ export default function RootLayout({
       <Script
         defer
         data-website-id="678a15077150df130664c390"
-        data-domain="www.codewithunclebigbay.com"
+        data-domain="codewithunclebigbay.com"
         src="https://datafa.st/js/script.js"
       />
 
