@@ -5,6 +5,7 @@ import './radix.css';
 import { Metadata } from 'next';
 import { GoogleAnalytics } from '@next/third-parties/google';
 import { Analytics } from '@vercel/analytics/react';
+import Script from 'next/script';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -54,6 +55,13 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <Script
+        defer
+        data-website-id="678a15077150df130664c390"
+        data-domain="www.codewithunclebigbay.com"
+        src="https://datafa.st/js/script.js"
+      />
+
       <body className={inter.className}>
         <Provider>{children}</Provider>
         <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS_ID!} />
