@@ -16,6 +16,8 @@ import {
 } from '@/utils/services/server/student.server';
 import { Features } from '@/components/molecules/home/Features';
 
+import { GlobeSection } from '@/components/molecules/home/GlobeSection';
+
 export const metadata: Metadata = {
   alternates: {
     canonical: `/`,
@@ -71,6 +73,7 @@ const Page = async () => {
         </SectionWrapper>
 
         <SectionWrapper>
+          <GlobeSection />
           <CommunityCTA session={session} />
         </SectionWrapper>
         <SectionWrapper>

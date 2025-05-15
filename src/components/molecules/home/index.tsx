@@ -6,7 +6,7 @@ export const HomeSectionHeading = ({
   copy?: string;
 }) => {
   return (
-    <section className="max-w-xl mx-auto flex gap-6 flex-col text-center text-slate-800">
+    <section className="max-w-2xl mx-auto flex gap-6 flex-col text-center text-slate-800">
       <h2 className="text-4xl font-medium leading-10">{heading}</h2>
       {copy && <p className="sm:text-lg">{copy}</p>}
     </section>

@@ -23,9 +23,9 @@ import { Hackathon as HackathonModel } from '@/models/hackathon';
 // };
 
 export const getCookie = async (name?: string) => {
-  if (!name) return cookies().toString();
+  if (!name) return (await cookies()).toString();
 
-  return cookies().get(name)?.value.toString() ?? '';
+  return (await cookies()).get(name)?.value.toString() ?? '';
 };
 
 /* 
@@ -463,7 +463,9 @@ export async function getQuote(): Promise<Quote | undefined> {
 
 type QuoteWidgetPref = { closedTime: number };
 export const widgetVisibility = () => {
-  const quoteWidgetPrefCookie = customCookie('quoteWidgetPref', { cookies });
+  const quoteWidgetPrefCookie = customCookie('quoteWidgetPref', {
+    cookies,
+  });
   const quoteWidgetPref =
     quoteWidgetPrefCookie &&
     (JSON.parse(quoteWidgetPrefCookie) as QuoteWidgetPref);

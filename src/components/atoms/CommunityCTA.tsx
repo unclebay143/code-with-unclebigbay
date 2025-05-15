@@ -13,21 +13,23 @@ export const CommunityCTA = ({ session }: Props) => {
 
   return (
     <>
-      <section className="rounded-lg mt-40 bg-slate-950 py-20 px-5 sm:p-20 flex gap-8 flex-col items-center justify-center">
+      <section className="rounded-lg mt-10 bg-slate-950 py-20 px-5 sm:p-20 flex gap-8 flex-col items-center justify-center">
         <h3 className="text-center text-white text-4xl">
-          We can&apos;t wait to see what you&apos;ll build 👋🏽
+          {/* We can&apos;t wait to see what you&apos;ll build 👋🏽 */}
+          {/* Start your journey today! */}
+          Excited to see what you&apos;ll create next! 🚀
         </h3>
         <div className="flex flex-col sm:flex-row items-center gap-4 dark">
           {session ? (
             <Button appearance="primary-slate" asChild>
-              <Link href="/courses">View courses</Link>
+              <Link href="/courses">Browse Courses</Link>
             </Button>
           ) : (
             <Button
               appearance="primary-slate"
               onClick={() => setOpenAuthModal(true)}
             >
-              Get started
+              Start for Free
             </Button>
           )}
           <Button appearance="primary-slate" asChild>

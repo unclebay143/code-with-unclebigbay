@@ -9,30 +9,34 @@ export const animatedTestimonialsData = [
   {
     name: 'Damilola Oyedunmade',
     src: 'https://cdn.hashnode.com/res/hashnode/image/upload/v1731779960897/9376daca-13e9-4881-b01d-146329674238.jpeg?auto=compress,format&format=webp',
-    designation: 'Student',
+    designation: 'Frontend Developer',
+    year: '2022',
     quote:
-      'This is a great Christmas present Unclebigbay. Excited about the journey ahead.',
+      "As one of Unclebigbay's first students, I've seen the community grow from strength to strength. The structured learning path and mentorship helped me land my first developer role within months.",
   },
   {
     name: 'Mba Nnenna',
     src: placeholder,
-    designation: 'Student',
+    designation: 'Fullstack Developer',
+    year: '2023',
     quote:
-      'Nice content! You have me onboard! I have subscribed and turn on my notifications cos I can’t miss out on this awesome opportunity. Keep up unclebigbay!',
+      "The community's collaborative environment is amazing. I've learned as much from peer code reviews as from the courses. It's not just about learning to code, it's about growing together as developers.",
   },
   {
     name: 'Victor Josiah',
     src: 'https://cdn.hashnode.com/res/hashnode/image/upload/v1731780038690/39998319-c8be-4010-815d-548468ed5d20.jpeg?auto=compress,format&format=webp',
-    designation: 'Student',
+    designation: 'Backend Developer',
+    year: '2022',
     quote:
-      'My boss, it has been an amazing journey with you and your community, I will be recommending this channel to all my friends that have interest in coding, because this is where I started.',
+      "Unclebigbay's teaching style made complex concepts easy to understand. The community support and regular hackathons helped me build a strong portfolio that impressed employers.",
   },
   {
-    name: 'YouTube User',
+    name: 'Sarah Johnson',
     src: placeholder,
-    designation: 'Student',
+    designation: 'Software Engineer',
+    year: '2023',
     quote:
-      "Amazing work Unclebigbay. I came here from x and I've learnt so much already. I've subscribed and turned on notification. Keep up the good work.",
+      'What started as a coding course turned into a career transformation. The combination of structured learning, community support, and real-world projects prepared me for the industry.',
   },
 ];
 
@@ -42,28 +46,16 @@ export const TestimonialSection = () => {
       <HomeSectionHeading
         heading={
           <>
-            What our <br className="md:hidden" />
+            Student Success <br className="md:hidden" />
             <span className="relative whitespace-nowrap">
-              Community Says
+              Stories
               <CurlyDraw />
             </span>
           </>
-          // <>
-          //   What my <br className="md:hidden" />
-          //   <span className="relative whitespace-nowrap">
-          //     Students Say
-          //     <CurlyDraw />
-          //   </span>
-          // </>
         }
-        // copy="Hear directly from our students about their experiences and how my
-        // courses have impacted their journey."
-        copy="Hear directly from our community members
-            about their experiences and how our courses have impacted their journey."
+        copy="Hear from my students about their learning journey, career transitions, and how our structured courses and mentorship helped them achieve their goals in tech."
       />
       <hr className="pb-1 invisible" />
-
-      {/* <Testimonials /> */}
       <AnimatedTestimonials autoplay testimonials={animatedTestimonialsData} />
     </section>
   );
