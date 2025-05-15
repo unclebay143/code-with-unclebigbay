@@ -7,7 +7,8 @@ export const CodeWithUnclebigbayLogo = () => (
   <Link href="/" className="flex items-end gap-1.5">
     <div className="h-9 w-9 overflow-hidden rounded-full">
       <Image
-        src="https://cdn.hashnode.com/res/hashnode/image/upload/v1677222800340/7FWlpF0aT.jpeg"
+        // src="https://cdn.hashnode.com/res/hashnode/image/upload/v1677222800340/7FWlpF0aT.jpeg"
+        src="https://cdn.hashnode.com/res/hashnode/image/upload/v1735921412252/469092a2-08d5-40c6-be61-289fafa51244.png?auto=compress"
         alt="Unclebigbay"
         width={100}
         height={100}

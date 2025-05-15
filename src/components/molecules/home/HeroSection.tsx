@@ -34,18 +34,28 @@ export const HeroSection = ({ session }: { session?: Session | null }) => {
           </div>
         </Link>
         <h1 className="text-center text-4xl leading-[48px] max-w-[379px] md:text-5xl md:leading-[60px] font-medium text-slate-900 mx-auto md:max-w-lg">
-          {/* Learn to Code and Build Your Career */}
-          {/* Build Skills that Employers Love */}
-          Learn to Code & Build Skills Employers Love
+          Join Our Thriving Developer Community
         </h1>
+        <p className="text-center text-slate-600 max-w-[500px] mx-auto text-lg">
+          Learn, grow, and connect with fellow developers. Get expert guidance,
+          real-world projects, and career support in a collaborative
+          environment.
+        </p>
         {session ? null : (
-          <Button
-            size="sm"
-            onClick={() => setOpenAuthModal(true)}
-            appearance="primary-slate"
-          >
-            Get started
-          </Button>
+          <div className="flex flex-col sm:flex-row gap-3 items-center">
+            <Button
+              size="sm"
+              onClick={() => setOpenAuthModal(true)}
+              appearance="primary-slate"
+            >
+              Join Community
+            </Button>
+            <Link href="/courses">
+              <Button size="sm" appearance="secondary-slate">
+                Explore Courses
+              </Button>
+            </Link>
+          </div>
         )}
       </section>
 

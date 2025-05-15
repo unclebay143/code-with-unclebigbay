@@ -9,7 +9,6 @@ import { ChevronDown } from 'lucide-react';
 import { handleLogout } from '@/utils/auth';
 import { Student } from '@/utils/types';
 import {
-  ArrowExternalLink01,
   ArrowLogout,
   BarsHamburger,
   Button,

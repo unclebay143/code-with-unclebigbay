@@ -10,6 +10,7 @@ export type Testimonial = {
   name: string;
   designation: string;
   src: string;
+  year: string;
 };
 export const AnimatedTestimonials = ({
   testimonials,
@@ -143,6 +144,9 @@ export const AnimatedTestimonials = ({
                 </motion.span>
               ))}
             </motion.p>
+            <p className="pb-5 text-sm text-gray-400 dark:text-neutral-400 mt-4">
+              {testimonials[active]?.year}
+            </p>
           </motion.div>
           <div className="flex gap-4 pt-12 md:pt-0">
             <button
