@@ -23,14 +23,14 @@ export const CommunityMembersSection = ({
         <HomeSectionHeading
           heading={
             <>
-              You are in <br className="md:hidden" />
+              Meet the <br className="md:hidden" />
               <span className="relative whitespace-nowrap">
-                Good Company
+                Community Members
                 <CurlyDraw />
               </span>
             </>
           }
-          copy="Join happy developers of all levels on their web development journey."
+          copy="From our founding members of 2022 to our newest developers joining in 2024, our community continues to grow. Each member brings unique experiences and perspectives to our collaborative learning environment."
         />
       </div>
       <section className="grid grid-cols-2  sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-y-12 gap-x-8">
